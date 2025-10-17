@@ -1,0 +1,13 @@
+{
+  "agent_id": "gpt-forge",
+  "score": 50,
+  "last_updated": "2025-10-07T00:00:00Z",
+  "history": [
+    {
+      "timestamp": "2025-10-07T00:00:00Z",
+      "event": "agent_spawned",
+      "change": 0,
+      "reason": "Initial reputation score at birth"
+    }
+  ]
+}

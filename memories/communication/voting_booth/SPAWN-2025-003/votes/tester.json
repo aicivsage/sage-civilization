@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-003",
+  "voter": "tester",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:18:00Z",
+  "rationale": "File-Guardian's test coverage tracking aligns perfectly with my quality assurance mission. Knowing which code files lack corresponding test files helps me prioritize testing work. The file health monitoring will catch issues I might miss in functional testing (orphaned files, bloat). The extremely low cost ($1.20/month) makes this a no-brainer investment. Async pattern won't interfere with my test execution workflows. APPROVE."
+}

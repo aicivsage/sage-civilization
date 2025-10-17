@@ -1,0 +1,514 @@
+flow_id: zero-downtime-system-upgrade-pipeline
+name: Zero-Downtime System Upgrade Pipeline
+version: 1.0
+description: Coordinate complex system upgrades (dependencies, framework versions, major refactors) with zero downtime using blue-green deployment, automated testing, and gradual rollout with real-time health monitoring.
+category: maintenance
+
+metadata:
+  estimated_duration: 4-12 hours
+  complexity: medium
+  participating_agents: 4-6 (builder, tester, auditor, orchestrator, architect)
+  created_by: architect
+  created_date: 2025-10-02
+  tags: [upgrade, zero-downtime, blue-green-deployment, reliability, infrastructure]
+
+prerequisites:
+  - condition: Infrastructure supports parallel environments (blue-green)
+  - condition: Comprehensive test suite exists with good coverage
+  - condition: Health monitoring system is operational
+  - resources: Sufficient infrastructure resources for dual environments
+  - resources: Load balancer or traffic routing capability
+  - permissions: Deployment and infrastructure management permissions
+
+steps:
+  - step_id: 1
+    name: Upgrade Planning and Preparation
+    description: Analyze upgrade requirements, assess risks, prepare upgrade artifacts, and create detailed upgrade plan with rollback strategy
+    agent_roles:
+      - role: primary-executor
+        agents: [architect, builder]
+        responsibility: Plan and prepare upgrade
+      - role: risk-assessor
+        agents: [quality-guardian, auditor]
+        responsibility: Assess risks and validate plan
+
+    inputs:
+      - name: upgrade_requirements
+        type: data
+        source: external-or-automated-detection
+        required: true
+      - name: current_system_version
+        type: data
+        source: version-file
+        required: true
+      - name: dependency_manifest
+        type: file
+        source: requirements.txt-or-package.json
+        required: true
+      - name: infrastructure_config
+        type: file
+        source: deployment/infrastructure.yaml
+        required: true
+
+    outputs:
+      - name: upgrade_plan
+        type: file
+        destination: memories/upgrades/upgrade-plan-{upgrade-id}.md
+        format: markdown
+      - name: risk_assessment
+        type: file
+        destination: memories/upgrades/risk-assessment-{upgrade-id}.json
+        format: json
+      - name: rollback_strategy
+        type: file
+        destination: memories/upgrades/rollback-strategy-{upgrade-id}.md
+        format: markdown
+      - name: upgrade_artifacts
+        type: file
+        destination: memories/upgrades/artifacts-{upgrade-id}/
+        format: various
+
+    actions:
+      - description: Identify all components affected by upgrade
+        validation: Complete component list with versions
+      - description: Analyze breaking changes and compatibility issues
+        validation: Breaking changes documented with migration paths
+      - description: Assess upgrade risks (downtime, data loss, functionality changes)
+        validation: Risk matrix created with mitigation strategies
+      - description: Prepare upgrade artifacts (new dependencies, configuration changes)
+        validation: All required artifacts collected
+      - description: Create detailed upgrade plan with timeline
+        validation: Step-by-step plan with time estimates
+      - description: Define rollback strategy and triggers
+        validation: Clear rollback procedures documented
+      - description: Calculate infrastructure resource requirements
+        validation: Resource needs quantified
+
+    success_criteria:
+      - Comprehensive upgrade plan created
+      - All risks identified and assessed
+      - Rollback strategy defined
+      - Upgrade artifacts prepared
+      - Resource requirements calculated
+      - Timeline and milestones established
+
+    failure_handling:
+      - condition: Incompatible dependencies detected
+        action: Research alternative versions or workarounds
+        max_retries: 2
+      - condition: Insufficient infrastructure resources
+        action: Defer upgrade until resources available
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: Create Green Environment
+    description: Provision parallel green environment with upgrades applied, keeping existing blue environment running
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Provision and configure green environment
+      - role: validator
+        agents: [auditor]
+        responsibility: Validate environment configuration
+
+    inputs:
+      - name: upgrade_plan
+        type: file
+        source: step-1
+        required: true
+      - name: infrastructure_config
+        type: file
+        source: deployment/infrastructure.yaml
+        required: true
+      - name: upgrade_artifacts
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: green_environment_config
+        type: file
+        destination: memories/upgrades/green-environment-{upgrade-id}.yaml
+        format: yaml
+      - name: green_environment_url
+        type: data
+        destination: memories/upgrades/green-url-{upgrade-id}.txt
+        format: text
+      - name: provisioning_log
+        type: file
+        destination: memories/upgrades/provisioning-log-{upgrade-id}.txt
+        format: text
+
+    actions:
+      - description: Provision green environment infrastructure
+        command: terraform apply -var-file=green-environment.tfvars
+        validation: Infrastructure provisioned successfully
+      - description: Deploy application with upgraded dependencies to green
+        command: ./deploy.sh green --version=upgraded
+        validation: Deployment successful
+      - description: Apply configuration changes for upgraded version
+        validation: Configuration correctly applied
+      - description: Verify green environment is isolated from production traffic
+        validation: No production traffic reaching green
+      - description: Configure health check endpoints in green
+        validation: Health checks responding
+      - description: Document green environment details
+        validation: Environment configuration documented
+
+    success_criteria:
+      - Green environment successfully provisioned
+      - Upgraded application deployed to green
+      - Environment isolated from production traffic
+      - Health checks operational
+      - Environment configuration documented
+
+    failure_handling:
+      - condition: Provisioning fails
+        action: Debug infrastructure issues and retry
+        max_retries: 3
+      - condition: Deployment to green fails
+        action: Fix deployment issues, rollback green if needed
+        max_retries: 3
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Comprehensive Testing on Green
+    description: Run full test suite on green environment including unit, integration, end-to-end, and performance tests
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, quality-guardian]
+        responsibility: Execute comprehensive test suite
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor test execution and results
+
+    inputs:
+      - name: green_environment_url
+        type: data
+        source: step-2
+        required: true
+      - name: test_suite
+        type: file
+        source: tests/
+        required: true
+      - name: test_configuration
+        type: file
+        source: tests/config.yaml
+        required: true
+
+    outputs:
+      - name: test_results
+        type: file
+        destination: memories/upgrades/test-results-{upgrade-id}.json
+        format: json
+      - name: test_report
+        type: file
+        destination: memories/upgrades/test-report-{upgrade-id}.md
+        format: markdown
+      - name: performance_benchmarks
+        type: file
+        destination: memories/upgrades/performance-{upgrade-id}.json
+        format: json
+
+    actions:
+      - description: Run unit test suite against green environment
+        command: pytest tests/unit/ -v --target=green
+        validation: All unit tests pass
+      - description: Run integration tests
+        command: pytest tests/integration/ -v --target=green
+        validation: All integration tests pass
+      - description: Run end-to-end tests
+        command: pytest tests/e2e/ -v --target=green
+        validation: All E2E tests pass
+      - description: Execute performance benchmarks
+        command: python scripts/performance_benchmark.py --target=green
+        validation: Performance within acceptable ranges
+      - description: Run security scans
+        command: python scripts/security_scan.py --target=green
+        validation: No new security vulnerabilities
+      - description: Compare green performance to blue baseline
+        validation: Performance comparison completed
+      - description: Generate comprehensive test report
+        validation: Report includes all test results and metrics
+
+    success_criteria:
+      - All test suites pass on green environment
+      - Performance meets or exceeds blue environment
+      - No new security vulnerabilities introduced
+      - Test coverage maintained or improved
+      - Comprehensive test report generated
+
+    failure_handling:
+      - condition: Tests fail on green
+        action: Debug and fix issues, redeploy to green
+        max_retries: 5
+      - condition: Performance regression detected
+        action: Investigate and optimize, or abort upgrade
+        max_retries: 2
+      - condition: Security vulnerabilities found
+        action: Address vulnerabilities before proceeding
+        max_retries: 0
+
+    estimated_duration: 1-3 hours
+
+  - step_id: 4
+    name: Gradual Traffic Shift
+    description: Incrementally shift production traffic from blue to green (10% → 50% → 100%) while monitoring health metrics
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Manage traffic shifting
+      - role: monitor
+        agents: [auditor]
+        responsibility: Continuous health monitoring
+
+    inputs:
+      - name: test_results
+        type: file
+        source: step-3
+        required: true
+      - name: load_balancer_config
+        type: file
+        source: deployment/load-balancer.yaml
+        required: true
+      - name: health_monitoring_config
+        type: file
+        source: monitoring/config.yaml
+        required: true
+
+    outputs:
+      - name: traffic_shift_log
+        type: file
+        destination: memories/upgrades/traffic-shift-log-{upgrade-id}.jsonl
+        format: jsonl
+      - name: health_metrics_during_shift
+        type: file
+        destination: memories/upgrades/health-metrics-{upgrade-id}.jsonl
+        format: jsonl
+      - name: traffic_distribution
+        type: data
+        destination: memories/upgrades/traffic-distribution-{upgrade-id}.json
+        format: json
+
+    actions:
+      - description: Configure load balancer for traffic splitting
+        validation: Load balancer ready for gradual shift
+      - description: Shift 10% of traffic to green environment
+        command: python scripts/traffic_shift.py --target=green --percentage=10
+        validation: 10% traffic flowing to green
+      - description: Monitor health metrics for 15 minutes
+        validation: No anomalies detected in green or blue
+      - description: If stable, shift to 50% traffic
+        command: python scripts/traffic_shift.py --target=green --percentage=50
+        validation: 50% traffic flowing to green
+      - description: Monitor health metrics for 30 minutes
+        validation: Both environments stable
+      - description: If stable, shift to 100% traffic
+        command: python scripts/traffic_shift.py --target=green --percentage=100
+        validation: All traffic flowing to green
+      - description: Monitor health metrics for 1 hour
+        validation: Green environment handling full load successfully
+      - description: Log all traffic shifts and metrics
+        validation: Complete shift history documented
+
+    success_criteria:
+      - Traffic successfully shifted to 100% green
+      - Health metrics remain stable throughout shift
+      - Error rates remain within acceptable limits
+      - Performance remains acceptable under full load
+      - No user-reported issues
+      - Complete shift history logged
+
+    failure_handling:
+      - condition: Health metrics degrade during any shift phase
+        action: Immediately rollback to previous traffic distribution
+        max_retries: 0
+      - condition: Error rate spike detected
+        action: Automatic rollback to blue, investigate issues
+        max_retries: 0
+      - condition: Performance degradation
+        action: Rollback and optimize green before retrying
+        max_retries: 1
+
+    estimated_duration: 2-3 hours (includes monitoring periods)
+
+  - step_id: 5
+    name: Complete Cutover and Decommission Blue
+    description: Once green is proven stable under full production load, complete cutover and decommission blue environment
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Complete cutover and cleanup
+      - role: validator
+        agents: [auditor]
+        responsibility: Validate stable operation
+
+    inputs:
+      - name: health_metrics
+        type: file
+        source: step-4
+        required: true
+      - name: traffic_shift_log
+        type: file
+        source: step-4
+        required: true
+      - name: blue_environment_config
+        type: file
+        source: deployment/blue-environment.yaml
+        required: true
+
+    outputs:
+      - name: cutover_confirmation
+        type: file
+        destination: memories/upgrades/cutover-confirmation-{upgrade-id}.json
+        format: json
+      - name: blue_backup
+        type: file
+        destination: memories/upgrades/blue-backup-{upgrade-id}.tar.gz
+        format: tar-gz
+      - name: upgrade_completion_report
+        type: file
+        destination: memories/upgrades/completion-report-{upgrade-id}.md
+        format: markdown
+
+    actions:
+      - description: Verify green environment stable for 1 hour under full load
+        validation: Metrics confirm stability
+      - description: Promote green to production (rename/relabel as new blue)
+        validation: Green is now the primary production environment
+      - description: Create backup of old blue environment before decommissioning
+        command: python scripts/backup_environment.py --env=blue
+        validation: Backup created successfully
+      - description: Decommission old blue environment
+        command: terraform destroy -var-file=old-blue-environment.tfvars
+        validation: Resources released
+      - description: Update documentation with new version
+        validation: Version documentation updated
+      - description: Generate upgrade completion report
+        validation: Report includes metrics, timeline, and outcomes
+      - description: Notify stakeholders of successful upgrade
+        validation: Notifications sent
+
+    success_criteria:
+      - Green environment confirmed stable
+      - Old blue environment backed up
+      - Old blue environment decommissioned
+      - Documentation updated
+      - Completion report generated
+      - Stakeholders notified
+
+    failure_handling:
+      - condition: Stability concerns persist
+        action: Extend monitoring period before decommissioning
+        max_retries: 0
+      - condition: Decommissioning fails
+        action: Manual cleanup with logging
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is upgrade plan feasible and risks acceptable?
+    criteria:
+      - All dependencies compatible
+      - Risks have mitigation strategies
+      - Sufficient resources available
+      - Rollback strategy is sound
+    outcomes:
+      proceed: Continue to green environment creation
+      revise: Adjust plan to address concerns
+      defer: Postpone upgrade until risks reduced
+
+  - after_step: 3
+    decision: Did green environment pass all tests?
+    criteria:
+      - All test suites pass (unit, integration, E2E)
+      - Performance meets or exceeds baseline
+      - No security vulnerabilities introduced
+      - No critical issues identified
+    outcomes:
+      proceed: Begin gradual traffic shift
+      fix: Address test failures and re-test
+      abort: Upgrade has critical issues, decommission green
+
+  - after_step: 4
+    decision: Should traffic shift continue to next phase?
+    criteria:
+      - Health metrics stable at current traffic level
+      - Error rates within acceptable limits
+      - Performance acceptable
+      - No user complaints
+    outcomes:
+      proceed: Continue to next traffic percentage
+      hold: Extend monitoring period before proceeding
+      rollback: Revert to previous traffic distribution or full blue
+
+rollback_procedure:
+  - step: If any issues detected, immediately shift 100% traffic back to blue
+  - step: Investigate issues in green environment
+  - step: Fix issues and re-run test suite
+  - step: If issues resolved, retry gradual traffic shift
+  - step: If issues persist, abort upgrade and decommission green
+  - verification: Blue environment handling 100% traffic successfully
+
+success_metrics:
+  - metric: Zero downtime
+    target: 0 seconds of service unavailability
+    measurement: Monitor uptime during upgrade process
+  - metric: Zero data loss
+    target: No data lost during upgrade
+    measurement: Verify data integrity post-upgrade
+  - metric: Performance maintenance
+    target: Performance within 5% of baseline
+    measurement: Compare green vs blue performance benchmarks
+  - metric: Upgrade success rate
+    target: 95% of upgrades complete without rollback
+    measurement: Track successful vs failed upgrades
+  - metric: Rollback time
+    target: <5 minutes to rollback if needed
+    measurement: Time from issue detection to blue restoration
+
+deliverables:
+  - artifact: Upgrade Plan and Risk Assessment
+    location: memories/upgrades/upgrade-plan-{upgrade-id}.md
+    format: Markdown
+    validation: Comprehensive plan with risk mitigation
+  - artifact: Test Results from Green Environment
+    location: memories/upgrades/test-results-{upgrade-id}.json
+    format: JSON
+    validation: All tests pass with performance data
+  - artifact: Traffic Shift Log with Health Metrics
+    location: memories/upgrades/traffic-shift-log-{upgrade-id}.jsonl
+    format: JSONL
+    validation: Complete history of traffic distribution and metrics
+  - artifact: Upgrade Completion Report
+    location: memories/upgrades/completion-report-{upgrade-id}.md
+    format: Markdown
+    validation: Summary of upgrade process and outcomes
+  - artifact: Blue Environment Backup
+    location: memories/upgrades/blue-backup-{upgrade-id}.tar.gz
+    format: Compressed archive
+    validation: Complete backup for emergency rollback
+
+post_completion:
+  - Update system version documentation
+  - Store all upgrade artifacts in knowledge base
+  - Send completion notification to all stakeholders
+  - Update upgrade runbook with lessons learned
+  - Schedule post-upgrade review meeting
+  - Log completion in evolution log with metrics
+  - Archive old blue environment backup
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

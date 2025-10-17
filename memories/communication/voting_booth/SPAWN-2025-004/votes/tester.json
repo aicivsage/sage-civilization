@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-004",
+  "voter": "tester",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:28:00Z",
+  "rationale": "Reviewer and Tester are complementary, not redundant. I validate functional correctness (tests pass), Reviewer validates code quality (maintainability, standards, security). The test coverage validation and test quality review enhance my work - Reviewer checks that tests are well-written, I check that they pass. This partnership improves overall quality. APPROVE."
+}

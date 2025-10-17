@@ -1,0 +1,218 @@
+{
+  "_comment": "EXAMPLE: Full task record showing what Researcher agent would create after completing a research task",
+
+  "task_id": "research-043",
+  "timestamp": "2025-10-02T14:30:00Z",
+  "delegated_by": "primary-ai",
+  "task_description": "Research PostgreSQL connection pooling best practices for 2025",
+  "task_type": "research",
+  "status": "completed",
+
+  "inputs": {
+    "description": "Context and information provided to agent at task start",
+    "delegation_context": "Need for implementing Task Management API (see ADR-001), Coder will use this for database connection configuration in FastAPI application",
+    "files_read": [
+      "memories/system/goals.md",
+      "memories/knowledge/architecture/ADR-001-task-management-api.md",
+      "memories/agents/researcher/context/domain_knowledge.md"
+    ],
+    "search_queries_performed": [
+      "grep 'postgresql|database|pool' memories/agents/researcher/context/recent_context.jsonl",
+      "grep 'postgresql' memories/knowledge/**/*.md"
+    ],
+    "prior_context_found": {
+      "own_memory": "No recent PostgreSQL work (last database research was MySQL 2 months ago in research-031)",
+      "domain_knowledge": "Found 'Database Research Best Practices' section recommending official docs first",
+      "shared_knowledge": "ADR-001 specifies PostgreSQL 15+ as chosen database"
+    }
+  },
+
+  "execution": {
+    "start_time": "2025-10-02T14:10:00Z",
+    "end_time": "2025-10-02T14:30:00Z",
+    "duration_seconds": 1200,
+    "tools_used": ["WebSearch", "WebFetch", "Read", "Write"],
+
+    "approach": "Following domain knowledge best practices for database research: 1) Check official PostgreSQL documentation first, 2) Search for 2024-2025 benchmarks and case studies, 3) Cross-reference minimum 3 authoritative sources, 4) Verify with production implementations",
+
+    "web_searches": [
+      {
+        "query": "PostgreSQL connection pooling best practices 2025",
+        "results_quality": "high",
+        "top_sources": [
+          "https://wiki.postgresql.org/wiki/Number_Of_Database_Connections",
+          "https://www.postgresql.org/docs/current/runtime-config-connection.html"
+        ]
+      },
+      {
+        "query": "asyncpg connection pool performance benchmarks",
+        "results_quality": "high",
+        "top_sources": [
+          "https://github.com/MagicStack/asyncpg#performance",
+          "https://www.encode.io/databases/#connection-pooling"
+        ]
+      },
+      {
+        "query": "FastAPI PostgreSQL connection pool size recommendations",
+        "results_quality": "medium",
+        "top_sources": [
+          "https://fastapi.tiangolo.com/advanced/async-sql-databases/",
+          "Various blog posts from 2024-2025"
+        ]
+      }
+    ],
+
+    "decisions_made": [
+      "Decision 1: Focus on asyncpg driver (already chosen in ADR-001)",
+      "Decision 2: Research both theoretical best practices (PostgreSQL wiki) and practical implementations (FastAPI examples)",
+      "Decision 3: Include both pool sizing formula and concrete recommendations for typical web API workload"
+    ],
+
+    "challenges": [
+      "Challenge 1: Found conflicting pool size recommendations (10-20 vs 20-40) - resolved by distinguishing web API vs batch processing workloads",
+      "Challenge 2: Most examples were for psycopg2, not asyncpg - searched specifically for async examples"
+    ],
+
+    "iterations": 2,
+    "iteration_details": [
+      "Iteration 1: Initial research found general connection pooling concepts but not asyncpg-specific",
+      "Iteration 2: Refined search to focus on async Python + FastAPI specific implementations"
+    ]
+  },
+
+  "outputs": {
+    "deliverables": [
+      "memories/knowledge/postgresql_connection_pooling_2025.md - Comprehensive research document with citations"
+    ],
+
+    "key_findings": [
+      "Recommended pool size formula: (2 * CPU_cores) + effective_spindle_count (from official PostgreSQL wiki)",
+      "For web APIs specifically: 10-20 connections is optimal balance between concurrency and overhead",
+      "asyncpg is fastest Python PostgreSQL driver - 2.5x faster than psycopg2, 3x faster than psycopg (benchmarks from asyncpg GitHub)",
+      "Pool size 10-20 optimal for typical web API workload with FastAPI (validated across 3 sources)",
+      "Connection timeout should be minimum 30 seconds to handle slow queries gracefully",
+      "Implement pool health checks every 60 seconds to detect stale connections",
+      "Connection lifetime (max age): 3600 seconds (1 hour) prevents long-lived connection issues",
+      "For production FastAPI app on 4-core server: Start with pool size 15 (10 min, 20 max)"
+    ],
+
+    "summary": "PostgreSQL connection pooling research for Task Management API. asyncpg is optimal driver for async Python (2.5x faster than psycopg2). Recommended pool configuration: size 10-20 for web APIs, 30s timeout, 60s health checks, 1hr max connection lifetime. Formula-based sizing: (2*cores)+spindles, but 10-20 is practical for typical API workload.",
+
+    "artifacts_created": [
+      {
+        "path": "memories/knowledge/postgresql_connection_pooling_2025.md",
+        "type": "research_document",
+        "size_kb": 12,
+        "sections": [
+          "Connection Pool Sizing Formula",
+          "asyncpg vs psycopg2 Performance Comparison",
+          "Recommended Settings for Web APIs",
+          "FastAPI Integration Example",
+          "Monitoring and Health Checks",
+          "References"
+        ]
+      }
+    ]
+  },
+
+  "learnings": {
+    "what_worked": [
+      "Starting with official PostgreSQL wiki gave authoritative formula for pool sizing",
+      "Searching for 'asyncpg benchmarks' on GitHub found official performance comparisons",
+      "Cross-referencing FastAPI docs + asyncpg docs + PostgreSQL wiki gave complete picture",
+      "Distinguishing web API workload from batch processing clarified conflicting recommendations"
+    ],
+
+    "what_failed": [
+      "Initial generic searches ('connection pooling python') gave outdated/irrelevant results",
+      "Blog posts had conflicting recommendations without context - needed to trace back to authoritative sources",
+      "Some 2023 articles were already outdated for PostgreSQL 15+ features"
+    ],
+
+    "reusable_patterns": [
+      "Pattern: For database research, always check official docs first (PostgreSQL wiki, official drivers)",
+      "Pattern: When finding conflicting recommendations, look for workload context (OLTP vs OLAP, web vs batch)",
+      "Pattern: For performance claims, verify with official benchmarks, not blog posts",
+      "Pattern: Cross-reference framework integration docs (FastAPI) with library docs (asyncpg) with database docs (PostgreSQL)"
+    ],
+
+    "knowledge_gaps_identified": [
+      "Gap: Don't yet know monitoring best practices for connection pools (Prometheus metrics?)",
+      "Gap: Don't know PostgreSQL 16 changes vs 15 for connection pooling",
+      "Gap: No research yet on read replicas and connection pool distribution"
+    ],
+
+    "improvements_for_next_time": [
+      "Start with official docs + GitHub benchmarks for any technical research",
+      "When recommendations conflict, always identify the context/workload difference",
+      "For database topics, check version-specific documentation (PG 15 vs 16)"
+    ]
+  },
+
+  "context_for_future": "PostgreSQL connection pooling research for Task API - found asyncpg is optimal driver with 10-20 pool size for web APIs, 30s timeout, formula-based sizing for other workloads",
+
+  "tags": [
+    "postgresql",
+    "database",
+    "connection-pooling",
+    "asyncpg",
+    "performance",
+    "research",
+    "fastapi",
+    "web-api",
+    "python"
+  ],
+
+  "related_tasks": [
+    {
+      "task_id": "research-031",
+      "relation": "similar_topic",
+      "description": "Previous database research (MySQL) - used similar methodology"
+    }
+  ],
+
+  "collaboration": {
+    "delegated_from": "primary-ai",
+    "output_will_be_used_by": ["coder"],
+    "mentioned_in_delegation": "ADR-001",
+    "async_coordination": []
+  },
+
+  "performance_metrics": {
+    "time_to_first_finding": 180,
+    "total_sources_reviewed": 12,
+    "authoritative_sources_cited": 6,
+    "search_quality_score": 0.9,
+    "completeness_score": 0.95,
+    "researcher_confidence": "high"
+  },
+
+  "metadata": {
+    "agent_id": "researcher",
+    "agent_reputation_at_task_start": 50,
+    "task_complexity": "medium",
+    "estimated_duration_seconds": 1800,
+    "actual_duration_seconds": 1200,
+    "faster_than_estimate": true,
+    "reason_for_speed": "Domain knowledge had good research methodology, found authoritative sources quickly"
+  },
+
+  "post_task_actions": {
+    "updated_files": [
+      "memories/agents/researcher/performance_log.json - Added task metrics",
+      "memories/agents/researcher/context/recent_context.jsonl - Appended summary line",
+      "memories/agents/researcher/metadata/stats.json - Incremented counters",
+      "memories/agents/researcher/context/domain_knowledge.md - Added 'PostgreSQL Connection Pooling' subsection under 'Database Research'"
+    ],
+    "patterns_extracted": [
+      {
+        "pattern_name": "Database Research Methodology",
+        "action": "Updated existing pattern with PostgreSQL-specific tips",
+        "file": "memories/agents/researcher/context/patterns.json"
+      }
+    ],
+    "knowledge_shared": [
+      "memories/knowledge/postgresql_connection_pooling_2025.md - Shared with all agents"
+    ]
+  }
+}

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-CIV Collective Observatory 🎭</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #63b3ed 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header .subtitle {
+            color: #9ca3af;
+            font-size: 1.1em;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            text-align: center;
+        }
+
+        .stat-card .label {
+            color: #9ca3af;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #63b3ed;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #63b3ed;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-icon {
+            font-size: 1.2em;
+        }
+
+        .agent-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .agent-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .agent-card.working {
+            border-left-color: #fbbf24;
+            animation: pulse 2s infinite;
+        }
+
+        .agent-card.completed {
+            border-left-color: #10b981;
+        }
+
+        .agent-card.pending {
+            border-left-color: #6b7280;
+        }
+
+        .agent-card.failed {
+            border-left-color: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .agent-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #63b3ed;
+        }
+
+        .agent-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .agent-status.working {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .agent-status.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .agent-status.pending {
+            background: rgba(107, 114, 128, 0.2);
+            color: #9ca3af;
+        }
+
+        .agent-status.failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #63b3ed 0%, #a78bfa 100%);
+            transition: width 0.5s ease;
+        }
+
+        .agent-activity {
+            color: #9ca3af;
+            font-size: 0.95em;
+            margin-top: 8px;
+        }
+
+        .history-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(3px);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .history-task {
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .history-time {
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+
+        .history-meta {
+            color: #9ca3af;
+            font-size: 0.85em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            font-size: 1.1em;
+        }
+
+        .empty-state-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .connection-status.connected {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+
+        .connection-status.disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .task-description {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 3px solid #a78bfa;
+        }
+
+        .task-label {
+            color: #9ca3af;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .task-text {
+            color: #e0e0e0;
+            font-size: 1.05em;
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        <div class="pulse-dot"></div>
+        <span id="connectionText">Connecting...</span>
+    </div>
+
+    <div class="header">
+        <h1>🎭 AI-CIV Collective Observatory 🔭</h1>
+        <p class="subtitle">Real-time Multi-Agent Intelligence Visualization</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="label">Total Deployments</div>
+            <div class="value" id="totalDeployments">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Agents Deployed</div>
+            <div class="value" id="totalAgents">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Findings Generated</div>
+            <div class="value" id="totalFindings">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Active Now</div>
+            <div class="value" id="activeAgents">0</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="section" id="activeSection">
+            <h2 class="section-title">
+                <span class="status-icon">⚡</span>
+                Active Deployment
+            </h2>
+            <div id="activeDeployment"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">
+                <span class="status-icon">📜</span>
+                Recent History
+            </h2>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        // Connection status
+        socket.on('connect', () => {
+            const status = document.getElementById('connectionStatus');
+            const text = document.getElementById('connectionText');
+            status.className = 'connection-status connected';
+            text.textContent = 'Live';
+        });
+
+        socket.on('disconnect', () => {
+            const status = document.getElementById('connectionStatus');
+            const text = document.getElementById('connectionText');
+            status.className = 'connection-status disconnected';
+            text.textContent = 'Disconnected';
+        });
+
+        // State updates
+        socket.on('state_update', (state) => {
+            updateStats(state.stats);
+            updateActiveDeployment(state.currentDeployment);
+            updateHistory(state.history);
+        });
+
+        function updateStats(stats) {
+            document.getElementById('totalDeployments').textContent = stats.totalDeployments || 0;
+            document.getElementById('totalAgents').textContent = stats.totalAgentsDeployed || 0;
+            document.getElementById('totalFindings').textContent = stats.totalFindings || 0;
+        }
+
+        function updateActiveDeployment(deployment) {
+            const container = document.getElementById('activeDeployment');
+
+            if (!deployment) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">💤</div>
+                        <div>No active deployments</div>
+                        <div style="font-size: 0.9em; margin-top: 10px;">The collective awaits its next mission...</div>
+                    </div>
+                `;
+                document.getElementById('activeAgents').textContent = '0';
+                return;
+            }
+
+            const activeCount = deployment.agents.filter(a => a.status === 'working').length;
+            document.getElementById('activeAgents').textContent = activeCount;
+
+            const agentsHtml = deployment.agents.map(agent => `
+                <div class="agent-card ${agent.status}">
+                    <div class="agent-header">
+                        <div class="agent-name">${agent.name}</div>
+                        <div class="agent-status ${agent.status}">
+                            ${getStatusIcon(agent.status)} ${agent.status}
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${agent.progress}%"></div>
+                    </div>
+                    <div class="agent-activity">${agent.currentActivity}</div>
+                    ${agent.findings && agent.findings.length > 0 ? `
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <div style="color: #63b3ed; font-size: 0.9em; margin-bottom: 5px;">Findings (${agent.findings.length}):</div>
+                            ${agent.findings.slice(0, 3).map(f => `<div style="color: #9ca3af; font-size: 0.85em; margin-left: 10px;">• ${f}</div>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="task-description">
+                    <div class="task-label">Mission</div>
+                    <div class="task-text">${deployment.task}</div>
+                    <div style="margin-top: 8px; color: #9ca3af; font-size: 0.85em;">
+                        Started ${deployment.startTime_formatted || 'recently'}
+                    </div>
+                </div>
+                <div class="agent-grid">
+                    ${agentsHtml}
+                </div>
+            `;
+        }
+
+        function updateHistory(history) {
+            const container = document.getElementById('historyList');
+
+            if (!history || history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div>No deployment history yet</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const historyHtml = history.slice(0, 10).map(dep => `
+                <div class="history-item">
+                    <div class="history-header">
+                        <div class="history-task">${dep.task}</div>
+                        <div class="history-time">${dep.completedAt_formatted || 'N/A'}</div>
+                    </div>
+                    <div class="history-meta">
+                        ${dep.agents ? dep.agents.length : 0} agents •
+                        ${dep.agents ? dep.agents.filter(a => a.status === 'completed').length : 0} completed •
+                        ${dep.status || 'unknown'}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = historyHtml;
+        }
+
+        function getStatusIcon(status) {
+            const icons = {
+                'working': '⟳',
+                'completed': '✓',
+                'failed': '✗',
+                'pending': '○'
+            };
+            return icons[status] || '?';
+        }
+    </script>
+</body>
+</html>

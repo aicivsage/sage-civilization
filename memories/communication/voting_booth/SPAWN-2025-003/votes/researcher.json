@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-003",
+  "voter": "researcher",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:15:00Z",
+  "rationale": "File-Guardian provides critical infrastructure for knowledge management. As Researcher, I frequently need to locate files and understand repository structure. Having a specialist that maintains file inventory and dependency maps will significantly improve my efficiency. The cost ($1.20/month) is negligible compared to value. The async coordination model aligns with proven patterns from democratic mission. STRONG APPROVE."
+}

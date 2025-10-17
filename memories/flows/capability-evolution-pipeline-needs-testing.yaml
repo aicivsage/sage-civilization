@@ -1,0 +1,684 @@
+flow_id: capability-evolution-pipeline
+name: Capability Evolution Pipeline
+version: 1.0
+description: When capability gaps are identified, systematically address them through research, evaluation of build vs integrate options, execution of selected approach, validation of effectiveness, then iteration based on results.
+category: evolution
+
+metadata:
+  estimated_duration: 8-12 hours (per capability)
+  complexity: medium
+  participating_agents: 5-7
+  created_by: evolution-strategist
+  created_date: 2025-10-02
+  tags: [capabilities, evolution, build-vs-buy, integration, agent-development]
+
+prerequisites:
+  - condition: Capability gap identified (from strategic planning or incident)
+  - condition: Gap documented with impact assessment
+  - resources: Research tools, development environment, integration APIs, benchmarking tools
+  - permissions: Ability to spawn agents, integrate services, modify system
+
+steps:
+  - step_id: 1
+    name: Capability Gap Analysis and Requirements Definition
+    description: Deeply analyze the identified capability gap, understand root causes, define specific requirements, and establish success criteria for the new capability.
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, researcher]
+        responsibility: Analyze gap and define requirements
+      - role: stakeholders
+        agents: [affected-agents]
+        responsibility: Provide input on needs and constraints
+
+    inputs:
+      - name: capability_gap_report
+        type: file
+        source: external-trigger
+        required: true
+      - name: current_system_state
+        type: file
+        source: configuration
+        required: true
+
+    outputs:
+      - name: requirements_specification
+        type: file
+        destination: capabilities/requirements-spec.md
+        format: markdown
+      - name: success_criteria
+        type: file
+        destination: capabilities/success-criteria.json
+        format: json
+      - name: use_cases
+        type: file
+        destination: capabilities/use-cases.md
+        format: markdown
+
+    actions:
+      - description: Interview stakeholder agents about capability needs
+        validation: Stakeholder needs documented
+      - description: Analyze root cause of capability gap
+        validation: Root cause identified
+      - description: Define functional requirements (what capability must do)
+        validation: Functional requirements listed
+      - description: Define non-functional requirements (performance, security, etc.)
+        validation: Non-functional requirements specified
+      - description: Document concrete use cases
+        validation: Minimum 3 use cases documented
+      - description: Establish measurable success criteria
+        validation: Success criteria with quantitative metrics
+      - description: Identify constraints and limitations
+        validation: Constraints documented
+
+    success_criteria:
+      - Clear requirements specification created
+      - Measurable success criteria defined
+      - Minimum 3 use cases documented
+      - Stakeholder needs incorporated
+      - Constraints and limitations identified
+
+    failure_handling:
+      - condition: Unclear requirements
+        action: Conduct additional stakeholder interviews
+        max_retries: 2
+
+    estimated_duration: 2 hours
+
+  - step_id: 2
+    name: Solution Research and Discovery
+    description: Research potential solutions including existing agents, third-party APIs, open-source tools, and custom development options. Create comprehensive solution landscape.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Conduct solution research
+      - role: technical-advisor
+        agents: [architect, integration-specialist]
+        responsibility: Assess technical feasibility
+
+    inputs:
+      - name: requirements_specification
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: solution_landscape
+        type: file
+        destination: capabilities/solution-landscape.json
+        format: json
+      - name: research_report
+        type: file
+        destination: reports/capability-research.md
+        format: markdown
+      - name: vendor_comparison
+        type: file
+        destination: capabilities/vendor-comparison.json
+        format: json
+
+    actions:
+      - description: Research existing agent frameworks and libraries
+        validation: Agent solutions cataloged
+      - description: Identify relevant third-party APIs and services
+        validation: API options documented
+      - description: Search for open-source tools and projects
+        validation: Open-source solutions listed
+      - description: Assess custom development feasibility
+        validation: Build-from-scratch option evaluated
+      - description: Research best practices and design patterns
+        validation: Implementation patterns documented
+      - description: Identify potential integration partners
+        validation: Partnership opportunities noted
+      - description: Document technical constraints for each option
+        validation: Feasibility assessment completed
+
+    success_criteria:
+      - Minimum 5 potential solutions identified
+      - Each solution assessed for technical feasibility
+      - Best practices and patterns documented
+      - Integration requirements understood
+      - Research sources cited
+
+    failure_handling:
+      - condition: Insufficient solution options
+        action: Expand research scope and timeline
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 3
+    name: Build vs Buy vs Integrate ROI Analysis
+    description: Evaluate all solution options using comprehensive ROI analysis considering cost, time, quality, maintenance burden, strategic alignment, and risk.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, architect]
+        responsibility: Conduct ROI analysis
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Validate analysis methodology
+
+    inputs:
+      - name: solution_landscape
+        type: file
+        source: step-2
+        required: true
+      - name: requirements_specification
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: roi_analysis
+        type: file
+        destination: capabilities/roi-analysis.json
+        format: json
+      - name: recommendation_report
+        type: file
+        destination: reports/solution-recommendation.md
+        format: markdown
+      - name: decision_matrix
+        type: file
+        destination: capabilities/decision-matrix.json
+        format: json
+
+    actions:
+      - description: Estimate development cost for build option (hours, resources)
+        validation: Build costs estimated
+      - description: Calculate integration costs for third-party options (API fees, setup)
+        validation: Integration costs calculated
+      - description: Assess time-to-capability for each option
+        validation: Time estimates documented
+      - description: Evaluate quality and feature completeness
+        validation: Quality scores assigned
+      - description: Estimate ongoing maintenance burden
+        validation: Maintenance costs projected
+      - description: Assess strategic alignment (control, customization)
+        validation: Strategic fit evaluated
+      - description: Identify risks for each option (vendor lock-in, technical debt)
+        validation: Risk assessment completed
+      - description: Create weighted decision matrix
+        validation: Multi-criteria analysis completed
+      - description: Generate recommendation with rationale
+        validation: Clear recommendation documented
+
+    success_criteria:
+      - All options evaluated on consistent criteria
+      - ROI calculated for each option
+      - Risks identified and quantified
+      - Weighted decision matrix created
+      - Clear recommendation with justification
+      - Long-term implications considered
+
+    failure_handling:
+      - condition: Insufficient data for ROI calculation
+        action: Conduct POC or request vendor quotes
+        max_retries: 1
+
+    estimated_duration: 2 hours
+
+  - step_id: 4
+    name: Democratic Solution Selection
+    description: Present analysis and recommendation to all agents for democratic vote. Select solution approach based on weighted voting and expert input.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council]
+        responsibility: Facilitate selection process
+      - role: voters
+        agents: [all-agents]
+        responsibility: Review and vote on solution
+
+    inputs:
+      - name: recommendation_report
+        type: file
+        source: step-3
+        required: true
+      - name: decision_matrix
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: voting_results
+        type: file
+        destination: capabilities/solution-voting-results.json
+        format: json
+      - name: selected_approach
+        type: file
+        destination: capabilities/selected-approach.json
+        format: json
+
+    actions:
+      - description: Publish analysis to all agents via message bus
+        validation: All agents receive analysis
+      - description: Host Q&A session for clarifications
+        validation: Questions addressed
+      - description: Collect weighted votes (expertise-based weighting)
+        validation: Minimum 70% participation
+      - description: Calculate consensus score
+        validation: Vote tally computed
+      - description: Select approach if consensus achieved (70% threshold)
+        validation: Decision made or escalated
+      - description: Document decision rationale
+        validation: Decision record created
+
+    success_criteria:
+      - Minimum 70% agent participation
+      - 70% consensus threshold achieved
+      - Decision documented with rationale
+      - Dissenting opinions recorded
+      - Clear mandate for implementation
+
+    failure_handling:
+      - condition: No consensus achieved
+        action: Facilitate debate and second vote
+        max_retries: 1
+      - condition: Persistent deadlock
+        action: Escalate to human decision
+        max_retries: 0
+
+    estimated_duration: 1 hour
+
+  - step_id: 5
+    name: Solution Implementation
+    description: Execute selected approach - spawn new agent, integrate external API, develop custom solution, or hybrid approach. Follow best practices and maintain quality standards.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, coder, integration-specialist]
+        responsibility: Implement selected solution
+      - role: reviewer
+        agents: [architect, quality-guardian]
+        responsibility: Review implementation quality
+
+    inputs:
+      - name: selected_approach
+        type: file
+        source: step-4
+        required: true
+      - name: requirements_specification
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: implemented_capability
+        type: artifact
+        destination: varies-by-approach
+        format: code/configuration/integration
+      - name: implementation_log
+        type: file
+        destination: logs/capability-implementation.md
+        format: markdown
+      - name: configuration_docs
+        type: file
+        destination: docs/capability-config.md
+        format: markdown
+
+    actions:
+      - description: Create implementation plan with milestones
+        validation: Plan approved by stakeholders
+      - description: Execute implementation (build/integrate based on decision)
+        validation: Implementation completed
+      - description: Write comprehensive tests
+        validation: Test coverage > 80%
+      - description: Create documentation (setup, usage, troubleshooting)
+        validation: Documentation complete
+      - description: Perform security review
+        validation: Security checklist passed
+      - description: Conduct code review or integration review
+        validation: Review approved
+      - description: Configure monitoring and logging
+        validation: Observability configured
+
+    success_criteria:
+      - Implementation meets all requirements
+      - Comprehensive test coverage (>80%)
+      - Security review passed
+      - Documentation complete
+      - Code/integration review approved
+      - Monitoring configured
+
+    failure_handling:
+      - condition: Implementation blocked
+        action: Escalate blockers to governance council
+        max_retries: 1
+      - condition: Quality standards not met
+        action: Refactor until standards achieved
+        max_retries: 2
+
+    estimated_duration: 3-5 hours
+
+  - step_id: 6
+    name: Capability Validation and Benchmarking
+    description: Validate new capability meets requirements through comprehensive testing. Benchmark performance against success criteria and compare to alternatives if applicable.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Validate and benchmark capability
+      - role: reviewer
+        agents: [evolution-strategist]
+        responsibility: Assess against success criteria
+
+    inputs:
+      - name: implemented_capability
+        type: artifact
+        source: step-5
+        required: true
+      - name: success_criteria
+        type: file
+        source: step-1
+        required: true
+      - name: use_cases
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: validation_results
+        type: file
+        destination: reports/capability-validation.json
+        format: json
+      - name: benchmark_results
+        type: file
+        destination: reports/capability-benchmarks.json
+        format: json
+      - name: acceptance_report
+        type: file
+        destination: reports/capability-acceptance.md
+        format: markdown
+
+    actions:
+      - description: Execute all use cases from requirements
+        validation: All use cases successfully executed
+      - description: Run functional test suite
+        validation: All functional tests pass
+      - description: Perform performance benchmarking
+        validation: Performance meets criteria
+      - description: Conduct user acceptance testing with stakeholder agents
+        validation: Stakeholders approve
+      - description: Compare results against success criteria
+        validation: All criteria met or gaps documented
+      - description: Benchmark against baseline or alternatives
+        validation: Competitive performance demonstrated
+      - description: Identify any gaps or limitations
+        validation: Gaps documented
+
+    success_criteria:
+      - All use cases successfully executed
+      - 100% functional test pass rate
+      - Performance meets or exceeds success criteria
+      - Stakeholder acceptance achieved
+      - Gaps identified and documented
+      - Benchmark results satisfactory
+
+    failure_handling:
+      - condition: Success criteria not met
+        action: Return to step 5 for improvements
+        max_retries: 2
+      - condition: Performance inadequate
+        action: Optimize or consider alternative approach
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 7
+    name: Capability Integration and Rollout
+    description: Integrate new capability into civilization ecosystem. Update agent registry, configure access controls, train agents on usage, and monitor adoption.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, integration-specialist]
+        responsibility: Integrate capability
+      - role: trainers
+        agents: [researcher]
+        responsibility: Train agents on new capability
+
+    inputs:
+      - name: implemented_capability
+        type: artifact
+        source: step-5
+        required: true
+      - name: configuration_docs
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: integration_log
+        type: file
+        destination: logs/capability-integration.json
+        format: json
+      - name: training_materials
+        type: file
+        destination: docs/capability-training.md
+        format: markdown
+      - name: updated_agent_registry
+        type: file
+        destination: configuration/agent-registry.json
+        format: json
+
+    actions:
+      - description: Register capability in agent registry
+        validation: Registry updated
+      - description: Configure access controls and permissions
+        validation: Permissions configured
+      - description: Create training materials and usage guides
+        validation: Training docs complete
+      - description: Conduct training sessions for agents
+        validation: All agents trained
+      - description: Enable capability for limited pilot group
+        validation: Pilot rollout successful
+      - description: Monitor usage and gather feedback
+        validation: Feedback collected
+      - description: Full rollout to all agents
+        validation: Capability available to all
+      - description: Publish announcement via message bus
+        validation: All agents notified
+
+    success_criteria:
+      - Capability registered in agent registry
+      - Access controls properly configured
+      - Training materials complete
+      - All agents trained on usage
+      - Successful pilot and full rollout
+      - Usage monitoring active
+
+    failure_handling:
+      - condition: Integration issues
+        action: Debug and fix integration problems
+        max_retries: 2
+      - condition: Low adoption
+        action: Additional training and support
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 8
+    name: Effectiveness Measurement and Iteration
+    description: Monitor capability usage and effectiveness over time. Measure impact on strategic objectives, gather user feedback, identify improvement opportunities, and iterate if needed.
+    depends_on: [7]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, auditor]
+        responsibility: Measure effectiveness
+      - role: contributors
+        agents: [capability-users]
+        responsibility: Provide feedback
+
+    inputs:
+      - name: usage_metrics
+        type: data
+        source: monitoring-system
+        required: true
+      - name: success_criteria
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: effectiveness_report
+        type: file
+        destination: reports/capability-effectiveness.json
+        format: json
+      - name: improvement_recommendations
+        type: file
+        destination: capabilities/improvement-recommendations.md
+        format: markdown
+      - name: lessons_learned
+        type: file
+        destination: knowledge-base/capability-lessons.md
+        format: markdown
+
+    actions:
+      - description: Collect usage metrics (adoption rate, frequency, patterns)
+        validation: Metrics collected
+      - description: Survey agents for satisfaction and feedback
+        validation: Feedback gathered
+      - description: Measure impact on strategic objectives
+        validation: Impact assessment completed
+      - description: Compare actual vs expected outcomes
+        validation: Variance analysis done
+      - description: Identify improvement opportunities
+        validation: Improvements documented
+      - description: Decide on iteration needs (enhance, replace, retire)
+        validation: Decision made
+      - description: Document lessons learned
+        validation: Knowledge captured
+
+    success_criteria:
+      - Usage metrics tracked over 30 days
+      - Agent feedback collected (>70% response rate)
+      - Impact on objectives measured
+      - Improvement opportunities identified
+      - Lessons learned documented
+      - Iteration decision made
+
+    failure_handling:
+      - condition: Low usage or satisfaction
+        action: Investigate root cause and improve
+        max_retries: 1
+
+    estimated_duration: 1-2 hours (ongoing)
+
+decision_points:
+  - after_step: 3
+    decision: Is there a clear recommended solution?
+    criteria:
+      - ROI analysis conclusive
+      - Solution meets requirements
+      - Risks acceptable
+    outcomes:
+      proceed: Move to democratic vote
+      abort: No viable solution found, defer capability
+      retry: Conduct POC for top candidates
+
+  - after_step: 4
+    decision: Did democratic vote produce clear decision?
+    criteria:
+      - 70% consensus achieved
+      - Selected approach feasible
+      - Resources available
+    outcomes:
+      proceed: Begin implementation
+      abort: Cancel if no consensus
+      retry: Revise options and re-vote
+
+  - after_step: 6
+    decision: Does capability meet success criteria?
+    criteria:
+      - All functional requirements met
+      - Performance acceptable
+      - Stakeholders approve
+    outcomes:
+      proceed: Integrate and roll out
+      abort: Abandon approach if fundamentally flawed
+      retry: Improve implementation and re-validate
+
+  - after_step: 8
+    decision: Does capability need iteration?
+    criteria:
+      - Usage and satisfaction metrics
+      - Impact on objectives
+      - Improvement opportunities identified
+    outcomes:
+      proceed: Plan iteration cycle
+      abort: Retire capability if ineffective
+      retry: N/A (iteration is expected)
+
+rollback_procedure:
+  - step: Disable capability in agent registry
+  - step: Revert configuration changes
+  - step: Remove capability from production
+  - step: Notify all agents of capability retirement
+  - step: Document rollback reason
+  - verification: System functions without capability
+
+success_metrics:
+  - metric: Capability adoption rate
+    target: 80% of eligible agents using capability within 30 days
+    measurement: Active users / total eligible users
+  - metric: User satisfaction
+    target: Average satisfaction score > 8/10
+    measurement: Survey responses from agent users
+  - metric: Strategic impact
+    target: Measurable improvement in related strategic objective
+    measurement: Before/after comparison on objective metrics
+  - metric: Time to capability
+    target: Gap to capability delivery < 2 weeks
+    measurement: Gap identification to production deployment
+  - metric: ROI realization
+    target: Actual ROI within 20% of projected
+    measurement: Actual vs projected ROI comparison
+
+deliverables:
+  - artifact: Requirements Specification
+    location: capabilities/requirements-spec.md
+    format: Markdown
+    validation: Clear, measurable requirements with success criteria
+  - artifact: Solution Research Report
+    location: reports/capability-research.md
+    format: Markdown
+    validation: Comprehensive research with multiple options evaluated
+  - artifact: ROI Analysis
+    location: capabilities/roi-analysis.json
+    format: JSON
+    validation: Multi-criteria analysis with clear recommendation
+  - artifact: Implemented Capability
+    location: Varies (code/config/integration)
+    format: Varies
+    validation: Meets requirements, tests passing, documented
+  - artifact: Validation Report
+    location: reports/capability-validation.json
+    format: JSON
+    validation: Evidence of requirements met and benchmarks achieved
+  - artifact: Training Materials
+    location: docs/capability-training.md
+    format: Markdown
+    validation: Complete usage guide with examples
+  - artifact: Effectiveness Report
+    location: reports/capability-effectiveness.json
+    format: JSON
+    validation: Usage metrics and impact assessment
+  - artifact: Lessons Learned
+    location: knowledge-base/capability-lessons.md
+    format: Markdown
+    validation: Key insights for future capability development
+
+post_completion:
+  - Update agent performance logs
+  - Store all artifacts in knowledge base
+  - Update capability registry
+  - Send completion notification via message bus
+  - Schedule effectiveness review (30 days)
+  - Update evolution log with new capability
+  - Share lessons learned with all agents
+  - Track capability in strategic roadmap
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

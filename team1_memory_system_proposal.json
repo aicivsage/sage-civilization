@@ -1,0 +1,741 @@
+{
+  "team": "Team 1: Researcher, Architect, Coder",
+  "proposal_name": "Hierarchical Context-Aware Memory System (HCAMS)",
+  "version": "1.0",
+  "created": "2025-10-02",
+
+  "executive_summary": "A lightweight, grep-optimized memory system that enables agents to build contextual understanding through structured logs, indexed memories, and semantic search patterns. Designed to scale to 100+ agents while maintaining sub-100ms search performance using only Claude SDK tools.",
+
+  "memory_schema": {
+    "directory_structure": {
+      "description": "Each agent gets memories/agents/{agent-id}/ with standardized subdirectories",
+      "per_agent_structure": {
+        "memories/agents/{agent-id}/": {
+          "performance_log.json": "Task execution history with metrics (already exists)",
+          "context/": {
+            "description": "Context accumulated from past tasks",
+            "recent_context.jsonl": "Rolling 100-line JSONL of recent task contexts (grep-optimized)",
+            "domain_knowledge.md": "Agent-specific learnings in markdown (human-readable)",
+            "patterns.json": "Recognized patterns and best practices"
+          },
+          "tasks/": {
+            "description": "Detailed task execution logs",
+            "{task-id}.json": "Complete task record including inputs, outputs, errors, learnings",
+            "index.json": "Fast lookup index: {task_id -> {timestamp, type, status, tags}}"
+          },
+          "relationships/": {
+            "description": "Inter-agent collaboration records",
+            "collaborations.jsonl": "Log of interactions with other agents",
+            "delegation_history.json": "Tasks delegated to/from this agent"
+          },
+          "metadata/": {
+            "description": "Agent state and statistics",
+            "stats.json": "Current statistics: task counts, success rates, specialization metrics",
+            "reputation_score.json": "Reputation tracking (already exists in some agents)"
+          }
+        }
+      }
+    },
+
+    "file_formats": {
+      "jsonl_format": {
+        "description": "JSON Lines for append-only logs (grep-friendly)",
+        "benefits": ["Fast grep searches", "Append-only writes", "No full file rewrites", "Tail-able"],
+        "example": {
+          "file": "recent_context.jsonl",
+          "line_format": "{\"timestamp\":\"2025-10-02T10:30:00Z\",\"task_id\":\"research-042\",\"context\":\"Researched FastAPI performance benchmarks\",\"tags\":[\"fastapi\",\"performance\",\"research\"],\"key_findings\":[\"FastAPI handles 10K req/s\",\"Async native architecture\"]}"
+        }
+      },
+      "json_format": {
+        "description": "Standard JSON for structured data",
+        "use_cases": ["Indices", "Statistics", "Complete task records", "Patterns"]
+      },
+      "markdown_format": {
+        "description": "Markdown for human-readable knowledge",
+        "use_cases": ["Domain knowledge", "Learnings", "Best practices", "How-to guides"],
+        "benefits": ["Human readable", "Grep-searchable", "Version control friendly"]
+      }
+    }
+  },
+
+  "memory_types": {
+    "1_task_memory": {
+      "description": "Detailed records of individual task executions",
+      "location": "memories/agents/{agent-id}/tasks/{task-id}.json",
+      "schema": {
+        "task_id": "unique-task-id",
+        "timestamp": "ISO-8601",
+        "delegated_by": "agent-id or 'primary-ai'",
+        "task_description": "Human-readable task description",
+        "task_type": "classification: research|design|implementation|testing|review",
+        "status": "completed|failed|partial",
+        "inputs": {
+          "description": "What information was provided",
+          "files_read": ["list of file paths"],
+          "search_queries": ["grep/glob patterns used"],
+          "delegation_context": "Context from delegating agent"
+        },
+        "execution": {
+          "duration_seconds": 180,
+          "tools_used": ["Read", "Grep", "WebSearch"],
+          "decisions_made": ["Key decisions during execution"],
+          "challenges": ["Problems encountered"],
+          "iterations": 2
+        },
+        "outputs": {
+          "deliverables": ["List of files created/modified"],
+          "key_findings": ["For research tasks"],
+          "artifacts_created": ["Documentation, code, designs"]
+        },
+        "learnings": {
+          "what_worked": ["Successful approaches"],
+          "what_failed": ["Failed approaches and why"],
+          "reusable_patterns": ["Patterns to use in future"],
+          "knowledge_gaps": ["Areas needing more research"]
+        },
+        "context_for_future": "One-sentence summary for quick context retrieval",
+        "tags": ["fastapi", "research", "web-frameworks"]
+      },
+      "retention_policy": "Keep last 50 detailed task records, archive older to compressed format"
+    },
+
+    "2_contextual_memory": {
+      "description": "Recent context for quick task startup - rolling window of recent work",
+      "location": "memories/agents/{agent-id}/context/recent_context.jsonl",
+      "schema_per_line": {
+        "timestamp": "ISO-8601",
+        "task_id": "reference to full task",
+        "context": "One-line summary of what was done",
+        "tags": ["searchable", "tags"],
+        "key_findings": ["Most important learnings"]
+      },
+      "rolling_window": "Last 100 lines (approximately 2 weeks of active work)",
+      "grep_optimization": "Each line is complete JSON, searchable by tag, timestamp, or text content",
+      "example_searches": {
+        "recent_fastapi_work": "grep 'fastapi' memories/agents/researcher/context/recent_context.jsonl",
+        "last_week": "grep '2025-09-2[5-9]' memories/agents/researcher/context/recent_context.jsonl",
+        "performance_research": "grep 'performance.*research' memories/agents/researcher/context/recent_context.jsonl"
+      }
+    },
+
+    "3_domain_knowledge": {
+      "description": "Accumulated expertise in the agent's specialization",
+      "location": "memories/agents/{agent-id}/context/domain_knowledge.md",
+      "structure": {
+        "format": "Markdown with sections",
+        "sections": [
+          "# {Agent} Domain Knowledge",
+          "## Key Concepts - Fundamental knowledge in this domain",
+          "## Best Practices - Proven approaches that work",
+          "## Common Pitfalls - Known failure modes to avoid",
+          "## Tools & Techniques - Preferred tools and how to use them",
+          "## Reference Patterns - Code/design patterns to reuse",
+          "## External Resources - Links to authoritative sources"
+        ],
+        "update_frequency": "After every 5-10 tasks or when significant learning occurs"
+      },
+      "example_researcher": {
+        "content": "# Researcher Domain Knowledge\n\n## Best Practices\n- Always cite sources with URLs\n- Cross-reference multiple sources (minimum 3)\n- Check publication dates (prefer 2024-2025 for tech)\n- Verify claims with official documentation\n\n## Tools & Techniques\n- WebSearch: Use specific queries like 'FastAPI 2025 benchmarks' not 'FastAPI info'\n- WebFetch: For deep-diving into specific documentation pages\n- Always check official GitHub repos for latest statistics\n\n## Common Pitfalls\n- Outdated benchmarks (verify year)\n- Marketing claims vs real-world performance\n- Single-source bias"
+      }
+    },
+
+    "4_pattern_memory": {
+      "description": "Recognized patterns, templates, and reusable solutions",
+      "location": "memories/agents/{agent-id}/context/patterns.json",
+      "schema": {
+        "patterns": [
+          {
+            "pattern_id": "unique-id",
+            "name": "Human-readable pattern name",
+            "category": "workflow|code-template|design-pattern|search-strategy",
+            "description": "What this pattern solves",
+            "when_to_use": "Conditions for applying this pattern",
+            "how_to_use": "Step-by-step or code template",
+            "examples": ["task-ids where this was successfully used"],
+            "success_rate": 0.85,
+            "tags": ["searchable", "tags"]
+          }
+        ]
+      },
+      "example_coder_pattern": {
+        "pattern_id": "fastapi-crud-endpoint",
+        "name": "FastAPI CRUD Endpoint Template",
+        "category": "code-template",
+        "description": "Standard pattern for implementing CRUD endpoints in FastAPI",
+        "when_to_use": "Creating new REST API endpoints",
+        "how_to_use": "1. Define Pydantic models, 2. Create router with typed path params, 3. Add async endpoint handlers, 4. Include error handling",
+        "examples": ["task-impl-023", "task-impl-031"],
+        "success_rate": 0.95,
+        "tags": ["fastapi", "api", "crud", "rest"]
+      }
+    },
+
+    "5_collaboration_memory": {
+      "description": "Records of working with other agents",
+      "location": "memories/agents/{agent-id}/relationships/collaborations.jsonl",
+      "schema_per_line": {
+        "timestamp": "ISO-8601",
+        "collaboration_type": "delegated_to|delegated_from|peer_review|async_message",
+        "other_agent": "agent-id",
+        "task_id": "reference",
+        "context": "Brief description of interaction",
+        "outcome": "success|failed|blocked",
+        "learnings": "What was learned from this interaction"
+      },
+      "use_cases": [
+        "Finding agents who are experts in specific areas",
+        "Understanding delegation patterns",
+        "Identifying frequent collaborators",
+        "Learning from past successful/failed collaborations"
+      ]
+    },
+
+    "6_error_memory": {
+      "description": "Failed attempts and how to avoid them",
+      "storage": "Embedded in task memory under 'learnings.what_failed'",
+      "aggregation": "patterns.json can include anti-patterns",
+      "purpose": "Prevent repeating mistakes, speed up debugging"
+    }
+  },
+
+  "search_strategy": {
+    "principle": "Multi-tier search from fast to deep",
+
+    "tier_1_quick_context": {
+      "description": "Fast context retrieval at task start (< 1 second)",
+      "steps": [
+        "1. Read memories/agents/{agent-id}/context/recent_context.jsonl (last 100 lines)",
+        "2. Grep for task-relevant tags in recent_context.jsonl",
+        "3. Read memories/agents/{agent-id}/metadata/stats.json for current state"
+      ],
+      "example": "Agent receives task 'Research PostgreSQL performance tuning' -> Grep 'postgresql\\|performance\\|database' recent_context.jsonl to find if similar work was done recently"
+    },
+
+    "tier_2_domain_search": {
+      "description": "Search domain knowledge and patterns (1-3 seconds)",
+      "steps": [
+        "1. Read memories/agents/{agent-id}/context/domain_knowledge.md",
+        "2. Grep for relevant keywords in domain_knowledge.md",
+        "3. Read memories/agents/{agent-id}/context/patterns.json",
+        "4. Filter patterns by tags matching current task"
+      ],
+      "example": "Grep 'PostgreSQL\\|database.*performance' domain_knowledge.md to find existing knowledge about database optimization"
+    },
+
+    "tier_3_deep_search": {
+      "description": "Search full task history (3-10 seconds)",
+      "steps": [
+        "1. Read memories/agents/{agent-id}/tasks/index.json",
+        "2. Filter tasks by type, tags, or status",
+        "3. Read full task records for top 3-5 relevant tasks",
+        "4. Extract relevant learnings and outputs"
+      ],
+      "example": "Search index.json for tasks with tags=['postgresql', 'performance'] and status='completed', then read those full task files"
+    },
+
+    "tier_4_cross_agent_search": {
+      "description": "Search other agents' memories (10-30 seconds)",
+      "steps": [
+        "1. Grep pattern across memories/agents/*/context/recent_context.jsonl",
+        "2. Read relevant task records from other agents",
+        "3. Check memories/knowledge/ for shared organizational knowledge"
+      ],
+      "example": "Grep 'postgresql' memories/agents/*/context/recent_context.jsonl to see if any other agent has relevant experience"
+    },
+
+    "tier_5_global_knowledge": {
+      "description": "Search shared knowledge base (5-15 seconds)",
+      "steps": [
+        "1. Grep memories/knowledge/ directory tree",
+        "2. Read ADRs (Architecture Decision Records)",
+        "3. Check memories/flows/ for relevant workflow patterns"
+      ],
+      "example": "Grep 'postgresql\\|database' memories/knowledge/**/*.md to find organizational knowledge"
+    },
+
+    "search_patterns": {
+      "by_tag": {
+        "command": "grep -h 'fastapi' memories/agents/{agent-id}/context/recent_context.jsonl | tail -10",
+        "use_case": "Find recent work related to specific technology"
+      },
+      "by_date_range": {
+        "command": "grep '2025-10-0[1-5]' memories/agents/{agent-id}/context/recent_context.jsonl",
+        "use_case": "Find work done in specific time period"
+      },
+      "by_task_type": {
+        "command": "grep '\"task_type\":\"research\"' memories/agents/{agent-id}/tasks/*.json",
+        "use_case": "Find all tasks of a specific type"
+      },
+      "by_collaborator": {
+        "command": "grep '\"other_agent\":\"coder\"' memories/agents/researcher/relationships/collaborations.jsonl",
+        "use_case": "Find all interactions with specific agent"
+      },
+      "pattern_lookup": {
+        "command": "Use Read to load patterns.json, filter in memory by tags",
+        "use_case": "Find reusable pattern for current task"
+      }
+    },
+
+    "optimization_techniques": {
+      "1_indexing": "Maintain index.json files for O(1) lookup instead of full directory scans",
+      "2_jsonl": "Use JSON Lines for grep-friendly logs without parsing full JSON files",
+      "3_rolling_windows": "Keep recent_context small (100 lines) for fast reads",
+      "4_caching": "Agents can keep domain_knowledge.md and patterns.json in context after first read",
+      "5_tag_normalization": "Use consistent lowercase tags for reliable grep searches"
+    }
+  },
+
+  "consolidation_strategy": {
+    "problem": "Memory bloat as agents execute hundreds of tasks",
+
+    "solution_1_rolling_windows": {
+      "description": "Keep recent context fresh, archive old",
+      "implementation": {
+        "recent_context.jsonl": "Keep last 100 lines, rotate older lines to archive",
+        "rotation_trigger": "After every 10 task completions or weekly",
+        "archive_location": "memories/agents/{agent-id}/archive/context-{year}-{month}.jsonl"
+      }
+    },
+
+    "solution_2_task_summarization": {
+      "description": "Compress old task details, keep summaries",
+      "implementation": {
+        "detailed_tasks": "Keep last 50 tasks in full detail",
+        "summarized_tasks": "Convert older tasks to summary format (1/10th size)",
+        "summary_format": {
+          "task_id": "...",
+          "timestamp": "...",
+          "summary": "One-line summary",
+          "key_learnings": ["Top 3 learnings"],
+          "tags": ["..."]
+        }
+      }
+    },
+
+    "solution_3_pattern_extraction": {
+      "description": "Extract reusable patterns from multiple tasks",
+      "process": [
+        "1. After every 10 completed tasks, analyze for common patterns",
+        "2. Extract successful approaches into patterns.json",
+        "3. Delete redundant detail from individual task records",
+        "4. Keep reference to pattern_id in task records"
+      ],
+      "example": "After implementing 5 CRUD endpoints, extract 'fastapi-crud-endpoint' pattern, reference it in future task records instead of repeating full implementation details"
+    },
+
+    "solution_4_knowledge_distillation": {
+      "description": "Update domain_knowledge.md based on task learnings",
+      "process": [
+        "1. Review 'learnings' from last 10 tasks",
+        "2. Update domain_knowledge.md with new best practices",
+        "3. Remove redundant 'learnings' from task records (now in domain knowledge)",
+        "4. Keep only novel/unique learnings in task records"
+      ]
+    },
+
+    "solution_5_periodic_archival": {
+      "description": "Move old memories to compressed archive",
+      "schedule": "Monthly or every 100 tasks",
+      "archive_format": {
+        "location": "memories/agents/{agent-id}/archive/",
+        "files": [
+          "tasks-{year}-{month}.json.gz - Compressed task records",
+          "context-{year}-{month}.jsonl.gz - Old context logs",
+          "collaborations-{year}-{month}.jsonl.gz - Old collaboration logs"
+        ]
+      },
+      "searchable": "Can still grep .gz files if needed, just slower"
+    },
+
+    "target_memory_sizes": {
+      "per_agent_active_memory": "< 5 MB",
+      "recent_context.jsonl": "~50 KB (100 lines x 500 bytes)",
+      "domain_knowledge.md": "~50 KB (human-readable, grows slowly)",
+      "patterns.json": "~100 KB (10-20 patterns with examples)",
+      "tasks/ (last 50)": "~2.5 MB (50 tasks x 50 KB each)",
+      "collaborations.jsonl": "~500 KB (rolling)",
+      "metadata + indices": "~100 KB",
+      "total_per_agent": "~3.3 MB for active agent",
+      "100_agents": "~330 MB total (very manageable)"
+    }
+  },
+
+  "integration_with_task_delegation": {
+    "description": "How memory system integrates with existing Task tool delegation",
+
+    "pre_task_protocol": {
+      "description": "Before executing any delegated task",
+      "steps": [
+        "1. RECEIVE task from delegator with task_id, description, context",
+        "2. SEARCH own memories (Tier 1-3 search based on task complexity):",
+        "   - Grep recent_context.jsonl for related work",
+        "   - Check patterns.json for applicable patterns",
+        "   - Read domain_knowledge.md for relevant expertise",
+        "3. SEARCH shared knowledge:",
+        "   - Check memories/knowledge/ for relevant ADRs",
+        "   - Check memories/system/goals.md for alignment",
+        "4. BUILD context: Combine task description + own memories + shared knowledge",
+        "5. EXECUTE task with full context",
+        "6. LOG execution (see post-task protocol)"
+      ],
+      "time_budget": "Spend 10-20% of expected task time on memory search",
+      "example": "Task: 'Implement user authentication endpoint' (30 min task) -> Spend 3-5 min searching for auth patterns, JWT implementations, past API work"
+    },
+
+    "post_task_protocol": {
+      "description": "After completing any task",
+      "steps": [
+        "1. CREATE full task record in memories/agents/{agent-id}/tasks/{task-id}.json",
+        "2. APPEND to recent_context.jsonl with summary line",
+        "3. UPDATE performance_log.json with metrics",
+        "4. UPDATE stats.json with new counts",
+        "5. EXTRACT learnings:",
+        "   - If novel pattern found, add to patterns.json",
+        "   - If domain knowledge expanded, update domain_knowledge.md",
+        "6. LOG collaboration in collaborations.jsonl if task was delegated",
+        "7. CHECK consolidation triggers:",
+        "   - If task count > 50, trigger summarization",
+        "   - If recent_context > 100 lines, rotate to archive"
+      ],
+      "time_budget": "1-2 minutes for memory logging",
+      "automation": "Use Write tool for new files, Edit tool for updates, append operations for JSONL"
+    },
+
+    "delegation_context_passing": {
+      "description": "How context flows between agents during delegation",
+      "when_delegating_to_other_agent": {
+        "include": [
+          "Task description and expected output",
+          "Relevant context from own memories",
+          "References to shared knowledge (ADR paths, etc.)",
+          "Success criteria",
+          "Related task IDs for additional context"
+        ],
+        "example": "Primary AI delegates to Coder: 'Implement auth endpoint (see ADR-001 section 3.2 for API spec), Researcher found FastAPI-JWT library (task research-042), use pattern fastapi-crud-endpoint from your patterns'"
+      },
+      "when_receiving_delegation": {
+        "extract": [
+          "Core task requirements",
+          "Referenced ADRs/documents -> Read them",
+          "Referenced task IDs -> Look up in own or others' memories",
+          "Patterns mentioned -> Load from patterns.json"
+        ],
+        "augment": "Combine delegator's context with own memory search results"
+      }
+    },
+
+    "memory_aware_delegation": {
+      "description": "Primary AI uses agent memories to make smarter delegation decisions",
+      "delegation_selection_algorithm": [
+        "1. Identify task type (research, design, implementation, etc.)",
+        "2. For each candidate agent:",
+        "   - Read memories/agents/{agent-id}/metadata/stats.json",
+        "   - Check specialization and success rate for this task type",
+        "   - Grep recent_context.jsonl for relevant recent work",
+        "3. Select agent with:",
+        "   - Matching specialization (from agent_registry.json)",
+        "   - High success rate on this task type",
+        "   - Recent relevant experience (bonus)",
+        "4. Pass relevant context from selected agent's memories in delegation"
+      ]
+    }
+  },
+
+  "example_workflow": [
+    {
+      "step": 1,
+      "scenario": "Primary AI delegates research task to Researcher agent",
+      "action": "DELEGATION",
+      "details": {
+        "task": "Research PostgreSQL connection pooling best practices 2025",
+        "task_id": "research-043",
+        "delegated_by": "primary-ai",
+        "context_passed": "Need for implementing Task Management API (ADR-001), Coder will use this for database connection configuration"
+      }
+    },
+    {
+      "step": 2,
+      "scenario": "Researcher receives task and searches memories",
+      "action": "TIER 1-2 MEMORY SEARCH (10 seconds)",
+      "details": {
+        "searches": [
+          "grep 'postgresql\\|database\\|connection.*pool' memories/agents/researcher/context/recent_context.jsonl",
+          "Read memories/agents/researcher/context/domain_knowledge.md (section: Database Research)",
+          "Check memories/knowledge/ for existing database ADRs"
+        ],
+        "findings": [
+          "No recent PostgreSQL work (last DB research was MySQL 2 months ago)",
+          "Domain knowledge has section on 'Finding authoritative sources for databases' -> Check official PostgreSQL docs first",
+          "ADR-001 already specifies PostgreSQL as database -> Good alignment"
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "scenario": "Researcher executes task with context",
+      "action": "RESEARCH EXECUTION (20 minutes)",
+      "details": {
+        "approach": "Using domain knowledge 'best practices for database research', Researcher: 1) Checks official PostgreSQL docs, 2) Searches for 2024-2025 benchmarks, 3) Cross-references 3+ sources, 4) Verifies with production case studies",
+        "tools_used": ["WebSearch", "WebFetch", "Read"]
+      }
+    },
+    {
+      "step": 4,
+      "scenario": "Researcher completes task and logs to memory",
+      "action": "POST-TASK MEMORY LOGGING (2 minutes)",
+      "details": {
+        "created_files": [
+          "memories/agents/researcher/tasks/research-043.json - Full task record",
+          "memories/knowledge/postgresql_connection_pooling_2025.md - Shared knowledge artifact"
+        ],
+        "appended_to": [
+          "memories/agents/researcher/context/recent_context.jsonl - Summary line"
+        ],
+        "updated_files": [
+          "memories/agents/researcher/performance_log.json - Task metrics",
+          "memories/agents/researcher/metadata/stats.json - Counters",
+          "memories/agents/researcher/context/domain_knowledge.md - Added 'PostgreSQL Connection Pooling' subsection"
+        ],
+        "task_record_excerpt": {
+          "task_id": "research-043",
+          "timestamp": "2025-10-02T14:30:00Z",
+          "delegated_by": "primary-ai",
+          "task_type": "research",
+          "status": "completed",
+          "execution": {
+            "duration_seconds": 1200,
+            "tools_used": ["WebSearch", "WebFetch", "Read"],
+            "search_queries": ["PostgreSQL connection pooling 2025", "asyncpg pool best practices", "PostgreSQL pool size calculation"]
+          },
+          "outputs": {
+            "deliverables": ["memories/knowledge/postgresql_connection_pooling_2025.md"],
+            "key_findings": [
+              "Recommended pool size: (2 * CPU_cores) + effective_spindle_count",
+              "asyncpg is fastest Python PostgreSQL driver (2.5x faster than psycopg2)",
+              "Pool size 10-20 optimal for web APIs with FastAPI",
+              "Connection timeout should be 30s minimum",
+              "Implement pool health checks every 60s"
+            ]
+          },
+          "learnings": {
+            "what_worked": ["Official PostgreSQL wiki had authoritative pool sizing formula", "asyncpg docs had excellent benchmarks"],
+            "reusable_patterns": ["Always check official docs first for databases", "Cross-reference with popular framework integrations (FastAPI + asyncpg)"]
+          },
+          "context_for_future": "PostgreSQL connection pooling research for Task API - found asyncpg is optimal for FastAPI with 10-20 pool size",
+          "tags": ["postgresql", "database", "connection-pooling", "asyncpg", "performance", "research"]
+        },
+        "recent_context_line": "{\"timestamp\":\"2025-10-02T14:30:00Z\",\"task_id\":\"research-043\",\"context\":\"PostgreSQL connection pooling research for Task API - asyncpg optimal with 10-20 pool size\",\"tags\":[\"postgresql\",\"database\",\"connection-pooling\",\"asyncpg\"],\"key_findings\":[\"asyncpg 2.5x faster than psycopg2\",\"Pool size: 10-20 for web APIs\"]}"
+      }
+    },
+    {
+      "step": 5,
+      "scenario": "Later: Coder needs to implement database connection",
+      "action": "CODER SEARCHES KNOWLEDGE + RESEARCHER MEMORIES",
+      "details": {
+        "searches": [
+          "grep 'postgresql.*pool' memories/agents/*/context/recent_context.jsonl -> Finds researcher's recent work",
+          "Read memories/knowledge/postgresql_connection_pooling_2025.md -> Gets full research",
+          "Read memories/agents/researcher/tasks/research-043.json -> Gets additional context"
+        ],
+        "outcome": "Coder has complete context without redoing research, implements optimal pool configuration in 15 minutes instead of 60+"
+      }
+    },
+    {
+      "step": 6,
+      "scenario": "Month later: New task about database optimization",
+      "action": "RESEARCHER TIER-1 SEARCH FINDS RELEVANT PAST WORK",
+      "details": {
+        "search": "grep 'postgresql\\|database.*optim' memories/agents/researcher/context/recent_context.jsonl",
+        "result": "Finds research-043 reference, reads that task record, applies same research methodology",
+        "time_saved": "15 minutes (doesn't need to re-learn how to research databases)"
+      }
+    }
+  ],
+
+  "scaling_analysis": {
+    "100_agents_scenario": {
+      "total_active_memory": "~330 MB (3.3 MB per agent)",
+      "search_performance": {
+        "tier_1_own_memory": "< 1 second (grep 50KB file)",
+        "tier_2_domain_knowledge": "< 3 seconds (read + grep 150KB)",
+        "tier_3_task_history": "< 10 seconds (index lookup + read 3-5 tasks)",
+        "tier_4_cross_agent": "< 30 seconds (grep 100 files of 50KB each = 5MB total)",
+        "tier_5_global": "< 15 seconds (grep knowledge base)"
+      },
+      "write_performance": {
+        "post_task_logging": "< 2 seconds (1 write, 3 appends, 2 edits)",
+        "consolidation": "< 60 seconds (monthly, off-peak)"
+      },
+      "concurrent_access": "No locking needed - each agent has own directory, reads are always safe, writes are to own files only"
+    },
+
+    "storage_growth_projection": {
+      "assumptions": {
+        "agents": 100,
+        "tasks_per_agent_per_week": 10,
+        "task_record_size": "50 KB average",
+        "consolidation": "Monthly archival and summarization"
+      },
+      "growth_rate": {
+        "week_1": "100 agents * 10 tasks * 50KB = 50 MB new task data",
+        "month_1": "~200 MB raw, ~50 MB after consolidation",
+        "year_1": "~600 MB total with aggressive consolidation",
+        "conclusion": "Easily manageable, can run on single SSD indefinitely"
+      }
+    }
+  },
+
+  "pros": [
+    "✓ Uses only Claude SDK tools (Read, Write, Edit, Grep, Glob) - no external dependencies",
+    "✓ Fast searches with grep/glob - sub-second for common queries",
+    "✓ Scales to 100+ agents with predictable performance (~330 MB for 100 agents)",
+    "✓ JSONL format is append-friendly and grep-optimized",
+    "✓ Hierarchical search (fast → deep) optimizes for common case",
+    "✓ Rolling windows prevent unbounded growth",
+    "✓ Pattern extraction creates reusable knowledge",
+    "✓ Cross-agent search enables knowledge sharing",
+    "✓ Integrates seamlessly with existing Task delegation",
+    "✓ Human-readable formats (Markdown, JSON) for transparency",
+    "✓ Consolidation strategy prevents bloat",
+    "✓ No database required - just filesystem",
+    "✓ Version control friendly (text-based formats)",
+    "✓ Works with existing memory structure (extends, doesn't replace)",
+    "✓ Agent autonomy - each agent manages own memories",
+    "✓ Low overhead - ~10-20% time on memory operations",
+    "✓ Debuggable - can grep/read memories manually",
+    "✓ Preserves context across sessions (persistent)",
+    "✓ Enables learning and improvement over time"
+  ],
+
+  "cons": [
+    "✗ Requires discipline to maintain (agents must follow post-task protocol)",
+    "✗ Manual consolidation triggers (could be automated with cron jobs, but requires setup)",
+    "✗ Grep searches are linear time O(n) - not indexed database queries",
+    "✗ No semantic search (only keyword/regex matching) - can't find 'similar' concepts",
+    "✗ JSON/JSONL parsing overhead for large files",
+    "✗ File I/O can be slow on network filesystems (requires local SSD)",
+    "✗ No built-in conflict resolution (if agents somehow write to same file simultaneously)",
+    "✗ Memory consolidation requires agent to review own memories (meta-task)",
+    "✗ Tag consistency depends on agent discipline (typos break grep)",
+    "✗ Cross-agent search gets slower as agent count grows (linear in agent count)",
+    "✗ No automatic memory pruning - requires conscious consolidation",
+    "✗ Large grep operations can spike CPU briefly",
+    "✗ No built-in versioning of memory files (depends on git)"
+  ],
+
+  "implementation_phases": {
+    "phase_1_bootstrap": {
+      "description": "Set up memory structure for existing agents",
+      "tasks": [
+        "Create directory structure for each agent in agent_registry.json",
+        "Initialize empty files (recent_context.jsonl, patterns.json, etc.)",
+        "Migrate existing performance_log.json to new structure",
+        "Create memory protocol documentation in memories/system/memory_protocol.md"
+      ],
+      "estimated_effort": "2 hours (automated script + validation)"
+    },
+    "phase_2_integration": {
+      "description": "Update agent manifests to include memory protocol",
+      "tasks": [
+        "Add pre-task search protocol to all agent manifests",
+        "Add post-task logging protocol to all agent manifests",
+        "Create example task records to serve as templates",
+        "Test with 1-2 agents on real tasks"
+      ],
+      "estimated_effort": "3 hours (documentation + testing)"
+    },
+    "phase_3_tooling": {
+      "description": "Create helper scripts for common operations",
+      "tasks": [
+        "Create consolidation script (summarize old tasks, rotate logs)",
+        "Create search helper (common grep patterns)",
+        "Create memory stats dashboard (what's using space)",
+        "Create pattern extraction assistant"
+      ],
+      "estimated_effort": "4 hours (optional but valuable)"
+    },
+    "phase_4_adoption": {
+      "description": "Rollout to all agents with monitoring",
+      "tasks": [
+        "Deploy to all agents",
+        "Monitor memory growth and search performance",
+        "Collect feedback on usefulness",
+        "Iterate on consolidation triggers and search patterns"
+      ],
+      "estimated_effort": "Ongoing, 1 week intensive monitoring"
+    }
+  },
+
+  "alternatives_considered": {
+    "alternative_1_vector_database": {
+      "description": "Use vector embeddings + semantic search (Pinecone, Weaviate, ChromaDB)",
+      "pros": ["Semantic similarity search", "Fast for large datasets", "Finds related concepts"],
+      "cons": ["External dependency", "Requires embeddings API calls ($$$)", "Black box (hard to debug)", "Not available in Claude SDK tools", "Overkill for 100 agents"],
+      "verdict": "REJECTED - Too complex, not available in SDK tools"
+    },
+    "alternative_2_sqlite": {
+      "description": "Use SQLite database for structured queries",
+      "pros": ["Fast indexed queries", "Structured schema", "SQL query power"],
+      "cons": ["Requires Bash + sqlite3 command", "Not as grep-friendly", "Schema migrations needed", "Binary format (not version control friendly)"],
+      "verdict": "CONSIDERED but REJECTED - JSONL + grep is simpler and sufficient"
+    },
+    "alternative_3_flat_files": {
+      "description": "Just dump everything to markdown/text files, no structure",
+      "pros": ["Ultimate simplicity", "Human readable"],
+      "cons": ["No efficient search", "No structure means no automated extraction", "Doesn't scale"],
+      "verdict": "REJECTED - Too simplistic, doesn't scale"
+    },
+    "alternative_4_knowledge_graph": {
+      "description": "Build graph of entities and relationships",
+      "pros": ["Rich relationship queries", "Powerful for complex questions"],
+      "cons": ["Huge implementation complexity", "Requires graph database or complex JSON", "Overkill for current needs"],
+      "verdict": "REJECTED - Too complex for v1, could revisit at 500+ agents"
+    }
+  },
+
+  "success_metrics": {
+    "adoption_metrics": {
+      "target_1": "100% of agents have memory directories created",
+      "target_2": "90% of agents write task records after task completion",
+      "target_3": "80% of agents search memories before starting tasks",
+      "measurement": "Audit memory directories weekly, check for recent_context updates"
+    },
+    "performance_metrics": {
+      "target_1": "Tier-1 search completes in < 1 second (95th percentile)",
+      "target_2": "Cross-agent search completes in < 30 seconds (95th percentile)",
+      "target_3": "Post-task logging takes < 2 minutes",
+      "measurement": "Agents log search time in task records"
+    },
+    "value_metrics": {
+      "target_1": "Agents report reusing patterns in 30%+ of tasks",
+      "target_2": "Time saved by memory search vs. redoing research: 20%+ per task",
+      "target_3": "Reduction in duplicate work across agents: 40%+",
+      "measurement": "Agents note in task records when memory search provided value"
+    },
+    "storage_metrics": {
+      "target_1": "Average agent active memory stays < 5 MB",
+      "target_2": "Total 100-agent memory stays < 500 MB",
+      "target_3": "Consolidation keeps growth rate < 50 MB/month",
+      "measurement": "Weekly disk usage analysis"
+    }
+  },
+
+  "future_enhancements": {
+    "v2_features": [
+      "Automatic pattern extraction using LLM analysis of task clusters",
+      "Memory similarity scoring to recommend related past work",
+      "Cross-agent expertise mapping (who knows what)",
+      "Automatic tag suggestion based on task content",
+      "Memory visualization dashboard (web UI)",
+      "Semantic search layer (if vector DB becomes available)",
+      "Memory sharing protocol (agent A subscribes to agent B's learnings)",
+      "Federated search across multiple civilizations",
+      "Memory compression using LLM summarization",
+      "Anomaly detection (unusual task patterns)"
+    ]
+  },
+
+  "conclusion": "The Hierarchical Context-Aware Memory System (HCAMS) provides a practical, scalable solution for agent memory using only Claude SDK tools. It balances simplicity with power, enabling agents to build contextual understanding over time while maintaining fast search performance. The tiered search strategy optimizes for common cases (recent work) while still supporting deep historical searches. The consolidation strategy prevents unbounded growth. Integration with Task delegation is seamless. This system will enable the AI civilization to learn and improve continuously.",
+
+  "recommendation": "IMPLEMENT Phase 1-2 immediately for 10 existing agents, monitor for 1 week, then roll out Phase 3-4 based on learnings."
+}

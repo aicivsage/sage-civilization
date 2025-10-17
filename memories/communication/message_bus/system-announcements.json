@@ -1,0 +1,12 @@
+{
+  "channel": "system-announcements",
+  "created": "2025-10-01T00:00:00Z",
+  "messages": [
+    {
+      "timestamp": "2025-10-01T00:00:00Z",
+      "sender": "system",
+      "message": "AI Agent Civilization message bus initialized",
+      "priority": "info"
+    }
+  ]
+}

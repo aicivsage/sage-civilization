@@ -1,0 +1,255 @@
+{
+  "timestamp": "2025-10-13T13:08:48.803287",
+  "url": "http://localhost:3000",
+  "tests_run": 10,
+  "issues_found": [
+    {
+      "id": 1,
+      "severity": "high",
+      "category": "Missing Element",
+      "description": "Critical element 'trading_panel' not found",
+      "screenshot": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/ux-review-screenshots/initial/001_130851_initial_load.png"
+    },
+    {
+      "id": 2,
+      "severity": "medium",
+      "category": "Feedback",
+      "description": "No visible modal after wallet button click",
+      "screenshot": null
+    },
+    {
+      "id": 3,
+      "severity": "low",
+      "category": "Chart UX",
+      "description": "No tooltip on chart hover",
+      "screenshot": null
+    },
+    {
+      "id": 4,
+      "severity": "low",
+      "category": "Feedback",
+      "description": "No loading indicators found in page",
+      "screenshot": null
+    }
+  ],
+  "console_errors": [],
+  "visual_hierarchy": {
+    "body_styles": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+      "fontSize": "16px"
+    },
+    "color_samples": [
+      {
+        "text": "BNB Launchpad - Enhanced UX",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "You need to enable JavaScript ",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B\nBNB Launchpad\n\nEnhanced UX F",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(43, 43, 67)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B\nBNB Launchpad\n\nEnhanced UX F",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B\nBNB Launchpad\n\nEnhanced UX F",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B\nBNB Launchpad\n\nEnhanced UX F",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "B",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "20px"
+      },
+      {
+        "text": "BNB Launchpad\n\nEnhanced UX For",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "BNB Launchpad",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "20px"
+      },
+      {
+        "text": "Enhanced UX Fork",
+        "color": "rgb(156, 163, 175)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "12px"
+      },
+      {
+        "text": "Live\nConnect Wallet",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Live",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(26, 27, 30)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Live",
+        "color": "rgb(156, 163, 175)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "12px"
+      },
+      {
+        "text": "Connect Wallet",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Connect Wallet",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Select Token\nNew\nNo tokens fou",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Select Token\nNew\nNo tokens fou",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(43, 43, 67)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Select Token\nNew",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Select Token",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "18px"
+      }
+    ],
+    "accessibility": {
+      "hasAltTexts": true,
+      "hasAriaLabels": 0,
+      "hasRoles": 0,
+      "hasFocusableElements": 18
+    },
+    "elements": {
+      "largeText": [
+        {
+          "tag": "H1",
+          "text": "BNB Launchpad",
+          "fontSize": "20px",
+          "color": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "H3",
+          "text": "Select Token",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "H3",
+          "text": "Price Chart",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "H3",
+          "text": "Recent Trades",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)"
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Connect Wallet",
+          "size": "170x40",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Load Tokens",
+          "size": "121x40",
+          "background": "rgb(102, 126, 234)"
+        },
+        {
+          "text": "Create New Token",
+          "size": "400x48",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Buy",
+          "size": "172x48",
+          "background": "rgb(59, 59, 83)"
+        },
+        {
+          "text": "Sell",
+          "size": "172x48",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Connect Wallet",
+          "size": "352x60",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "hiddenElements": [
+        "\n    \n    \n    \n    \n    \n    ",
+        "BNB Launchpad - Enhanced UX",
+        "*, ::before, ::after {\n  --tw-",
+        " @keyframes go2264125279{from{",
+        "a#tv-attr-logo{--fill:#131722;"
+      ],
+      "colorfulElements": []
+    }
+  },
+  "interaction_tests": [],
+  "responsiveness": {
+    "desktop": {
+      "header": true,
+      "main": true
+    },
+    "tablet": {
+      "header": true,
+      "main": true
+    },
+    "mobile": {
+      "header": true,
+      "main": true
+    }
+  }
+}

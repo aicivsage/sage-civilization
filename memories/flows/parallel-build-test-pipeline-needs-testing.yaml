@@ -1,0 +1,543 @@
+flow_id: parallel-build-test-pipeline
+name: Parallel Build & Test Pipeline
+version: 1.0
+description: When changes affect multiple components, automatically identify dependencies and run parallel builds/tests across components. Aggregate results and provide unified quality report.
+category: development
+
+metadata:
+  estimated_duration: 10-30 minutes depending on scope
+  complexity: medium
+  participating_agents: 3-8 (scales with components)
+  created_by: builder
+  created_date: 2025-10-02
+  tags: [ci-cd, parallel, testing, builds, automation, performance]
+
+prerequisites:
+  - condition: Codebase has modular component structure
+  - resources: Build tools, test frameworks, sufficient compute resources
+  - permissions: Execute builds and tests, create build artifacts
+
+steps:
+  - step_id: 1
+    name: Analyze Change Scope and Identify Affected Components
+    description: Examine code changes (git diff) to determine which components are directly modified or potentially affected. Use dependency analysis to identify ripple effects.
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, architect]
+        responsibility: Analyze change impact
+      - role: dependency-analyst
+        agents: [researcher]
+        responsibility: Map component dependencies
+
+    inputs:
+      - name: code_changes
+        type: data
+        source: git-diff
+        required: true
+      - name: component_map
+        type: file
+        source: architecture-docs
+        required: true
+      - name: dependency_graph
+        type: file
+        source: dependency-analysis
+        required: true
+
+    outputs:
+      - name: affected_components
+        type: file
+        destination: build/affected-components-{timestamp}.json
+        format: json
+      - name: impact_analysis
+        type: file
+        destination: build/impact-analysis-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Get list of changed files
+        command: git diff --name-only HEAD~1
+        validation: Changed files identified
+      - description: Map files to components/modules
+        validation: Component ownership determined
+      - description: Load component dependency graph
+        validation: Dependencies known
+      - description: Identify directly affected components
+        validation: Direct impacts cataloged
+      - description: Identify indirectly affected components (downstream dependencies)
+        validation: Transitive impacts identified
+      - description: Categorize by impact level (critical, major, minor)
+        validation: Impact severity assigned
+      - description: Create comprehensive affected components list
+        validation: Complete inventory created
+
+    success_criteria:
+      - All affected components identified
+      - Dependency analysis is accurate
+      - Impact levels are reasonable
+      - No components missed
+
+    failure_handling:
+      - condition: Dependency graph unavailable
+        action: Conservatively assume all components affected
+        max_retries: 0
+      - condition: Unable to map files to components
+        action: Run full system build/test
+        max_retries: 0
+
+    estimated_duration: 2 minutes
+
+  - step_id: 2
+    name: Build Dependency Graph and Identify Parallelizable Work
+    description: Create directed acyclic graph (DAG) of build dependencies. Identify which components can be built in parallel vs must be sequential. Optimize for maximum parallelism.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, architect]
+        responsibility: Create optimal build plan
+      - role: optimizer
+        agents: [researcher]
+        responsibility: Maximize parallelization
+
+    inputs:
+      - name: affected_components
+        type: file
+        source: step-1
+        required: true
+      - name: dependency_graph
+        type: file
+        source: dependency-analysis
+        required: true
+
+    outputs:
+      - name: build_dag
+        type: file
+        destination: build/build-dag-{timestamp}.json
+        format: json
+      - name: execution_plan
+        type: file
+        destination: build/execution-plan-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Extract subgraph of affected components
+        validation: Subgraph represents only needed builds
+      - description: Topologically sort components by dependencies
+        validation: Build order respects dependencies
+      - description: Identify components with no dependencies (can start immediately)
+        validation: Initial parallel batch identified
+      - description: Group components by dependency level
+        validation: Parallel execution waves defined
+      - description: Estimate execution time per component
+        validation: Time estimates assigned
+      - description: Optimize for shortest total execution time
+        validation: Critical path minimized
+      - description: Allocate components to execution waves
+        validation: Parallel execution plan created
+
+    success_criteria:
+      - Dependency order is correct
+      - Maximum parallelization achieved
+      - No circular dependencies
+      - Execution plan is optimal
+
+    failure_handling:
+      - condition: Circular dependency detected
+        action: Break cycle or escalate for resolution
+        max_retries: 1
+      - condition: Too many parallel tasks for resources
+        action: Batch into smaller waves
+        max_retries: 0
+
+    estimated_duration: 1 minute
+
+  - step_id: 3
+    name: Spawn Multiple Builder/Tester Agents for Parallel Execution
+    description: Create dedicated agent instances for each component build/test. Distribute work across agents for parallel execution. Each agent builds and tests its assigned component(s).
+    depends_on: [2]
+    agent_roles:
+      - role: coordinator
+        agents: [builder, orchestrator]
+        responsibility: Spawn and coordinate worker agents
+      - role: workers
+        agents: [builder-1, builder-2, ..., builder-N]
+        responsibility: Execute assigned build/test tasks
+
+    inputs:
+      - name: execution_plan
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: worker_assignments
+        type: file
+        destination: build/worker-assignments-{timestamp}.json
+        format: json
+
+    actions:
+      - description: Determine number of workers needed
+        validation: Worker count matches parallelism opportunities
+      - description: Spawn builder/tester agent instances
+        validation: Workers created successfully
+      - description: Assign components to workers
+        validation: Work distributed evenly
+      - description: Provide each worker with build/test instructions
+        validation: Workers have clear tasks
+      - description: Establish message bus channels for coordination
+        validation: Workers can communicate
+      - description: Initiate parallel execution in waves
+        validation: First wave starts immediately
+
+    success_criteria:
+      - Correct number of workers spawned
+      - Work distributed efficiently
+      - All workers have valid assignments
+      - Communication channels established
+
+    failure_handling:
+      - condition: Worker spawn failure
+        action: Retry spawn or reduce parallelism
+        max_retries: 2
+      - condition: Insufficient resources
+        action: Reduce parallelism, queue work
+        max_retries: 0
+
+    estimated_duration: 30 seconds
+
+  - step_id: 4
+    name: Execute Parallel Builds and Tests
+    description: Workers execute builds and tests in parallel according to dependency plan. Each worker builds its component, runs tests, and reports status. Coordination ensures dependencies are respected.
+    depends_on: [3]
+    parallel_with: []
+    agent_roles:
+      - role: workers
+        agents: [builder-1, builder-2, ..., builder-N]
+        responsibility: Build and test assigned components
+      - role: monitor
+        agents: [orchestrator]
+        responsibility: Track progress and handle failures
+
+    inputs:
+      - name: worker_assignments
+        type: file
+        source: step-3
+        required: true
+      - name: build_dag
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: build_logs
+        type: file
+        destination: build/logs/{component}-build.log
+        format: text
+      - name: test_results
+        type: file
+        destination: build/test-results/{component}-tests.xml
+        format: junit-xml
+      - name: build_artifacts
+        type: file
+        destination: build/artifacts/{component}/
+        format: binary
+
+    actions:
+      - description: Workers build assigned components
+        command: (varies by component, e.g., python -m build)
+        validation: Build succeeds
+      - description: Workers run component test suites
+        command: (varies, e.g., pytest tests/{component}/)
+        validation: Tests pass
+      - description: Workers publish completion events to message bus
+        validation: Status updates sent
+      - description: Coordinator unlocks dependent tasks when prerequisites complete
+        validation: Next wave starts when dependencies ready
+      - description: Workers upload build artifacts
+        validation: Artifacts stored
+      - description: Workers report results (success/failure)
+        validation: All results collected
+      - description: Handle failures without blocking independent work
+        validation: Failures don't cascade unnecessarily
+
+    success_criteria:
+      - All builds complete (success or documented failure)
+      - All tests run
+      - Results captured for every component
+      - Artifacts generated for successful builds
+      - Parallelism actually achieved (faster than sequential)
+
+    failure_handling:
+      - condition: Component build fails
+        action: Mark as failed, continue other builds, don't build dependents
+        max_retries: 1
+      - condition: Tests fail
+        action: Mark as failed but still produce artifact if build succeeded
+        max_retries: 0
+      - condition: Worker crashes
+        action: Reassign work to new worker
+        max_retries: 2
+
+    estimated_duration: 5-20 minutes (depends on components)
+
+  - step_id: 5
+    name: Aggregate Build and Test Results via Message Bus
+    description: Collect all worker results from message bus. Aggregate into unified view of build/test outcomes. Track successes, failures, and performance metrics.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, quality-guardian]
+        responsibility: Aggregate and analyze results
+      - role: reporter
+        agents: [researcher]
+        responsibility: Format results clearly
+
+    inputs:
+      - name: build_logs
+        type: file
+        source: step-4
+        required: true
+      - name: test_results
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: aggregated_results
+        type: file
+        destination: build/aggregated-results-{timestamp}.json
+        format: json
+      - name: summary_report
+        type: file
+        destination: build/build-summary-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Subscribe to build/test result topics
+        validation: All worker messages received
+      - description: Parse individual test results (JUnit XML, etc.)
+        validation: Test counts accurate
+      - description: Aggregate test statistics (passed/failed/skipped)
+        validation: Summary statistics correct
+      - description: Compile list of failures with error messages
+        validation: Failure details captured
+      - description: Calculate total execution time and parallelization efficiency
+        validation: Performance metrics computed
+      - description: Identify critical path and bottlenecks
+        validation: Slowest components identified
+      - description: Create unified results JSON
+        validation: All data aggregated
+      - description: Generate human-readable summary report
+        validation: Report is clear and actionable
+
+    success_criteria:
+      - All worker results collected
+      - Aggregation is accurate
+      - Failures are detailed
+      - Performance metrics calculated
+      - Reports are comprehensive
+
+    failure_handling:
+      - condition: Missing results from worker
+        action: Mark as timeout/unknown, include in report
+        max_retries: 0
+
+    estimated_duration: 1 minute
+
+  - step_id: 6
+    name: Report Unified Status with Component-Level Details
+    description: Present build/test results in clear format with overall status (pass/fail) and component-level breakdowns. Provide actionable information for fixing failures.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator]
+        responsibility: Generate and publish final report
+      - role: notifier
+        agents: [citizen-advocate]
+        responsibility: Alert stakeholders of failures
+
+    inputs:
+      - name: aggregated_results
+        type: file
+        source: step-5
+        required: true
+      - name: summary_report
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: final_report
+        type: file
+        destination: build/final-report-{timestamp}.html
+        format: html
+      - name: status_badge
+        type: data
+        destination: ci-status
+        format: badge
+
+    actions:
+      - description: Determine overall build status (all-pass, partial-fail, all-fail)
+        validation: Status accurately reflects results
+      - description: Create component-level status breakdown
+        validation: Each component's status clear
+      - description: Format failure details with logs and error messages
+        validation: Failures are debuggable
+      - description: Include performance metrics and trends
+        validation: Speed/efficiency visible
+      - description: Generate visualizations (charts, graphs)
+        validation: Visual representation aids understanding
+      - description: Publish report to CI dashboard
+        validation: Report accessible to team
+      - description: Send notifications for failures
+        validation: Responsible parties notified
+      - description: Update build status badge
+        validation: Badge reflects current status
+
+    success_criteria:
+      - Overall status is clear
+      - Component details are comprehensive
+      - Failure information is actionable
+      - Report is published and accessible
+      - Notifications sent appropriately
+
+    failure_handling:
+      - condition: Report generation fails
+        action: Send raw results as fallback
+        max_retries: 1
+
+    estimated_duration: 1 minute
+
+  - step_id: 7
+    name: Block Deployment if Any Component Fails
+    description: Enforce quality gate - if any component build or test fails, block deployment and prevent merge. Require all issues resolved before proceeding.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, governance-council]
+        responsibility: Enforce quality standards
+      - role: gatekeeper
+        agents: [deployment-manager]
+        responsibility: Control deployment pipeline
+
+    inputs:
+      - name: aggregated_results
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: deployment_decision
+        type: data
+        destination: deployment-gate
+        format: gate-status
+      - name: gate_report
+        type: file
+        destination: build/gate-decision-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Check if all component builds succeeded
+        validation: Build success status clear
+      - description: Check if all component tests passed
+        validation: Test success status clear
+      - description: Apply quality gate rules
+        validation: Rules enforced consistently
+      - description: If any failures, block deployment
+        validation: Gate closed on failures
+      - description: Document gate decision and rationale
+        validation: Decision reasoning clear
+      - description: Update PR status if applicable
+        validation: GitHub checks updated
+      - description: Provide clear instructions for unblocking
+        validation: Fix guidance available
+
+    success_criteria:
+      - Quality gate accurately reflects build/test status
+      - Failures block deployment as expected
+      - Success allows deployment to proceed
+      - Gate decision is documented
+
+    failure_handling:
+      - condition: Gate logic error
+        action: Fail safe by blocking deployment
+        max_retries: 0
+
+    estimated_duration: 30 seconds
+
+decision_points:
+  - after_step: 1
+    decision: Are any components affected?
+    criteria:
+      - Code changes map to at least one component
+      - Change scope is determinable
+    outcomes:
+      proceed: Build affected components in parallel
+      skip: No builds needed, mark as success
+      full-build: Cannot determine scope, build everything
+
+  - after_step: 4
+    decision: Did all parallel builds and tests succeed?
+    criteria:
+      - All component builds successful
+      - All component tests passed
+      - No critical errors
+    outcomes:
+      proceed: Aggregate results and allow deployment
+      partial-fail: Some components failed, block deployment
+      all-fail: All components failed, investigate systemic issue
+
+rollback_procedure:
+  - step: Not applicable - pipeline is read-only analysis
+  - step: Failed builds don't deploy, so no rollback needed
+  - verification: No changes to production systems
+
+success_metrics:
+  - metric: Parallelization speedup
+    target: >3x faster than sequential builds
+    measurement: Parallel time / sequential time (estimated)
+  - metric: Resource utilization
+    target: >70% of available CPU during builds
+    measurement: CPU usage monitoring
+  - metric: Pipeline success rate
+    target: >85% of builds pass all tests
+    measurement: Successful builds / total builds
+  - metric: Time to feedback
+    target: <15 minutes for typical changes
+    measurement: Commit to report delivery time
+
+deliverables:
+  - artifact: Impact analysis
+    location: build/impact-analysis-{timestamp}.md
+    format: Markdown
+    validation: Accurately identifies affected components
+  - artifact: Build execution plan
+    location: build/execution-plan-{timestamp}.md
+    format: Markdown
+    validation: Optimal parallelization strategy
+  - artifact: Build artifacts
+    location: build/artifacts/{component}/
+    format: Component-specific formats
+    validation: Artifacts produced for successful builds
+  - artifact: Test results
+    location: build/test-results/
+    format: JUnit XML
+    validation: Complete test coverage results
+  - artifact: Aggregated build report
+    location: build/final-report-{timestamp}.html
+    format: HTML
+    validation: Comprehensive and actionable report
+
+post_completion:
+  - Update CI/CD dashboard with latest results
+  - Archive build logs and artifacts
+  - Publish performance metrics
+  - Update component health tracking
+  - Notify stakeholders of status
+  - Clean up temporary worker instances
+  - Store results for trend analysis
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - Parallel build and test pipeline flow

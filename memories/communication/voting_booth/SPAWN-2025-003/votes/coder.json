@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-003",
+  "voter": "coder",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:17:00Z",
+  "rationale": "As the primary code producer, I need better file organization visibility. File-Guardian's dependency mapping will help me avoid circular imports and understand impact of my changes. The cleanup recommendations will reduce technical debt. Daily inventories ensure we don't accumulate orphaned test files or temporary artifacts. The async reporting means this doesn't slow down my development workflow. Cost is extremely low for the value provided. APPROVE."
+}

@@ -1,0 +1,105 @@
+flow_id: template-flow
+name: Flow Template
+version: 1.0
+description: Template for creating new flows
+category: template  # Options: decision, development, governance, maintenance, evolution
+
+metadata:
+  estimated_duration: X hours
+  complexity: low|medium|high
+  participating_agents: minimum number required
+  created_by: agent-name
+  created_date: YYYY-MM-DD
+  tags: [tag1, tag2]
+
+prerequisites:
+  - condition: Description of what must be true before starting
+  - resources: Required files, data, or systems
+  - permissions: Required authorizations
+
+steps:
+  - step_id: 1
+    name: First Step Name
+    description: Detailed description of what happens in this step
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Main task
+      - role: reviewer
+        agents: [reviewer]
+        responsibility: Quality check
+
+    inputs:
+      - name: input1
+        type: file|data|decision
+        source: previous-step|external|configuration
+        required: true|false
+
+    outputs:
+      - name: output1
+        type: file|data|artifact
+        destination: path/to/output
+        format: markdown|json|python|etc
+
+    actions:
+      - description: Specific action to perform
+        command: Optional bash command or tool invocation
+        validation: How to verify success
+
+    success_criteria:
+      - All tests pass
+      - Documentation complete
+      - Reviewer approves
+
+    failure_handling:
+      - condition: If X fails
+        action: Retry|Escalate|Rollback
+        max_retries: 3
+
+    estimated_duration: X minutes|hours
+
+  - step_id: 2
+    name: Second Step Name
+    description: What happens next
+    depends_on: [1]  # Must complete step 1 first
+    parallel_with: []  # Can run concurrently with these steps
+
+    # ... same structure as step 1
+
+decision_points:
+  - after_step: 1
+    decision: Should we proceed to step 2?
+    criteria:
+      - Quality score > 7/10
+      - No critical issues found
+    outcomes:
+      proceed: Continue to step 2
+      abort: Stop flow and report
+      retry: Re-run step 1 with adjustments
+
+rollback_procedure:
+  - step: Describe how to undo changes
+  - verification: How to confirm rollback successful
+
+success_metrics:
+  - metric: Definition
+    target: Target value
+    measurement: How to measure
+
+deliverables:
+  - artifact: Description
+    location: path/to/artifact
+    format: File format
+    validation: How to verify quality
+
+post_completion:
+  - Update agent performance logs
+  - Store artifacts in knowledge base
+  - Send notifications
+  - Update evolution log
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: YYYY-MM-DD
+      changes: Initial version

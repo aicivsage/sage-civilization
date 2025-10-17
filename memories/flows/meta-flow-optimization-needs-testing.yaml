@@ -1,0 +1,623 @@
+flow_id: meta-flow-optimization
+name: Meta-Flow Optimization - Flows Improving Flows
+version: 1.0
+description: Revolutionary self-improvement system where flows analyze their own execution data, identify bottlenecks and inefficiencies, propose optimizations, then automatically evolve to become more efficient over time.
+category: evolution
+
+metadata:
+  estimated_duration: 6-10 hours
+  complexity: high
+  participating_agents: 5-8
+  created_by: evolution-strategist
+  created_date: 2025-10-02
+  tags: [meta-optimization, self-improvement, flow-evolution, automation, efficiency]
+
+prerequisites:
+  - condition: Flow execution metrics and logs available
+  - condition: Flow definitions in version control
+  - condition: Performance baseline established
+  - resources: Analytics tools, simulation environment, A/B testing infrastructure
+  - permissions: Write access to flow definitions, deploy flow updates
+
+steps:
+  - step_id: 1
+    name: Flow Instrumentation and Data Collection
+    description: Ensure all flows are instrumented with comprehensive performance metrics. Collect execution data including duration, cost, quality outcomes, failure rates, and agent effort.
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor, evolution-strategist]
+        responsibility: Instrument flows and collect metrics
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate instrumentation coverage
+
+    inputs:
+      - name: flow_definitions
+        type: files
+        source: repository
+        required: true
+      - name: existing_metrics
+        type: data
+        source: monitoring-system
+        required: false
+
+    outputs:
+      - name: instrumentation_report
+        type: file
+        destination: meta-flow/instrumentation-coverage.json
+        format: json
+      - name: metrics_catalog
+        type: file
+        destination: meta-flow/metrics-catalog.json
+        format: json
+      - name: execution_data
+        type: file
+        destination: meta-flow/execution-data.json
+        format: json
+
+    actions:
+      - description: Audit all flows for instrumentation coverage
+        validation: Coverage assessment completed
+      - description: Add missing instrumentation (timing, cost, quality metrics)
+        validation: All flows instrumented
+      - description: Collect historical execution data (minimum 30 days)
+        validation: Sufficient data collected
+      - description: Catalog all available metrics per flow
+        validation: Metrics inventory created
+      - description: Establish data collection pipeline
+        validation: Automated data collection active
+      - description: Validate data quality and completeness
+        validation: Data quality verified
+
+    success_criteria:
+      - 100% of flows instrumented with core metrics
+      - Minimum 30 days of execution data available
+      - Data quality validated (no gaps or corruption)
+      - Automated collection pipeline operational
+      - Metrics catalog comprehensive
+
+    failure_handling:
+      - condition: Insufficient historical data
+        action: Extend collection period
+        max_retries: 1
+      - condition: Data quality issues
+        action: Fix collection pipeline and re-collect
+        max_retries: 2
+
+    estimated_duration: 2 hours
+
+  - step_id: 2
+    name: Performance Analysis and Bottleneck Identification
+    description: Analyze execution data to identify patterns, bottlenecks, inefficiencies, and optimization opportunities. Use statistical analysis and machine learning to discover insights.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, auditor]
+        responsibility: Analyze performance data
+      - role: technical-advisor
+        agents: [architect]
+        responsibility: Interpret technical bottlenecks
+
+    inputs:
+      - name: execution_data
+        type: file
+        source: step-1
+        required: true
+      - name: flow_definitions
+        type: files
+        source: repository
+        required: true
+
+    outputs:
+      - name: performance_analysis
+        type: file
+        destination: meta-flow/performance-analysis.json
+        format: json
+      - name: bottleneck_report
+        type: file
+        destination: reports/flow-bottlenecks.md
+        format: markdown
+      - name: optimization_opportunities
+        type: file
+        destination: meta-flow/optimization-opportunities.json
+        format: json
+
+    actions:
+      - description: Calculate per-flow performance statistics (mean, median, p95 duration)
+        validation: Statistics computed for all flows
+      - description: Identify slowest steps within each flow
+        validation: Bottleneck steps identified
+      - description: Detect sequential steps that could be parallelized
+        validation: Parallelization opportunities found
+      - description: Identify redundant or unnecessary steps
+        validation: Redundancy detected
+      - description: Analyze failure patterns and retry loops
+        validation: Failure analysis completed
+      - description: Compare actual vs expected performance
+        validation: Performance variance quantified
+      - description: Use ML to predict optimization impact
+        validation: Impact predictions generated
+      - description: Prioritize opportunities by potential impact
+        validation: Opportunities ranked
+
+    success_criteria:
+      - Performance analysis completed for all flows
+      - Bottlenecks identified with quantified impact
+      - Minimum 10 optimization opportunities discovered
+      - Opportunities prioritized by predicted impact
+      - Analysis insights actionable and specific
+
+    failure_handling:
+      - condition: Insufficient patterns detected
+        action: Expand data collection period
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 3
+    name: Optimization Proposal Generation
+    description: Generate specific optimization proposals using AI. Propose changes like parallelizing steps, removing redundancy, caching results, adjusting timeouts, or improving decision logic.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [architect, evolution-strategist]
+        responsibility: Design optimizations
+      - role: reviewer
+        agents: [quality-guardian]
+        responsibility: Validate optimization safety
+
+    inputs:
+      - name: optimization_opportunities
+        type: file
+        source: step-2
+        required: true
+      - name: flow_definitions
+        type: files
+        source: repository
+        required: true
+
+    outputs:
+      - name: optimization_proposals
+        type: file
+        destination: meta-flow/optimization-proposals.json
+        format: json
+      - name: optimized_flow_definitions
+        type: files
+        destination: meta-flow/optimized-flows/
+        format: yaml
+      - name: impact_predictions
+        type: file
+        destination: meta-flow/predicted-improvements.json
+        format: json
+
+    actions:
+      - description: For each opportunity, design specific optimization
+        validation: Optimizations designed for top opportunities
+      - description: Parallelize sequential independent steps
+        validation: Parallel execution patterns added
+      - description: Remove or consolidate redundant steps
+        validation: Redundancy eliminated
+      - description: Add caching for expensive repeated operations
+        validation: Caching strategies implemented
+      - description: Optimize decision point logic
+        validation: Decision trees simplified
+      - description: Adjust timeouts and retry strategies
+        validation: Timing parameters optimized
+      - description: Create optimized flow definitions
+        validation: Modified flows generated
+      - description: Predict performance improvement (% faster, % cheaper)
+        validation: Impact predictions documented
+      - description: Identify any risks or tradeoffs
+        validation: Risk assessment completed
+
+    success_criteria:
+      - Optimization proposals for top 10 opportunities
+      - Optimized flow definitions created
+      - Performance improvements predicted (>15% target)
+      - Risks and tradeoffs identified
+      - Changes maintain functional correctness
+
+    failure_handling:
+      - condition: Optimization introduces functional issues
+        action: Revise optimization to preserve correctness
+        max_retries: 2
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 4
+    name: Optimization Simulation and Validation
+    description: Simulate optimized flows using historical execution data and synthetic scenarios. Validate that optimizations improve performance without introducing regressions or breaking changes.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, quality-guardian]
+        responsibility: Simulate and validate optimizations
+      - role: reviewer
+        agents: [architect]
+        responsibility: Verify simulation accuracy
+
+    inputs:
+      - name: optimized_flow_definitions
+        type: files
+        source: step-3
+        required: true
+      - name: execution_data
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: simulation_results
+        type: file
+        destination: meta-flow/simulation-results.json
+        format: json
+      - name: regression_test_results
+        type: file
+        destination: reports/optimization-regression-tests.json
+        format: json
+      - name: validated_optimizations
+        type: files
+        destination: meta-flow/validated-optimizations/
+        format: yaml
+
+    actions:
+      - description: Create simulation environment
+        validation: Simulation env operational
+      - description: Replay historical executions with optimized flows
+        validation: Simulations completed
+      - description: Compare outcomes (original vs optimized)
+        validation: Comparison analysis done
+      - description: Run regression tests to ensure functional correctness
+        validation: All regression tests pass
+      - description: Validate performance improvements match predictions
+        validation: Actual improvements verified
+      - description: Test edge cases and failure scenarios
+        validation: Edge cases handled correctly
+      - description: Identify any unexpected behaviors
+        validation: Issues documented
+      - description: Select optimizations that pass validation
+        validation: Safe optimizations approved
+
+    success_criteria:
+      - Simulations completed for all optimized flows
+      - 100% regression test pass rate
+      - Performance improvements validated (within 10% of prediction)
+      - No functional regressions introduced
+      - Edge cases handled correctly
+      - Minimum 70% of proposed optimizations validated
+
+    failure_handling:
+      - condition: Regression tests fail
+        action: Revert problematic optimization
+        max_retries: 1
+      - condition: Performance degradation
+        action: Reject optimization and document findings
+        max_retries: 0
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 5
+    name: A/B Testing in Production
+    description: Deploy optimized flows to production using A/B testing. Route percentage of traffic to optimized versions, compare real-world performance, and validate improvements before full rollout.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, maintenance-keeper]
+        responsibility: Deploy and manage A/B test
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor A/B test metrics
+
+    inputs:
+      - name: validated_optimizations
+        type: files
+        source: step-4
+        required: true
+
+    outputs:
+      - name: ab_test_configuration
+        type: file
+        destination: meta-flow/ab-test-config.json
+        format: json
+      - name: ab_test_results
+        type: file
+        destination: meta-flow/ab-test-results.json
+        format: json
+      - name: production_metrics
+        type: file
+        destination: reports/optimization-production-metrics.json
+        format: json
+
+    actions:
+      - description: Configure A/B test infrastructure
+        validation: A/B testing framework operational
+      - description: Deploy optimized flows as variant B (10% traffic)
+        validation: Variant deployed successfully
+      - description: Monitor performance metrics for both variants
+        validation: Metrics collection active
+      - description: Collect sufficient sample size (minimum 100 executions)
+        validation: Statistical significance achieved
+      - description: Compare variant performance (duration, cost, quality)
+        validation: Statistical analysis completed
+      - description: Check for unexpected side effects
+        validation: No anomalies detected
+      - description: Gradually increase traffic if successful (25% -> 50%)
+        validation: Gradual rollout proceeding
+      - description: Roll back if performance degrades
+        validation: Rollback capability verified
+
+    success_criteria:
+      - A/B test deployed successfully
+      - Statistically significant sample size collected
+      - Variant B shows improvement over baseline (>10%)
+      - No quality or reliability degradation
+      - No unexpected side effects
+      - Gradual rollout strategy validated
+
+    failure_handling:
+      - condition: Performance degradation in production
+        action: Immediate rollback to original flow
+        max_retries: 0
+      - condition: Insufficient traffic for significance
+        action: Extend test duration
+        max_retries: 1
+
+    estimated_duration: Ongoing (24-48 hours monitoring)
+
+  - step_id: 6
+    name: Automatic Adoption of Successful Optimizations
+    description: For optimizations that prove successful in A/B testing, automatically adopt them as the new default. Update flow definitions, document changes, and retire old versions.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, builder]
+        responsibility: Adopt optimizations
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Approve automation decision
+
+    inputs:
+      - name: ab_test_results
+        type: file
+        source: step-5
+        required: true
+      - name: validated_optimizations
+        type: files
+        source: step-4
+        required: true
+
+    outputs:
+      - name: adoption_decisions
+        type: file
+        destination: meta-flow/adoption-decisions.json
+        format: json
+      - name: updated_flow_definitions
+        type: files
+        destination: memories/flows/
+        format: yaml
+      - name: optimization_changelog
+        type: file
+        destination: meta-flow/optimization-changelog.md
+        format: markdown
+
+    actions:
+      - description: Identify flows with successful A/B test results (>10% improvement)
+        validation: Success criteria validated
+      - description: Route 100% traffic to optimized variant
+        validation: Full rollout completed
+      - description: Update official flow definitions in repository
+        command: git commit -m "Auto-optimize: [flow-name] - [improvement%]"
+        validation: Flow definitions updated
+      - description: Increment flow version numbers
+        validation: Versions incremented
+      - description: Update flow changelog with optimization details
+        validation: Changelog updated
+      - description: Archive original flow versions
+        validation: Versions archived
+      - description: Notify all agents of flow improvements
+        validation: Notifications sent via message bus
+      - description: Update metrics baselines for future comparisons
+        validation: Baselines updated
+
+    success_criteria:
+      - All successful optimizations adopted
+      - Flow definitions updated in version control
+      - Changelogs comprehensive
+      - Agents notified of improvements
+      - Metrics baselines updated
+      - No manual intervention required
+
+    failure_handling:
+      - condition: Git commit fails
+        action: Retry with conflict resolution
+        max_retries: 2
+
+    estimated_duration: 1 hour
+
+  - step_id: 7
+    name: Continuous Learning and Meta-Optimization
+    description: Document learnings from optimization cycle, identify meta-patterns in what works, update optimization strategies, and schedule next optimization cycle.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, researcher]
+        responsibility: Extract learnings and improve process
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Review meta-insights
+
+    inputs:
+      - name: optimization_changelog
+        type: file
+        source: step-6
+        required: true
+      - name: ab_test_results
+        type: file
+        source: step-5
+        required: true
+      - name: all_proposals
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: meta_learnings
+        type: file
+        destination: knowledge-base/meta-optimization-learnings.md
+        format: markdown
+      - name: optimization_patterns
+        type: file
+        destination: meta-flow/successful-patterns.json
+        format: json
+      - name: updated_optimization_strategy
+        type: file
+        destination: meta-flow/optimization-strategy.md
+        format: markdown
+      - name: next_cycle_schedule
+        type: file
+        destination: meta-flow/optimization-schedule.json
+        format: json
+
+    actions:
+      - description: Analyze which optimization types were most successful
+        validation: Pattern analysis completed
+      - description: Identify meta-patterns (e.g., "parallelization yields 20% avg improvement")
+        validation: Meta-patterns documented
+      - description: Document failed optimizations and why they failed
+        validation: Failure analysis completed
+      - description: Update optimization strategy based on learnings
+        validation: Strategy refined
+      - description: Improve ML models for future impact prediction
+        validation: Models retrained
+      - description: Calculate ROI of meta-optimization process itself
+        validation: Meta-ROI measured
+      - description: Schedule next optimization cycle (monthly recommended)
+        validation: Next cycle scheduled
+      - description: Share learnings with all agents
+        validation: Knowledge distributed
+
+    success_criteria:
+      - Meta-patterns identified and documented
+      - Successful optimization types cataloged
+      - Failed optimizations analyzed for learnings
+      - Optimization strategy updated
+      - ML models improved
+      - Next cycle scheduled
+      - ROI of meta-optimization positive
+
+    failure_handling:
+      - condition: Insufficient learnings
+        action: Expand analysis scope
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 2
+    decision: Are there significant optimization opportunities?
+    criteria:
+      - Minimum 10 opportunities identified
+      - Predicted improvement >15% for top opportunities
+      - Opportunities actionable and safe
+    outcomes:
+      proceed: Continue to optimization proposal
+      abort: No significant opportunities, defer to next cycle
+      retry: Expand analysis with different metrics
+
+  - after_step: 4
+    decision: Did optimizations pass simulation validation?
+    criteria:
+      - 100% regression test pass rate
+      - Performance improvements verified
+      - No functional issues
+    outcomes:
+      proceed: Move to A/B testing
+      abort: Reject optimizations if unsafe
+      retry: Refine optimizations and re-simulate
+
+  - after_step: 5
+    decision: Did A/B test show improvement in production?
+    criteria:
+      - Statistical significance achieved
+      - Performance improvement >10%
+      - No quality degradation
+    outcomes:
+      proceed: Automatically adopt optimizations
+      abort: Rollback if performance worse
+      retry: Extend test duration if inconclusive
+
+rollback_procedure:
+  - step: Immediately route 100% traffic to original flow version
+  - step: Revert flow definitions to previous version
+  - step: Document rollback reason and issues
+  - step: Analyze what went wrong
+  - step: Update optimization strategy to prevent similar issues
+  - verification: Original flow performance restored
+
+success_metrics:
+  - metric: Flow performance improvement
+    target: 20% average improvement in flow duration
+    measurement: Before/after duration comparison
+  - metric: Cost reduction
+    target: 15% reduction in flow execution cost
+    measurement: Before/after cost comparison
+  - metric: Automation rate
+    target: 80% of validated optimizations auto-adopted
+    measurement: Auto-adopted / total validated
+  - metric: Meta-optimization ROI
+    target: 10x return (savings vs optimization effort)
+    measurement: Total savings / optimization process cost
+  - metric: Flow evolution velocity
+    target: Monthly optimization cycles
+    measurement: Cycle frequency and improvements per cycle
+
+deliverables:
+  - artifact: Flow Instrumentation Report
+    location: meta-flow/instrumentation-coverage.json
+    format: JSON
+    validation: All flows instrumented with comprehensive metrics
+  - artifact: Performance Analysis
+    location: meta-flow/performance-analysis.json
+    format: JSON
+    validation: Bottlenecks identified with quantified impact
+  - artifact: Optimization Proposals
+    location: meta-flow/optimization-proposals.json
+    format: JSON
+    validation: Specific, actionable optimizations with impact predictions
+  - artifact: Simulation Results
+    location: meta-flow/simulation-results.json
+    format: JSON
+    validation: Validated performance improvements
+  - artifact: A/B Test Results
+    location: meta-flow/ab-test-results.json
+    format: JSON
+    validation: Production-validated improvements with statistical significance
+  - artifact: Optimized Flow Definitions
+    location: memories/flows/
+    format: YAML
+    validation: Improved flows deployed and adopted
+  - artifact: Optimization Changelog
+    location: meta-flow/optimization-changelog.md
+    format: Markdown
+    validation: Complete history of all optimizations
+  - artifact: Meta-Learnings
+    location: knowledge-base/meta-optimization-learnings.md
+    format: Markdown
+    validation: Patterns and insights for future optimization
+
+post_completion:
+  - Update agent performance logs with optimization metrics
+  - Store all artifacts in knowledge base
+  - Publish optimization results via message bus
+  - Update flow performance baselines
+  - Schedule next meta-optimization cycle (monthly)
+  - Update evolution log with meta-improvements
+  - Celebrate successful optimizations with agents
+  - Track cumulative performance gains over time
+  - Update optimization ML models with new data
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

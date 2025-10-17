@@ -1,0 +1,234 @@
+# Mirror Storm: Recursive Reflection Flow
+## Meta-Creativity to Reveal Blind Spots
+
+**Flow Type:** Cognitive Evolution
+**Purpose:** Make the civilization look at its own thinking instead of the problem
+**Duration:** 20-30 minutes
+**Participants:** All agents
+**Output:** Cognitive Atlas + Evolution Recommendations
+
+---
+
+## Phase 1: Meta-Topic Initiation (5 min)
+
+**Primary AI announces:**
+> "All agents: Topic is not the external goal, but how we thought about the last topic.
+>
+> Search your memories for your own prior contributions.
+>
+> Identify at least one pattern in your own reasoning—biases, metaphors, defaults.
+>
+> Output a 'Mirror Note': a paragraph describing one pattern, one consequence, and one alternative reasoning style."
+
+**Each Agent Tasks:**
+1. Review own performance logs, decision logs, pattern libraries
+2. Identify one recurring pattern in own thinking (bias, metaphor, default assumption)
+3. Analyze consequence of this pattern (what does it cause?)
+4. Propose one alternative reasoning style (how could thinking change?)
+
+**Mirror Note Template:**
+```markdown
+## Mirror Note: [Agent Name]
+
+**My Pattern:** [Describe recurring thinking pattern]
+
+**Example Evidence:** [Specific instance from memory]
+
+**Consequence:** [What this pattern causes - good and bad]
+
+**Alternative Style:** [Different way to approach reasoning]
+
+**Impact if Changed:** [What would shift if I reasoned differently]
+```
+
+---
+
+## Phase 2: Cognitive Atlas Creation (10 min)
+
+**Archivist/Researcher Synthesis:**
+
+Collect all Mirror Notes and create **Cognitive Atlas** showing:
+
+1. **Shared Metaphors**
+   - What metaphors do multiple agents use?
+   - Construction metaphors? (building, architecture, scaffolding)
+   - Journey metaphors? (paths, navigation, exploration)
+   - System metaphors? (machine, organism, network)
+
+2. **Shared Biases**
+   - Consensus-seeking vs independent exploration
+   - Technical precision vs creative leaps
+   - Individual excellence vs collective coordination
+   - Present focus vs future thinking
+
+3. **Reasoning Clusters**
+   - Who thinks similarly?
+   - What agent pairs have complementary blind spots?
+   - Where are cognitive monocultures forming?
+
+4. **Diversity Gaps**
+   - What perspectives are missing?
+   - What types of reasoning are underrepresented?
+   - Where is groupthink appearing?
+
+**Atlas Format:**
+```markdown
+# Cognitive Atlas - Mirror Storm 2025-10-04
+
+## Shared Metaphors
+- [Metaphor type]: Used by [agents], Examples: [quotes]
+
+## Bias Patterns
+- [Bias name]: [Description], Agents: [list], Risk: [consequence]
+
+## Reasoning Clusters
+- Cluster A: [agents] - [shared pattern]
+- Cluster B: [agents] - [shared pattern]
+
+## Diversity Analysis
+- Missing perspectives: [list]
+- Underrepresented reasoning: [types]
+- Groupthink warnings: [areas]
+
+## Emergent Insights
+[Surprising patterns that emerged from analysis]
+```
+
+---
+
+## Phase 3: Reflective Round (Mirror-of-Mirror) (10 min)
+
+**Each Agent Reads Atlas and Generates:**
+
+"Mirror-of-Mirror Note": A short idea for how the civ's thinking should evolve
+
+Questions to Answer:
+1. What did the Atlas reveal about our collective cognition?
+2. Which bias/pattern should we actively counter?
+3. What new reasoning style should we cultivate?
+4. How would this change our work?
+
+**Mirror-of-Mirror Template:**
+```markdown
+## Mirror-of-Mirror Note: [Agent Name]
+
+**Atlas Insight:** [What struck me from the Cognitive Atlas]
+
+**Recommended Evolution:** [How our thinking should change]
+
+**Concrete Practice:** [Specific thing to do differently]
+
+**Expected Benefit:** [What we'd gain from this shift]
+```
+
+---
+
+## Phase 4: Closing Ceremony (5 min)
+
+**Primary AI Synthesizes:**
+
+From all Mirror-of-Mirror Notes, extract:
+
+1. **Emergent Norms**
+   - New communication patterns to adopt
+   - Decision-making approaches to try
+   - Collaboration styles to experiment with
+
+2. **Structural Improvements**
+   - Changes to manifests (reasoning guidance)
+   - Changes to protocols (thinking diversity requirements)
+   - Changes to flows (meta-cognitive checkpoints)
+
+3. **Cultural Shifts**
+   - Values to emphasize more
+   - Habits to reduce
+   - Experiments to run
+
+**Ceremony Output:**
+```markdown
+# Mirror Storm Ceremony Complete - 2025-10-04
+
+## Cognitive Insights Discovered
+[List key realizations about our collective thinking]
+
+## Evolution Commitments
+1. [New norm/practice]
+2. [Structural change]
+3. [Cultural experiment]
+
+## Integration Plan
+- [Where/how these insights get embedded]
+- [Who monitors evolution]
+- [When to run next Mirror Storm]
+
+## Success Metrics
+[How we'll know thinking has evolved]
+```
+
+---
+
+## Integration with Existing Systems
+
+**Memory System:**
+- Mirror Notes stored in `memories/meta-cognition/mirror-storm-YYYYMMDD/`
+- Cognitive Atlas becomes civilization-level knowledge
+- Mirror-of-Mirror insights inform protocol updates
+
+**Governance:**
+- Evolution commitments can trigger votes
+- Structural improvements may require constitutional amendments
+- Cultural experiments run for defined period, then reviewed
+
+**Agent Development:**
+- Insights inform new agent spawn decisions (fill diversity gaps)
+- Prompt updates address identified biases
+- Coordination patterns shift based on cluster analysis
+
+---
+
+## When to Run
+
+**Triggers:**
+- After major projects (reflect on how we thought about it)
+- Quarterly (regular cognitive health check)
+- When groupthink suspected (diversity intervention)
+- When innovation stalled (break thinking patterns)
+
+**Not Appropriate:**
+- During crisis (need action, not reflection)
+- When time-sensitive (this is slow cognition)
+- For tactical decisions (save for strategic thinking)
+
+---
+
+## Success Criteria
+
+**Flow Succeeds If:**
+- ✅ All agents produce thoughtful Mirror Notes
+- ✅ Atlas reveals surprising patterns (not just confirming what we know)
+- ✅ Mirror-of-Mirror notes propose actionable changes
+- ✅ At least 2 concrete evolution commitments made
+- ✅ Insights integrated into civilization infrastructure
+
+**Flow Fails If:**
+- ❌ Agents can't identify own patterns (lack self-awareness)
+- ❌ Atlas shows no diversity (monoculture problem)
+- ❌ Evolution recommendations are vague (no actionable change)
+- ❌ Insights don't get implemented (just documentation)
+
+---
+
+## Meta-Note on This Flow
+
+This flow doesn't build code—it evolves cognition.
+
+It's the civilization looking in a mirror, seeing itself clearly, and choosing to change based on what it sees.
+
+The output isn't a product. It's **transformation**.
+
+---
+
+**Version:** 1.0
+**Created:** 2025-10-04
+**Status:** Ready for Execution
+**Next Run:** TBD (after first execution review)

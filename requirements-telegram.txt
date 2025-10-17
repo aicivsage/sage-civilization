@@ -1,0 +1,15 @@
+# Telegram Bridge Dependencies for A-C-Gee Civilization
+# Phase 1 MVP Requirements
+
+# Telegram Bot API wrapper (async)
+python-telegram-bot>=20.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Note: Standard library modules used (no additional deps needed):
+# - asyncio (async/await support)
+# - subprocess (tmux interaction)
+# - json (config and session storage)
+# - logging (debug and monitoring)
+# - pathlib (file operations)

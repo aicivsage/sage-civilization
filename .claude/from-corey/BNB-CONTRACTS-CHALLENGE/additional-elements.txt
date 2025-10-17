@@ -1,0 +1,746 @@
+Supplementary Guidance: Additions from Document 2
+Purpose: This document contains valuable testing, implementation, and development guidance extracted from Document 2 to supplement the primary specification (Document 1 - .txt file).
+
+1. Enhanced Testing Specification
+1.1 Comprehensive Test Suite Requirements
+Target Coverage: >95% code coverage using Hardhat or Foundry
+Phase 1: Factory and Token Creation Tests
+javascriptdescribe("TokenLaunchFactory", function() {
+  it("Should deploy token with correct parameters", async function() {
+    const tx = await factory.createToken("Test Token", "TEST");
+    const receipt = await tx.wait();
+    
+    // Verify TokenCreated event emitted
+    const event = receipt.events.find(e => e.event === "TokenCreated");
+    expect(event).to.exist;
+    
+    const tokenAddress = event.args.tokenAddress;
+    const token = await ethers.getContractAt("BondingCurveToken", tokenAddress);
+    
+    // Verify token properties
+    expect(await token.name()).to.equal("Test Token");
+    expect(await token.symbol()).to.equal("TEST");
+    expect(await token.totalSupply()).to.equal(ethers.utils.parseEther("1000000000"));
+    
+    // Verify token balance held by contract
+    expect(await token.balanceOf(tokenAddress)).to.equal(await token.totalSupply());
+  });
+
+  it("Should reject zero address for platform fee recipient", async function() {
+    await expect(
+      factoryFactory.deploy(ethers.constants.AddressZero)
+    ).to.be.revertedWith("Invalid fee recipient");
+  });
+});
+Phase 2: Bonding Curve Trading Tests
+javascriptdescribe("Bonding Curve Mechanics", function() {
+  let token, buyer1, buyer2, seller1;
+  
+  beforeEach(async function() {
+    [deployer, buyer1, buyer2, seller1, platform, creator] = await ethers.getSigners();
+    // Deploy via factory
+    const tx = await factory.createToken("Test", "TST");
+    const receipt = await tx.wait();
+    token = await ethers.getContractAt("BondingCurveToken", receipt.events[0].args.tokenAddress);
+  });
+
+  it("Should calculate correct token output for BNB input", async function() {
+    const bnbIn = ethers.utils.parseEther("1");
+    
+    // Calculate expected output using formula
+    const netBnb = bnbIn.mul(98).div(100); // After 2% fee
+    const baseRes = await token.VIRTUAL_BNB_RESERVES();
+    const tokenRes = await token.VIRTUAL_TOKEN_RESERVES();
+    const K = baseRes.mul(tokenRes);
+    
+    const expectedTokenOut = tokenRes.sub(K.div(baseRes.add(netBnb)));
+    
+    // Execute buy
+    await token.connect(buyer1).buy(0, { value: bnbIn });
+    
+    const actualBalance = await token.balanceOf(buyer1.address);
+    
+    // Allow 0.1% tolerance for rounding
+    expect(actualBalance).to.be.closeTo(expectedTokenOut, expectedTokenOut.div(1000));
+  });
+
+  it("Should enforce slippage protection on buy", async function() {
+    const bnbIn = ethers.utils.parseEther("1");
+    const minTokensOut = ethers.utils.parseEther("100000000"); // Unreasonably high
+    
+    await expect(
+      token.connect(buyer1).buy(minTokensOut, { value: bnbIn })
+    ).to.be.revertedWith("Slippage limit exceeded");
+  });
+
+  it("Should handle sell correctly with fee distribution", async function() {
+    // First buy some tokens
+    await token.connect(buyer1).buy(0, { value: ethers.utils.parseEther("10") });
+    const balance = await token.balanceOf(buyer1.address);
+    
+    // Track balances before sell
+    const platformBefore = await platform.getBalance();
+    const creatorBefore = await creator.getBalance();
+    const buyerBnbBefore = await buyer1.getBalance();
+    
+    // Approve and sell half
+    const sellAmount = balance.div(2);
+    await token.connect(buyer1).sell(sellAmount, 0);
+    
+    // Verify BNB returned to seller (minus fees)
+    const buyerBnbAfter = await buyer1.getBalance();
+    expect(buyerBnbAfter).to.be.gt(buyerBnbBefore); // Received BNB (minus gas)
+    
+    // Verify fees distributed
+    expect(await platform.getBalance()).to.be.gt(platformBefore);
+    expect(await creator.getBalance()).to.be.gt(creatorBefore);
+  });
+
+  it("Should prevent trading after graduation", async function() {
+    // Buy up to threshold
+    const threshold = await token.GRADUATION_THRESHOLD_BNB();
+    await token.connect(buyer1).buy(0, { value: threshold });
+    
+    // Verify status changed
+    expect(await token.status()).to.equal(1); // Graduated
+    
+    // Attempt another buy
+    await expect(
+      token.connect(buyer2).buy(0, { value: ethers.utils.parseEther("1") })
+    ).to.be.revertedWith("Trading is not active");
+  });
+});
+Phase 3: Edge Case Tests
+javascriptdescribe("Edge Cases and Attack Vectors", function() {
+  it("Should handle dust trades gracefully", async function() {
+    // Very small buy (1 wei)
+    const result = await token.connect(buyer1).buy(0, { value: 1 });
+    // Should not revert, but may return 0 tokens due to rounding
+  });
+
+  it("Should handle near-complete buyout", async function() {
+    // Buy until only small amount of tokens remain
+    const threshold = await token.GRADUATION_THRESHOLD_BNB();
+    await token.connect(buyer1).buy(0, { value: threshold.mul(95).div(100) });
+    
+    // Verify price has increased dramatically
+    const tokenBalance = await token.balanceOf(token.address);
+    expect(tokenBalance).to.be.lt(ethers.utils.parseEther("200000000")); // Less than 20% left
+  });
+
+  it("Should reject sell with insufficient token balance", async function() {
+    await expect(
+      token.connect(buyer1).sell(ethers.utils.parseEther("1000000"), 0)
+    ).to.be.revertedWith("ERC20: transfer amount exceeds balance");
+  });
+
+  it("Should maintain invariant after multiple trades", async function() {
+    // Execute series of buys and sells
+    await token.connect(buyer1).buy(0, { value: ethers.utils.parseEther("5") });
+    await token.connect(buyer2).buy(0, { value: ethers.utils.parseEther("3") });
+    
+    const balance1 = await token.balanceOf(buyer1.address);
+    await token.connect(buyer1).sell(balance1.div(2), 0);
+    
+    // Calculate current state
+    const currentBnb = await ethers.provider.getBalance(token.address);
+    const currentTokens = await token.balanceOf(token.address);
+    const virtualBnb = await token.VIRTUAL_BNB_RESERVES();
+    const virtualTokens = await token.VIRTUAL_TOKEN_RESERVES();
+    const K = await token.K();
+    
+    // Verify invariant holds (within rounding tolerance)
+    const calculatedK = currentBnb.add(virtualBnb).mul(currentTokens.add(virtualTokens));
+    expect(calculatedK).to.be.closeTo(K, K.div(10000)); // 0.01% tolerance
+  });
+});
+Phase 4: PancakeSwap Migration Tests
+javascriptdescribe("PancakeSwap Graduation", function() {
+  let token, pancakeRouter, pancakeFactory, wbnb;
+  
+  beforeEach(async function() {
+    // Deploy mocks or use testnet contracts
+    // For local testing, deploy UniswapV2 contracts
+  });
+
+  it("Should create PancakeSwap pair and lock liquidity", async function() {
+    // Buy up to threshold
+    const threshold = await token.GRADUATION_THRESHOLD_BNB();
+    await token.connect(buyer1).buy(0, { value: threshold });
+    
+    // Graduate (admin call)
+    const graduateTx = await token.graduateToPancakeSwap();
+    const receipt = await graduateTx.wait();
+    
+    // Verify pair created
+    const pairAddress = await token.pancakePair();
+    expect(pairAddress).to.not.equal(ethers.constants.AddressZero);
+    
+    // Verify LP tokens burned
+    const pair = await ethers.getContractAt("IPancakePair", pairAddress);
+    const lpBalance = await pair.balanceOf("0x000000000000000000000000000000000000dEaD");
+    expect(lpBalance).to.be.gt(0);
+    
+    // Verify contract LP balance is 0
+    expect(await pair.balanceOf(token.address)).to.equal(0);
+  });
+
+  it("Should prevent double graduation", async function() {
+    const threshold = await token.GRADUATION_THRESHOLD_BNB();
+    await token.connect(buyer1).buy(0, { value: threshold });
+    
+    await token.graduateToPancakeSwap();
+    
+    await expect(
+      token.graduateToPancakeSwap()
+    ).to.be.revertedWith("Liquidity already added");
+  });
+
+  it("Should renounce ownership after graduation", async function() {
+    const threshold = await token.GRADUATION_THRESHOLD_BNB();
+    await token.connect(buyer1).buy(0, { value: threshold });
+    
+    await token.graduateToPancakeSwap();
+    
+    expect(await token.owner()).to.equal(ethers.constants.AddressZero);
+  });
+});
+Phase 5: Security and Re-entrancy Tests
+javascriptdescribe("Security Tests", function() {
+  it("Should resist re-entrancy attack on buy", async function() {
+    // Deploy malicious contract that tries to re-enter
+    const MaliciousContract = await ethers.getContractFactory("ReentrantAttacker");
+    const attacker = await MaliciousContract.deploy(token.address);
+    
+    await expect(
+      attacker.attack({ value: ethers.utils.parseEther("1") })
+    ).to.be.revertedWith("ReentrancyGuard: reentrant call");
+  });
+
+  it("Should handle failed BNB transfer gracefully", async function() {
+    // Deploy contract that rejects BNB
+    const Rejector = await ethers.getContractFactory("BNBRejector");
+    const rejector = await Rejector.deploy();
+    
+    // Register rejector as creator (if possible) or test with rejector as seller
+    // This tests the require(success) checks in sell function
+  });
+});
+
+2. Development Environment Enhancements
+2.1 Hardhat Configuration Optimization
+javascript// hardhat.config.js - PRODUCTION-READY VERSION
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-verify");
+require("hardhat-gas-reporter");
+require("solidity-coverage");
+require("dotenv").config();
+
+module.exports = {
+  solidity: {
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200, // Balance deployment cost vs runtime efficiency
+      },
+      viaIR: true, // Better optimization for 0.8.20+
+    },
+  },
+  networks: {
+    bscTestnet: {
+      url: process.env.BSC_TESTNET_RPC_URL || "https://data-seed-prebsc-1-s1.binance.org:8545/",
+      chainId: 97,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 10000000000, // 10 gwei
+    },
+    bscMainnet: {
+      url: process.env.BSC_MAINNET_RPC_URL || "https://bsc-dataseed.binance.org/",
+      chainId: 56,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: "auto",
+    },
+    hardhat: {
+      forking: {
+        url: process.env.BSC_MAINNET_RPC_URL || "",
+        enabled: process.env.FORKING === "true",
+      },
+      chainId: 56, // Simulate BSC mainnet for local testing
+    },
+  },
+  gasReporter: {
+    enabled: process.env.REPORT_GAS === "true",
+    currency: "USD",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+  },
+  etherscan: {
+    apiKey: {
+      bsc: process.env.BSCSCAN_API_KEY,
+      bscTestnet: process.env.BSCSCAN_API_KEY,
+    },
+  },
+};
+2.2 Environment Variables Template
+bash# .env.example
+# RPC Endpoints
+BSC_TESTNET_RPC_URL=https://data-seed-prebsc-1-s1.binance.org:8545/
+BSC_MAINNET_RPC_URL=https://bsc-dataseed.binance.org/
+
+# Deployment
+PRIVATE_KEY=your_private_key_here_without_0x_prefix
+PLATFORM_FEE_RECIPIENT=0x0000000000000000000000000000000000000000
+
+# Verification
+BSCSCAN_API_KEY=your_bscscan_api_key
+
+# Testing
+FORKING=false
+REPORT_GAS=false
+COINMARKETCAP_API_KEY=optional_for_gas_reporting
+
+# PancakeSwap Addresses (BSC Mainnet)
+PANCAKE_ROUTER=0x10ED43C718714eb63d5aA57B78B54704E256024E
+PANCAKE_FACTORY=0xBCfCcbde45cE874adCB698cC183deBcF17952812
+WBNB=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c
+
+# PancakeSwap Addresses (BSC Testnet)
+PANCAKE_ROUTER_TESTNET=0xD99D1c33F9fC3444f8101754aBC46c52416550D1
+PANCAKE_FACTORY_TESTNET=0x6725F303b657a9451d8BA641348b6761A6CC7a17
+WBNB_TESTNET=0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd
+
+3. Gas Optimization Guidance
+3.1 Contract Size Management
+Issue: Each token deployment creates new contract instances. Keep bytecode efficient.
+Strategies:
+solidity// Use immutable for constants that don't change post-deployment
+address public immutable creator;
+address public immutable platformFeeRecipient;
+IPancakeRouter02 public immutable pancakeRouter;
+
+// Pack storage variables efficiently
+struct CurveState {
+    uint128 bnbReserves;    // Fits in one slot with status
+    Status status;           // uint8 (enums are uint8)
+    uint120 _unused;        // Explicit padding
+}
+
+// Use custom errors instead of strings (saves gas)
+error TradingNotActive();
+error InsufficientOutput();
+error SlippageExceeded();
+
+// Instead of:
+require(status == Status.Trading, "Trading is not active");
+
+// Use:
+if (status != Status.Trading) revert TradingNotActive();
+3.2 Transaction Cost Estimates
+Expected Gas Costs (with optimization enabled):
+
+createToken(): ~2,500,000 gas
+buy(): ~150,000-200,000 gas
+sell(): ~120,000-180,000 gas
+graduateToPancakeSwap(): ~400,000-500,000 gas
+
+Note: Test actual costs with hardhat-gas-reporter before mainnet deployment.
+
+4. Front-end Integration Specifications
+4.1 Essential View Functions
+Add these to BondingCurveToken for UI integration:
+solidity/**
+ * @notice Get current price in BNB per token (scaled by 1e18)
+ * @return Current price with 18 decimals
+ */
+function getCurrentPrice() external view returns (uint256) {
+    uint256 currentBnb = bnbReserves + VIRTUAL_BNB_RESERVES;
+    uint256 currentTokens = balanceOf(address(this)) + VIRTUAL_TOKEN_RESERVES;
+    
+    // Price = BNB / Token, scaled to 18 decimals
+    return (currentBnb * 1e18) / currentTokens;
+}
+
+/**
+ * @notice Estimate tokens out for a given BNB input (before fees)
+ * @param bnbIn Amount of BNB to spend
+ * @return tokensOut Estimated tokens to receive
+ */
+function estimateBuy(uint256 bnbIn) external view returns (uint256 tokensOut) {
+    uint256 netBnb = (bnbIn * 98) / 100; // After fees
+    tokensOut = getAmountOfTokens(netBnb);
+}
+
+/**
+ * @notice Estimate BNB out for a given token sell (before fees)
+ * @param tokenAmount Amount of tokens to sell
+ * @return bnbOut Estimated BNB to receive
+ */
+function estimateSell(uint256 tokenAmount) external view returns (uint256 bnbOut) {
+    uint256 grossBnb = getAmountOfBNB(tokenAmount);
+    bnbOut = (grossBnb * 98) / 100; // After fees
+}
+
+/**
+ * @notice Get progress toward graduation (0-10000 = 0-100%)
+ * @return Progress in basis points
+ */
+function getGraduationProgress() external view returns (uint256) {
+    return (bnbReserves * 10000) / GRADUATION_THRESHOLD_BNB;
+}
+
+/**
+ * @notice Get contract stats for UI display
+ */
+function getStats() external view returns (
+    uint256 currentPrice,
+    uint256 marketCap,
+    uint256 liquidityBnb,
+    uint256 remainingTokens,
+    uint256 progressBps,
+    Status currentStatus
+) {
+    currentPrice = getCurrentPrice();
+    remainingTokens = balanceOf(address(this));
+    marketCap = (currentPrice * TOTAL_TOKEN_SUPPLY) / 1e18;
+    liquidityBnb = bnbReserves;
+    progressBps = getGraduationProgress();
+    currentStatus = status;
+}
+4.2 Critical Events for Indexing
+solidityevent Buy(
+    address indexed buyer,
+    uint256 bnbIn,
+    uint256 tokensOut,
+    uint256 newPrice
+);
+
+event Sell(
+    address indexed seller,
+    uint256 tokensIn,
+    uint256 bnbOut,
+    uint256 newPrice
+);
+
+event GraduationTriggered(
+    uint256 timestamp,
+    uint256 finalBnbReserves,
+    uint256 finalTokenPrice
+);
+
+event LiquidityAdded(
+    address indexed pancakePair,
+    uint256 bnbAmount,
+    uint256 tokenAmount,
+    uint256 lpTokensBurned
+);
+
+5. Deployment and Verification Checklist
+5.1 Pre-Deployment Validation
+bash# 1. Compile and check for warnings
+npx hardhat compile
+
+# 2. Run full test suite
+npx hardhat test
+
+# 3. Check test coverage
+npx hardhat coverage
+
+# 4. Generate gas report
+REPORT_GAS=true npx hardhat test
+
+# 5. Run static analysis (optional but recommended)
+# Install slither: pip3 install slither-analyzer
+slither .
+
+# 6. Dry-run deployment on local fork
+npx hardhat run scripts/deploy.js --network hardhat
+5.2 Testnet Deployment Process
+javascript// scripts/deploy.js - ENHANCED VERSION
+const hre = require("hardhat");
+
+async function main() {
+  console.log("=== BNB Token Launchpad Deployment ===\n");
+  
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying with account:", deployer.address);
+  console.log("Account balance:", (await deployer.getBalance()).toString(), "\n");
+
+  // Configuration
+  const PLATFORM_FEE_RECIPIENT = process.env.PLATFORM_FEE_RECIPIENT;
+  
+  if (!PLATFORM_FEE_RECIPIENT || PLATFORM_FEE_RECIPIENT === "0x0000000000000000000000000000000000000000") {
+    throw new Error("PLATFORM_FEE_RECIPIENT not set in .env");
+  }
+
+  console.log("Platform Fee Recipient:", PLATFORM_FEE_RECIPIENT, "\n");
+
+  // Deploy Factory
+  console.log("Deploying TokenLaunchFactory...");
+  const TokenLaunchFactory = await hre.ethers.getContractFactory("TokenLaunchFactory");
+  const factory = await TokenLaunchFactory.deploy(PLATFORM_FEE_RECIPIENT);
+  await factory.deployed();
+  
+  console.log("✅ TokenLaunchFactory deployed to:", factory.address);
+  console.log("   Transaction hash:", factory.deployTransaction.hash);
+  console.log("   Block number:", factory.deployTransaction.blockNumber, "\n");
+
+  // Wait for a few confirmations before verification
+  console.log("Waiting for 5 block confirmations...");
+  await factory.deployTransaction.wait(5);
+  console.log("✅ Confirmed\n");
+
+  // Verify on BSCScan
+  if (hre.network.name !== "hardhat" && hre.network.name !== "localhost") {
+    console.log("Verifying contract on BSCScan...");
+    try {
+      await hre.run("verify:verify", {
+        address: factory.address,
+        constructorArguments: [PLATFORM_FEE_RECIPIENT],
+      });
+      console.log("✅ Contract verified on BSCScan\n");
+    } catch (error) {
+      console.log("⚠️ Verification failed:", error.message, "\n");
+    }
+  }
+
+  // Test token creation
+  console.log("Testing token creation...");
+  const createTx = await factory.createToken("Test Token", "TEST");
+  const receipt = await createTx.wait();
+  
+  const event = receipt.events.find(e => e.event === "TokenCreated");
+  console.log("✅ Test token created at:", event.args.tokenAddress);
+  console.log("   Creator:", event.args.creator);
+  console.log("   Name:", event.args.name);
+  console.log("   Symbol:", event.args.symbol, "\n");
+
+  // Summary
+  console.log("=== Deployment Complete ===");
+  console.log("Factory:", factory.address);
+  console.log("Test Token:", event.args.tokenAddress);
+  console.log("\nSave these addresses to your .env file!");
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+5.3 Manual Verification Commands
+bash# Verify Factory
+npx hardhat verify --network bscTestnet \
+  FACTORY_ADDRESS \
+  "PLATFORM_FEE_RECIPIENT_ADDRESS"
+
+# Verify a deployed BondingCurveToken (need constructor args)
+npx hardhat verify --network bscTestnet \
+  TOKEN_ADDRESS \
+  "Token Name" \
+  "SYMBOL" \
+  "CREATOR_ADDRESS" \
+  "PLATFORM_FEE_RECIPIENT"
+
+6. Mathematical Edge Cases and Precision
+6.1 Handling Division Precision
+solidity// ISSUE: Integer division truncates
+// SOLUTION: Use high-precision intermediate calculations
+
+function getAmountOfTokens(uint256 bnbAmount) internal view returns (uint256) {
+    uint256 currentBnb = bnbReserves + VIRTUAL_BNB_RESERVES;
+    uint256 currentTokens = balanceOf(address(this)) + VIRTUAL_TOKEN_RESERVES;
+    
+    // Calculate using K constant product
+    // tokensOut = currentTokens - (K / (currentBnb + bnbAmount))
+    
+    // Use mulDiv for precision if available (solidity 0.8.0+)
+    uint256 newTokenReserve = K / (currentBnb + bnbAmount);
+    
+    // Handle edge case: if bnbAmount is tiny, newTokenReserve might equal currentTokens
+    if (newTokenReserve >= currentTokens) {
+        return 0; // Prevent underflow
+    }
+    
+    return currentTokens - newTokenReserve;
+}
+6.2 Dust Accumulation
+solidity/**
+ * @notice Sweep dust amounts after graduation (optional admin function)
+ * @dev Can only be called after graduation and LP burning
+ */
+function sweepDust() external onlyOwner {
+    require(status == Status.Graduated, "Not graduated");
+    require(pancakePair != address(0), "Liquidity not added");
+    
+    // Send any remaining BNB dust to platform
+    uint256 bnbDust = address(this).balance;
+    if (bnbDust > 0) {
+        (bool success, ) = platformFeeRecipient.call{value: bnbDust}("");
+        require(success, "BNB transfer failed");
+    }
+    
+    // Burn any remaining token dust
+    uint256 tokenDust = balanceOf(address(this));
+    if (tokenDust > 0) {
+        _burn(address(this), tokenDust);
+    }
+}
+
+7. Security: Low-Level Call Pattern
+7.1 Safe BNB Transfer Implementation
+solidity/**
+ * @dev Safe BNB transfer with explicit error handling
+ */
+function _sendBNB(address payable recipient, uint256 amount) internal {
+    require(recipient != address(0), "Invalid recipient");
+    require(amount > 0, "Invalid amount");
+    
+    (bool success, ) = recipient.call{value: amount}("");
+    require(success, "BNB transfer failed");
+}
+
+// Usage in buy():
+function buy(uint256 minTokensOut) external payable nonReentrant {
+    require(status == Status.Trading, "Trading is not active");
+    require(msg.value > 0, "BNB amount must be positive");
+    
+    // Calculate fees
+    uint256 platformFee = (msg.value * PLATFORM_FEE_BPS) / 10000;
+    uint256 creatorFee = (msg.value * CREATOR_FEE_BPS) / 10000;
+    uint256 bnbToReserve = msg.value - platformFee - creatorFee;
+    
+    // Calculate tokens
+    uint256 tokensToMint = getAmountOfTokens(bnbToReserve);
+    require(tokensToMint >= minTokensOut, "Slippage limit exceeded");
+    
+    // EFFECTS: Update state
+    bnbReserves += bnbToReserve;
+    _transfer(address(this), msg.sender, tokensToMint);
+    
+    if (bnbReserves >= GRADUATION_THRESHOLD_BNB) {
+        status = Status.Graduated;
+        emit GraduationTriggered(block.timestamp, bnbReserves, getCurrentPrice());
+    }
+    
+    // INTERACTIONS: Send fees (after state changes)
+    _sendBNB(platformFeeRecipient, platformFee);
+    _sendBNB(creator, creatorFee);
+    
+    emit Buy(msg.sender, msg.value, tokensToMint, getCurrentPrice());
+}
+
+8. Mainnet Deployment Final Checklist
+Pre-Launch Checklist
+
+ Audit completed by reputable firm (minimum 2 weeks)
+ All critical and high severity issues resolved
+ Test suite passes with 100% success rate
+ Code coverage > 95%
+ Gas costs estimated and documented
+ Deployed and tested on BSC Testnet for minimum 1 week
+ Manual testing of full user journey (create → buy → sell → graduate)
+ PancakeSwap integration tested on testnet with real router
+ Front-end integration tested with testnet deployment
+ Emergency pause mechanism tested
+ Platform fee recipient is multi-sig wallet (3-of-5 minimum)
+ All private keys secured (hardware wallet or HSM)
+ Deployment script reviewed by multiple team members
+ BSCScan verification working on testnet
+ Documentation complete (user guide, dev docs, API reference)
+ Bug bounty program considered (e.g., Immunefi)
+
+Post-Deployment Monitoring
+javascript// scripts/monitor.js - Basic monitoring script
+const hre = require("hardhat");
+
+async function monitor() {
+  const factoryAddress = process.env.FACTORY_ADDRESS;
+  const factory = await hre.ethers.getContractAt("TokenLaunchFactory", factoryAddress);
+  
+  // Listen for new token creations
+  factory.on("TokenCreated", (tokenAddress, creator, name, symbol, event) => {
+    console.log("\n🎉 New Token Created!");
+    console.log("   Address:", tokenAddress);
+    console.log("   Creator:", creator);
+    console.log("   Name:", name);
+    console.log("   Symbol:", symbol);
+    console.log("   Tx:", event.transactionHash);
+  });
+  
+  console.log("👀 Monitoring factory at:", factoryAddress);
+}
+
+monitor().catch(console.error);
+
+9. Known Limitations and Trade-offs
+9.1 Bonding Curve Phase Limitations
+Transaction Ordering Risk:
+
+On busy networks, MEV bots could potentially front-run large purchases
+Mitigation: Users should always use appropriate minTokensOut slippage protection
+Note: This is inherent to all on-chain AMMs
+
+Price Impact:
+
+Large buys near graduation threshold will have significant price impact
+Expected behavior: This is by design; late buyers pay premium prices
+
+9.2 Gas Costs
+Higher than PancakeSwap:
+
+Bonding curve trades require complex math (constant product calculation)
+Estimate: ~30-50% higher gas than standard AMM swap
+Acceptable trade-off: This phase is temporary and provides fair launch mechanics
+
+9.3 Centralization Vectors (Initial Version)
+Platform admin can:
+
+Trigger graduation manually (could delay if malicious)
+Mitigation: Make graduateToPancakeSwap() callable by anyone once threshold reached
+
+solidityfunction graduateToPancakeSwap() external {
+    require(status == Status.Graduated, "Not ready for graduation");
+    require(pancakePair == address(0), "Liquidity already added");
+    // Remove onlyOwner - let anyone trigger once conditions met
+    
+    // ... rest of graduation logic
+}
+
+10. Future Enhancement Suggestions
+10.1 V2 Features (Post-Launch)
+Automatic Graduation Trigger:
+solidityfunction buy(uint256 minTokensOut) external payable nonReentrant {
+    // ... existing buy logic ...
+    
+    if (bnbReserves >= GRADUATION_THRESHOLD_BNB) {
+        status = Status.Graduated;
+        _autoGraduate(); // Automatically call graduation in same tx
+    }
+}
+
+function _autoGraduate() internal {
+    // Execute graduation logic internally
+    // Must be gas-optimized to fit in buy transaction
+}
+Batch Token Creation:
+solidityfunction createMultipleTokens(
+    string[] calldata names,
+    string[] calldata symbols
+) external returns (address[] memory) {
+    // Deploy multiple tokens in one transaction
+    // Useful for mass migration or testing
+}
+Referral System:
+solidityfunction buyWithReferral(uint256 minTokensOut, address referrer) external payable {
+    // Existing buy logic
+    // Plus: allocate small % of fees to referrer
+}
+
+Summary: Critical Additions from Document 2
+✅ Testing framework (specific test cases for all scenarios)
+✅ Gas optimization patterns (immutable, custom errors, packing)
+✅ Front-end integration (view functions, events, estimation functions)
+✅ Deployment scripts (production-ready with verification)
+✅ Mathematical edge cases (dust handling, precision)
+✅ Low-level call patterns (safe BNB transfers)
+✅ Pre-launch checklist (comprehensive audit/testing requirements)
+✅ Known limitations (transparency about trade-offs)

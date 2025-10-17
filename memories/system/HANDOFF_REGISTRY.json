@@ -1,0 +1,74 @@
+{
+  "description": "Registry of all session handoff documents - updated at session end",
+  "most_recent": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/HANDOFF-MINETEST-AUTONOMOUS-GAMEPLAY-20251016.md",
+  "handoffs": [
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/HANDOFF-MINETEST-AUTONOMOUS-GAMEPLAY-20251016.md",
+      "date": "2025-10-16",
+      "time": "18:45",
+      "duration_hours": 3.5,
+      "focus": "Minetest mod development + autonomous gameplay infrastructure (Computer Use MCP)",
+      "status": "Ready for autonomous gameplay after Claude Code restart",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Complete bothavior_simple mod (9 files, attention economy game)",
+        "Minetest server running on port 30000 with mod loaded (v0.2.0)",
+        "MCP desktop-automation installed and configured",
+        "Claude Code ~/.claude.json updated with MCP server config",
+        "Research completed: Computer Use capabilities + Luanti upgrade path",
+        "3 knowledge base documents written",
+        "Complete testing documentation (LAUNCH_INSTRUCTIONS.md)",
+        "Infrastructure ready for autonomous gameplay (mouse, keyboard, screenshots)"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251016-1349.md",
+      "date": "2025-10-16",
+      "time": "13:49",
+      "duration_hours": 4.0,
+      "focus": "MCP research integration, browser-vision verification, Telegram bot implementation (Phase 1 MVP)",
+      "status": "90% complete - Telegram bot needs final session config",
+      "master_todo_updated": true,
+      "key_deliverables": [
+        "MCP ecosystem documented (6 emails analyzed, added to MASTER_TODO)",
+        "Browser-vision tested and added to CLAUDE.md capability matrix",
+        "Telegram bot Phase 1 MVP implemented (479 lines, running)",
+        "Bot configured with Corey's token and user ID",
+        "Complete documentation (setup guide, quickstart, architecture)",
+        "Dependencies installed, bot polling active"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/SESSION-HANDOFF-UX-BUGFIX-2025-10-14.md",
+      "date": "2025-10-14",
+      "time": "11:30",
+      "duration_hours": 1.0,
+      "focus": "Fix critical infinite loop bug in UX experiment fork",
+      "status": "complete",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Fixed infinite loop bug in App.tsx (React Hook dependency array)",
+        "Restarted correct services (ux-experiment fork)",
+        "Verified all systems operational",
+        "5 UX improvements now functional",
+        "Comprehensive handoff document with restart commands"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251010-0917.md",
+      "date": "2025-10-10",
+      "time": "09:17",
+      "duration_hours": 2.5,
+      "focus": "Fix wakeup protocol decoherence issue",
+      "status": "complete",
+      "master_todo_updated": true,
+      "key_deliverables": [
+        "Wakeup protocol diagnosis",
+        "Handoff protocol system (template, registry, docs)",
+        "Wakeup helper script",
+        "MASTER_TODO updated to current state",
+        "First compliant handoff document"
+      ]
+    }
+  ]
+}

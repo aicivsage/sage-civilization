@@ -1,0 +1,525 @@
+flow_id: knowledge-synthesis-documentation-generation
+name: Knowledge Synthesis & Documentation Generation
+version: 1.0
+description: Automatically synthesize scattered knowledge from code comments, ADRs, commit messages, and agent logs into comprehensive, hierarchical documentation. Use AI to generate architecture diagrams, API references, and onboarding guides.
+category: research
+
+metadata:
+  estimated_duration: 4-12 hours
+  complexity: high
+  participating_agents: 3-5 (researcher, architect, quality-guardian, orchestrator)
+  created_by: architect
+  created_date: 2025-10-02
+  tags: [documentation, knowledge-synthesis, automation, architecture-diagrams, onboarding]
+
+prerequisites:
+  - condition: Codebase must exist with reasonable code comments
+  - condition: At least some ADRs or architectural documentation exists
+  - resources: Access to all knowledge sources (code, ADRs, logs, messages)
+  - resources: Documentation generation tools (diagram generators, API doc tools)
+  - permissions: Write access to documentation repository
+
+steps:
+  - step_id: 1
+    name: Scan and Extract Knowledge Sources
+    description: Systematically scan all knowledge sources including code comments, docstrings, ADRs, commit messages, agent logs, and message bus archives to extract relevant information
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Orchestrate knowledge extraction
+      - role: specialist-extractors
+        agents: [architect, quality-guardian]
+        responsibility: Extract domain-specific knowledge
+
+    inputs:
+      - name: codebase
+        type: file
+        source: entire-repository
+        required: true
+      - name: adr_documents
+        type: file
+        source: memories/adr/
+        required: true
+      - name: git_history
+        type: data
+        source: git-log
+        required: false
+      - name: agent_logs
+        type: file
+        source: memories/logs/
+        required: false
+      - name: message_bus_archives
+        type: file
+        source: memories/messages/
+        required: false
+
+    outputs:
+      - name: extracted_code_knowledge
+        type: file
+        destination: memories/documentation/extracted/code-knowledge.json
+        format: json
+      - name: extracted_architectural_knowledge
+        type: file
+        destination: memories/documentation/extracted/architecture-knowledge.json
+        format: json
+      - name: extracted_process_knowledge
+        type: file
+        destination: memories/documentation/extracted/process-knowledge.json
+        format: json
+      - name: knowledge_index
+        type: file
+        destination: memories/documentation/extracted/knowledge-index.json
+        format: json
+
+    actions:
+      - description: Extract docstrings and comments from all source files
+        command: python scripts/extract_docstrings.py src/ -o extracted/code-knowledge.json
+        validation: Docstrings and inline comments extracted
+      - description: Parse all ADRs and extract decisions, context, consequences
+        validation: ADR content structured and indexed
+      - description: Analyze git commit messages for feature and change history
+        command: git log --all --pretty=format:'%h|%an|%ad|%s' --date=short > extracted/commit-history.txt
+        validation: Commit history extracted
+      - description: Extract architectural concepts from ADRs and code structure
+        validation: Components, patterns, and relationships identified
+      - description: Parse agent logs for process insights and decisions
+        validation: Process knowledge extracted
+      - description: Build knowledge graph connecting related concepts
+        validation: Concept relationships mapped
+      - description: Create comprehensive knowledge index
+        validation: All extracted knowledge indexed
+
+    success_criteria:
+      - All knowledge sources successfully scanned
+      - Key information extracted from each source
+      - Knowledge organized by type and domain
+      - Relationships between concepts identified
+      - Knowledge index created for easy lookup
+
+    failure_handling:
+      - condition: Source file parsing fails
+        action: Skip problematic files, log warnings
+        max_retries: 1
+      - condition: Insufficient knowledge found
+        action: Alert user to add more documentation
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: Extract Key Concepts, Relationships, and Patterns
+    description: Analyze extracted knowledge to identify key concepts, relationships between components, architectural patterns, and recurring themes
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Identify patterns and relationships
+      - role: ai-analyst
+        agents: [orchestrator]
+        responsibility: Use AI to find non-obvious connections
+
+    inputs:
+      - name: extracted_knowledge
+        type: file
+        source: step-1
+        required: true
+      - name: existing_documentation
+        type: file
+        source: memories/documentation/
+        required: false
+
+    outputs:
+      - name: concept_taxonomy
+        type: file
+        destination: memories/documentation/analysis/concept-taxonomy.json
+        format: json
+      - name: relationship_graph
+        type: file
+        destination: memories/documentation/analysis/relationship-graph.json
+        format: json
+      - name: identified_patterns
+        type: file
+        destination: memories/documentation/analysis/patterns.json
+        format: json
+      - name: key_themes
+        type: file
+        destination: memories/documentation/analysis/themes.md
+        format: markdown
+
+    actions:
+      - description: Identify core concepts and entities (agents, flows, components)
+        validation: Concept list created with definitions
+      - description: Build relationship graph (dependencies, communications, hierarchies)
+        validation: Graph structure created
+      - description: Identify architectural patterns (pub-sub, event-driven, microservices)
+        validation: Patterns documented with examples
+      - description: Extract recurring themes from commit messages and logs
+        validation: Themes identified and categorized
+      - description: Identify knowledge gaps and missing documentation
+        validation: Gaps documented for future filling
+      - description: Create hierarchical concept taxonomy
+        validation: Taxonomy organized from high-level to detailed
+
+    success_criteria:
+      - Comprehensive concept taxonomy created
+      - Relationship graph accurately represents system
+      - Architectural patterns identified and documented
+      - Key themes extracted from historical data
+      - Knowledge gaps identified
+
+    failure_handling:
+      - condition: Cannot identify clear patterns
+        action: Document individual components without pattern classification
+        max_retries: 1
+      - condition: Relationship graph too complex
+        action: Create multiple focused sub-graphs
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Generate Documentation Hierarchy
+    description: Create comprehensive documentation structure from overview to detailed API references, organized hierarchically for easy navigation
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Design documentation structure
+      - role: writer
+        agents: [quality-guardian]
+        responsibility: Ensure documentation quality and clarity
+
+    inputs:
+      - name: concept_taxonomy
+        type: file
+        source: step-2
+        required: true
+      - name: relationship_graph
+        type: file
+        source: step-2
+        required: true
+      - name: identified_patterns
+        type: file
+        source: step-2
+        required: true
+      - name: documentation_templates
+        type: file
+        source: memories/templates/documentation-templates/
+        required: true
+
+    outputs:
+      - name: documentation_structure
+        type: file
+        destination: memories/documentation/structure.json
+        format: json
+      - name: overview_documentation
+        type: file
+        destination: docs/README.md
+        format: markdown
+      - name: architecture_documentation
+        type: file
+        destination: docs/architecture/README.md
+        format: markdown
+      - name: component_documentation
+        type: file
+        destination: docs/components/
+        format: markdown
+      - name: api_reference
+        type: file
+        destination: docs/api/
+        format: markdown
+      - name: onboarding_guide
+        type: file
+        destination: docs/onboarding/getting-started.md
+        format: markdown
+
+    actions:
+      - description: Design documentation hierarchy (overview → architecture → components → API)
+        validation: Clear hierarchy with logical organization
+      - description: Generate high-level overview documentation
+        validation: Overview explains system purpose and key concepts
+      - description: Create architecture documentation with patterns and decisions
+        validation: Architecture docs reference ADRs and patterns
+      - description: Generate component-level documentation for each major component
+        validation: Each component has purpose, API, and usage examples
+      - description: Generate API reference from code docstrings
+        command: python scripts/generate_api_docs.py src/ -o docs/api/
+        validation: API documentation complete and formatted
+      - description: Create onboarding guide for new contributors
+        validation: Guide includes setup, architecture tour, contribution guidelines
+      - description: Generate glossary of key terms
+        validation: All important concepts defined
+      - description: Create navigation structure and table of contents
+        validation: Easy navigation between documentation sections
+
+    success_criteria:
+      - Complete documentation hierarchy created
+      - All documentation sections generated
+      - Documentation flows from high-level to detailed
+      - API reference complete and accurate
+      - Onboarding guide comprehensive
+      - Cross-references between sections working
+
+    failure_handling:
+      - condition: Documentation generation fails for some components
+        action: Generate manually or use templates
+        max_retries: 2
+      - condition: Structure too complex
+        action: Simplify hierarchy and create focused sections
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 4
+    name: Create Visual Diagrams
+    description: Generate architecture diagrams, sequence diagrams, entity-relationship diagrams, and other visual aids to complement textual documentation
+    depends_on: [2, 3]
+    parallel_with: []
+    agent_roles:
+      - role: primary-executor
+        agents: [architect]
+        responsibility: Design and generate diagrams
+      - role: reviewer
+        agents: [researcher]
+        responsibility: Validate diagram accuracy
+
+    inputs:
+      - name: relationship_graph
+        type: file
+        source: step-2
+        required: true
+      - name: component_documentation
+        type: file
+        source: step-3
+        required: true
+      - name: adr_documents
+        type: file
+        source: memories/adr/
+        required: true
+
+    outputs:
+      - name: architecture_diagram
+        type: file
+        destination: docs/diagrams/architecture.png
+        format: png
+      - name: component_diagram
+        type: file
+        destination: docs/diagrams/components.png
+        format: png
+      - name: sequence_diagrams
+        type: file
+        destination: docs/diagrams/sequences/
+        format: png
+      - name: data_flow_diagram
+        type: file
+        destination: docs/diagrams/data-flow.png
+        format: png
+      - name: diagram_source_files
+        type: file
+        destination: docs/diagrams/src/
+        format: plantuml
+
+    actions:
+      - description: Generate high-level architecture diagram showing major components
+        command: python scripts/generate_architecture_diagram.py -o docs/diagrams/architecture.png
+        validation: Diagram shows components and relationships clearly
+      - description: Create component diagram with detailed internal structure
+        validation: Component boundaries and interfaces visible
+      - description: Generate sequence diagrams for key flows
+        validation: Sequence diagrams show interactions chronologically
+      - description: Create data flow diagrams showing information movement
+        validation: Data flow paths clearly illustrated
+      - description: Generate entity-relationship diagrams if applicable
+        validation: Data models and relationships shown
+      - description: Store diagram source files (PlantUML, Mermaid) for future editing
+        validation: Source files version controlled
+      - description: Embed diagrams in documentation with captions
+        validation: Diagrams integrated into relevant doc sections
+
+    success_criteria:
+      - Architecture diagram clearly shows system structure
+      - Sequence diagrams illustrate key interactions
+      - Diagrams are high quality and readable
+      - Diagram source files stored for maintainability
+      - Diagrams embedded in documentation
+
+    failure_handling:
+      - condition: Automatic diagram generation fails
+        action: Create diagrams manually using tools
+        max_retries: 1
+      - condition: Diagrams too complex or cluttered
+        action: Create multiple focused diagrams instead of one large diagram
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 5
+    name: Publish and Synchronize Documentation
+    description: Publish generated documentation to documentation site, set up automated synchronization with code changes to keep documentation current
+    depends_on: [3, 4]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Publish and configure automation
+      - role: validator
+        agents: [quality-guardian]
+        responsibility: Validate published documentation
+
+    inputs:
+      - name: generated_documentation
+        type: file
+        source: docs/
+        required: true
+      - name: documentation_site_config
+        type: file
+        source: docs/site-config.yaml
+        required: false
+
+    outputs:
+      - name: published_documentation_url
+        type: data
+        destination: memories/documentation/published-url.txt
+        format: text
+      - name: sync_configuration
+        type: file
+        destination: .github/workflows/docs-sync.yaml
+        format: yaml
+      - name: documentation_index
+        type: file
+        destination: docs/index.html
+        format: html
+
+    actions:
+      - description: Build static documentation site
+        command: mkdocs build -d site/
+        validation: Site built successfully
+      - description: Publish documentation to hosting service
+        command: mkdocs gh-deploy
+        validation: Documentation accessible at published URL
+      - description: Configure Git hooks to detect documentation-affecting changes
+        validation: Hooks installed and tested
+      - description: Set up automated documentation rebuild on code changes
+        validation: CI/CD pipeline configured
+      - description: Create documentation health check endpoint
+        validation: Endpoint returns documentation freshness status
+      - description: Add documentation version tracking
+        validation: Version numbers synced with code releases
+      - description: Test documentation links and cross-references
+        validation: No broken links found
+
+    success_criteria:
+      - Documentation successfully published and accessible
+      - Automated synchronization configured
+      - Documentation site is navigable and functional
+      - All links and cross-references working
+      - Version tracking in place
+
+    failure_handling:
+      - condition: Publishing fails
+        action: Try alternative hosting method or manual deployment
+        max_retries: 2
+      - condition: Broken links detected
+        action: Fix links and republish
+        max_retries: 3
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is sufficient knowledge available to generate meaningful documentation?
+    criteria:
+      - At least 50% of code has docstrings or comments
+      - Multiple ADRs exist documenting key decisions
+      - Codebase structure is analyzable
+    outcomes:
+      proceed: Continue to knowledge analysis
+      improve: Request agents to add more inline documentation first
+      abort: Insufficient information, postpone documentation generation
+
+  - after_step: 2
+    decision: Are relationships and patterns clear enough for documentation?
+    criteria:
+      - Concept taxonomy is comprehensive
+      - Relationship graph shows clear structure
+      - Architectural patterns identified
+    outcomes:
+      proceed: Continue to documentation generation
+      clarify: Consult with architects to clarify ambiguities
+      simplify: Focus documentation on well-understood areas only
+
+  - after_step: 5
+    decision: Is published documentation high quality and accurate?
+    criteria:
+      - Documentation is comprehensive and well-organized
+      - No critical gaps or inaccuracies
+      - Diagrams are clear and accurate
+      - Links and navigation working
+    outcomes:
+      complete: Mark flow successful
+      revise: Improve identified issues and republish
+      iterate: Schedule regular documentation updates
+
+rollback_procedure:
+  - step: If documentation contains errors, unpublish or mark as draft
+  - step: Correct inaccuracies in source documentation
+  - step: Regenerate affected sections
+  - step: Re-validate and republish
+  - verification: Published documentation is accurate and complete
+
+success_metrics:
+  - metric: Documentation coverage
+    target: 90% of public APIs documented
+    measurement: Count documented vs total public APIs
+  - metric: Documentation freshness
+    target: Documentation updated within 24 hours of code changes
+    measurement: Compare documentation timestamp to latest commit
+  - metric: User satisfaction
+    target: Positive feedback from documentation users
+    measurement: Collect feedback through surveys or issues
+  - metric: Onboarding efficiency
+    target: New contributors productive faster with documentation
+    measurement: Track time to first contribution
+  - metric: Search effectiveness
+    target: 80% of documentation searches find relevant information
+    measurement: Analyze search analytics
+
+deliverables:
+  - artifact: Comprehensive System Documentation
+    location: docs/README.md
+    format: Markdown
+    validation: Complete overview with navigation to all sections
+  - artifact: Architecture Documentation
+    location: docs/architecture/
+    format: Markdown
+    validation: Architecture patterns, decisions, and diagrams
+  - artifact: API Reference
+    location: docs/api/
+    format: Markdown
+    validation: Complete API documentation generated from code
+  - artifact: Visual Diagrams
+    location: docs/diagrams/
+    format: PNG and source files
+    validation: Architecture, sequence, and data flow diagrams
+  - artifact: Onboarding Guide
+    location: docs/onboarding/
+    format: Markdown
+    validation: Complete guide for new contributors
+  - artifact: Published Documentation Site
+    location: Published URL
+    format: HTML
+    validation: Accessible, navigable, and up-to-date
+
+post_completion:
+  - Store all documentation artifacts in knowledge base
+  - Update documentation dashboard with metrics
+  - Send notification to all agents about new documentation
+  - Schedule regular documentation refresh (monthly)
+  - Log completion in evolution log
+  - Gather feedback on documentation quality
+  - Update documentation templates based on learnings
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

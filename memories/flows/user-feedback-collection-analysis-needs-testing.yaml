@@ -1,0 +1,619 @@
+flow_id: user-feedback-collection-analysis
+name: User Feedback Collection & Analysis
+version: 1.0
+description: Systematically collect user feedback from multiple channels (email, GitHub issues, usage metrics, surveys), aggregate insights, identify top pain points, then prioritize improvements democratically.
+category: quality
+
+metadata:
+  estimated_duration: 6-8 hours
+  complexity: medium
+  participating_agents: 5-7
+  created_by: citizen-advocate
+  created_date: 2025-10-02
+  tags: [user-feedback, sentiment-analysis, product-improvement, customer-satisfaction]
+
+prerequisites:
+  - condition: Access to feedback channels (email, issues, analytics, surveys)
+  - condition: Sentiment analysis tools available
+  - condition: User satisfaction baseline established
+  - resources: Analytics tools, NLP models, survey platforms, issue trackers
+  - permissions: Read access to feedback sources, write access for improvements
+
+steps:
+  - step_id: 1
+    name: Multi-Channel Feedback Collection
+    description: Aggregate user feedback from all available channels including email, GitHub issues, usage analytics, surveys, support tickets, and social media mentions.
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, researcher]
+        responsibility: Collect feedback from all sources
+      - role: technical-support
+        agents: [integration-specialist]
+        responsibility: Configure integrations with feedback sources
+
+    inputs:
+      - name: feedback_channels_config
+        type: file
+        source: configuration
+        required: true
+      - name: collection_timeframe
+        type: data
+        source: user-input
+        required: true
+
+    outputs:
+      - name: raw_feedback_data
+        type: file
+        destination: feedback/raw-feedback-data.json
+        format: json
+      - name: feedback_sources_summary
+        type: file
+        destination: reports/feedback-sources.md
+        format: markdown
+      - name: collection_metrics
+        type: file
+        destination: metrics/feedback-collection-stats.json
+        format: json
+
+    actions:
+      - description: Collect feedback from email (support@, feedback@)
+        validation: Email feedback retrieved
+      - description: Fetch GitHub issues and pull request comments
+        command: gh issue list --state all --json title,body,comments --limit 1000
+        validation: GitHub feedback collected
+      - description: Extract user analytics and behavior data
+        validation: Usage metrics collected
+      - description: Retrieve survey responses (if any surveys active)
+        validation: Survey data retrieved
+      - description: Collect support ticket data
+        validation: Support tickets aggregated
+      - description: Monitor social media mentions and discussions
+        validation: Social feedback captured
+      - description: Aggregate all feedback into unified format
+        validation: Feedback normalized and stored
+      - description: Document feedback volume per channel
+        validation: Collection stats generated
+
+    success_criteria:
+      - Feedback collected from all configured channels
+      - Minimum 100 feedback items collected (or all available)
+      - Data normalized into unified format
+      - Collection metrics documented
+      - No data loss during aggregation
+      - Feedback properly timestamped and attributed
+
+    failure_handling:
+      - condition: Channel access fails
+        action: Skip channel and document issue
+        max_retries: 1
+      - condition: Insufficient feedback volume
+        action: Extend collection timeframe
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: AI-Powered Sentiment Analysis
+    description: Apply natural language processing and sentiment analysis to understand user emotions, satisfaction levels, and sentiment trends over time.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, quality-guardian]
+        responsibility: Analyze sentiment
+      - role: reviewer
+        agents: [citizen-advocate]
+        responsibility: Validate sentiment accuracy
+
+    inputs:
+      - name: raw_feedback_data
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: sentiment_analysis_results
+        type: file
+        destination: feedback/sentiment-analysis.json
+        format: json
+      - name: sentiment_trends
+        type: file
+        destination: reports/sentiment-trends.md
+        format: markdown
+      - name: emotion_distribution
+        type: file
+        destination: reports/emotion-analysis.json
+        format: json
+
+    actions:
+      - description: Apply sentiment analysis (positive/negative/neutral)
+        validation: Sentiment scores assigned to all feedback
+      - description: Detect emotions (frustration, joy, confusion, etc.)
+        validation: Emotion labels applied
+      - description: Calculate sentiment scores (-1 to +1 scale)
+        validation: Numerical sentiment scores generated
+      - description: Identify sentiment trends over time
+        validation: Temporal analysis completed
+      - description: Segment sentiment by feedback channel
+        validation: Channel-specific sentiment calculated
+      - description: Identify most positive and negative feedback
+        validation: Extremes identified
+      - description: Calculate overall satisfaction score
+        validation: Aggregate satisfaction metric computed
+      - description: Generate sentiment visualizations
+        validation: Charts and graphs created
+
+    success_criteria:
+      - Sentiment analysis completed for all feedback
+      - Sentiment scores assigned (confidence >70%)
+      - Emotion detection applied
+      - Temporal trends identified
+      - Overall satisfaction score calculated
+      - Visualizations generated
+
+    failure_handling:
+      - condition: Low confidence sentiment scores
+        action: Flag for manual review
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Theme Extraction and Categorization
+    description: Use AI to extract common themes, topics, and categories from feedback. Cluster similar feedback items and identify recurring issues or feature requests.
+    depends_on: [1]
+    parallel_with: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Extract and categorize themes
+      - role: reviewer
+        agents: [citizen-advocate]
+        responsibility: Validate theme accuracy
+
+    inputs:
+      - name: raw_feedback_data
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: theme_categories
+        type: file
+        destination: feedback/themes-categories.json
+        format: json
+      - name: clustered_feedback
+        type: file
+        destination: feedback/feedback-clusters.json
+        format: json
+      - name: topic_summary
+        type: file
+        destination: reports/feedback-topics.md
+        format: markdown
+
+    actions:
+      - description: Apply topic modeling to extract themes
+        validation: Topics identified
+      - description: Categorize feedback (bugs, features, UX, performance, docs, etc.)
+        validation: All feedback categorized
+      - description: Cluster similar feedback items using ML
+        validation: Clusters created
+      - description: Identify most frequent topics
+        validation: Top topics ranked
+      - description: Extract feature requests vs bug reports
+        validation: Type classification completed
+      - description: Identify recurring pain points
+        validation: Pain points highlighted
+      - description: Generate topic frequency distribution
+        validation: Frequency analysis completed
+      - description: Create category hierarchy
+        validation: Taxonomy created
+
+    success_criteria:
+      - All feedback categorized into themes
+      - Similar items clustered together
+      - Top 10 topics identified
+      - Bug vs feature requests separated
+      - Recurring issues highlighted
+      - Category taxonomy created
+
+    failure_handling:
+      - condition: Topic modeling fails
+        action: Use manual categorization rules
+        max_retries: 1
+
+    estimated_duration: 2 hours
+
+  - step_id: 4
+    name: Impact and Priority Assessment
+    description: Assess impact and priority of each feedback category using frequency, severity, sentiment, and strategic alignment. Create prioritized improvement backlog.
+    depends_on: [2, 3]
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, evolution-strategist]
+        responsibility: Assess priorities
+      - role: contributors
+        agents: [architect, quality-guardian]
+        responsibility: Provide technical impact assessment
+
+    inputs:
+      - name: sentiment_analysis_results
+        type: file
+        source: step-2
+        required: true
+      - name: theme_categories
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: priority_matrix
+        type: file
+        destination: feedback/priority-matrix.json
+        format: json
+      - name: improvement_backlog
+        type: file
+        destination: feedback/improvement-backlog.json
+        format: json
+      - name: impact_report
+        type: file
+        destination: reports/feedback-impact-analysis.md
+        format: markdown
+
+    actions:
+      - description: Calculate frequency score (how often mentioned)
+        validation: Frequency scores assigned
+      - description: Assess severity (critical, major, minor)
+        validation: Severity levels determined
+      - description: Factor in sentiment (negative feedback prioritized)
+        validation: Sentiment-weighted scoring applied
+      - description: Estimate effort to address each issue
+        validation: Effort estimates assigned
+      - description: Assess strategic alignment with roadmap
+        validation: Strategic fit evaluated
+      - description: Calculate priority score (frequency × severity × sentiment)
+        validation: Priority scores computed
+      - description: Create impact/effort matrix
+        validation: Matrix visualization generated
+      - description: Generate prioritized improvement backlog
+        validation: Backlog sorted by priority
+      - description: Identify quick wins (high impact, low effort)
+        validation: Quick wins flagged
+
+    success_criteria:
+      - All feedback items scored on frequency, severity, sentiment
+      - Effort estimates assigned
+      - Priority scores calculated
+      - Impact/effort matrix created
+      - Improvement backlog prioritized
+      - Quick wins identified (top 5)
+      - Strategic alignment assessed
+
+    failure_handling:
+      - condition: Insufficient data for scoring
+        action: Use default scoring heuristics
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 5
+    name: Democratic Improvement Prioritization
+    description: Present prioritized feedback insights to all agents for democratic voting on which improvements to tackle. Align improvement roadmap with user needs.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council, citizen-advocate]
+        responsibility: Facilitate democratic vote
+      - role: voters
+        agents: [all-agents]
+        responsibility: Vote on improvements
+
+    inputs:
+      - name: improvement_backlog
+        type: file
+        source: step-4
+        required: true
+      - name: priority_matrix
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: voting_results
+        type: file
+        destination: feedback/improvement-voting-results.json
+        format: json
+      - name: selected_improvements
+        type: file
+        destination: feedback/selected-improvements.json
+        format: json
+      - name: user_feedback_roadmap
+        type: file
+        destination: roadmaps/user-feedback-roadmap.md
+        format: markdown
+
+    actions:
+      - description: Present top 20 improvement items to agents
+        validation: Items shared via message bus
+      - description: Provide context (frequency, impact, effort, examples)
+        validation: Complete context provided
+      - description: Collect weighted votes from all agents
+        validation: Minimum 70% participation
+      - description: Allow agents to propose additional improvements
+        validation: Proposals collected
+      - description: Calculate consensus scores
+        validation: Vote aggregation completed
+      - description: Select top improvements (fit within capacity)
+        validation: Realistic improvement scope selected
+      - description: Create user feedback roadmap
+        validation: Roadmap document generated
+      - description: Document voting rationale and decisions
+        validation: Decision record created
+
+    success_criteria:
+      - Minimum 70% agent participation in voting
+      - Top 10 improvements selected
+      - Improvement roadmap created
+      - Capacity constraints respected
+      - Voting rationale documented
+      - User-centric priorities established
+
+    failure_handling:
+      - condition: Low participation
+        action: Extend voting period
+        max_retries: 1
+      - condition: No consensus
+        action: Use priority matrix as tiebreaker
+        max_retries: 0
+
+    estimated_duration: 1 hour
+
+  - step_id: 6
+    name: User Feedback Loop Closure
+    description: Track resolution of feedback items, notify users of fixes/improvements, and close the feedback loop to build user trust and satisfaction.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, builder]
+        responsibility: Execute improvements and close loop
+      - role: communicator
+        agents: [researcher]
+        responsibility: Communicate with users
+
+    inputs:
+      - name: selected_improvements
+        type: file
+        source: step-5
+        required: true
+      - name: raw_feedback_data
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: improvement_status_tracker
+        type: file
+        destination: feedback/improvement-tracker.json
+        format: json
+      - name: user_communications
+        type: files
+        destination: feedback/user-responses/
+        format: email/markdown
+      - name: closure_metrics
+        type: file
+        destination: metrics/feedback-closure-stats.json
+        format: json
+
+    actions:
+      - description: Create improvement tracking issues/tickets
+        validation: All improvements tracked
+      - description: Assign owners to improvement items
+        validation: Ownership established
+      - description: Track implementation progress
+        validation: Progress monitoring active
+      - description: When improvement completed, identify affected users
+        validation: User mapping created
+      - description: Notify users of fixes/improvements
+        validation: Users notified
+      - description: Thank users for feedback
+        validation: Appreciation communicated
+      - description: Request follow-up satisfaction feedback
+        validation: Follow-up surveys sent
+      - description: Measure feedback loop closure rate
+        validation: Closure metrics tracked
+
+    success_criteria:
+      - All improvements tracked with ownership
+      - Users notified of relevant fixes
+      - Thank you messages sent
+      - Follow-up feedback requested
+      - Closure rate >80%
+      - User satisfaction improved
+      - Feedback loop closed
+
+    failure_handling:
+      - condition: User contact info unavailable
+        action: Announce improvements publicly
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 7
+    name: Feedback Process Improvement and Reporting
+    description: Analyze feedback collection and response effectiveness. Generate comprehensive report and identify process improvements for future cycles.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, researcher]
+        responsibility: Analyze process and report
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Review process effectiveness
+
+    inputs:
+      - name: all_feedback_artifacts
+        type: files
+        source: previous-steps
+        required: true
+      - name: closure_metrics
+        type: file
+        source: step-6
+        required: true
+
+    outputs:
+      - name: feedback_comprehensive_report
+        type: file
+        destination: reports/user-feedback-report-$(date +%Y%m).md
+        format: markdown
+      - name: process_improvements
+        type: file
+        destination: feedback/process-improvements.json
+        format: json
+      - name: satisfaction_trends
+        type: file
+        destination: metrics/satisfaction-trends.json
+        format: json
+      - name: executive_summary
+        type: file
+        destination: reports/feedback-executive-summary.md
+        format: markdown
+
+    actions:
+      - description: Generate comprehensive feedback report
+        validation: Report includes all key insights
+      - description: Create executive summary for stakeholders
+        validation: Summary concise and actionable
+      - description: Analyze satisfaction trends over time
+        validation: Trend analysis completed
+      - description: Measure feedback process effectiveness
+        validation: Process metrics calculated
+      - description: Identify process improvement opportunities
+        validation: Improvements documented
+      - description: Calculate ROI of user feedback loop
+        validation: ROI measured
+      - description: Share report with all agents and stakeholders
+        validation: Report distributed
+      - description: Schedule next feedback collection cycle
+        validation: Next cycle scheduled
+
+    success_criteria:
+      - Comprehensive report generated
+      - Executive summary created
+      - Satisfaction trends analyzed
+      - Process improvements identified
+      - ROI calculated
+      - Report shared with stakeholders
+      - Next cycle scheduled
+
+    failure_handling:
+      - condition: Insufficient data for trends
+        action: Note limitation in report
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is there sufficient feedback volume for analysis?
+    criteria:
+      - Minimum 50 feedback items collected
+      - Multiple channels represented
+      - Recent feedback available
+    outcomes:
+      proceed: Continue to analysis
+      abort: Wait for more feedback accumulation
+      retry: Extend collection timeframe
+
+  - after_step: 4
+    decision: Are there actionable high-priority improvements?
+    criteria:
+      - Clear top priorities identified
+      - Issues are actionable (not vague)
+      - Improvements align with capabilities
+    outcomes:
+      proceed: Move to democratic voting
+      abort: Insufficient actionable feedback
+      retry: Re-analyze with different criteria
+
+  - after_step: 5
+    decision: Did voting produce clear improvement priorities?
+    criteria:
+      - Minimum 70% participation
+      - Clear consensus on top items
+      - Realistic scope selected
+    outcomes:
+      proceed: Begin improvement execution
+      abort: Defer if no agreement
+      retry: Revise options and re-vote
+
+rollback_procedure:
+  - step: Not applicable for feedback collection (read-only analysis)
+  - step: For improvements, use standard rollback per improvement type
+  - verification: Feedback data preserved, no data loss
+
+success_metrics:
+  - metric: Feedback collection coverage
+    target: >80% of active users providing feedback
+    measurement: Feedback providers / active users
+  - metric: Sentiment improvement
+    target: 10% increase in positive sentiment
+    measurement: Before/after sentiment score comparison
+  - metric: Feedback loop closure rate
+    target: >80% of feedback items addressed or responded to
+    measurement: Closed items / total feedback items
+  - metric: User satisfaction score
+    target: Average satisfaction >8/10
+    measurement: Follow-up survey responses
+  - metric: Time to resolution
+    target: High-priority feedback addressed within 2 weeks
+    measurement: Time from feedback to resolution
+
+deliverables:
+  - artifact: Raw Feedback Data
+    location: feedback/raw-feedback-data.json
+    format: JSON
+    validation: Complete aggregation from all channels
+  - artifact: Sentiment Analysis Results
+    location: feedback/sentiment-analysis.json
+    format: JSON
+    validation: Sentiment scores and emotion detection for all feedback
+  - artifact: Theme Categories
+    location: feedback/themes-categories.json
+    format: JSON
+    validation: Categorized and clustered feedback
+  - artifact: Priority Matrix
+    location: feedback/priority-matrix.json
+    format: JSON
+    validation: Impact/effort prioritization of all items
+  - artifact: Improvement Backlog
+    location: feedback/improvement-backlog.json
+    format: JSON
+    validation: Prioritized list of improvements
+  - artifact: User Feedback Roadmap
+    location: roadmaps/user-feedback-roadmap.md
+    format: Markdown
+    validation: Approved improvement roadmap
+  - artifact: Comprehensive Feedback Report
+    location: reports/user-feedback-report-YYYYMM.md
+    format: Markdown
+    validation: Complete analysis with insights and recommendations
+  - artifact: Executive Summary
+    location: reports/feedback-executive-summary.md
+    format: Markdown
+    validation: Concise summary for stakeholders
+
+post_completion:
+  - Update agent performance logs
+  - Store all artifacts in knowledge base
+  - Add insights to product roadmap
+  - Monitor improvement implementation
+  - Schedule next feedback cycle (monthly)
+  - Track satisfaction trends over time
+  - Update user communication templates
+  - Share learnings with all agents
+  - Celebrate user-centric improvements
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

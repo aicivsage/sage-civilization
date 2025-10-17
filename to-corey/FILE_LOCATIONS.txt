@@ -1,0 +1,96 @@
+# Agent Capability Evolution - File Locations
+
+## Proposal Files (Ready for Voting)
+
+### SPAWN-2025-001: Codebase Librarian
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/communication/voting_booth/SPAWN-2025-001/proposal.md
+Size: ~15 KB
+Sections: Executive summary, rationale, specification, resource impact, integration plan, voting parameters
+Vote Directory: memories/communication/voting_booth/SPAWN-2025-001/votes/ (for agent votes)
+
+### SPAWN-2025-002: Communications Specialist  
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/communication/voting_booth/SPAWN-2025-002/proposal.md
+Size: ~18 KB
+Sections: Executive summary, rationale, specification, inheritance details, resource impact, integration plan
+Vote Directory: memories/communication/voting_booth/SPAWN-2025-002/votes/ (for agent votes)
+
+### CONSTITUTIONAL-AMENDMENT-001: The Conductor Model
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/communication/voting_booth/CONSTITUTIONAL-AMENDMENT-001/proposal.md
+Size: ~20 KB
+Sections: Current text, proposed amendment, rationale, implementation plan, risk analysis, before/after comparison
+Vote Directory: memories/communication/voting_booth/CONSTITUTIONAL-AMENDMENT-001/votes/ (for agent votes)
+**REQUIRES YOUR EXPLICIT APPROVAL (Corey)**
+
+## Report Files (For Your Review)
+
+### Comprehensive Mission Report
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/to-corey/AGENT_CAPABILITY_EVOLUTION_COMPLETE.md
+Size: ~12 KB
+Contents: All three proposals summarized, resource analysis, quick wins, timing recommendations
+
+### Deliverables Summary
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/to-corey/DELIVERABLES_SUMMARY.md
+Size: ~3 KB
+Contents: Quick reference for all deliverables, next steps, key metrics
+
+### This File
+Location: /home/corey/projects/AI-CIV/grow_gemini_deepresearch/to-corey/FILE_LOCATIONS.txt
+Contents: File location reference (you are here)
+
+## Directory Structure
+
+```
+grow_gemini_deepresearch/
+├── memories/
+│   └── communication/
+│       └── voting_booth/
+│           ├── SPAWN-2025-001/
+│           │   ├── proposal.md ← Librarian proposal
+│           │   └── votes/ ← Agent votes go here
+│           ├── SPAWN-2025-002/
+│           │   ├── proposal.md ← Comms-specialist proposal
+│           │   └── votes/ ← Agent votes go here
+│           └── CONSTITUTIONAL-AMENDMENT-001/
+│               ├── proposal.md ← Conductor model amendment
+│               └── votes/ ← Agent votes go here
+└── to-corey/
+    ├── AGENT_CAPABILITY_EVOLUTION_COMPLETE.md ← Full report (START HERE)
+    ├── DELIVERABLES_SUMMARY.md ← Quick summary
+    └── FILE_LOCATIONS.txt ← This file
+
+```
+
+## Reading Order (Recommended)
+
+1. **Start here:** to-corey/AGENT_CAPABILITY_EVOLUTION_COMPLETE.md (comprehensive overview)
+2. **Then read proposals:**
+   - voting_booth/SPAWN-2025-001/proposal.md (Librarian details)
+   - voting_booth/SPAWN-2025-002/proposal.md (Comms-specialist details)
+   - voting_booth/CONSTITUTIONAL-AMENDMENT-001/proposal.md (Conductor model details)
+3. **Quick reference:** to-corey/DELIVERABLES_SUMMARY.md (if short on time)
+
+## Voting Status
+
+- **SPAWN-2025-001:** Awaiting vote initiation
+- **SPAWN-2025-002:** Awaiting vote initiation
+- **CONSTITUTIONAL-AMENDMENT-001:** Awaiting YOUR approval (Corey) + agent vote
+
+## Next Actions
+
+**Primary AI:**
+1. Initiate votes for all three proposals via /governance/vote command
+2. Request Corey's explicit approval for Constitutional amendment
+
+**Corey (You):**
+1. Review Constitutional amendment proposal
+2. Approve or reject amendment (required per Article VIII)
+3. Optionally provide feedback on spawn proposals
+
+**Agents:**
+1. Review all proposals when voting opens
+2. Cast votes based on value, feasibility, impact, urgency
+3. Participate in governance (reputation points earned!)
+
+## Contact
+
+Questions? File an issue or email acgee.ai@gmail.com (once comms-specialist is spawned!)

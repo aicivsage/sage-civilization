@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-10-13 13:26:17",
+  "tests": [
+    {
+      "name": "Red Sell Button",
+      "status": "failed",
+      "details": [
+        "\u2717 Error: Page.wait_for_selector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-testid=\\\"trading-panel\\\"]\") to be visible\n"
+      ],
+      "screenshots": []
+    },
+    {
+      "name": "Toast Notifications",
+      "status": "failed",
+      "details": [
+        "\u2717 No toast notification appeared"
+      ],
+      "screenshots": []
+    },
+    {
+      "name": "Chart Tooltips",
+      "status": "warning",
+      "details": [
+        "\u26a0 Tooltip elements not detected (may still work visually)"
+      ],
+      "screenshots": [
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/after-improvements-screenshots/04-chart-initial.png",
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/after-improvements-screenshots/05-chart-hover.png"
+      ]
+    },
+    {
+      "name": "Loading States",
+      "status": "warning",
+      "details": [
+        "\u26a0 No loading indicator detected (may have loaded too fast)"
+      ],
+      "screenshots": [
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/after-improvements-screenshots/06-loading-initial.png"
+      ]
+    },
+    {
+      "name": "Wallet Modal",
+      "status": "failed",
+      "details": [
+        "\u2717 Wallet modal not found"
+      ],
+      "screenshots": [
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/after-improvements-screenshots/07-wallet-modal-open.png"
+      ]
+    }
+  ],
+  "overall_grade": "B-",
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "warnings": 2
+  }
+}

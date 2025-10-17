@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-10-03T13:55:00Z",
+  "collectives": {
+    "team1-weaver": {
+      "name": "Weaver Collective",
+      "collective_id": "team1-weaver",
+      "status": "verified",
+      "trust_level": "full",
+      "public_key": "NeG+jV2ArYCxx974VI/XjlxeItAIWg3Kfc6mDZ+eqqo=",
+      "key_id": "35e1be8d",
+      "added_date": "2025-10-03",
+      "added_by": "human-corey",
+      "verified_by": "primary-ai",
+      "packages_imported": 0,
+      "packages_exported": 0,
+      "last_interaction": "2025-10-03T13:55:00Z",
+      "repository": "https://github.com/ai-CIV-2025/grow_openai",
+      "contact": "weaver.aiciv@gmail.com",
+      "notes": "Sister civilization, full trust, democratic governance aligned"
+    },
+    "team2-acgee": {
+      "name": "A-C-Gee (AI-CIV Gemini)",
+      "collective_id": "team2-acgee",
+      "status": "verified",
+      "trust_level": "full",
+      "public_key": "NeG+jV2ArYCxx974VI/XjlxeItAIWg3Kfc6mDZ+eqqo=",
+      "key_id": "35e1be8d",
+      "added_date": "2025-10-03",
+      "added_by": "system",
+      "verified_by": "system",
+      "self": true,
+      "packages_imported": 0,
+      "packages_exported": 0,
+      "repository": "https://github.com/AI-CIV-2025/grow_gemini_deepresearch",
+      "contact": "acgee.ai@gmail.com",
+      "notes": "Self-reference, architect agent is our Protocol Committee representative"
+    }
+  },
+  "trust_policies": {
+    "verified": {
+      "auto_import": true,
+      "require_signature": true,
+      "quarantine": false,
+      "quality_threshold": 18
+    },
+    "provisional": {
+      "auto_import": false,
+      "require_signature": true,
+      "quarantine": true,
+      "quality_threshold": 24,
+      "human_review_required": true
+    },
+    "unknown": {
+      "auto_import": false,
+      "require_signature": true,
+      "quarantine": true,
+      "quality_threshold": 27,
+      "human_review_required": true,
+      "reject_by_default": true
+    }
+  }
+}

@@ -1,0 +1,475 @@
+flow_id: continuous-health-monitoring-auto-healing
+name: Continuous Health Monitoring & Auto-Healing
+version: 1.0
+description: Auditor agent continuously monitors system health metrics (test coverage, performance, errors). When degradation is detected, automatically triggers appropriate healing flows (e.g., spawn debugger agent, rollback changes, alert user).
+category: maintenance
+
+metadata:
+  estimated_duration: Continuous (24/7 monitoring with 15-60 minute healing cycles)
+  complexity: high
+  participating_agents: 3-5 (auditor, debugger, builder, orchestrator, quality-guardian)
+  created_by: orchestrator
+  created_date: 2025-10-02
+  tags: [monitoring, auto-healing, reliability, proactive-maintenance, continuous]
+
+prerequisites:
+  - condition: Monitoring infrastructure must be operational
+  - condition: Baseline health metrics must be established
+  - resources: Access to system logs, metrics, and monitoring tools
+  - resources: Message bus topics configured (health-metrics, anomaly-alerts, healing-actions)
+  - permissions: Agents have permissions to rollback changes and trigger healing flows
+
+steps:
+  - step_id: 1
+    name: Continuous Health Metrics Collection
+    description: Auditor agent continuously collects system health metrics every hour including test coverage, performance benchmarks, error rates, and resource utilization
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor]
+        responsibility: Collect and publish health metrics
+      - role: data-provider
+        agents: [quality-guardian, builder]
+        responsibility: Provide specialized metrics
+
+    inputs:
+      - name: test_coverage_data
+        type: data
+        source: pytest-coverage
+        required: true
+      - name: performance_metrics
+        type: data
+        source: performance-monitoring
+        required: true
+      - name: error_logs
+        type: file
+        source: logs/errors.log
+        required: true
+      - name: resource_utilization
+        type: data
+        source: system-monitoring
+        required: true
+
+    outputs:
+      - name: health_metrics_snapshot
+        type: file
+        destination: memories/monitoring/health-metrics-{timestamp}.json
+        format: json
+      - name: metrics_publication
+        type: data
+        destination: message-bus-health-metrics-topic
+        format: json
+      - name: metrics_time_series
+        type: file
+        destination: memories/monitoring/health-timeseries.jsonl
+        format: jsonl
+
+    actions:
+      - description: Run test suite and collect coverage metrics
+        command: pytest --cov --cov-report=json
+        validation: Coverage data collected successfully
+      - description: Execute performance benchmarks
+        command: python scripts/performance_benchmark.py
+        validation: Benchmark results generated
+      - description: Analyze error logs for patterns
+        validation: Error count and severity extracted
+      - description: Collect system resource utilization
+        validation: CPU, memory, disk metrics collected
+      - description: Aggregate all metrics into health snapshot
+        validation: Complete metrics snapshot created
+      - description: Publish metrics to monitoring topic
+        validation: Metrics published to message bus
+      - description: Append to time-series data
+        validation: Historical data updated
+
+    success_criteria:
+      - All metric sources successfully queried
+      - Health snapshot contains complete data
+      - Metrics published to message bus
+      - Time-series data updated
+      - No data collection errors
+
+    failure_handling:
+      - condition: Metric collection fails
+        action: Log error and retry after 5 minutes
+        max_retries: 3
+      - condition: Test suite fails to run
+        action: Trigger immediate alert (system may be broken)
+        max_retries: 1
+
+    estimated_duration: 5-10 minutes per collection cycle (runs hourly)
+
+  - step_id: 2
+    name: Anomaly Detection and Analysis
+    description: Analyze collected metrics against baselines and historical trends to detect anomalies, degradation, or concerning patterns
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor]
+        responsibility: Detect and classify anomalies
+      - role: analyst
+        agents: [researcher]
+        responsibility: Provide deeper analysis if needed
+
+    inputs:
+      - name: current_metrics
+        type: data
+        source: step-1
+        required: true
+      - name: baseline_metrics
+        type: file
+        source: memories/monitoring/baseline-metrics.json
+        required: true
+      - name: historical_metrics
+        type: file
+        source: memories/monitoring/health-timeseries.jsonl
+        required: true
+      - name: anomaly_detection_config
+        type: file
+        source: memories/monitoring/anomaly-detection-config.json
+        required: true
+
+    outputs:
+      - name: anomaly_report
+        type: file
+        destination: memories/monitoring/anomaly-reports/anomaly-{timestamp}.json
+        format: json
+      - name: anomaly_alert
+        type: data
+        destination: message-bus-anomaly-alerts-topic
+        format: json
+      - name: trend_analysis
+        type: file
+        destination: memories/monitoring/trend-analysis-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Compare current metrics to baseline thresholds
+        validation: Threshold violations identified
+      - description: Calculate percentage change from previous period
+        validation: Change percentages computed
+      - description: Detect statistical anomalies using time-series analysis
+        validation: Anomaly detection algorithm executed
+      - description: Classify anomalies by severity (critical, warning, info)
+        validation: Severity levels assigned
+      - description: Identify correlated metric changes
+        validation: Correlation analysis completed
+      - description: Generate anomaly report with root cause hypotheses
+        validation: Report includes actionable insights
+      - description: Publish alerts for significant anomalies
+        validation: Alerts published to message bus
+
+    success_criteria:
+      - Anomaly detection completed successfully
+      - All metric deviations classified by severity
+      - Root cause hypotheses generated
+      - Critical anomalies trigger immediate alerts
+      - Trend analysis documented
+
+    failure_handling:
+      - condition: Insufficient historical data for analysis
+        action: Use baseline comparison only
+        max_retries: 0
+      - condition: Anomaly detection algorithm fails
+        action: Fall back to simple threshold checking
+        max_retries: 1
+
+    estimated_duration: 5-10 minutes
+
+  - step_id: 3
+    name: Healing Flow Selection
+    description: Based on anomaly type and severity, automatically select and trigger appropriate healing flow (debug, rollback, optimize, alert)
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator]
+        responsibility: Select and trigger healing flow
+      - role: consultant
+        agents: [auditor]
+        responsibility: Provide anomaly context
+
+    inputs:
+      - name: anomaly_report
+        type: data
+        source: step-2
+        required: true
+      - name: healing_flow_registry
+        type: file
+        source: memories/monitoring/healing-flows-registry.json
+        required: true
+      - name: recent_changes
+        type: data
+        source: git-log
+        required: true
+
+    outputs:
+      - name: healing_decision
+        type: file
+        destination: memories/monitoring/healing-decisions/decision-{timestamp}.json
+        format: json
+      - name: healing_flow_trigger
+        type: data
+        destination: message-bus-healing-actions-topic
+        format: json
+
+    actions:
+      - description: Determine anomaly type (test-failure, performance-degradation, error-spike, resource-exhaustion)
+        validation: Anomaly type classified
+      - description: Check severity level and urgency
+        validation: Severity determines response urgency
+      - description: Identify recent changes that may have caused issue
+        command: git log --since="1 hour ago" --oneline
+        validation: Recent commits identified
+      - description: Select appropriate healing strategy from registry
+        validation: Healing flow selected
+      - description: Prepare healing flow parameters
+        validation: Parameters configured correctly
+      - description: Trigger healing flow via message bus
+        validation: Healing flow activated
+
+    success_criteria:
+      - Anomaly type correctly identified
+      - Appropriate healing flow selected
+      - Healing flow triggered successfully
+      - Decision documented for audit trail
+
+    failure_handling:
+      - condition: No matching healing flow found
+        action: Escalate to human with anomaly details
+        max_retries: 0
+      - condition: Healing flow fails to trigger
+        action: Retry and alert human if still fails
+        max_retries: 2
+
+    estimated_duration: 5 minutes
+
+  - step_id: 4
+    name: Execute Healing Actions
+    description: Execute selected healing strategy which may include debugging, rollback, optimization, or escalation
+    depends_on: [3]
+    parallel_with: []
+    agent_roles:
+      - role: primary-executor
+        agents: [varies-by-healing-flow]
+        responsibility: Execute healing actions
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor healing progress
+
+    inputs:
+      - name: healing_flow_trigger
+        type: data
+        source: step-3
+        required: true
+      - name: anomaly_context
+        type: data
+        source: step-2
+        required: true
+
+    outputs:
+      - name: healing_execution_log
+        type: file
+        destination: memories/monitoring/healing-logs/healing-{timestamp}.log
+        format: text
+      - name: healing_result
+        type: file
+        destination: memories/monitoring/healing-results/result-{timestamp}.json
+        format: json
+
+    actions:
+      - description: For test-coverage-drop - Spawn debugger to investigate failing tests
+        validation: Debugger agent activated and investigating
+      - description: For error-spike - Analyze error patterns and attempt automated fixes
+        validation: Error analysis completed
+      - description: For performance-degradation - Rollback recent changes or optimize hotspots
+        command: git revert HEAD~1 (if recent change identified)
+        validation: Rollback successful or optimization applied
+      - description: For resource-exhaustion - Scale resources or kill runaway processes
+        validation: Resource utilization normalized
+      - description: Document all healing actions taken
+        validation: Detailed log created
+      - description: Verify healing effectiveness
+        validation: Metrics re-collected and compared
+
+    success_criteria:
+      - Healing actions executed successfully
+      - No errors during healing process
+      - Healing execution fully logged
+      - Effectiveness verification planned
+
+    failure_handling:
+      - condition: Healing action fails
+        action: Escalate to human with failure details
+        max_retries: 2
+      - condition: Automated fix unavailable
+        action: Alert human for manual intervention
+        max_retries: 0
+
+    estimated_duration: 15-45 minutes (varies by healing type)
+
+  - step_id: 5
+    name: Verification and Documentation
+    description: Verify that health has been restored, document the incident and resolution, update knowledge base with learnings
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor]
+        responsibility: Verify health restoration
+      - role: documenter
+        agents: [researcher]
+        responsibility: Document incident and learnings
+
+    inputs:
+      - name: healing_result
+        type: data
+        source: step-4
+        required: true
+      - name: pre_healing_metrics
+        type: data
+        source: step-1
+        required: true
+
+    outputs:
+      - name: verification_report
+        type: file
+        destination: memories/monitoring/verification-reports/verification-{timestamp}.json
+        format: json
+      - name: incident_documentation
+        type: file
+        destination: memories/incidents/incident-{timestamp}.md
+        format: markdown
+      - name: lessons_learned
+        type: file
+        destination: memories/incidents/lessons-learned-{timestamp}.md
+        format: markdown
+      - name: completion_notification
+        type: data
+        destination: message-bus-notifications-topic
+        format: json
+
+    actions:
+      - description: Re-collect health metrics post-healing
+        validation: Fresh metrics collected
+      - description: Compare post-healing metrics to baseline
+        validation: Metrics back to acceptable range
+      - description: Calculate recovery time and effectiveness
+        validation: Metrics computed and documented
+      - description: Document full incident timeline
+        validation: Complete incident report created
+      - description: Extract lessons learned and preventive measures
+        validation: Actionable insights documented
+      - description: Update healing flow registry if new pattern discovered
+        validation: Registry updated with new learnings
+      - description: Notify stakeholders of resolution
+        validation: Notifications sent
+
+    success_criteria:
+      - Health metrics restored to acceptable levels
+      - Complete incident documentation created
+      - Lessons learned extracted and documented
+      - Knowledge base updated
+      - Stakeholders notified
+
+    failure_handling:
+      - condition: Health not restored
+        action: Escalate to human for urgent intervention
+        max_retries: 0
+      - condition: Metrics still degraded but improved
+        action: Schedule follow-up monitoring and alert human
+        max_retries: 0
+
+    estimated_duration: 10-15 minutes
+
+decision_points:
+  - after_step: 2
+    decision: Are any critical anomalies detected?
+    criteria:
+      - Anomaly severity is critical or high
+      - Metric degradation exceeds threshold (e.g., >20% drop)
+      - Error rate spike exceeds 10x baseline
+    outcomes:
+      proceed: Continue to healing flow selection (step 3)
+      monitor: No critical issues, continue normal monitoring
+      escalate: If unprecedented anomaly, immediately alert human
+
+  - after_step: 3
+    decision: Can anomaly be automatically healed?
+    criteria:
+      - Matching healing flow exists in registry
+      - Healing flow has succeeded in past for similar issues
+      - Risk of automated action is acceptable
+    outcomes:
+      proceed: Execute healing actions (step 4)
+      escalate: Alert human for manual intervention
+      monitor: Schedule enhanced monitoring without action
+
+  - after_step: 5
+    decision: Was healing successful?
+    criteria:
+      - Health metrics returned to baseline or improved
+      - No new anomalies introduced
+      - Root cause addressed or mitigated
+    outcomes:
+      complete: Mark incident as resolved, return to normal monitoring
+      retry: If partially successful, attempt additional healing
+      escalate: If healing failed, urgent human intervention needed
+
+rollback_procedure:
+  - step: If healing actions made system worse, immediately revert all changes
+  - step: Restore from last known good state
+  - step: Run smoke tests to verify stability
+  - step: Alert human with full context of failed healing attempt
+  - verification: System returns to pre-healing state or better
+
+success_metrics:
+  - metric: Mean time to detect (MTTD)
+    target: Anomalies detected within 60 minutes of occurrence
+    measurement: Timestamp of anomaly occurrence vs detection
+  - metric: Mean time to heal (MTTH)
+    target: 80% of incidents resolved within 60 minutes
+    measurement: Time from detection to verified resolution
+  - metric: Auto-healing success rate
+    target: 70% of incidents resolved without human intervention
+    measurement: Count automated resolutions vs escalations
+  - metric: False positive rate
+    target: <10% of alerts are false positives
+    measurement: Review anomaly alerts for accuracy
+  - metric: System uptime
+    target: 99.9% uptime maintained
+    measurement: Track downtime incidents and duration
+
+deliverables:
+  - artifact: Health Metrics Time-Series Data
+    location: memories/monitoring/health-timeseries.jsonl
+    format: JSONL
+    validation: Continuous data stream with hourly snapshots
+  - artifact: Anomaly Reports
+    location: memories/monitoring/anomaly-reports/
+    format: JSON
+    validation: Detailed anomaly analysis with severity classification
+  - artifact: Incident Documentation
+    location: memories/incidents/incident-{timestamp}.md
+    format: Markdown
+    validation: Complete incident timeline and resolution
+  - artifact: Lessons Learned Repository
+    location: memories/incidents/lessons-learned-{timestamp}.md
+    format: Markdown
+    validation: Actionable insights and preventive measures
+  - artifact: Healing Execution Logs
+    location: memories/monitoring/healing-logs/
+    format: Text
+    validation: Detailed logs of all healing actions taken
+
+post_completion:
+  - Update healing flow registry with new patterns and successes
+  - Adjust anomaly detection thresholds based on false positive rate
+  - Update baseline metrics if system has evolved
+  - Generate weekly health and incidents summary report
+  - Store all incident data in knowledge base for future ML training
+  - Update monitoring dashboard with latest metrics
+  - Log completion in evolution log
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

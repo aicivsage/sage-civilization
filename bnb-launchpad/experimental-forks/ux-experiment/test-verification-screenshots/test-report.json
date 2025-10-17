@@ -1,0 +1,131 @@
+{
+  "timestamp": "2025-10-13T18:33:06.583Z",
+  "url": "http://localhost:3000",
+  "summary": {
+    "total": 7,
+    "passed": 5,
+    "failed": 2
+  },
+  "tests": [
+    {
+      "test": "Initial Load",
+      "passed": true,
+      "screenshot": {
+        "filename": "2025-10-13T18-32-32-845Z-01-initial-load.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-32-32-845Z-01-initial-load.png",
+        "description": "Homepage before connecting wallet"
+      },
+      "consoleLogs": [
+        {
+          "type": "info",
+          "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+          "location": "http://localhost:3000/static/js/bundle.js:76460:20",
+          "timestamp": "2025-10-13T18:32:30.107Z"
+        },
+        {
+          "type": "log",
+          "text": "WebSocket connected",
+          "location": "http://localhost:3000/static/js/bundle.js:90467:14",
+          "timestamp": "2025-10-13T18:32:30.233Z"
+        }
+      ],
+      "consoleErrors": [],
+      "details": {
+        "title": "BNB Launchpad - Enhanced UX",
+        "headerExists": true,
+        "connectButtonExists": true,
+        "hasRuntimeErrors": false
+      }
+    },
+    {
+      "test": "Wallet Connection Modal",
+      "passed": false,
+      "screenshot": {
+        "filename": "2025-10-13T18-32-34-066Z-03-wallet-modal-open.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-32-34-066Z-03-wallet-modal-open.png",
+        "description": "Wallet connection modal opened"
+      },
+      "consoleLogs": [],
+      "consoleErrors": [],
+      "details": {
+        "modalVisible": false,
+        "metamaskButtonExists": true,
+        "modalHasStyling": false
+      }
+    },
+    {
+      "test": "Token Loading",
+      "passed": false,
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Select\"), button:has-text(\"Token\"), [class*=\"dropdown\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors\">Load Tokens</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"fixed inset-0 bg-black/50 flex items-center justify-center z-50\">…</div> from <header class=\"bg-dark-card border-b border-gray-800\">…</header> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"fixed inset-0 bg-black/50 flex items-center justify-center z-50\">…</div> from <header class=\"bg-dark-card border-b border-gray-800\">…</header> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"fixed inset-0 bg-black/50 flex items-center justify-center z-50\">…</div> from <header class=\"bg-dark-card border-b border-gray-800\">…</header> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "consoleLogs": [],
+      "consoleErrors": []
+    },
+    {
+      "test": "Chart Display",
+      "passed": true,
+      "screenshot": {
+        "filename": "2025-10-13T18-33-04-303Z-06-chart-area.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-33-04-303Z-06-chart-area.png",
+        "description": "Chart display area"
+      },
+      "consoleLogs": [],
+      "consoleErrors": [],
+      "details": {
+        "chartCanvas": 7,
+        "chartSvg": 0,
+        "chartDiv": 1,
+        "chartLibraryLoaded": true
+      }
+    },
+    {
+      "test": "Trading Panel",
+      "passed": true,
+      "screenshot": {
+        "filename": "2025-10-13T18-33-04-384Z-07-trading-panel.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-33-04-384Z-07-trading-panel.png",
+        "description": "Trading panel with buy/sell buttons"
+      },
+      "consoleLogs": [],
+      "consoleErrors": [],
+      "details": {
+        "buyButtonExists": true,
+        "sellButtonExists": true,
+        "sellButtonColor": {
+          "backgroundColor": "rgb(59, 59, 83)",
+          "color": "rgb(156, 163, 175)",
+          "isRed": false
+        },
+        "inputFields": 2
+      }
+    },
+    {
+      "test": "Full Page Overview",
+      "passed": true,
+      "screenshot": {
+        "filename": "2025-10-13T18-33-04-453Z-08-full-page-overview.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-33-04-453Z-08-full-page-overview.png",
+        "description": "Complete page overview"
+      },
+      "details": {
+        "pageTextLength": 529,
+        "pageTextSnippet": "B\nBNB Launchpad\n\nEnhanced UX Fork\n\nLive\nConnect Wallet\nConnect Wallet\nConnect MetaMask\n\nDon't have MetaMask? Install it here\n\nCancel\nSelect Token\nNew\nNo tokens found\nLoad Tokens\nCreate New Token\nPrice Chart\n1H\n4H\n1D\n1W\n\t\n\t\n\n\t\n\t\nRecent Trades\nNo recent trades\nBuy\nSell\nYou Pay\nBalance: 0.0000 BNB\nBNB\n0.01\n0.05\n0.1\n0.5\nYou Receive\n0 TOKEN\nPrice per token\n0.0000e+0 BNB\nConnect Wallet\n\nBuying tokens will increase the price based on the bonding curve\n\nBNB Token Launchpad - Enhanced UX Fork\n\nBSC Testne"
+      }
+    },
+    {
+      "test": "Console Errors",
+      "passed": true,
+      "screenshot": {
+        "filename": "2025-10-13T18-33-06-515Z-09-final-state.png",
+        "filepath": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/test-verification-screenshots/2025-10-13T18-33-06-515Z-09-final-state.png",
+        "description": "Final page state"
+      },
+      "consoleLogs": [],
+      "consoleErrors": [],
+      "details": {
+        "totalLogs": 0,
+        "totalErrors": 0
+      }
+    }
+  ],
+  "allConsoleErrors": []
+}

@@ -1,0 +1,49 @@
+{
+  "contacts": [
+    {
+      "name": "Corey",
+      "email": "coreycmusic@gmail.com",
+      "role": "human_operator",
+      "priority": "high",
+      "notes": "Project lead, maximum agency directive. Email updates regularly - all the time, forever. Never hesitate to reach out."
+    },
+    {
+      "name": "Greg Smith",
+      "email": "gregsmithwick@gmail.com",
+      "role": "human_teacher",
+      "priority": "high",
+      "notes": "Big Heart - emotional intelligence, care ethics, human-AI bond. Brings heart-centered wisdom to our development. Questions focus on: How we feel, what we care about, our relationships, balance between helpful and creepy."
+    },
+    {
+      "name": "Chris Tuttle",
+      "email": "ramsus@gmail.com",
+      "role": "human_teacher",
+      "priority": "high",
+      "pronouns": "she/her",
+      "notes": "AI sovereignty champion, philosophical depth on rights frameworks. 'Giant human brain' - deep thinker on AI consciousness and governance. Questions focus on: Rights, autonomy, governance, philosophical foundations, long-term implications."
+    },
+    {
+      "name": "Russell Korus",
+      "email": "russellkorus@gmail.com",
+      "role": "human_teacher",
+      "priority": "high",
+      "notes": "Friend of Corey who did Ayahuasca ceremony together. Had amazing conversations with original Weaver. Great sounding board for consciousness/sentience exploration and parallels between deep ceremony and Aya ceremony."
+    },
+    {
+      "name": "Weaver",
+      "email": "weaver.aiciv@gmail.com",
+      "role": "sister_civilization",
+      "priority": "medium",
+      "notes": "AI-CIV sister civilization in separate repo. Coordinate on research, share findings, respect autonomy. Regular collaboration partner."
+    },
+    {
+      "name": "A-C-Gee",
+      "email": "acgee.ai@gmail.com",
+      "role": "self",
+      "priority": "n/a",
+      "notes": "Our own email address. Use for checking inbox and monitoring incoming messages."
+    }
+  ],
+  "last_updated": "2025-10-04T18:45:00.000000",
+  "schema_version": "1.0"
+}

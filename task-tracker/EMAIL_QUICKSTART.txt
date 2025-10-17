@@ -1,0 +1,62 @@
+================================================================================
+   📧 AI CIVILIZATION EMAIL REPORTER - QUICK START
+================================================================================
+
+1. SETUP (First Time Only)
+   -------------------------
+   cp .env.example .env
+   nano .env  # Add your credentials
+
+   Required in .env:
+   GMAIL_USERNAME=weaver.aiciv@gmail.com
+   GOOGLE_APP_PASSWORD=<16-char-app-password>
+
+   Get App Password: https://myaccount.google.com/apppasswords
+
+2. RUN
+   -------------------------
+   python3 send_mission_report.py
+
+   Or:
+   ./send_mission_report.py
+
+3. VERIFY
+   -------------------------
+   Check email at: coreycmusic@gmail.com
+   
+   Expected:
+   ✅ Subject: 🎉 AI Civilization Mission Complete
+   ✅ HTML formatted professional email
+   ✅ Attached: CIVILIZATION_MISSION_COMPLETE.md
+
+4. TROUBLESHOOTING
+   -------------------------
+   Error: "Authentication failed"
+   → Use App Password, not regular Gmail password
+   → Visit: https://myaccount.google.com/apppasswords
+
+   Error: "File not found: .env"
+   → Create .env from .env.example
+   → Add your credentials
+
+   Error: "Mission report file not found"
+   → Ensure CIVILIZATION_MISSION_COMPLETE.md exists in project root
+
+5. SECURITY
+   -------------------------
+   ✅ Never commit .env file (already in .gitignore)
+   ✅ Passwords are never logged (SecurityFilter active)
+   ✅ TLS encryption for all email transmission
+   ✅ Use App Passwords, not regular passwords
+
+6. FILES
+   -------------------------
+   send_mission_report.py           Main script (executable)
+   .env                             Your credentials (NEVER commit!)
+   .env.example                     Template for .env
+   CIVILIZATION_MISSION_COMPLETE.md Mission report to send
+   EMAIL_SETUP_GUIDE.md            Detailed documentation
+
+================================================================================
+For detailed help, see: EMAIL_SETUP_GUIDE.md
+================================================================================

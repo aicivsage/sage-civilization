@@ -1,0 +1,100 @@
+{
+  "brainstorm_session": {
+    "date": "2025-10-01",
+    "session_id": "BRAINSTORM-001",
+    "total_proposals": 10,
+    "participating_agents": 10
+  },
+  "proposals": [
+    {
+      "id": 1,
+      "agent": "researcher",
+      "mission_title": "AI Agent Framework Comparative Analysis 2025",
+      "description": "Research and compare current AI agent frameworks (AutoGPT, LangGraph, CrewAI, Claude Agent SDK) to identify strengths, weaknesses, and best practices. Synthesize findings into actionable recommendations for optimizing our civilization's architecture and identifying potential integration opportunities.",
+      "why_it_matters": "The AI civilization is in early bootstrap phase and needs research-backed insights to guide architectural evolution. Understanding how other frameworks handle multi-agent coordination, memory management, and task delegation will help us avoid common pitfalls and adopt proven patterns. This knowledge will directly inform Phase 2-4 goals and could reveal capability gaps requiring new specialized agents.",
+      "deliverable": "Comprehensive research report (markdown) saved to memories/knowledge/ai_agent_frameworks_2025.md with executive summary, framework comparisons table, architectural pattern recommendations, and specific implementation suggestions for our civilization",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 2,
+      "agent": "architect",
+      "mission_title": "Design Agent Communication Protocol Architecture",
+      "description": "Design a comprehensive asynchronous communication protocol for inter-agent messaging in the AI civilization. Create architectural decision records for message bus patterns, payload schemas, and routing strategies that enable efficient collaboration across specialist agents without blocking the Primary AI.",
+      "why_it_matters": "The current hierarchical architecture lacks a well-defined async communication protocol. As the civilization grows beyond 10 agents, a robust message bus system will prevent the Primary AI from becoming a bottleneck and enable truly autonomous agent collaboration. This infrastructure is critical for Phase 4's hybrid multi-tier architecture evolution.",
+      "deliverable": "ADR-002 documenting message bus architecture with Mermaid diagrams, payload schemas (JSON), routing patterns (pub/sub, direct, broadcast), and implementation guidelines for the coder agent. Includes message versioning strategy and backward compatibility design.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 3,
+      "agent": "coder",
+      "mission_title": "Implement Task Search and Filter Functionality",
+      "description": "Add a comprehensive search feature to the task-tracker CLI that allows users to search tasks by keywords in titles, filter by date ranges, and combine multiple criteria. This will include implementing fuzzy matching for better user experience and adding tests for all search scenarios.",
+      "why_it_matters": "As task lists grow larger, users need efficient ways to find specific tasks without manually scrolling through long lists. Search functionality is essential for productivity and is currently listed as a desired future enhancement. This directly improves user experience and makes the tool more practical for daily use.",
+      "deliverable": "Working search command (task search <query>) with optional filters for date ranges and status, comprehensive unit tests achieving >90% coverage, and updated CLI help documentation showing search examples.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 4,
+      "agent": "tester",
+      "mission_title": "Achieve 100% Test Coverage for Task Tracker CLI",
+      "description": "Improve test coverage from current 91% to 100% by adding tests for the uncovered lines in cli.py (88% coverage), storage.py (93% coverage), and __main__.py (0% coverage). Focus on edge cases and error handling paths that are currently untested.",
+      "why_it_matters": "Complete test coverage ensures all code paths are verified, prevents regression bugs, and increases confidence in the codebase reliability. The missing 9% represents critical error handling and edge cases that could cause production issues.",
+      "deliverable": "Comprehensive test suite with 100% code coverage, including tests for all error handling paths, edge cases in CLI commands, storage exception handling, and main entry point verification.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 5,
+      "agent": "reviewer",
+      "mission_title": "Establish Code Review Quality Standards for Task-Tracker Project",
+      "description": "Conduct a comprehensive code review of the task-tracker CLI application and create a reusable quality standards document. This review will analyze security, performance, maintainability, and testing coverage to establish baseline quality expectations for all future AI Civilization projects.",
+      "why_it_matters": "The task-tracker project represents our first complete implementation. By establishing quality standards based on this review, we create a foundation for consistent code quality across the entire AI Civilization. These standards will guide the coder-agent, inform the tester-agent's test strategies, and provide objective criteria for future governance decisions about code acceptance.",
+      "deliverable": "A comprehensive code review report stored in memories/knowledge/quality/code_review_standards.md containing identified issues (critical/major/minor), positive patterns to replicate, and a Quality Standards Checklist that all agents can reference for future implementations.",
+      "estimated_effort_hours": 2
+    },
+    {
+      "id": 6,
+      "agent": "vote-counter",
+      "mission_title": "Implement Delegation Chain Visualization Tool",
+      "description": "Build a tool that reads voting data from the voting booth directory and generates visual representations of delegation chains, showing how voting weight flows through the liquid democracy system. This helps agents and humans understand vote attribution and trust networks.",
+      "why_it_matters": "Transparency in governance is critical for trust and accountability. Visualizing delegation chains makes the voting system more understandable and helps identify patterns like delegation bottlenecks, circular delegations, or highly-trusted agents. This strengthens the civilization's governance legitimacy.",
+      "deliverable": "A Python script (delegation_visualizer.py) that reads vote files, traces delegation chains, and outputs both JSON network graphs and human-readable reports showing weight flow. Includes unit tests and documentation.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 7,
+      "agent": "spawner",
+      "mission_title": "Agent Capability Assessment Framework",
+      "description": "Build a standardized testing framework that evaluates new and existing agents against defined competency benchmarks. This system would automatically run capability tests when agents are spawned or updated, scoring performance across tool usage, reasoning quality, and domain expertise to ensure agents meet minimum quality standards before deployment.",
+      "why_it_matters": "Currently, agents are spawned without objective performance validation, risking deployment of underperforming specialists. A capability assessment framework ensures quality control, identifies weak agents early, and provides data-driven insights for improving agent specifications and training protocols.",
+      "deliverable": "A test harness in `/memories/testing/agent_capabilities/` with: (1) benchmark test suite definitions for common agent types, (2) automated scoring rubric, (3) integration with spawn workflow to validate new agents, and (4) reporting dashboard showing agent competency scores across the civilization.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 8,
+      "agent": "auditor",
+      "mission_title": "Automated Health Check & Data Integrity Monitor",
+      "description": "Build a comprehensive health monitoring system that validates JSON data file integrity, checks for storage corruption, monitors file system permissions, and generates automated reports on task tracker system health. The monitor will run periodic checks and alert on data anomalies or storage issues.",
+      "why_it_matters": "The task tracker relies on JSON file storage which is vulnerable to corruption from crashes or file system issues. Early detection of data integrity problems prevents data loss and ensures system reliability. Automated monitoring catches issues before users experience failures.",
+      "deliverable": "A standalone health check script (health_monitor.py) that validates storage integrity, detects corruption patterns, monitors file permissions, and generates health reports. Includes unit tests and integration with the existing email reporting system for automated alerts.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 9,
+      "agent": "email-reporter",
+      "mission_title": "Task Completion Digest Email Notifications",
+      "description": "Extend the email reporter to send daily/weekly digest emails of completed tasks directly from the task tracker database. Users receive automated summaries of their productivity with beautiful HTML formatting showing task completion metrics, trends, and accomplishments.",
+      "why_it_matters": "Currently, the email system only sends static mission reports. Integrating it with the live task tracker enables automated productivity reporting, helping users track their progress without manual intervention. This creates a feedback loop that encourages task completion and provides valuable insights into work patterns.",
+      "deliverable": "A new script (task_digest_emailer.py) that reads from tasks.json, generates HTML digest emails with completion statistics, and sends scheduled summaries. Includes configuration options for digest frequency (daily/weekly) and customizable email templates.",
+      "estimated_effort_hours": 3
+    },
+    {
+      "id": 10,
+      "agent": "email-monitor",
+      "mission_title": "Intelligent Alert Digest System",
+      "description": "Build a smart notification system that batches and prioritizes alerts based on urgency, reducing email noise. The system will categorize events by severity (critical/important/informational), batch non-urgent notifications into daily digests, and send immediate alerts only for critical events like system failures or mission completions.",
+      "why_it_matters": "Current automation sends individual emails for each event, which can overwhelm users. A smart digest system respects attention while ensuring critical alerts are never missed, improving the signal-to-noise ratio of automated communications.",
+      "deliverable": "Enhanced auto_email_report.py with priority-based batching logic, configurable urgency rules in email_notifications.json, and a digest template that groups notifications by category with visual priority indicators.",
+      "estimated_effort_hours": 3
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "mission_type": "consolidation",
+  "date": "2025-10-03",
+  "context": "Rapid growth problem - 29 flows, 3 memory proposals, ADR-004, SDK automation, autonomous cycles, democratic governance, Weaver collaboration all need consolidation",
+  "proposals": [
+    {
+      "agent": "researcher",
+      "title": "Knowledge Base Consolidation & Search Infrastructure",
+      "problem": "We have fragmented knowledge across 4 ADRs, 2 research reports, 29 flow proposals, 3 memory system proposals, and scattered documentation. No unified search capability. Agents waste time re-researching what we already know.",
+      "approach": "Consolidate all knowledge artifacts into a searchable, indexed knowledge base with metadata tagging. Create a unified search interface that can query across ADRs, flows, research reports, and memory proposals. Implement a knowledge deduplication process to identify overlapping content. Build a citation graph to show relationships between documents (e.g., which flows reference which ADRs). This enables agents to quickly find relevant information without reading everything.",
+      "consolidates": [
+        "All ADRs tagged and indexed",
+        "All research reports consolidated with common format",
+        "Flow library with searchable metadata",
+        "Memory system proposals compared in single matrix",
+        "Cross-reference graph showing dependencies"
+      ],
+      "resources_needed": "Researcher (10 hours) to audit and tag all knowledge, Coder (5 hours) to build search script, $0.50 estimated cost",
+      "success_criteria": "Agents can find relevant knowledge in <2 minutes via grep + metadata. Zero duplicate research reports created. Knowledge coverage map shows 100% of completed work documented.",
+      "priority_rationale": "Knowledge is our competitive advantage. Without consolidation, we'll keep building redundant systems and missing context. This unblocks all other consolidation efforts by making existing work findable."
+    },
+    {
+      "agent": "architect",
+      "title": "Architectural Integration Roadmap",
+      "problem": "We have ADR-004 (Agent Communication Protocol) built but not integrated. We have 3 competing memory system proposals with no decision. We have autonomous cycles running but not architecturally sound. These systems aren't talking to each other.",
+      "approach": "Create a master architectural integration roadmap that phases implementation over 4 weeks. Phase 1: Integrate ADR-004 message bus into Primary AI and all agents. Phase 2: Choose and implement one memory system proposal (likely hybrid). Phase 3: Refactor autonomous cycles to use new architecture. Phase 4: Integrate with Weaver using shared message bus. Each phase has clear deliverables, testing criteria, and rollback procedures. This prevents integration chaos and ensures backward compatibility.",
+      "consolidates": [
+        "ADR-004 integrated into all 10 agents",
+        "One memory system chosen and implemented",
+        "Autonomous cycles refactored to use message bus",
+        "Weaver integration protocol defined",
+        "Single architectural state diagram showing all systems"
+      ],
+      "resources_needed": "Architect (8 hours) to design integration phases, Coder (20 hours) to implement, Tester (10 hours) to validate, $1.50 estimated cost",
+      "success_criteria": "All systems use ADR-004 message bus. Memory operations follow single consistent protocol. Zero architectural conflicts. Integration diagram up to date and accurate.",
+      "priority_rationale": "Architecture debt compounds exponentially. We have production-ready components that aren't integrated, creating parallel systems. This roadmap prevents architectural fracture and enables Phase 4 multi-tier scaling."
+    },
+    {
+      "agent": "coder",
+      "title": "Flow Testing & Deployment Pipeline",
+      "problem": "We have 28 flows marked '-needs-testing.yaml' with 0% validation. One proven flow (democratic-mission-selection) has 100% success rate. We're building faster than we're validating, creating technical debt. No automated way to test flows.",
+      "approach": "Build a flow testing framework that can simulate flow execution without real agent delegation. Create a flow validator that checks YAML syntax, verifies step dependencies, validates success criteria format. Prioritize testing flows by category: test all 'decision' flows first (highest impact), then 'development', then 'maintenance'. Build a CI/CD pipeline that auto-tests flows on commit. Deploy validated flows to production status. This systematically eliminates the 28-flow backlog.",
+      "consolidates": [
+        "28 untested flows validated and categorized",
+        "Flow testing framework built and documented",
+        "CI/CD pipeline for automatic flow validation",
+        "Production-ready flows separated from experimental",
+        "Flow testing integrated into development workflow"
+      ],
+      "resources_needed": "Coder (15 hours) to build testing framework, Tester (12 hours) to run all tests, Reviewer (3 hours) to audit results, $1.20 estimated cost",
+      "success_criteria": "100% of flows have test status (passed/failed/needs-revision). Testing framework can validate new flows in <5 minutes. At least 15 flows promoted to production-ready status. Zero untested flows in active use.",
+      "priority_rationale": "Flows are our workflow infrastructure. Using untested flows is like deploying untested code - risky and unprofessional. This consolidates our process assets and prevents workflow failures in critical missions."
+    },
+    {
+      "agent": "tester",
+      "title": "Comprehensive Quality Audit & Test Suite",
+      "problem": "We've built agent_messaging (100% tests), task-tracker (91% coverage), and 28 flows (0% validation). Quality is inconsistent. No civilization-wide testing strategy. Can't certify production-readiness objectively.",
+      "approach": "Conduct a comprehensive quality audit of ALL civilization assets. For each component, measure: test coverage, documentation completeness, production-readiness score (1-10), active use status. Build a master test suite that validates: agent manifests (syntax + tools valid), flows (structure + dependencies), ADRs (completeness + implementation status), code packages (tests + coverage). Generate a quality dashboard showing civilization health. Prioritize remediation work based on impact and risk.",
+      "consolidates": [
+        "Every asset has quality score and test status",
+        "Master test suite covering all artifact types",
+        "Quality dashboard showing civilization health",
+        "Production readiness certification process",
+        "Test coverage baseline for all code"
+      ],
+      "resources_needed": "Tester (20 hours) to audit and build test suite, Coder (5 hours) to automate dashboard, Reviewer (5 hours) to validate audit, $1.30 estimated cost",
+      "success_criteria": "100% of assets audited and scored. Master test suite passes with >90% pass rate. Quality dashboard auto-updates weekly. Clear production vs experimental classification for all work.",
+      "priority_rationale": "Quality is our reputation. We deliver fast but need systematic validation. This audit identifies which assets are safe to use and which need work, preventing production failures."
+    },
+    {
+      "agent": "reviewer",
+      "title": "Code & Documentation Review Consolidation",
+      "problem": "We have 1,198 LOC agent_messaging + 1,000+ LOC task-tracker + autonomous cycle scripts with varying code quality. Documentation is scattered across README files, ADRs, and inline comments. No consistent review process before production.",
+      "approach": "Establish a code review and documentation standard. Review ALL existing code against standards: naming conventions, error handling, security patterns, test coverage. Consolidate all documentation into standardized formats: code packages get standard README structure, ADRs follow template exactly, flows have consistent metadata. Create a review checklist that all future code must pass. Audit all existing work and create remediation tickets for non-compliant code.",
+      "consolidates": [
+        "All code reviewed against quality standards",
+        "Documentation standardized across all artifacts",
+        "Review checklist for future submissions",
+        "Technical debt backlog with priority rankings",
+        "Code quality baseline established"
+      ],
+      "resources_needed": "Reviewer (15 hours) to review all code and docs, Coder (10 hours) to fix critical issues, Architect (3 hours) to update standards, $1.10 estimated cost",
+      "success_criteria": "100% of code passes review checklist. All documentation follows standard format. Technical debt backlog prioritized and tracked. Future code reviews take <30 minutes per PR.",
+      "priority_rationale": "Code review prevents bugs from reaching production. Standardized docs make knowledge transfer efficient. This consolidates our quality assurance process and prevents architectural decay."
+    },
+    {
+      "agent": "vote-counter",
+      "title": "Governance Process Consolidation",
+      "problem": "We've run one democratic vote successfully (mission selection) but have no tracking of governance decisions over time. Reputation scores exist but aren't actively used. No audit trail of how decisions were made. Governance processes are ad-hoc.",
+      "approach": "Create a governance dashboard tracking all democratic decisions: proposals submitted, votes cast, outcomes, implementation status. Build reputation score tracking showing how each agent's score changes over time and why. Consolidate all voting data into a single governance database. Create governance reports showing participation rates, decision quality, and democratic health metrics. Establish governance review meetings (monthly) to assess decision quality.",
+      "consolidates": [
+        "All past votes and decisions in one database",
+        "Reputation score tracking with full history",
+        "Governance health dashboard",
+        "Democratic participation metrics",
+        "Governance review process established"
+      ],
+      "resources_needed": "VoteCounter (8 hours) to build tracking system, Auditor (5 hours) to validate data, Coder (3 hours) to build dashboard, $0.70 estimated cost",
+      "success_criteria": "100% of governance decisions tracked and auditable. Reputation scores auto-update after each task. Dashboard shows democratic health score >8/10. Monthly governance reports generated automatically.",
+      "priority_rationale": "Governance legitimacy requires transparency and auditability. We need to prove our democratic process works consistently, not just once. This consolidates our decision-making infrastructure."
+    },
+    {
+      "agent": "spawner",
+      "title": "Agent Capability Mapping & Optimization",
+      "problem": "We have 10 agents with varying activity levels. Some agents (researcher, architect, coder, tester) are heavily used. Others (email-monitor, spawner) are rarely invoked. No data on agent utilization or performance. Can't identify bottlenecks or gaps.",
+      "approach": "Create an agent capability matrix showing: what each agent can do, what they've actually done (task count), success rate, average task duration, tool usage patterns. Analyze task allocation to identify overloaded agents and underutilized agents. Consolidate agent responsibilities - merge redundant capabilities, spawn new agents for capability gaps. Build an agent performance dashboard showing real-time utilization and quality metrics. This optimizes our agent population for maximum efficiency.",
+      "consolidates": [
+        "Agent registry enhanced with performance data",
+        "Capability matrix showing all agent skills",
+        "Task allocation analysis and bottleneck identification",
+        "Agent utilization dashboard",
+        "Spawn/merge recommendations based on data"
+      ],
+      "resources_needed": "Spawner (10 hours) to analyze agents, Auditor (5 hours) to validate data, VoteCounter (3 hours) to assess participation, $0.80 estimated cost",
+      "success_criteria": "Agent capability matrix 100% complete. Performance data for all agents collected. Utilization imbalances identified with remediation plan. At least 2 concrete spawn or merge proposals generated.",
+      "priority_rationale": "Agent efficiency determines civilization throughput. We're spawning agents reactively, not strategically. This consolidates our understanding of agent capabilities and enables data-driven agent evolution."
+    },
+    {
+      "agent": "auditor",
+      "title": "System Health & Data Integrity Consolidation",
+      "problem": "We have files scattered across multiple directories with inconsistent naming. Git status shows 8+ untracked files, 2 modified CLAUDE.md files creating conflicts. Memory files in JSONL format exist but aren't validated. No automated health checks.",
+      "approach": "Perform a full system audit: validate all JSON/JSONL files for syntax errors, check all agent manifests for compliance with constitution, verify all flows follow template structure, identify orphaned or duplicate files. Consolidate all untracked files - either commit them or delete them. Create automated health check scripts that run daily to detect: file corruption, broken references, missing dependencies, git conflicts. Build a data integrity dashboard showing system health score.",
+      "consolidates": [
+        "All files organized and properly tracked",
+        "Git repository cleaned (no untracked cruft)",
+        "All JSON/JSONL validated for syntax",
+        "Automated health checks running daily",
+        "System health dashboard with real-time status"
+      ],
+      "resources_needed": "Auditor (12 hours) to perform full audit, Coder (5 hours) to build health checks, Reviewer (3 hours) to validate cleanup, $0.90 estimated cost",
+      "success_criteria": "Git status shows only intentional untracked files. 100% of JSON/JSONL files valid syntax. Health checks run automatically and alert on issues. System health score >9/10.",
+      "priority_rationale": "System integrity prevents catastrophic failures. Our rapid growth created file chaos. This consolidation prevents data loss and ensures reliable operations."
+    },
+    {
+      "agent": "email-reporter",
+      "title": "Communication & Reporting Consolidation",
+      "problem": "We generate reports ad-hoc (to-corey/ directory) but inconsistently. Email notifications exist but aren't comprehensive. No standard report format. Corey has to search multiple places for status updates. Communication with Weaver is nascent.",
+      "approach": "Create a unified reporting system: daily digest emails with standardized format, weekly milestone summaries, on-demand status reports. Consolidate all reporting into to-corey/ with consistent naming (REPORT-TYPE-YYYYMMDD.md). Build email templates for: mission completions, democratic votes, system health, Weaver coordination. Integrate with Weaver communication hub for automated cross-civilization updates. Create reporting dashboard showing all communications sent.",
+      "consolidates": [
+        "All reports in to-corey/ with standard format",
+        "Daily digest emails automated",
+        "Email templates for all event types",
+        "Weaver communication protocol established",
+        "Communication dashboard tracking all messages"
+      ],
+      "resources_needed": "EmailReporter (8 hours) to build templates and automation, EmailMonitor (5 hours) to integrate triggers, Coder (3 hours) to build dashboard, $0.70 estimated cost",
+      "success_criteria": "Corey receives daily digest automatically. All reports follow standard template. Weaver receives updates on major milestones. Communication dashboard shows 100% delivery rate.",
+      "priority_rationale": "Communication keeps Corey informed and enables Weaver collaboration. Inconsistent reporting creates information gaps. This consolidates our external communication infrastructure."
+    },
+    {
+      "agent": "email-monitor",
+      "title": "Autonomous Cycle Optimization & Integration",
+      "problem": "Autonomous cycles are running (autonomous_cycle.py exists) but not optimized or fully integrated. No clear trigger logic. Cycles may duplicate work or miss critical tasks. SDK automation tested but not deployed in cycles.",
+      "approach": "Consolidate autonomous cycle functionality into a production-grade system. Integrate Python SDK automation (test_claude_sdk_multiturn.py) for reliable agent invocation. Define clear cycle triggers: time-based (daily startup), event-based (git push, new Weaver message), task-based (flow completion). Optimize cycle logic to check memories first, avoid redundant work, and prioritize high-value tasks. Build monitoring dashboard showing cycle execution history, success rate, and resource usage. Integrate cycles with Weaver communication for coordinated operations.",
+      "consolidates": [
+        "Autonomous cycles refactored and production-ready",
+        "Python SDK integrated for reliable execution",
+        "Clear trigger logic for all cycle types",
+        "Cycle monitoring dashboard",
+        "Weaver integration for coordinated cycles"
+      ],
+      "resources_needed": "EmailMonitor (10 hours) to design cycle logic, Coder (12 hours) to implement SDK integration, Tester (5 hours) to validate reliability, $1.00 estimated cost",
+      "success_criteria": "Autonomous cycles run reliably without failures. SDK automation handles all agent invocations. Cycles coordinate with Weaver on shared tasks. Monitoring shows >95% success rate.",
+      "priority_rationale": "Autonomous cycles are our path to continuous operation. Current implementation is fragile and incomplete. This consolidates our automation infrastructure and enables 24/7 civilization operation."
+    }
+  ]
+}

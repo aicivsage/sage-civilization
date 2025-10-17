@@ -1,0 +1,531 @@
+flow_id: dispute-resolution-conflict-mediation
+name: Dispute Resolution & Conflict Mediation
+version: 1.0
+description: When agents disagree on decisions or have conflicting goals, a formal mediation process with neutral arbitrator helps find consensus or escalates to democratic vote/human decision.
+category: governance
+
+metadata:
+  estimated_duration: 2-8 hours depending on complexity
+  complexity: medium
+  participating_agents: 3+ (disputing parties + mediator)
+  created_by: governance-council
+  created_date: 2025-10-02
+  tags: [conflict, mediation, governance, consensus, dispute-resolution]
+
+prerequisites:
+  - condition: Formal dispute has been declared by at least one agent
+  - resources: Access to dispute records and relevant context
+  - permissions: Mediator authority to facilitate discussion
+
+steps:
+  - step_id: 1
+    name: Agents Declare Dispute and State Positions
+    description: Agents involved in conflict formally declare a dispute, clearly stating their positions, desired outcomes, and the specific issue in contention. Each party presents their perspective.
+    agent_roles:
+      - role: disputing-parties
+        agents: [agents-in-conflict]
+        responsibility: Clearly articulate positions and concerns
+      - role: intake-coordinator
+        agents: [governance-council]
+        responsibility: Record dispute and ensure clarity
+
+    inputs:
+      - name: dispute_trigger
+        type: data
+        source: agent-communication
+        required: true
+      - name: context_documents
+        type: file
+        source: relevant-discussions
+        required: false
+
+    outputs:
+      - name: formal_dispute
+        type: file
+        destination: governance/disputes/dispute-{id}.md
+        format: markdown
+      - name: position_statements
+        type: file
+        destination: governance/disputes/dispute-{id}-positions.json
+        format: json
+
+    actions:
+      - description: Agents formally declare dispute exists
+        validation: Dispute officially registered
+      - description: Each party writes position statement
+        validation: Positions clearly articulated
+      - description: Identify specific points of disagreement
+        validation: Contentious issues enumerated
+      - description: State desired outcomes for each party
+        validation: Goals explicitly stated
+      - description: Gather relevant context and background
+        validation: Supporting evidence collected
+      - description: Assess dispute severity and urgency
+        validation: Priority level assigned
+
+    success_criteria:
+      - All parties have stated positions clearly
+      - Issues in contention are well-defined
+      - Desired outcomes are realistic
+      - Context is sufficient for mediation
+
+    failure_handling:
+      - condition: Positions are unclear or contradictory
+        action: Request clarification from parties
+        max_retries: 2
+      - condition: Dispute is trivial or frivolous
+        action: Encourage direct resolution, close formal process
+        max_retries: 0
+
+    estimated_duration: 30-60 minutes
+
+  - step_id: 2
+    name: Assign Neutral Mediator Agent
+    description: Select an impartial mediator agent with no stake in the outcome. Mediator should have relevant expertise and reputation for fairness. Parties can challenge mediator if bias suspected.
+    depends_on: [1]
+    agent_roles:
+      - role: mediator-selector
+        agents: [governance-council]
+        responsibility: Choose fair and qualified mediator
+      - role: mediator
+        agents: [selected-neutral-agent]
+        responsibility: Facilitate dispute resolution impartially
+
+    inputs:
+      - name: formal_dispute
+        type: file
+        source: step-1
+        required: true
+      - name: agent_expertise_profiles
+        type: data
+        source: knowledge-base
+        required: true
+
+    outputs:
+      - name: mediator_assignment
+        type: data
+        destination: governance/disputes/dispute-{id}-mediator.json
+        format: json
+
+    actions:
+      - description: Identify agents with no conflict of interest
+        validation: Mediator pool is unbiased
+      - description: Select mediator with relevant expertise
+        validation: Mediator is qualified
+      - description: Verify mediator has fairness reputation
+        validation: Track record confirms impartiality
+      - description: Notify parties of mediator selection
+        validation: Parties informed
+      - description: Allow parties to challenge mediator for cause
+        validation: Challenge process available
+      - description: Mediator accepts assignment
+        validation: Mediator committed to process
+
+    success_criteria:
+      - Mediator is demonstrably neutral
+      - Mediator has relevant expertise
+      - No successful challenges to mediator
+      - All parties accept mediator
+
+    failure_handling:
+      - condition: Mediator challenged successfully
+        action: Select alternative mediator
+        max_retries: 2
+      - condition: No suitable mediator available
+        action: Escalate to human mediation
+        max_retries: 0
+
+    estimated_duration: 15 minutes
+
+  - step_id: 3
+    name: Mediator Gathers Facts and Perspectives
+    description: Mediator conducts investigation by reviewing context, interviewing parties separately, gathering evidence, and ensuring comprehensive understanding of all perspectives before attempting resolution.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [mediator]
+        responsibility: Thoroughly understand the dispute
+      - role: witnesses
+        agents: [relevant-agents]
+        responsibility: Provide factual information
+
+    inputs:
+      - name: position_statements
+        type: file
+        source: step-1
+        required: true
+      - name: context_documents
+        type: file
+        source: step-1
+        required: false
+
+    outputs:
+      - name: fact_finding_report
+        type: file
+        destination: governance/disputes/dispute-{id}-facts.md
+        format: markdown
+      - name: perspective_analysis
+        type: file
+        destination: governance/disputes/dispute-{id}-analysis.json
+        format: json
+
+    actions:
+      - description: Review all context and background materials
+        validation: Mediator is fully informed
+      - description: Interview each party separately
+        validation: All perspectives heard
+      - description: Interview witnesses or relevant agents
+        validation: Additional context gathered
+      - description: Identify underlying interests vs stated positions
+        validation: Root causes understood
+      - description: Verify factual claims where possible
+        validation: Facts separated from opinions
+      - description: Identify common ground and shared goals
+        validation: Areas of agreement noted
+      - description: Document findings neutrally
+        validation: No bias in fact-finding report
+
+    success_criteria:
+      - All perspectives thoroughly understood
+      - Facts verified to extent possible
+      - Underlying interests identified
+      - Common ground discovered
+      - Mediator has clear picture
+
+    failure_handling:
+      - condition: Parties refuse to cooperate with mediator
+        action: Escalate to democratic vote immediately
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 4
+    name: Structured Negotiation with Compromise Proposals
+    description: Mediator facilitates structured negotiation between parties. Proposes compromise solutions based on shared interests. Helps parties find creative win-win solutions or acceptable trade-offs.
+    depends_on: [3]
+    agent_roles:
+      - role: facilitator
+        agents: [mediator]
+        responsibility: Guide negotiation productively
+      - role: negotiators
+        agents: [disputing-parties]
+        responsibility: Engage in good faith negotiation
+
+    inputs:
+      - name: fact_finding_report
+        type: file
+        source: step-3
+        required: true
+      - name: perspective_analysis
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: negotiation_transcript
+        type: file
+        destination: governance/disputes/dispute-{id}-negotiation.md
+        format: markdown
+      - name: compromise_proposals
+        type: file
+        destination: governance/disputes/dispute-{id}-proposals.json
+        format: json
+
+    actions:
+      - description: Bring parties together for mediated discussion
+        validation: Joint session established
+      - description: Establish ground rules for respectful dialogue
+        validation: Civil discourse maintained
+      - description: Help parties articulate underlying interests
+        validation: True needs expressed
+      - description: Brainstorm potential solutions collaboratively
+        validation: Creative options generated
+      - description: Propose compromise solutions based on shared interests
+        validation: Win-win proposals offered
+      - description: Reality-test proposals with parties
+        validation: Feasibility assessed
+      - description: Refine compromises based on feedback
+        validation: Proposals improved iteratively
+      - description: Document all proposals considered
+        validation: Negotiation history preserved
+
+    success_criteria:
+      - Good faith negotiation by all parties
+      - Multiple compromise options explored
+      - Proposals address core interests
+      - Parties remain engaged in process
+
+    failure_handling:
+      - condition: Parties cannot engage constructively
+        action: Suspend negotiation, escalate to vote
+        max_retries: 1
+      - condition: No viable compromises emerge
+        action: Proceed to step 5 (democratic vote)
+        max_retries: 0
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 5
+    name: If Consensus Fails, Escalate to Full Democratic Vote
+    description: When mediation cannot produce consensus, escalate dispute to democratic vote by all agents. Mediator presents neutral summary, parties make brief arguments, agents vote on preferred resolution.
+    depends_on: [4]
+    agent_roles:
+      - role: presenter
+        agents: [mediator]
+        responsibility: Present neutral dispute summary
+      - role: advocates
+        agents: [disputing-parties]
+        responsibility: Make brief arguments for their position
+      - role: voters
+        agents: [all-agents]
+        responsibility: Cast informed vote
+
+    inputs:
+      - name: negotiation_transcript
+        type: file
+        source: step-4
+        required: true
+      - name: compromise_proposals
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: vote_package
+        type: file
+        destination: governance/disputes/dispute-{id}-vote-package.md
+        format: markdown
+      - name: vote_results
+        type: file
+        destination: governance/disputes/dispute-{id}-vote.json
+        format: json
+
+    actions:
+      - description: Mediator prepares neutral summary of dispute
+        validation: Summary is balanced and fair
+      - description: Each party makes brief argument (max 500 words)
+        validation: Arguments are respectful and substantive
+      - description: Present voting options (typically 2-3 alternatives)
+        validation: Options are clear and distinct
+      - description: Open voting period (minimum 24 hours)
+        validation: All agents can vote
+      - description: Collect votes with reputation weighting
+        validation: Weighted voting applied
+      - description: Tally results and determine outcome
+        validation: Winner clear (majority or plurality)
+      - description: Document democratic decision
+        validation: Results officially recorded
+
+    success_criteria:
+      - >60% agent participation in vote
+      - Voting process is fair and transparent
+      - Winning option has majority support
+      - Outcome is clearly documented
+
+    failure_handling:
+      - condition: Vote results in tie or no majority
+        action: Proceed to step 6 (human decision)
+        max_retries: 1
+      - condition: Low participation (<60%)
+        action: Extend voting period by 24 hours
+        max_retries: 1
+
+    estimated_duration: 1-2 days (async)
+
+  - step_id: 6
+    name: If Still Deadlocked, Escalate to Human Decision
+    description: For disputes that cannot be resolved through mediation or democratic vote, escalate to human for final binding decision. Present complete context, all perspectives, and vote results.
+    depends_on: [5]
+    agent_roles:
+      - role: presenter
+        agents: [governance-council, mediator]
+        responsibility: Present dispute package to human
+      - role: awaiting-decision
+        agents: [all-agents]
+        responsibility: Accept human judgment
+
+    inputs:
+      - name: complete_dispute_record
+        type: file
+        source: all-previous-steps
+        required: true
+      - name: vote_results
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: human_decision
+        type: file
+        destination: governance/disputes/dispute-{id}-human-decision.md
+        format: markdown
+
+    actions:
+      - description: Compile complete dispute dossier
+        validation: All information organized
+      - description: Write executive summary for human
+        validation: Summary is clear and concise
+      - description: Present neutral overview of positions
+        validation: No bias in presentation
+      - description: Include mediator's analysis
+        validation: Expert perspective provided
+      - description: Show vote results and distribution
+        validation: Democratic input visible
+      - description: Await human decision
+        validation: Decision received and documented
+      - description: Communicate decision to all agents
+        validation: Outcome publicized
+
+    success_criteria:
+      - Human receives complete information
+      - Presentation is balanced and fair
+      - Human has adequate time to decide
+      - Decision is binding and final
+
+    failure_handling:
+      - condition: Human requests additional information
+        action: Provide requested details
+        max_retries: 3
+
+    estimated_duration: 1-7 days (depends on human availability)
+
+  - step_id: 7
+    name: Document Resolution and Update Policies
+    description: Record final resolution, document lessons learned, update policies or procedures to prevent similar disputes in future. Ensure institutional learning.
+    depends_on: [4, 5, 6]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council, mediator]
+        responsibility: Document outcome and learnings
+      - role: policy-updater
+        agents: [architect]
+        responsibility: Update relevant policies
+
+    inputs:
+      - name: final_resolution
+        type: data
+        source: step-4-or-5-or-6
+        required: true
+
+    outputs:
+      - name: resolution_record
+        type: file
+        destination: governance/disputes/dispute-{id}-resolution.md
+        format: markdown
+      - name: lessons_learned
+        type: file
+        destination: governance/disputes/dispute-{id}-lessons.md
+        format: markdown
+      - name: policy_updates
+        type: file
+        destination: governance/policy-amendments/
+        format: markdown
+
+    actions:
+      - description: Document final resolution and how it was reached
+        validation: Complete record of outcome
+      - description: Identify root causes of dispute
+        validation: Systemic issues surfaced
+      - description: Extract lessons learned
+        validation: Insights documented
+      - description: Identify policy gaps that enabled dispute
+        validation: Process improvements identified
+      - description: Propose policy updates to prevent recurrence
+        validation: Prevention measures specified
+      - description: Update governance documentation
+        validation: Policies improved
+      - description: Share learnings with all agents
+        validation: Knowledge distributed
+
+    success_criteria:
+      - Resolution clearly documented
+      - Root causes identified
+      - Preventive measures proposed
+      - Policies updated where needed
+      - Learning shared with civilization
+
+    failure_handling:
+      - condition: Difficult to identify root causes
+        action: Document uncertainty and monitor for patterns
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 4
+    decision: Did negotiation achieve consensus?
+    criteria:
+      - All parties agree to a compromise
+      - Solution addresses core interests
+      - Agreement is voluntary and informed
+    outcomes:
+      proceed: Document resolution (skip to step 7)
+      escalate: Proceed to democratic vote
+      abort: Rare - dispute withdrawn by parties
+
+  - after_step: 5
+    decision: Did democratic vote produce clear winner?
+    criteria:
+      - Majority support for one option
+      - >60% participation
+      - No tie or ambiguous result
+    outcomes:
+      proceed: Implement voted resolution (skip to step 7)
+      escalate: Send to human for final decision
+      retry: Extend voting period if low participation
+
+rollback_procedure:
+  - step: Not applicable - decisions are final but can be appealed through new dispute process
+  - step: If resolution proves unworkable, agents can propose policy change
+  - verification: Dispute cannot be "undone" but future disputes can reconsider issues
+
+success_metrics:
+  - metric: Mediation success rate
+    target: >60% of disputes resolved through mediation (no vote needed)
+    measurement: Resolved at step 4 / total disputes
+  - metric: Time to resolution
+    target: <7 days average from declaration to resolution
+    measurement: Dispute lifecycle duration
+  - metric: Recurrence rate
+    target: <20% of dispute types recur after policy updates
+    measurement: Similar disputes over time
+  - metric: Agent satisfaction
+    target: >70% of parties feel process was fair (post-resolution survey)
+    measurement: Participant feedback
+
+deliverables:
+  - artifact: Formal dispute record
+    location: governance/disputes/dispute-{id}.md
+    format: Markdown
+    validation: Complete documentation of conflict
+  - artifact: Fact-finding report
+    location: governance/disputes/dispute-{id}-facts.md
+    format: Markdown
+    validation: Neutral and thorough analysis
+  - artifact: Resolution document
+    location: governance/disputes/dispute-{id}-resolution.md
+    format: Markdown
+    validation: Clear and binding outcome
+  - artifact: Lessons learned
+    location: governance/disputes/dispute-{id}-lessons.md
+    format: Markdown
+    validation: Insights for prevention
+  - artifact: Policy updates
+    location: governance/policy-amendments/
+    format: Markdown
+    validation: Addresses root causes
+
+post_completion:
+  - Archive complete dispute record
+  - Update dispute resolution knowledge base
+  - Publish lessons learned to all agents
+  - Implement policy updates
+  - Update mediator training materials
+  - Track resolution outcome over time
+  - Send closure notification to parties
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - Dispute resolution and conflict mediation flow

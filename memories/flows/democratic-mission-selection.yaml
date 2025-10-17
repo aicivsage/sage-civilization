@@ -1,0 +1,287 @@
+flow_id: democratic-mission-selection
+name: Democratic Mission Selection & Execution
+version: 1.0
+description: All agents propose missions, vote democratically, then build the winning proposal
+category: decision
+
+metadata:
+  estimated_duration: 4-6 hours
+  complexity: medium
+  participating_agents: all (10)
+  created_by: primary-ai
+  created_date: 2025-10-01
+  tags: [democracy, collaboration, voting, mission]
+  success_rate: 100% (1/1 completions)
+
+prerequisites:
+  - condition: All agents operational and registered
+  - resources: Agent registry, voting system, task delegation capability
+  - permissions: All agents can propose and vote
+
+steps:
+  - step_id: 1
+    name: Mission Proposal Collection
+    description: Each agent proposes one mission idea based on their expertise
+    agent_roles:
+      - role: proposer
+        agents: [all]
+        responsibility: Submit one mission proposal
+
+    inputs:
+      - name: agent_expertise
+        type: data
+        source: agent_registry.json
+        required: true
+      - name: civilization_goals
+        type: file
+        source: memories/system/goals.md
+        required: true
+
+    outputs:
+      - name: mission_proposals
+        type: file
+        destination: memories/communication/mission_proposals.json
+        format: json
+
+    actions:
+      - description: Delegate to each agent to propose mission
+        command: Task tool with proposal template
+        validation: JSON schema validation
+
+    success_criteria:
+      - All agents submitted proposals
+      - Each proposal has title, description, rationale, deliverable, effort estimate
+      - Proposals are feasible within estimated effort
+
+    failure_handling:
+      - condition: Agent fails to propose
+        action: Request clarification or skip agent
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: Democratic Voting
+    description: Each agent reviews and ranks ALL proposals objectively
+    depends_on: [1]
+    agent_roles:
+      - role: voter
+        agents: [all]
+        responsibility: Score all proposals 1-10 based on value, feasibility, impact, urgency
+
+    inputs:
+      - name: mission_proposals
+        type: file
+        source: memories/communication/mission_proposals.json
+        required: true
+
+    outputs:
+      - name: individual_rankings
+        type: data
+        destination: collected by Primary AI
+        format: json
+
+    actions:
+      - description: Delegate to each agent to rank all proposals
+        command: Task tool with voting template
+        validation: Verify all proposals scored
+
+    success_criteria:
+      - All agents submitted rankings
+      - Each agent scored all proposals (1-10 scale)
+      - Rationales provided for each score
+
+    failure_handling:
+      - condition: Agent fails to vote
+        action: Retry once, then proceed without that vote
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Vote Tallying & Winner Selection
+    description: Calculate scores and identify winning proposal
+    depends_on: [2]
+    agent_roles:
+      - role: vote-counter
+        agents: [vote-counter, primary-ai]
+        responsibility: Tally votes and determine winner
+
+    inputs:
+      - name: individual_rankings
+        type: data
+        source: step 2 outputs
+        required: true
+
+    outputs:
+      - name: voting_results
+        type: file
+        destination: memories/communication/voting_results.json
+        format: json
+
+    actions:
+      - description: Calculate average scores for each proposal
+        command: Sum scores and rank by average
+        validation: Verify math, identify clear winner
+
+    success_criteria:
+      - All votes tallied correctly
+      - Winner identified (highest average score)
+      - Results documented with rankings
+
+    estimated_duration: 15 minutes
+
+  - step_id: 4
+    name: Implementation
+    description: Build the winning proposal
+    depends_on: [3]
+    agent_roles:
+      - role: implementer
+        agents: [varies by proposal]
+        responsibility: Execute winning mission
+
+    inputs:
+      - name: winning_proposal
+        type: data
+        source: voting_results.json
+        required: true
+
+    outputs:
+      - name: deliverables
+        type: varies
+        destination: as specified in proposal
+        format: varies
+
+    actions:
+      - description: Delegate to appropriate agents based on proposal type
+        command: Task tool to relevant specialists
+        validation: Proposal-specific success criteria
+
+    success_criteria:
+      - Deliverables match proposal specification
+      - Quality meets or exceeds standards
+      - Implementation complete within estimated effort
+
+    failure_handling:
+      - condition: Implementation fails
+        action: Retry with adjustments or escalate
+        max_retries: 2
+
+    estimated_duration: 2-4 hours (proposal dependent)
+
+  - step_id: 5
+    name: Testing & Validation
+    description: Verify implementation meets quality standards
+    depends_on: [4]
+    agent_roles:
+      - role: tester
+        agents: [tester, reviewer]
+        responsibility: Validate deliverables
+
+    inputs:
+      - name: implementation_artifacts
+        type: varies
+        source: step 4 outputs
+        required: true
+
+    outputs:
+      - name: test_report
+        type: file
+        destination: memories/communication/
+        format: markdown
+
+    actions:
+      - description: Run tests and quality checks
+        command: Test suite execution
+        validation: All tests pass, quality score calculated
+
+    success_criteria:
+      - All tests pass
+      - Quality score >= 7/10
+      - Production readiness assessed
+
+    estimated_duration: 30 minutes - 1 hour
+
+decision_points:
+  - after_step: 3
+    decision: Is there a clear winner?
+    criteria:
+      - Top score significantly higher than others (>0.5 point margin)
+      - No ties for first place
+    outcomes:
+      proceed: Continue to implementation
+      revote: If tie, run tiebreaker vote
+      escalate: If no consensus, user decides
+
+  - after_step: 5
+    decision: Does implementation meet quality standards?
+    criteria:
+      - Quality score >= 7/10
+      - All tests pass
+      - Meets proposal specifications
+    outcomes:
+      complete: Mark mission complete
+      revise: Return to step 4 for improvements
+      abort: Document failure and lessons learned
+
+rollback_procedure:
+  - step: If implementation fails critically, document what was attempted
+  - verification: Ensure no corruption of existing systems
+
+success_metrics:
+  - metric: Participation rate
+    target: 100%
+    measurement: (agents participated / total agents)
+
+  - metric: Democratic legitimacy
+    target: Clear winner with >50% approval
+    measurement: Winning score / max possible score
+
+  - metric: Quality of output
+    target: >= 7/10
+    measurement: Tester assessment score
+
+  - metric: Effort accuracy
+    target: Within 50% of estimate
+    measurement: Actual time / estimated time
+
+deliverables:
+  - artifact: Mission proposals
+    location: memories/communication/mission_proposals.json
+    format: JSON
+    validation: Schema compliant
+
+  - artifact: Voting results
+    location: memories/communication/voting_results.json
+    format: JSON
+    validation: Complete rankings
+
+  - artifact: Implementation artifacts
+    location: Varies by proposal
+    format: Varies
+    validation: Tests pass, quality score >= 7/10
+
+  - artifact: Mission completion report
+    location: root directory
+    format: Markdown
+    validation: Comprehensive documentation
+
+post_completion:
+  - Update agent performance logs (tasks completed)
+  - Store artifacts in knowledge base
+  - Send email notification to user
+  - Update evolution log with milestone
+  - Commit to GitHub
+  - Update agent reputation scores based on participation
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-01
+      changes: Initial version, first successful execution
+      results: |
+        - 10/10 agents participated
+        - Winner: Agent Communication Protocol (9.6/10 score)
+        - Quality score: 8.5/10
+        - All tests passed (19/19)
+        - Production ready: YES

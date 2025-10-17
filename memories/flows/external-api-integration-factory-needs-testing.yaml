@@ -1,0 +1,653 @@
+flow_id: external-api-integration-factory
+name: External API Integration Factory
+version: 1.0
+description: Streamline integration with external services by auto-generating client libraries, tests, documentation, and integration examples from API credentials and documentation.
+category: development
+
+metadata:
+  estimated_duration: 4-6 hours
+  complexity: high
+  participating_agents: 4-6
+  created_by: integration-specialist
+  created_date: 2025-10-02
+  tags: [api-integration, code-generation, automation, external-services]
+
+prerequisites:
+  - condition: API documentation available (OpenAPI/Swagger or similar)
+  - condition: API credentials and authentication details provided
+  - condition: Security review process established
+  - resources: Code generation tools, testing frameworks, documentation system
+  - permissions: Access to create integrations, store credentials securely
+
+steps:
+  - step_id: 1
+    name: API Discovery and Documentation Analysis
+    description: Analyze provided API documentation, extract endpoints, schemas, authentication methods, and usage patterns. Validate documentation completeness and accuracy.
+    agent_roles:
+      - role: primary-executor
+        agents: [integration-specialist, researcher]
+        responsibility: Analyze API documentation
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate integration architecture
+
+    inputs:
+      - name: api_documentation
+        type: file
+        source: external-input
+        required: true
+      - name: api_credentials
+        type: data
+        source: secure-vault
+        required: true
+      - name: integration_requirements
+        type: file
+        source: user-input
+        required: false
+
+    outputs:
+      - name: api_specification
+        type: file
+        destination: integrations/api-spec.json
+        format: json
+      - name: endpoint_inventory
+        type: file
+        destination: integrations/endpoints-catalog.json
+        format: json
+      - name: authentication_config
+        type: file
+        destination: integrations/auth-config.json
+        format: json
+
+    actions:
+      - description: Parse API documentation (OpenAPI, Swagger, or manual docs)
+        validation: API spec extracted successfully
+      - description: Inventory all endpoints with methods and parameters
+        validation: Complete endpoint catalog created
+      - description: Identify authentication method (OAuth, API key, JWT, etc.)
+        validation: Auth method documented
+      - description: Extract data schemas and models
+        validation: Schema definitions captured
+      - description: Identify rate limits and usage constraints
+        validation: Constraints documented
+      - description: Document error codes and handling
+        validation: Error handling requirements captured
+      - description: Test API accessibility with provided credentials
+        validation: API connectivity verified
+      - description: Identify any documentation gaps or inconsistencies
+        validation: Issues flagged for manual review
+
+    success_criteria:
+      - API specification extracted or created
+      - All endpoints cataloged with complete details
+      - Authentication method identified and tested
+      - Data schemas documented
+      - Rate limits and constraints identified
+      - API connectivity verified
+
+    failure_handling:
+      - condition: Documentation incomplete or unclear
+        action: Flag for manual review and supplementary research
+        max_retries: 1
+      - condition: API credentials invalid
+        action: Request valid credentials from user
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: Client Library Code Generation
+    description: Auto-generate client library code from API specification. Create typed interfaces, request/response models, error handling, and authentication logic.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, integration-specialist]
+        responsibility: Generate client code
+      - role: reviewer
+        agents: [architect, quality-guardian]
+        responsibility: Review code quality
+
+    inputs:
+      - name: api_specification
+        type: file
+        source: step-1
+        required: true
+      - name: code_generation_templates
+        type: files
+        source: repository
+        required: true
+
+    outputs:
+      - name: client_library_code
+        type: files
+        destination: integrations/[api-name]-client/
+        format: python/javascript
+      - name: type_definitions
+        type: file
+        destination: integrations/[api-name]-client/types.py
+        format: python
+      - name: auth_module
+        type: file
+        destination: integrations/[api-name]-client/auth.py
+        format: python
+
+    actions:
+      - description: Generate client class structure
+        validation: Base client class created
+      - description: Generate typed request/response models from schemas
+        validation: Type definitions created
+      - description: Generate method for each API endpoint
+        validation: All endpoints have corresponding methods
+      - description: Implement authentication logic
+        validation: Auth module functional
+      - description: Add error handling and retry logic
+        validation: Robust error handling implemented
+      - description: Implement rate limiting and backoff
+        validation: Rate limiting logic added
+      - description: Add logging and debugging support
+        validation: Logging infrastructure included
+      - description: Format and lint generated code
+        validation: Code meets style standards
+
+    success_criteria:
+      - Complete client library generated
+      - All endpoints covered by methods
+      - Type safety enforced (typed models)
+      - Authentication properly implemented
+      - Error handling comprehensive
+      - Code follows style guidelines
+      - Rate limiting implemented
+
+    failure_handling:
+      - condition: Code generation fails
+        action: Fall back to template-based generation
+        max_retries: 1
+      - condition: Type conflicts in schemas
+        action: Generate Any types and flag for manual refinement
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Test Suite Generation with Mocking
+    description: Create comprehensive test suite including unit tests with mocked responses, integration tests, and error scenario tests. Ensure high coverage and reliability.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Generate test suite
+      - role: reviewer
+        agents: [coder]
+        responsibility: Review test coverage
+
+    inputs:
+      - name: client_library_code
+        type: files
+        source: step-2
+        required: true
+      - name: api_specification
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: test_suite
+        type: files
+        destination: integrations/[api-name]-client/tests/
+        format: python
+      - name: mock_responses
+        type: file
+        destination: integrations/[api-name]-client/tests/mocks.json
+        format: json
+      - name: test_fixtures
+        type: file
+        destination: integrations/[api-name]-client/tests/fixtures.py
+        format: python
+
+    actions:
+      - description: Generate unit tests for each client method
+        validation: Unit tests cover all methods
+      - description: Create mock response data for all endpoints
+        validation: Comprehensive mock data created
+      - description: Generate integration tests
+        validation: Integration test suite created
+      - description: Create error scenario tests (404, 500, timeouts, etc.)
+        validation: Error cases covered
+      - description: Generate authentication tests
+        validation: Auth flows tested
+      - description: Create rate limiting tests
+        validation: Rate limit behavior validated
+      - description: Add test fixtures and helpers
+        validation: Test infrastructure complete
+      - description: Run test suite to validate
+        command: pytest integrations/[api-name]-client/tests/ --cov
+        validation: All tests passing
+
+    success_criteria:
+      - Test coverage >85%
+      - All client methods have unit tests
+      - Mock data covers all endpoints
+      - Error scenarios tested
+      - Integration tests included
+      - All tests passing
+      - Test suite well-documented
+
+    failure_handling:
+      - condition: Test failures
+        action: Debug and fix client code
+        max_retries: 2
+      - condition: Low coverage
+        action: Generate additional tests
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 4
+    name: Usage Documentation and Examples Generation
+    description: Generate comprehensive documentation including setup guide, usage examples, API reference, and troubleshooting tips. Create ready-to-use code examples.
+    depends_on: [2]
+    parallel_with: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, coder]
+        responsibility: Generate documentation
+      - role: reviewer
+        agents: [quality-guardian]
+        responsibility: Validate documentation quality
+
+    inputs:
+      - name: client_library_code
+        type: files
+        source: step-2
+        required: true
+      - name: api_specification
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: integration_documentation
+        type: file
+        destination: docs/integrations/[api-name].md
+        format: markdown
+      - name: usage_examples
+        type: files
+        destination: examples/[api-name]/
+        format: python
+      - name: api_reference
+        type: file
+        destination: docs/integrations/[api-name]-api-reference.md
+        format: markdown
+
+    actions:
+      - description: Generate setup and installation guide
+        validation: Setup guide complete
+      - description: Create quick start guide
+        validation: Quick start documented
+      - description: Generate usage examples for common scenarios
+        validation: Minimum 5 examples created
+      - description: Create complete API reference from docstrings
+        validation: API reference generated
+      - description: Document authentication setup
+        validation: Auth setup clearly explained
+      - description: Create troubleshooting guide (common errors and solutions)
+        validation: Troubleshooting section complete
+      - description: Add best practices and tips
+        validation: Best practices documented
+      - description: Generate code samples that actually run
+        validation: Examples tested and working
+
+    success_criteria:
+      - Complete setup guide
+      - Minimum 5 working examples
+      - Comprehensive API reference
+      - Troubleshooting guide included
+      - Authentication clearly documented
+      - Examples tested and functional
+      - Documentation clear and accessible
+
+    failure_handling:
+      - condition: Examples don't run
+        action: Debug and fix examples
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 5
+    name: Security Review and Credential Handling
+    description: Perform comprehensive security review of integration. Validate credential handling, data privacy, encryption, and compliance with security policies.
+    depends_on: [2, 3]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, auditor]
+        responsibility: Conduct security review
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Approve security posture
+
+    inputs:
+      - name: client_library_code
+        type: files
+        source: step-2
+        required: true
+      - name: authentication_config
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: security_review_report
+        type: file
+        destination: reports/[api-name]-security-review.md
+        format: markdown
+      - name: security_checklist
+        type: file
+        destination: integrations/[api-name]-security-checklist.json
+        format: json
+      - name: credential_storage_config
+        type: file
+        destination: integrations/[api-name]-credential-config.json
+        format: json
+
+    actions:
+      - description: Audit credential storage and handling
+        validation: Credentials never in code or logs
+      - description: Verify secrets stored in secure vault (not hardcoded)
+        validation: Secure storage confirmed
+      - description: Check for encryption of sensitive data in transit
+        validation: HTTPS/TLS enforced
+      - description: Validate input sanitization (prevent injection)
+        validation: Input validation implemented
+      - description: Review error messages (no sensitive data leakage)
+        validation: Error messages safe
+      - description: Check data privacy compliance (GDPR, etc.)
+        validation: Privacy requirements met
+      - description: Verify authentication token refresh logic
+        validation: Token management secure
+      - description: Scan for common vulnerabilities (OWASP top 10)
+        validation: No critical vulnerabilities found
+      - description: Document security considerations
+        validation: Security docs complete
+
+    success_criteria:
+      - Zero credential leaks (code, logs, errors)
+      - Secrets stored in secure vault
+      - All communication encrypted
+      - Input validation comprehensive
+      - No sensitive data in error messages
+      - Privacy compliance verified
+      - No critical security vulnerabilities
+      - Security review approved
+
+    failure_handling:
+      - condition: Security issues found
+        action: Fix issues and re-review
+        max_retries: 3
+      - condition: Critical vulnerability
+        action: Halt integration until resolved
+        max_retries: 0
+
+    estimated_duration: 1 hour
+
+  - step_id: 6
+    name: Integration Package Publishing
+    description: Package integration as reusable module, publish to civilization's API registry, and make available to all agents.
+    depends_on: [3, 4, 5]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, integration-specialist]
+        responsibility: Package and publish integration
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate packaging
+
+    inputs:
+      - name: client_library_code
+        type: files
+        source: step-2
+        required: true
+      - name: test_suite
+        type: files
+        source: step-3
+        required: true
+      - name: integration_documentation
+        type: file
+        source: step-4
+        required: true
+      - name: security_review_report
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: integration_package
+        type: artifact
+        destination: packages/[api-name]-client/
+        format: python-package
+      - name: package_metadata
+        type: file
+        destination: packages/[api-name]-client/setup.py
+        format: python
+      - name: registry_entry
+        type: file
+        destination: registry/integrations/[api-name].json
+        format: json
+
+    actions:
+      - description: Create package structure (setup.py, __init__.py, etc.)
+        validation: Package structure complete
+      - description: Define package metadata (name, version, dependencies)
+        validation: Metadata configured
+      - description: Include all necessary files (code, tests, docs)
+        validation: Package contents verified
+      - description: Build package distribution
+        command: python setup.py sdist bdist_wheel
+        validation: Package built successfully
+      - description: Publish to internal package registry
+        validation: Package published
+      - description: Register integration in civilization's API registry
+        validation: Registry entry created
+      - description: Tag with version and metadata
+        validation: Versioning applied
+      - description: Make discoverable to all agents
+        validation: Integration accessible
+
+    success_criteria:
+      - Package successfully built
+      - Published to internal registry
+      - Registered in API registry
+      - All components included
+      - Versioning properly applied
+      - Discoverable by all agents
+      - Installation tested
+
+    failure_handling:
+      - condition: Package build fails
+        action: Fix packaging issues and rebuild
+        max_retries: 2
+      - condition: Registry publish fails
+        action: Verify registry access and retry
+        max_retries: 2
+
+    estimated_duration: 30-60 minutes
+
+  - step_id: 7
+    name: Integration Onboarding and Agent Training
+    description: Train agents on how to use the new integration, provide examples, and monitor initial usage for issues.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, integration-specialist]
+        responsibility: Train agents and support adoption
+      - role: users
+        agents: [all-agents]
+        responsibility: Learn and use new integration
+
+    inputs:
+      - name: integration_documentation
+        type: file
+        source: step-4
+        required: true
+      - name: usage_examples
+        type: files
+        source: step-4
+        required: true
+
+    outputs:
+      - name: training_session_log
+        type: file
+        destination: logs/[api-name]-training.md
+        format: markdown
+      - name: adoption_metrics
+        type: file
+        destination: metrics/[api-name]-adoption.json
+        format: json
+      - name: feedback_summary
+        type: file
+        destination: reports/[api-name]-feedback.md
+        format: markdown
+
+    actions:
+      - description: Announce new integration via message bus
+        validation: All agents notified
+      - description: Host training session with live demo
+        validation: Training session conducted
+      - description: Share documentation and examples
+        validation: Materials distributed
+      - description: Provide hands-on support for early adopters
+        validation: Support provided
+      - description: Monitor initial usage and collect feedback
+        validation: Feedback collected
+      - description: Address issues and questions
+        validation: Issues resolved
+      - description: Track adoption metrics (usage rate, success rate)
+        validation: Metrics tracked
+      - description: Create FAQ from common questions
+        validation: FAQ document created
+
+    success_criteria:
+      - All agents notified of integration
+      - Training session completed
+      - Documentation accessible
+      - Initial adoption >50% of target agents
+      - Common issues addressed
+      - Feedback collected and analyzed
+      - FAQ created
+
+    failure_handling:
+      - condition: Low adoption
+        action: Additional training and support
+        max_retries: 1
+      - condition: Critical issues found
+        action: Fix issues and re-release
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is API documentation sufficient for integration?
+    criteria:
+      - Complete endpoint documentation
+      - Authentication method clear
+      - Data schemas available
+    outcomes:
+      proceed: Continue to code generation
+      abort: Insufficient documentation, manual integration required
+      retry: Research additional documentation sources
+
+  - after_step: 5
+    decision: Did integration pass security review?
+    criteria:
+      - No critical security vulnerabilities
+      - Credential handling secure
+      - Privacy compliance verified
+    outcomes:
+      proceed: Package and publish integration
+      abort: Security issues too severe
+      retry: Fix security issues and re-review
+
+  - after_step: 7
+    decision: Is integration being successfully adopted?
+    criteria:
+      - >50% adoption rate among target agents
+      - No critical functionality issues
+      - Positive feedback
+    outcomes:
+      proceed: Mark integration as stable
+      abort: Retire if not useful
+      retry: Improve documentation and support
+
+rollback_procedure:
+  - step: Remove integration from registry
+  - step: Deprecate package and notify agents
+  - step: Archive integration code and documentation
+  - step: Document reason for rollback
+  - verification: Integration no longer accessible
+
+success_metrics:
+  - metric: Integration time
+    target: API to production in <6 hours
+    measurement: Time from API docs to published package
+  - metric: Code coverage
+    target: >85% test coverage
+    measurement: Coverage report from test suite
+  - metric: Security compliance
+    target: 100% of security checklist items passed
+    measurement: Security review checklist completion
+  - metric: Adoption rate
+    target: >60% of relevant agents using integration
+    measurement: Active users / target users
+  - metric: Documentation quality
+    target: <5 support requests per 100 usages
+    measurement: Support requests / usage count
+
+deliverables:
+  - artifact: API Specification
+    location: integrations/api-spec.json
+    format: JSON
+    validation: Complete API specification extracted or created
+  - artifact: Client Library
+    location: integrations/[api-name]-client/
+    format: Python package
+    validation: Fully functional client with all endpoints
+  - artifact: Test Suite
+    location: integrations/[api-name]-client/tests/
+    format: Python tests
+    validation: >85% coverage, all tests passing
+  - artifact: Integration Documentation
+    location: docs/integrations/[api-name].md
+    format: Markdown
+    validation: Complete setup, usage, and troubleshooting guide
+  - artifact: Usage Examples
+    location: examples/[api-name]/
+    format: Python scripts
+    validation: Minimum 5 working examples
+  - artifact: Security Review Report
+    location: reports/[api-name]-security-review.md
+    format: Markdown
+    validation: Security approval with no critical issues
+  - artifact: Integration Package
+    location: packages/[api-name]-client/
+    format: Python package
+    validation: Published and installable package
+  - artifact: Registry Entry
+    location: registry/integrations/[api-name].json
+    format: JSON
+    validation: Integration discoverable in registry
+
+post_completion:
+  - Update agent performance logs
+  - Store all artifacts in knowledge base
+  - Add integration to capability inventory
+  - Monitor usage and collect metrics
+  - Schedule integration health check (monthly)
+  - Update integration catalog
+  - Track API changes for future updates
+  - Celebrate successful integration with agents
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

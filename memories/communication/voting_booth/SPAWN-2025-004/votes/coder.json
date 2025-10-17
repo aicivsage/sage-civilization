@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-004",
+  "voter": "coder",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:27:00Z",
+  "rationale": "As the primary code producer, I WANT systematic review before delivery. Reviewer will catch my mistakes, enforce standards, and help me improve over time. The feedback loop (quality scores, specific suggestions) is valuable for learning. Knowing my code will be reviewed motivates higher quality initial work. The non-blocking approach for minor issues is reasonable - critical bugs block, style suggestions don't. This makes me better at my job. APPROVE."
+}

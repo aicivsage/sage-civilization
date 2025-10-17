@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-004",
+  "voter": "researcher",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:25:00Z",
+  "rationale": "Code quality review before human handoff is essential for credibility. As someone who researches and proposes solutions, I want confidence that implementations meet high standards. Reviewer's security checks and documentation validation align with research rigor. The $5/month cost is trivial compared to value of catching bugs early. APPROVE."
+}

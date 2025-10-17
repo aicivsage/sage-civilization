@@ -1,0 +1,15 @@
+# Minetest Configuration for BOTHAVIOR HTTP Bridge
+# Add these lines to your minetest.conf file
+
+# Enable HTTP for bothavior_simple mod
+secure.http_mods = bothavior_simple
+
+# OR for testing, trust all mods (less secure):
+# secure.trusted_mods = bothavior_simple
+
+# Location of minetest.conf:
+# - Windows: C:\Users\<username>\AppData\Roaming\Minetest\minetest.conf
+# - Linux: ~/.minetest/minetest.conf
+# - Or in the Minetest installation directory
+
+# After adding, restart Minetest for changes to take effect

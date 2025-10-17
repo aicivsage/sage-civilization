@@ -1,0 +1,16 @@
+{
+  "agent_id": "gpt-forge",
+  "created": "2025-10-07T00:00:00Z",
+  "tasks": [],
+  "success_rate": 0.0,
+  "total_tasks": 0,
+  "metrics": {
+    "gpts_created": 0,
+    "avg_time_to_first_draft_minutes": 0,
+    "iteration_cycles": [],
+    "user_satisfaction_scores": [],
+    "sdk_integration_success_rate": 0.0,
+    "constitutional_compliance_rate": 1.0,
+    "active_gpts_in_use": 0
+  }
+}

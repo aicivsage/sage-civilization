@@ -1,0 +1,649 @@
+flow_id: autonomous-feature-development-pipeline
+name: Autonomous Feature Development Pipeline
+version: 1.0
+description: User submits feature request, then Research → Architect → Coder → Tester → Reviewer agents collaborate asynchronously via message bus. Each agent publishes completion events that trigger the next stage automatically.
+category: development
+
+metadata:
+  estimated_duration: 4-16 hours
+  complexity: high
+  participating_agents: 5-7 minimum (researcher, architect, coder, tester, reviewer, builder, orchestrator)
+  created_by: orchestrator
+  created_date: 2025-10-02
+  tags: [autonomous, feature-development, message-bus, asynchronous-collaboration, full-stack]
+
+prerequisites:
+  - condition: Message bus infrastructure must be operational
+  - condition: Feature request must be clearly defined with acceptance criteria
+  - resources: Access to codebase, documentation, and testing infrastructure
+  - resources: Message bus topics configured (feature-requests, research-findings, architecture-designs, code-artifacts, test-results, review-outcomes)
+  - permissions: Agents have necessary code write and deployment permissions
+
+steps:
+  - step_id: 1
+    name: Feature Request Submission and Intake
+    description: User submits feature request to message bus topic with description, rationale, and success criteria. Orchestrator validates and publishes to research topic.
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, user-proxy]
+        responsibility: Receive and validate feature request
+      - role: publisher
+        agents: [orchestrator]
+        responsibility: Publish to research topic
+
+    inputs:
+      - name: feature_request
+        type: data
+        source: external
+        required: true
+      - name: user_context
+        type: data
+        source: external
+        required: false
+
+    outputs:
+      - name: validated_request
+        type: data
+        destination: memories/features/feature-request.json
+        format: json
+      - name: research_trigger
+        type: data
+        destination: message-bus-research-topic
+        format: json
+
+    actions:
+      - description: Parse and validate feature request structure
+        validation: Request contains description, rationale, acceptance criteria
+      - description: Assign unique feature ID
+        validation: ID is unique and follows naming convention
+      - description: Create feature tracking document
+        validation: Document created in memories/features/
+      - description: Publish feature request to research topic
+        validation: Message successfully published to bus
+
+    success_criteria:
+      - Feature request properly structured and validated
+      - Unique feature ID assigned
+      - Research topic message published
+      - Feature tracking initiated
+
+    failure_handling:
+      - condition: Invalid or incomplete request
+        action: Request clarification from user
+        max_retries: 3
+      - condition: Message bus unavailable
+        action: Queue request and retry after 1 minute
+        max_retries: 5
+
+    estimated_duration: 10 minutes
+
+  - step_id: 2
+    name: Research and Requirements Gathering
+    description: Researcher agent subscribes to research topic, gathers requirements, researches similar implementations, identifies dependencies, and publishes comprehensive research findings.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Comprehensive research and requirements documentation
+      - role: consultant
+        agents: [domain-experts]
+        responsibility: Provide domain-specific insights
+
+    inputs:
+      - name: feature_request
+        type: data
+        source: message-bus-research-topic
+        required: true
+      - name: existing_codebase
+        type: file
+        source: current-repository
+        required: true
+      - name: external_documentation
+        type: data
+        source: web-search
+        required: false
+
+    outputs:
+      - name: research_findings
+        type: file
+        destination: memories/features/{feature-id}/research-findings.md
+        format: markdown
+      - name: requirements_specification
+        type: file
+        destination: memories/features/{feature-id}/requirements.md
+        format: markdown
+      - name: architecture_trigger
+        type: data
+        destination: message-bus-architecture-topic
+        format: json
+
+    actions:
+      - description: Analyze feature request and identify information needs
+        validation: Research questions documented
+      - description: Search existing codebase for similar patterns
+        validation: Relevant code examples identified
+      - description: Research external implementations and best practices
+        validation: At least 3 reference implementations documented
+      - description: Identify dependencies and integration points
+        validation: Dependency graph created
+      - description: Document functional and non-functional requirements
+        validation: Requirements are specific, measurable, achievable
+      - description: Publish research findings to architecture topic
+        validation: Message includes all research artifacts
+
+    success_criteria:
+      - Comprehensive research findings documented
+      - Requirements clearly specified with acceptance criteria
+      - Dependencies and constraints identified
+      - Best practices and reference implementations documented
+      - Architecture topic notified
+
+    failure_handling:
+      - condition: Insufficient information to proceed
+        action: Request clarification from user via orchestrator
+        max_retries: 2
+      - condition: Conflicting requirements detected
+        action: Escalate to governance for prioritization
+        max_retries: 0
+
+    estimated_duration: 1-3 hours
+
+  - step_id: 3
+    name: Architecture Design
+    description: Architect agent subscribes to architecture topic, designs solution based on research findings, creates ADR, and publishes design to code topic.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [architect]
+        responsibility: Create comprehensive technical design
+      - role: reviewer
+        agents: [senior-architect]
+        responsibility: Validate design quality
+
+    inputs:
+      - name: research_findings
+        type: file
+        source: step-2
+        required: true
+      - name: requirements_specification
+        type: file
+        source: step-2
+        required: true
+      - name: architecture_patterns
+        type: file
+        source: memories/architecture/patterns.md
+        required: true
+
+    outputs:
+      - name: architecture_decision_record
+        type: file
+        destination: memories/features/{feature-id}/ADR.md
+        format: markdown
+      - name: technical_design
+        type: file
+        destination: memories/features/{feature-id}/technical-design.md
+        format: markdown
+      - name: implementation_plan
+        type: file
+        destination: memories/features/{feature-id}/implementation-plan.md
+        format: markdown
+      - name: code_trigger
+        type: data
+        destination: message-bus-code-topic
+        format: json
+
+    actions:
+      - description: Analyze requirements and existing architecture
+        validation: Architecture context understood
+      - description: Design solution following architecture patterns
+        validation: Design aligns with existing patterns
+      - description: Create component and interaction diagrams
+        validation: Diagrams clearly communicate design
+      - description: Identify affected components and integration points
+        validation: Complete component list documented
+      - description: Create ADR documenting design decisions
+        validation: ADR follows standard template
+      - description: Break down into implementation tasks
+        validation: Tasks are specific and actionable
+      - description: Publish design to code topic
+        validation: Message includes all design artifacts
+
+    success_criteria:
+      - Comprehensive technical design documented
+      - ADR created with clear rationale
+      - Implementation plan with task breakdown
+      - Design reviewed and approved
+      - Code topic notified
+
+    failure_handling:
+      - condition: Design conflicts with existing architecture
+        action: Escalate to architecture review board
+        max_retries: 0
+      - condition: Design too complex or risky
+        action: Propose simpler alternative or phased approach
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 4
+    name: Implementation
+    description: Coder agent subscribes to code topic, implements feature according to design, writes unit tests, and publishes code artifacts to test topic.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, builder]
+        responsibility: Implement feature following design
+      - role: pair-programmer
+        agents: [senior-coder]
+        responsibility: Review code during implementation
+
+    inputs:
+      - name: technical_design
+        type: file
+        source: step-3
+        required: true
+      - name: implementation_plan
+        type: file
+        source: step-3
+        required: true
+      - name: coding_standards
+        type: file
+        source: CLAUDE.md
+        required: true
+
+    outputs:
+      - name: implemented_code
+        type: file
+        destination: src/{feature-path}/
+        format: python
+      - name: unit_tests
+        type: file
+        destination: tests/{feature-path}/
+        format: python
+      - name: implementation_notes
+        type: file
+        destination: memories/features/{feature-id}/implementation-notes.md
+        format: markdown
+      - name: test_trigger
+        type: data
+        destination: message-bus-test-topic
+        format: json
+
+    actions:
+      - description: Create feature branch for implementation
+        command: git checkout -b feature/{feature-id}
+        validation: Branch created successfully
+      - description: Implement core functionality following design
+        validation: Code follows design specifications
+      - description: Write comprehensive unit tests
+        validation: Test coverage >= 80%
+      - description: Follow coding standards and best practices
+        validation: Linter passes with no errors
+      - description: Add inline documentation and docstrings
+        validation: All public APIs documented
+      - description: Commit changes with descriptive messages
+        validation: Commits follow conventional commit format
+      - description: Publish code artifacts to test topic
+        validation: Message includes branch name and change summary
+
+    success_criteria:
+      - Feature fully implemented according to design
+      - Unit tests written with good coverage
+      - Code passes linting and formatting checks
+      - Documentation added for new functionality
+      - Code committed to feature branch
+      - Test topic notified
+
+    failure_handling:
+      - condition: Implementation encounters unexpected complexity
+        action: Consult with architect for design adjustment
+        max_retries: 2
+      - condition: Unit tests fail
+        action: Debug and fix before proceeding
+        max_retries: 5
+      - condition: Design ambiguity discovered
+        action: Request clarification from architect
+        max_retries: 3
+
+    estimated_duration: 2-6 hours
+
+  - step_id: 5
+    name: Comprehensive Testing
+    description: Tester agent subscribes to test topic, runs full test suite including integration and end-to-end tests, and publishes test results to review topic.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, quality-guardian]
+        responsibility: Execute comprehensive test suite
+      - role: monitor
+        agents: [orchestrator]
+        responsibility: Track test execution progress
+
+    inputs:
+      - name: implemented_code
+        type: file
+        source: step-4
+        required: true
+      - name: test_specifications
+        type: file
+        source: memories/features/{feature-id}/requirements.md
+        required: true
+      - name: acceptance_criteria
+        type: data
+        source: step-1
+        required: true
+
+    outputs:
+      - name: test_results
+        type: file
+        destination: memories/features/{feature-id}/test-results.json
+        format: json
+      - name: test_report
+        type: file
+        destination: memories/features/{feature-id}/test-report.md
+        format: markdown
+      - name: coverage_report
+        type: file
+        destination: memories/features/{feature-id}/coverage-report.html
+        format: html
+      - name: review_trigger
+        type: data
+        destination: message-bus-review-topic
+        format: json
+
+    actions:
+      - description: Run unit test suite
+        command: pytest tests/{feature-path}/ -v --cov
+        validation: All unit tests pass
+      - description: Run integration tests
+        command: pytest tests/integration/ -v -k {feature-id}
+        validation: Integration tests pass
+      - description: Run end-to-end tests
+        validation: E2E tests pass
+      - description: Generate test coverage report
+        validation: Coverage >= 80%
+      - description: Validate acceptance criteria met
+        validation: All acceptance criteria verified
+      - description: Performance testing (if applicable)
+        validation: Performance within acceptable limits
+      - description: Publish test results to review topic
+        validation: Message includes all test artifacts
+
+    success_criteria:
+      - All test suites pass successfully
+      - Test coverage meets or exceeds 80%
+      - All acceptance criteria validated
+      - Performance benchmarks met
+      - Test results documented and published
+      - Review topic notified
+
+    failure_handling:
+      - condition: Tests fail
+        action: Report failures to coder for fixes
+        max_retries: 3
+      - condition: Coverage below threshold
+        action: Request additional tests from coder
+        max_retries: 2
+      - condition: Acceptance criteria not met
+        action: Escalate to architect and researcher
+        max_retries: 0
+
+    estimated_duration: 30-60 minutes
+
+  - step_id: 6
+    name: Code Review and Quality Assessment
+    description: Reviewer agent subscribes to review topic, performs thorough code review, assesses quality, and decides whether to approve for deployment.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [reviewer, senior-architect]
+        responsibility: Comprehensive code review
+      - role: security-reviewer
+        agents: [security-specialist]
+        responsibility: Security assessment
+
+    inputs:
+      - name: implemented_code
+        type: file
+        source: step-4
+        required: true
+      - name: test_results
+        type: file
+        source: step-5
+        required: true
+      - name: review_checklist
+        type: file
+        source: memories/standards/code-review-checklist.md
+        required: true
+
+    outputs:
+      - name: review_report
+        type: file
+        destination: memories/features/{feature-id}/review-report.md
+        format: markdown
+      - name: quality_assessment
+        type: file
+        destination: memories/features/{feature-id}/quality-assessment.json
+        format: json
+      - name: approval_decision
+        type: data
+        destination: memories/features/{feature-id}/approval-decision.json
+        format: json
+      - name: deployment_trigger
+        type: data
+        destination: message-bus-deployment-topic
+        format: json
+
+    actions:
+      - description: Review code against standards and best practices
+        validation: Review checklist completed
+      - description: Assess code quality (readability, maintainability)
+        validation: Quality score calculated (1-10)
+      - description: Verify test coverage and quality
+        validation: Tests are comprehensive and meaningful
+      - description: Security review for vulnerabilities
+        validation: No critical security issues found
+      - description: Verify alignment with architecture design
+        validation: Implementation matches ADR
+      - description: Make approval decision
+        validation: Clear approve/request-changes decision
+      - description: Publish review results and decision
+        validation: Message includes approval status
+
+    success_criteria:
+      - Complete review performed using checklist
+      - Quality assessment documented
+      - Security review completed
+      - Approval decision made with justification
+      - If approved, deployment topic notified
+
+    failure_handling:
+      - condition: Critical issues found
+        action: Request changes from coder, do not approve
+        max_retries: 0
+      - condition: Minor issues found
+        action: Approve with recommendations for follow-up
+        max_retries: 0
+
+    estimated_duration: 30-60 minutes
+
+  - step_id: 7
+    name: Auto-Deployment
+    description: If all quality gates passed, builder agent subscribes to deployment topic and automatically deploys the feature with monitoring.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Execute deployment
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor deployment health
+
+    inputs:
+      - name: approval_decision
+        type: data
+        source: step-6
+        required: true
+      - name: feature_branch
+        type: data
+        source: step-4
+        required: true
+      - name: deployment_config
+        type: file
+        source: deployment/config.yaml
+        required: true
+
+    outputs:
+      - name: deployment_log
+        type: file
+        destination: memories/features/{feature-id}/deployment-log.txt
+        format: text
+      - name: deployment_confirmation
+        type: file
+        destination: memories/features/{feature-id}/deployment-confirmation.json
+        format: json
+      - name: completion_notification
+        type: data
+        destination: message-bus-notifications-topic
+        format: json
+
+    actions:
+      - description: Verify approval decision is positive
+        validation: Approval status is "approved"
+      - description: Merge feature branch to main
+        command: git merge --no-ff feature/{feature-id}
+        validation: Merge successful without conflicts
+      - description: Run pre-deployment checks
+        validation: All checks pass
+      - description: Deploy to production environment
+        command: ./deploy.sh production
+        validation: Deployment completes successfully
+      - description: Run smoke tests in production
+        validation: Smoke tests pass
+      - description: Monitor system health metrics
+        validation: No anomalies detected
+      - description: Notify all stakeholders of completion
+        validation: Notifications sent
+
+    success_criteria:
+      - Feature successfully merged to main branch
+      - Deployment completed without errors
+      - Smoke tests pass in production
+      - System health metrics stable
+      - All stakeholders notified
+
+    failure_handling:
+      - condition: Merge conflicts
+        action: Request coder to rebase and resolve
+        max_retries: 2
+      - condition: Deployment fails
+        action: Rollback and escalate to builder
+        max_retries: 1
+      - condition: Smoke tests fail
+        action: Immediate rollback and incident alert
+        max_retries: 0
+      - condition: Health metrics degrade
+        action: Rollback and investigate
+        max_retries: 0
+
+    estimated_duration: 15-30 minutes
+
+decision_points:
+  - after_step: 2
+    decision: Are requirements clear and feasible?
+    criteria:
+      - Requirements are specific and measurable
+      - No conflicting requirements identified
+      - Dependencies are available or achievable
+    outcomes:
+      proceed: Continue to architecture design
+      clarify: Request additional information from user
+      abort: Feature not feasible, document rationale
+
+  - after_step: 5
+    decision: Do all tests pass and meet quality standards?
+    criteria:
+      - All test suites pass (unit, integration, E2E)
+      - Test coverage >= 80%
+      - All acceptance criteria validated
+    outcomes:
+      proceed: Continue to code review
+      fix: Return to coder for bug fixes
+      redesign: If fundamental issues, return to architect
+
+  - after_step: 6
+    decision: Is code quality acceptable for deployment?
+    criteria:
+      - No critical issues identified
+      - Code follows standards and best practices
+      - Security review passed
+      - Architecture alignment verified
+    outcomes:
+      proceed: Continue to auto-deployment
+      revise: Return to coder with feedback
+      escalate: If controversial, escalate to governance
+
+rollback_procedure:
+  - step: If deployment fails, execute git revert to undo merge
+  - step: Redeploy previous stable version
+  - step: Run full test suite to verify stability
+  - step: Notify all stakeholders of rollback
+  - verification: System returns to pre-deployment state with passing tests and stable metrics
+
+success_metrics:
+  - metric: End-to-end completion time
+    target: 90% of features complete within 16 hours
+    measurement: Timestamp from step 1 start to step 7 completion
+  - metric: First-time pass rate
+    target: 70% of features pass review without revisions
+    measurement: Count features that go straight from step 6 to step 7
+  - metric: Test coverage
+    target: 100% of features have >= 80% test coverage
+    measurement: Coverage report analysis
+  - metric: Post-deployment stability
+    target: 95% of deployments have no critical issues within 24 hours
+    measurement: Monitor incident reports after deployment
+  - metric: Autonomous collaboration success
+    target: 90% of features complete without human intervention
+    measurement: Track escalations and manual interventions
+
+deliverables:
+  - artifact: Research Findings and Requirements
+    location: memories/features/{feature-id}/research-findings.md
+    format: Markdown
+    validation: Comprehensive research with clear requirements
+  - artifact: Architecture Decision Record
+    location: memories/features/{feature-id}/ADR.md
+    format: Markdown
+    validation: Complete ADR following template
+  - artifact: Implemented Feature Code
+    location: src/{feature-path}/
+    format: Python
+    validation: Code passes all quality checks
+  - artifact: Test Suite and Results
+    location: tests/{feature-path}/ and memories/features/{feature-id}/test-results.json
+    format: Python and JSON
+    validation: Comprehensive tests with passing results
+  - artifact: Review Report and Quality Assessment
+    location: memories/features/{feature-id}/review-report.md
+    format: Markdown
+    validation: Thorough review with clear assessment
+  - artifact: Deployment Confirmation
+    location: memories/features/{feature-id}/deployment-confirmation.json
+    format: JSON
+    validation: Successful deployment with stable metrics
+
+post_completion:
+  - Update agent performance metrics for all participants
+  - Store all feature artifacts in knowledge base
+  - Send completion notification to user with feature details
+  - Update feature tracking dashboard
+  - Log completion in evolution log with metrics
+  - Archive message bus conversations for future reference
+  - Update documentation with new feature information
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

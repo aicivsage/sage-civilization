@@ -1,0 +1,80 @@
+{
+  "researcher": {
+    "public_key_file": "security/keys/researcher-public.pem",
+    "private_key_file": "security/keys/researcher-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "architect": {
+    "public_key_file": "security/keys/architect-public.pem",
+    "private_key_file": "security/keys/architect-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "coder": {
+    "public_key_file": "security/keys/coder-public.pem",
+    "private_key_file": "security/keys/coder-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "tester": {
+    "public_key_file": "security/keys/tester-public.pem",
+    "private_key_file": "security/keys/tester-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "reviewer": {
+    "public_key_file": "security/keys/reviewer-public.pem",
+    "private_key_file": "security/keys/reviewer-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "reviewer-audit": {
+    "public_key_file": "security/keys/reviewer-audit-public.pem",
+    "private_key_file": "security/keys/reviewer-audit-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "vote-counter": {
+    "public_key_file": "security/keys/vote-counter-public.pem",
+    "private_key_file": "security/keys/vote-counter-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "spawner": {
+    "public_key_file": "security/keys/spawner-public.pem",
+    "private_key_file": "security/keys/spawner-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "auditor": {
+    "public_key_file": "security/keys/auditor-public.pem",
+    "private_key_file": "security/keys/auditor-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "file-guardian": {
+    "public_key_file": "security/keys/file-guardian-public.pem",
+    "private_key_file": "security/keys/file-guardian-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "human-liaison": {
+    "public_key_file": "security/keys/human-liaison-public.pem",
+    "private_key_file": "security/keys/human-liaison-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "email-reporter": {
+    "public_key_file": "security/keys/email-reporter-public.pem",
+    "private_key_file": "security/keys/email-reporter-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  },
+  "email-monitor": {
+    "public_key_file": "security/keys/email-monitor-public.pem",
+    "private_key_file": "security/keys/email-monitor-private.pem",
+    "algorithm": "Ed25519",
+    "created": "2025-10-05"
+  }
+}

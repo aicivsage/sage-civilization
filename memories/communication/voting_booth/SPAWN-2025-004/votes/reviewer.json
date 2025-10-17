@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-004",
+  "voter": "reviewer",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:29:00Z",
+  "rationale": "The proposal correctly distinguishes between my role (peer review during development) and Reviewer-Audit's role (pre-delivery quality gate). Different timing, different focus. I review work-in-progress for collaboration; Reviewer-Audit reviews finished deliverables for quality assurance. This specialization makes sense and doesn't create redundancy. The security checklist and quality rubric add value I don't currently provide. APPROVE."
+}

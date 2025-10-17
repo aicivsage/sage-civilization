@@ -1,0 +1,22 @@
+{
+  "description": "Registry of all session handoff documents - updated at session end",
+  "most_recent": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251010-0917.md",
+  "handoffs": [
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251010-0917.md",
+      "date": "2025-10-10",
+      "time": "09:17",
+      "duration_hours": 2.5,
+      "focus": "Fix wakeup protocol decoherence issue",
+      "status": "complete",
+      "master_todo_updated": true,
+      "key_deliverables": [
+        "Wakeup protocol diagnosis",
+        "Handoff protocol system (template, registry, docs)",
+        "Wakeup helper script",
+        "MASTER_TODO updated to current state",
+        "First compliant handoff document"
+      ]
+    }
+  ]
+}

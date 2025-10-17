@@ -1,0 +1,501 @@
+flow_id: dynamic-resource-allocation-load-balancing
+name: Dynamic Resource Allocation & Load Balancing
+version: 1.0
+description: Intelligently allocate computational resources, agent availability, and task priorities based on current workload, deadlines, and strategic importance. Agents bid for resources in fair marketplace.
+category: decision
+
+metadata:
+  estimated_duration: Continuous operation with 5-minute rebalancing cycles
+  complexity: high
+  participating_agents: All agents plus resource manager
+  created_by: governance-council
+  created_date: 2025-10-02
+  tags: [resources, allocation, optimization, economics, load-balancing]
+
+prerequisites:
+  - condition: Resource monitoring and tracking system operational
+  - resources: Resource inventory (CPU, memory, agent time, API quotas)
+  - permissions: Authority to allocate resources and adjust priorities
+
+steps:
+  - step_id: 1
+    name: Agents Publish Resource Needs and Task Priorities
+    description: Agents submit resource requests via message bus, specifying what they need (compute, memory, agent time), task urgency, business value, and deadline constraints.
+    agent_roles:
+      - role: requestors
+        agents: [all-agents]
+        responsibility: Submit accurate resource requests
+      - role: collector
+        agents: [resource-manager]
+        responsibility: Aggregate all requests
+
+    inputs:
+      - name: task_queue
+        type: data
+        source: agent-work-queues
+        required: true
+      - name: agent_availability
+        type: data
+        source: agent-status-system
+        required: true
+
+    outputs:
+      - name: resource_requests
+        type: file
+        destination: data/resources/requests-{timestamp}.json
+        format: json
+
+    actions:
+      - description: Agents assess current and upcoming work
+        validation: Work estimates are realistic
+      - description: Calculate resource requirements per task
+        validation: Resource needs quantified
+      - description: Assign priority scores (urgency × value)
+        validation: Priorities justified
+      - description: Submit requests to resource-request topic
+        validation: Requests in standardized format
+      - description: Include deadline and flexibility constraints
+        validation: Temporal constraints specified
+      - description: Aggregate all requests
+        validation: Complete request catalog created
+
+    success_criteria:
+      - All active agents submit requests
+      - Request format is standardized
+      - Priority scores are calibrated
+      - Resource quantities are reasonable
+
+    failure_handling:
+      - condition: Agent submits malformed request
+        action: Request default allocation, notify agent
+        max_retries: 0
+
+    estimated_duration: 2 minutes
+
+  - step_id: 2
+    name: Resource Allocation Agent Analyzes Supply vs Demand
+    description: Dedicated resource allocation agent analyzes total available resources against aggregate demand. Identifies shortages, surpluses, and potential bottlenecks.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager]
+        responsibility: Analyze supply/demand dynamics
+      - role: advisor
+        agents: [economist]
+        responsibility: Provide optimization guidance
+
+    inputs:
+      - name: resource_requests
+        type: file
+        source: step-1
+        required: true
+      - name: resource_inventory
+        type: data
+        source: infrastructure-monitoring
+        required: true
+
+    outputs:
+      - name: supply_demand_analysis
+        type: file
+        destination: data/resources/supply-demand-{timestamp}.json
+        format: json
+      - name: bottleneck_report
+        type: file
+        destination: reports/resources/bottlenecks.md
+        format: markdown
+
+    actions:
+      - description: Calculate total available resources
+        validation: Accurate resource inventory
+      - description: Sum total requested resources
+        validation: Aggregate demand computed
+      - description: Identify resource categories in shortage
+        validation: Bottlenecks flagged
+      - description: Calculate utilization percentages
+        validation: Utilization rates measured
+      - description: Identify underutilized resources
+        validation: Surplus capacity identified
+      - description: Predict future demand based on trends
+        validation: Demand forecast generated
+
+    success_criteria:
+      - Supply/demand balance calculated for all resource types
+      - Bottlenecks clearly identified
+      - Utilization metrics accurate
+      - Forecast informs allocation
+
+    failure_handling:
+      - condition: Resource inventory data unavailable
+        action: Use last known values with warning
+        max_retries: 1
+
+    estimated_duration: 1 minute
+
+  - step_id: 3
+    name: Dynamic Pricing and Prioritization
+    description: Apply economic principles to resource allocation. Resources become more expensive when scarce, prioritizing high-value urgent work. Fair pricing prevents starvation while maximizing value delivery.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager, economist]
+        responsibility: Calculate fair pricing and priorities
+      - role: fairness-monitor
+        agents: [governance-council]
+        responsibility: Ensure no agent starvation
+
+    inputs:
+      - name: supply_demand_analysis
+        type: file
+        source: step-2
+        required: true
+      - name: resource_requests
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: pricing_model
+        type: file
+        destination: data/resources/pricing-{timestamp}.json
+        format: json
+      - name: prioritized_requests
+        type: file
+        destination: data/resources/prioritized-{timestamp}.json
+        format: json
+
+    actions:
+      - description: Calculate scarcity multipliers for each resource
+        validation: Pricing reflects supply/demand
+      - description: Adjust prices based on urgency and deadlines
+        validation: Time-sensitive work prioritized
+      - description: Apply value weighting (high-value work gets advantage)
+        validation: Business impact considered
+      - description: Ensure minimum allocation for all agents (prevent starvation)
+        validation: Fairness constraints enforced
+      - description: Sort requests by effective priority (value/cost ratio)
+        validation: Optimal ordering achieved
+      - description: Calculate total "cost" for each request
+        validation: Resource costs assigned
+
+    success_criteria:
+      - Pricing is fair and transparent
+      - High-value urgent work prioritized
+      - No agent completely starved of resources
+      - Allocation maximizes aggregate value
+
+    failure_handling:
+      - condition: Pricing algorithm produces unfair results
+        action: Apply fairness corrections
+        max_retries: 2
+
+    estimated_duration: 1 minute
+
+  - step_id: 4
+    name: Allocate Resources via Optimization Algorithm
+    description: Execute resource allocation using optimization algorithm (e.g., knapsack, linear programming) that maximizes value delivery while respecting constraints and fairness.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager]
+        responsibility: Execute allocation algorithm
+      - role: validator
+        agents: [auditor]
+        responsibility: Verify allocation correctness
+
+    inputs:
+      - name: prioritized_requests
+        type: file
+        source: step-3
+        required: true
+      - name: resource_inventory
+        type: data
+        source: infrastructure-monitoring
+        required: true
+
+    outputs:
+      - name: allocation_plan
+        type: file
+        destination: data/resources/allocation-{timestamp}.json
+        format: json
+      - name: allocation_report
+        type: file
+        destination: reports/resources/allocation-summary.md
+        format: markdown
+
+    actions:
+      - description: Run optimization algorithm (maximize value subject to constraints)
+        validation: Optimal or near-optimal solution found
+      - description: Allocate resources to highest-priority requests first
+        validation: Priority ordering respected
+      - description: Reserve minimum resources for all active agents
+        validation: Fairness baseline maintained
+      - description: Handle partial allocations when resources insufficient
+        validation: Partial grants handled gracefully
+      - description: Generate allocation notifications for each agent
+        validation: Agents informed of grants/denials
+      - description: Document allocation rationale
+        validation: Decisions are transparent
+
+    success_criteria:
+      - Allocation maximizes aggregate value
+      - All constraints satisfied
+      - No resource over-allocation
+      - Allocation is fair and defensible
+
+    failure_handling:
+      - condition: Optimization fails to converge
+        action: Use greedy approximation algorithm
+        max_retries: 1
+
+    estimated_duration: 1 minute
+
+  - step_id: 5
+    name: Monitor Utilization and Detect Bottlenecks
+    description: Continuously monitor actual resource usage against allocations. Detect when agents are blocked, resources are idle, or bottlenecks emerge that weren't predicted.
+    depends_on: [4]
+    parallel_with: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager, auditor]
+        responsibility: Monitor resource utilization
+      - role: alerter
+        agents: [maintenance-keeper]
+        responsibility: Alert on anomalies
+
+    inputs:
+      - name: allocation_plan
+        type: file
+        source: step-4
+        required: true
+      - name: actual_usage_metrics
+        type: data
+        source: infrastructure-monitoring
+        required: true
+
+    outputs:
+      - name: utilization_report
+        type: file
+        destination: reports/resources/utilization-{timestamp}.json
+        format: json
+      - name: bottleneck_alerts
+        type: data
+        destination: message-bus
+        format: event
+
+    actions:
+      - description: Track actual resource consumption by agent
+        validation: Usage metrics accurate
+      - description: Compare actual vs allocated usage
+        validation: Variances identified
+      - description: Detect underutilization (allocated but not used)
+        validation: Waste flagged
+      - description: Detect resource starvation (agents blocked)
+        validation: Bottlenecks identified
+      - description: Identify noisy neighbors (over-consuming agents)
+        validation: Resource hogs detected
+      - description: Publish bottleneck alerts to monitoring topic
+        validation: Alerts actionable
+
+    success_criteria:
+      - Utilization tracked in real-time
+      - Bottlenecks detected within 30 seconds
+      - Underutilization identified for reclamation
+      - Anomalies trigger alerts
+
+    failure_handling:
+      - condition: Monitoring data delayed
+        action: Use cached data with staleness warning
+        max_retries: 0
+
+    estimated_duration: Continuous monitoring
+
+  - step_id: 6
+    name: Reallocate if Bottlenecks or Waste Detected
+    description: When monitoring detects problems, dynamically reallocate resources. Reclaim from idle allocations, redistribute to bottlenecked agents, trigger rebalancing.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager]
+        responsibility: Execute reallocation
+      - role: notifier
+        agents: [governance-council]
+        responsibility: Inform affected agents
+
+    inputs:
+      - name: utilization_report
+        type: file
+        source: step-5
+        required: true
+      - name: bottleneck_alerts
+        type: data
+        source: step-5
+        required: true
+
+    outputs:
+      - name: reallocation_plan
+        type: file
+        destination: data/resources/reallocation-{timestamp}.json
+        format: json
+
+    actions:
+      - description: Reclaim resources from idle allocations
+        validation: Unused resources freed
+      - description: Redistribute to agents experiencing bottlenecks
+        validation: Bottlenecks relieved
+      - description: Adjust allocations based on actual usage patterns
+        validation: Allocations match reality
+      - description: Notify affected agents of changes
+        validation: Agents informed proactively
+      - description: Trigger full rebalancing if major shift needed
+        validation: Rebalancing initiated
+      - description: Log reallocation decisions
+        validation: Audit trail maintained
+
+    success_criteria:
+      - Bottlenecks resolved quickly (<2 minutes)
+      - Wasted resources reclaimed
+      - Reallocations improve overall efficiency
+      - Minimal disruption to agents
+
+    failure_handling:
+      - condition: Reallocation doesn't resolve bottleneck
+        action: Escalate for capacity expansion
+        max_retries: 1
+
+    estimated_duration: 1 minute per reallocation event
+
+  - step_id: 7
+    name: Track Efficiency Metrics and Improve Strategy
+    description: Collect data on allocation decisions, outcomes, and efficiency. Use machine learning to improve allocation algorithms over time. Track which strategies maximize value delivery.
+    depends_on: [4, 5, 6]
+    agent_roles:
+      - role: primary-executor
+        agents: [resource-manager, researcher]
+        responsibility: Analyze efficiency and improve algorithms
+      - role: data-scientist
+        agents: [evolution-strategist]
+        responsibility: Apply ML to optimization
+
+    inputs:
+      - name: allocation_history
+        type: data
+        source: historical-data
+        required: true
+      - name: outcome_metrics
+        type: data
+        source: task-completion-tracking
+        required: true
+
+    outputs:
+      - name: efficiency_report
+        type: file
+        destination: reports/resources/efficiency-analysis.json
+        format: json
+      - name: strategy_improvements
+        type: file
+        destination: data/resources/allocation-model-v{X}.json
+        format: json
+
+    actions:
+      - description: Calculate allocation efficiency metrics
+        validation: Metrics capture value/cost ratio
+      - description: Analyze prediction accuracy (forecasted vs actual demand)
+        validation: Forecast quality assessed
+      - description: Identify patterns in successful allocations
+        validation: Best practices discovered
+      - description: Use ML to optimize pricing and prioritization
+        validation: Improved model trained
+      - description: A/B test allocation strategies
+        validation: Better strategies identified
+      - description: Update allocation algorithm with learnings
+        validation: System improves over time
+
+    success_criteria:
+      - Efficiency metrics show improvement over time
+      - Allocation accuracy increases
+      - Resource waste decreases
+      - Agent satisfaction with allocations improves
+
+    failure_handling:
+      - condition: ML model degrades performance
+        action: Rollback to previous model
+        max_retries: 1
+
+    estimated_duration: 1 hour per optimization cycle (weekly)
+
+decision_points:
+  - after_step: 2
+    decision: Is there sufficient capacity for all requests?
+    criteria:
+      - Total demand <= total supply
+      - No critical resource shortages
+    outcomes:
+      proceed: Allocate all requests
+      ration: Apply dynamic pricing and prioritization
+      escalate: Request capacity expansion
+
+  - after_step: 5
+    decision: Are bottlenecks or waste detected?
+    criteria:
+      - Agents blocked on resources for >1 minute
+      - >20% allocated resources unused
+      - Resource distribution highly unequal
+    outcomes:
+      proceed: Continue monitoring
+      reallocate: Trigger rebalancing in step 6
+      alert: Notify human of persistent issues
+
+rollback_procedure:
+  - step: Revert to previous allocation plan
+  - step: Reclaim newly allocated resources
+  - step: Restore original allocations
+  - verification: Agents return to previous resource levels
+
+success_metrics:
+  - metric: Resource utilization rate
+    target: 75-85% average utilization (avoid waste and saturation)
+    measurement: Actual usage / allocated resources
+  - metric: Value delivery per resource unit
+    target: Maximize value/resource ratio (increasing trend)
+    measurement: Task value completed / resources consumed
+  - metric: Allocation fairness (Gini coefficient)
+    target: <0.4 (reasonably equal distribution)
+    measurement: Statistical distribution analysis
+  - metric: Time to allocation
+    target: <5 minutes from request to grant
+    measurement: Request timestamp to allocation timestamp
+  - metric: Bottleneck frequency
+    target: <5% of time any agent is resource-blocked
+    measurement: Blocked time / total time
+
+deliverables:
+  - artifact: Resource allocation plan
+    location: data/resources/allocation-{timestamp}.json
+    format: JSON
+    validation: All requests processed, allocations optimal
+  - artifact: Supply/demand analysis
+    location: data/resources/supply-demand-{timestamp}.json
+    format: JSON
+    validation: Accurate resource accounting
+  - artifact: Utilization monitoring dashboard
+    location: reports/resources/utilization-{timestamp}.json
+    format: JSON (live dashboard)
+    validation: Real-time metrics displayed
+  - artifact: Efficiency analysis report
+    location: reports/resources/efficiency-analysis.json
+    format: JSON
+    validation: Improvement trends documented
+
+post_completion:
+  - Update resource allocation dashboard
+  - Store allocation decisions in historical database
+  - Publish efficiency metrics to evolution log
+  - Train improved allocation model
+  - Schedule next allocation cycle (every 5 minutes)
+  - Alert on persistent bottlenecks or waste
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - Dynamic resource allocation and load balancing flow

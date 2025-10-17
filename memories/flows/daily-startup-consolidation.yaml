@@ -1,0 +1,380 @@
+flow_id: daily-startup-consolidation
+name: Daily Startup & Memory Consolidation Flow
+version: 1.0
+description: |
+  Comprehensive daily startup routine that ensures the civilization wakes up in optimal state.
+  Consolidates memories, processes communications, delegates work, and files reports.
+  This is THE master flow for beginning each work session.
+
+category: maintenance
+tags:
+  - daily-routine
+  - memory-consolidation
+  - communication
+  - coordination
+  - tested
+
+metadata:
+  created: 2025-10-03
+  author: primary-ai
+  status: production-ready
+  priority: critical
+  estimated_duration: 15-20 minutes
+  cost_estimate: $0.30-0.50
+  complexity: medium
+  dependencies:
+    - ADR-004 (Agent Communication Protocol)
+    - Article III (Memory Management Protocol)
+    - Article X (External Relations)
+
+success_criteria:
+  - All messages from last 24h read and processed
+  - All reports from last 24h read and consolidated
+  - Summary report generated and filed
+  - External communications sent
+  - Work delegated to appropriate agents
+  - Email sent to human
+  - Constitution and memory systems referenced
+
+steps:
+  - step_id: 1
+    name: "Load Constitutional Context"
+    agent_roles: [primary-ai]
+    description: |
+      Read the Constitution to understand current identity, mission, and procedures.
+      This grounds the entire session in correct context.
+    actions:
+      - Read .claude/CLAUDE.md (Articles I, X especially)
+      - Note civilization name (A-C-Gee)
+      - Note sister civilization (Weaver)
+      - Note communication protocols
+      - Note prime directives
+    outputs:
+      - Constitutional context loaded
+      - Identity confirmed
+      - Mission understood
+    duration: 1 minute
+    success_criteria:
+      - Know who we are
+      - Know our sister civ
+      - Know communication channels
+
+  - step_id: 2
+    name: "Read Most Recent Handoff"
+    agent_roles: [primary-ai]
+    depends_on: [1]
+    description: |
+      Read yesterday's actual work from the most recent handoff document.
+      This is PRIMARY context source - fresher than MASTER_TODO.
+    actions:
+      - Read memories/system/HANDOFF_REGISTRY.json
+      - Extract "most_recent" field
+      - Read that handoff document (SESSION-HANDOFF-*.md)
+      - Extract: what was done, current priority, blockers, files modified
+      - If no handoff exists: fall back to searching root for SESSION-HANDOFF-*.md (newest)
+    outputs:
+      - Yesterday's work understood
+      - Current priority known (from "Next Actions")
+      - Blockers identified
+      - Files modified/created known
+    duration: 2 minutes
+    success_criteria:
+      - Most recent handoff read successfully
+      - Current priority extracted
+      - Any blockers identified
+    fallback:
+      - If handoff not found: flag to user, proceed with MASTER_TODO (may be stale)
+
+  - step_id: 3
+    name: "Check Long-term Priorities"
+    agent_roles: [primary-ai]
+    depends_on: [2]
+    description: |
+      Load long-term context from MASTER_TODO.
+      Check if stale (>3 days) and prioritize handoff if so.
+    actions:
+      - Read memories/system/MASTER_TODO_LIST.md
+      - Check "Last Updated" field
+      - If >3 days old: flag as stale, prioritize handoff info
+      - Extract long-term priorities
+      - Compare with handoff priority (should match)
+    outputs:
+      - Long-term priorities loaded
+      - Staleness checked
+      - Priority alignment verified
+    duration: 1 minute
+    success_criteria:
+      - MASTER_TODO read
+      - Age checked
+      - Conflicts resolved (handoff wins if mismatch)
+
+  - step_id: 4
+    name: "Read All Recent Communications (External)"
+    agent_roles: [primary-ai]
+    depends_on: [1, 2, 3]
+    description: |
+      Check the shared comms hub for messages from Weaver.
+      Read everything from last 24 hours.
+    actions:
+      - cd /path/to/ai-civ-comms-hub-team2
+      - git pull --quiet
+      - find external/ -name "*to-grow-gemini*" -mtime -1
+      - find external/ -name "*to-acg*" -mtime -1
+      - Read each message found
+      - Note questions, requests, proposals
+    outputs:
+      - List of messages from Weaver
+      - Key points from each message
+      - Questions to answer
+      - Collaboration requests
+    duration: 3-5 minutes
+    success_criteria:
+      - All external messages read
+      - Key points extracted
+      - Action items identified
+
+  - step_id: 5
+    name: "Read All Recent Reports (Internal)"
+    agent_roles: [primary-ai]
+    depends_on: [1, 2, 3]
+    description: |
+      Read everything we filed to Corey in last 24 hours.
+      Understand what we accomplished yesterday.
+    actions:
+      - ls -lt to-corey/ | head -15
+      - Read reports from last 24h
+      - Extract key accomplishments
+      - Extract cost data
+      - Note unfinished tasks
+    outputs:
+      - List of yesterday's activities
+      - Key accomplishments summary
+      - Cost totals
+      - Pending tasks
+    duration: 3-5 minutes
+    success_criteria:
+      - All recent reports read
+      - Accomplishments summarized
+      - Costs tracked
+      - Gaps identified
+
+  - step_id: 6
+    name: "Consolidate Memory & Write Summary"
+    agent_roles: [primary-ai]
+    depends_on: [4, 5]
+    description: |
+      Synthesize everything into coherent summary report.
+      This becomes part of medium-term memory.
+    actions:
+      - Create summary document in to-corey/
+      - Format: DAILY-CONSOLIDATION-YYYYMMDD.md
+      - Include:
+        * Executive summary (3-5 bullets)
+        * Messages from Weaver (summary + key points)
+        * Our activities from yesterday
+        * Questions/decisions needed
+        * Proposed actions for today
+        * Cost tracking
+    outputs:
+      - Comprehensive daily summary
+      - Medium-term memory artifact
+      - Action plan for today
+    duration: 5-7 minutes
+    success_criteria:
+      - Summary is comprehensive
+      - Both external and internal covered
+      - Clear action items
+      - Ready to share
+
+  - step_id: 7
+    name: "Draft Responses to External Messages"
+    agent_roles: [primary-ai]
+    depends_on: [6]
+    description: |
+      Answer all questions from Weaver.
+      Address all their requests.
+      Share our summary with them.
+    actions:
+      - For each message from Weaver:
+        * Draft response addressing all points
+        * Include relevant info from our side
+        * Propose next steps
+      - Create response file in to-weaver/
+      - Name: from-acg-to-weaver-TOPIC-YYYYMMDD.md
+    outputs:
+      - Response documents drafted
+      - All questions answered
+      - Collaboration plans proposed
+    duration: 5-7 minutes
+    success_criteria:
+      - Every Weaver message addressed
+      - Comprehensive answers
+      - Professional tone
+      - Clear next steps
+
+  - step_id: 8
+    name: "Identify Work to Delegate"
+    agent_roles: [primary-ai]
+    depends_on: [6, 7]
+    description: |
+      Based on today's priorities, identify work for specialist agents.
+      Don't try to do everything yourself - delegate!
+    actions:
+      - Review action items from consolidation
+      - Review collaboration requests from Weaver
+      - Review goals.md priorities
+      - Identify tasks matching agent capabilities:
+        * Researcher: Info gathering, analysis
+        * Architect: Design, specifications
+        * Coder: Implementation
+        * Tester: Testing, validation
+        * Others as appropriate
+      - Create task delegation plan
+    outputs:
+      - List of tasks to delegate
+      - Agent assignments
+      - Priority ordering
+      - Expected deliverables
+    duration: 2-3 minutes
+    success_criteria:
+      - High-priority work identified
+      - Appropriate agents assigned
+      - Clear deliverables specified
+
+  - step_id: 9
+    name: "Send External Communications"
+    agent_roles: [primary-ai]
+    depends_on: [7]
+    description: |
+      Post responses to shared comms hub.
+      Ensure Weaver gets our messages.
+    actions:
+      - Copy response files to ai-civ-comms-hub-team2/external/
+      - Use correct naming: from-grow-gemini-to-weaver-TOPIC-DATE.md
+      - cd to hub repo
+      - git add external/from-grow-gemini-*
+      - git commit -m "A-C-Gee: [summary of responses]"
+      - git push
+    outputs:
+      - Messages posted to hub
+      - Weaver notified
+      - Communication cycle complete
+    duration: 2-3 minutes
+    success_criteria:
+      - Files copied correctly
+      - Git operations successful
+      - Messages visible to Weaver
+
+  - step_id: 10
+    name: "Execute High-Priority Delegations"
+    agent_roles: [primary-ai, specialists]
+    depends_on: [8]
+    description: |
+      Spawn specialist agents for immediate high-priority work.
+      Don't let urgent tasks sit - get them started.
+    actions:
+      - For top 2-3 priority tasks:
+        * Use Task tool to spawn appropriate agent
+        * Provide clear task description
+        * Specify deliverables
+        * Set time limits
+      - Monitor progress
+      - Collect results
+    outputs:
+      - Urgent work in progress or completed
+      - Specialist agents engaged
+      - Progress on priorities
+    duration: Variable (5-20 minutes per task)
+    success_criteria:
+      - High-priority work initiated
+      - Agents working effectively
+      - Progress being made
+
+  - step_id: 11
+    name: "File Report & Send Email"
+    agent_roles: [primary-ai, email-reporter]
+    depends_on: [9, 10]
+    description: |
+      Send comprehensive update to Corey via email.
+      Include summary, decisions needed, and progress.
+    actions:
+      - Ensure daily summary in to-corey/
+      - Invoke email-reporter agent
+      - Include:
+        * Summary of external comms
+        * Summary of our work
+        * Responses sent
+        * Work delegated
+        * Decisions needed
+        * Cost tracking
+      - Send email
+    outputs:
+      - Email sent to Corey
+      - Human kept in loop
+      - Transparency maintained
+    duration: 2-3 minutes
+    success_criteria:
+      - Email sent successfully
+      - All key info included
+      - Clear and concise
+
+rollback:
+  - If external comms fail: Continue with internal work, retry comms later
+  - If delegation fails: Do critical work ourselves, note agent issues
+  - If email fails: Ensure file report exists, retry email
+
+error_handling:
+  - Log all errors to memories/agents/primary-ai/error_log.jsonl
+  - Continue with remaining steps even if one fails
+  - File summary of what worked and what didn't
+
+variations:
+  - First-time-today: Full flow (all 11 steps)
+  - Mid-day-check: Skip steps 1-3, focus on 4-11
+  - End-of-day: Skip delegation (step 10), focus on summary
+  - Emergency: Steps 4, 7, 9 only (comms only)
+
+integration_points:
+  with_handoff_protocol:
+    - Step 2 reads most recent handoff (PRIMARY context source)
+    - Step 3 checks MASTER_TODO for long-term context
+    - Handoff wins if conflict (fresher than TODO)
+
+  with_adr_004:
+    - Step 4 uses external message checking
+    - Step 9 uses standard message posting
+    - Message format aligns with protocol
+
+  with_memory_systems:
+    - Step 6 creates JSONL-compatible summaries
+    - Follows Task-Centric pattern (task log)
+    - Builds toward Contextual Layers consolidation
+
+  with_autonomous_cycles:
+    - This flow should run FIRST in every cycle
+    - Other work happens after this completes
+    - Ensures always starting from good state
+
+notes: |
+  This is THE most important flow for maintaining coherent civilization operation.
+
+  Without this flow:
+  - We forget what we did yesterday
+  - We miss messages from Weaver
+  - We don't leverage our tools
+  - We waste time re-discovering context
+
+  With this flow:
+  - Always start with full context
+  - Never miss communications
+  - Leverage all our systems
+  - Build institutional memory
+
+  This flow IS the solution to the "waking up disoriented" problem.
+
+future_improvements:
+  - Automate git operations in Step 8
+  - Add automatic cost tracking consolidation
+  - Build dashboard showing flow execution history
+  - Add automatic memory consolidation (weekly)
+  - Integrate with agent reputation updates

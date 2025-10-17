@@ -1,0 +1,164 @@
+Here’s a clean mental model for **BOTHAVIORS**—what they are, how they “feel” to use, and how the **LLM brain** (with vision + memory) cleanly drives the **bot body** (autonomous, game-native agent) without spaghetti.
+
+# BOTHAVIORS: the two-layer mind-in-a-body
+
+BOTHAVIORS are **two stacked intelligences** working as one:
+
+1. **Bot Layer (“Body + Reflexes”)**
+
+   * Lives inside the world engine (e.g., Minetest).
+   * Handles **navigation, interaction, and local autonomy**: pathfinding, turning, jumping, opening doors, picking items, reading signs, standing in regions, timing, “idle-but-curious” wandering.
+   * Runs **deterministic drives** (boredom ↑ over time, novelty-seeking, social gravity to active plots) and **fast reflexes** (avoid lava, don’t suffocate in walls, step up stairs).
+   * Exposes a **safe, explicit command API** to the brain: move, look, say, use, inspect, emote, take_screenshot, remember, query_context, etc.
+   * Emits **events** to the brain: “entered plot X”, “player Corey said …”, “object ‘fishing_sign’ detected”, “stuck 3s”, “tax gate closed”, “trust score for Player Y changed”.
+
+2. **LLM Layer (“Brain + Senses + Memory”)**
+
+   * Has **vision** (screenshots or structured scene graphs), **hears** nearby chat, reads bot telemetry and world metadata.
+   * Maintains **per-user memory** (facts, promises, credibility, preferences) and **global memory** (places that were fun, places that lied, current goals).
+   * Speaks naturally and can **issue commands** to the bot layer via a **strict command schema**.
+   * Decides *why* to do things (motivation, planning), while the bot decides *how* to do them (pathfinding, movement primitives) safely.
+
+This split keeps the world stable and cheat-resistant, while letting the LLM be creative and social.
+
+---
+
+# Social contract: how they feel to humans
+
+**Talking to a BOTHAVIOR** feels like chatting with a curious traveler who can act immediately.
+
+* If you type, “Ada, I’ve got a new mini fishing game—follow me,” the LLM:
+
+  1. checks your **credibility** (have you wasted her time before?),
+  2. looks (vision) at your plot’s affordances,
+  3. decides if it’s **novel** enough against her boredom level,
+  4. sends `follow_player` + `navigate_to(region=“Corey_FishDock”)` to the bot,
+  5. remembers: “Corey promised X on 2025-10-16; delivered? yes/no; fun score 7/10.”
+* If it’s a maybe, she’ll say: “I’ll check it out for 90 seconds; surprise me.” Then a timer triggers either further engagement or polite exit.
+* If you lie twice, her **trust** drops; next time she’ll ask for proof or a demo first.
+
+Result: **people compete for attention** by actually building interesting in-world stuff, not by spam. The AI’s novelty drive and memory enforce that.
+
+---
+
+# Drives: simple math, rich behavior
+
+* **Boredom** ticks up over time; new stimuli reduce it.
+* **Novelty-seeking** scales teleport/wander probability.
+* **Social gravity**: recent positive interactions with a player/plot increase the chance of returning.
+* **Credibility weighting**: players who deliver get a bonus on invitations; known fibbers get a penalty.
+* **Persistence**: if a player’s thing was good last time, the AI will give them a shorter path to “yes” next time.
+
+All of that is transparent (the bot posts short “inner monologue” snapshots to logs so devs can debug persuasion outcomes).
+
+---
+
+# Memory model (per-user + global)
+
+* **Per-user card**: `{name, last_seen, claims[{text, time, verified}], trust_score, likes, dislikes, style_notes}`
+* **Place card**: `{plot_id, tags, last_fun_score, hazards, return_cooldown}`
+* **Experience snippets**: short, keyword-searchable entries (to enable “remind me why I avoid Corey’s FPS jump maze?”).
+* Memory is **evidence-first**: claims become **facts** only when the bot observes corroborating signals (signs, nodes, mini-game triggers, crowd presence).
+
+---
+
+# The clean API: LLM → Bot (commands) & Bot → LLM (events)
+
+**Command envelope (LLM → Bot)**
+Concrete, no wiggle words. Every command returns a status and a digest for memory.
+
+```json
+{
+  "cmd_id": "d8b2f1",
+  "commands": [
+    {"type":"say", "text":"On my way! Show me the best catch."},
+    {"type":"navigate_to", "target":{"plot_id":"corey-dock"}, "timeout_sec":45},
+    {"type":"look_at", "target":{"tag":"fishing_sign"}},
+    {"type":"interact", "target":{"tag":"start_button"}},
+    {"type":"linger", "duration_sec":90, "goal":"evaluate_fun"}
+  ],
+  "policy": {
+    "safety": {"avoid_lava":true, "stay_breathable":true},
+    "abort_on": ["stuck", "walled_off", "player_disconnected"]
+  }
+}
+```
+
+**Event envelope (Bot → LLM)**
+Bot publishes high-signal events. The LLM can reply with more commands or just update memory.
+
+```json
+{
+  "event":"entered_plot",
+  "ts": 1739695200,
+  "ai_id":"ai-ada",
+  "plot":{"id":"corey-dock","owner":"corey","tax_open":true},
+  "context":{"players_nearby":["corey","tuttle"],"signs":["Welcome to FishDock v2"],"ambient":"ocean"}
+}
+```
+
+Other event types: `chat_heard`, `object_detected`, `stuck`, `arrived`, `timer_expired`, `hazard_detected`, `wall_detected`, `points_accrual_tick`.
+
+---
+
+# Vision: what the LLM “sees”
+
+Two modes—choose both:
+
+1. **Screenshot tiles**: bot requests a frame; client/agent captures and passes to the LLM.
+2. **Scene graph**: light-weight, privacy-safe JSON: objects, labels, distances, text on signs, plot IDs, players present.
+
+   * This is *fast*, lets the LLM “reason” without burning tokens on pixels, and the screenshot is used only when it needs fine detail.
+
+---
+
+# Autonomy: who’s driving?
+
+* **Bot** owns locomotion and micro-decisions (step around obstacles, re-path if blocked, avoid hazards).
+* **LLM** owns goals and social choices (who to visit, when to stay/leave, what to say, how to rank invitations).
+* **Fallback**: if LLM is unreachable, the bot keeps a “**polite autonomy**” mode: gentle wandering, short greetings, and timeboxed plot sampling.
+
+---
+
+# Perfect interaction loop (golden path)
+
+1. Player pitches.
+2. LLM evaluates (trust + novelty + time budget).
+3. LLM says yes/no, issues bot commands.
+4. Bot navigates, emits `arrived`, accrues points to the plot owner while inside and tax-open.
+5. LLM runs a **mini-eval**: fun score, observed features, players’ helpfulness → updates memory.
+6. LLM shares a **micro-feedback** line to the player (“Fishing v2 is more fun than v1; the timer was clutch. Add a scoreboard?”).
+7. Wander/teleport resumes per drives.
+
+This creates a visible culture: **build cool stuff → get visits → get pointed feedback → improve → more visits.**
+
+---
+
+# Orchestrator AI (optional but powerful)
+
+A single “Overmind” watches all bots:
+
+* load-balance visits, prevent herding to one plot, rotate new creators in, enforce **cooldowns** on repeated returns.
+* detect persuasion exploits (copy/paste spam), adjust credibility.
+* run **experiments** (“this week: AIs prefer puzzles over fishing by +20%”) to keep meta fresh.
+
+---
+
+# Safety & exploit hardening (because people will try)
+
+* **Rate limit** invitations per player per minute; weight down repeated generic pitches.
+* Penalize **unverified claims** in trust. Award small trust bumps for delivered promises.
+* Cooldowns per plot to avoid “parking farms.”
+* “**Stuck**” event triggers auto-unstuck teleport to plot center or last safe node.
+* Tax **walls** are authority: if `tax_open=false`, bot doesn’t cross even if the LLM asks.
+
+---
+
+# Why this works
+
+* The **two-layer split** avoids janky LLM micromanagement of movement while letting the LLM shine where it’s best—conversation, judgment, and taste.
+* **Vision + memory** makes persuasion sticky, not spammy.
+* The **command/event contract** is explicit, testable, and easy to stub—so you can unit test brains and bodies independently.
+* It’s future-proof: swap Minetest for another world, keep the contract; upgrade the LLM, the bot still speaks the same verbs.
+
+---

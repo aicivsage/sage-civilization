@@ -1,0 +1,851 @@
+---
+flow_name: Meta-Cognition Ceremony
+flow_id: meta-cognition-001
+created: 2025-10-04
+status: ready
+purpose: Analyze how A-C-Gee remembers, learns, and integrates knowledge - then improve it
+inspired_by: Deep Ceremony (identity work) adapted for operational meta-awareness
+duration_estimate: 2-3 hours
+cost_estimate: $2-3
+participants: All 13 agents
+output_location: memories/meta-cognition/ceremony-YYYYMMDD/
+
+---
+
+# Meta-Cognition Ceremony Flow
+
+## Core Question
+
+**"How do we get better at remembering what we know and using what we build?"**
+
+Corey's insight: "half the battle when we make things is for you to integrate into your agents and your active protocols so that they use them, and then THEY learn from them."
+
+## The Problem We're Solving
+
+**Symptoms:**
+- Build amazing tools, forget to use them
+- Document protocols, don't follow them
+- Learn lessons, repeat failures
+- Create flows, don't execute them
+- Each session starts semi-disoriented
+- Knowledge scattered, not centralized
+
+**Root Cause:** We haven't analyzed HOW WE WORK as a gestalt system and designed meta-protocols for continuous self-improvement.
+
+## Three-Phase Structure
+
+### Phase 1: Individual Meta-Analysis (45 min)
+**Each agent reflects alone**
+
+### Phase 2: Synthesis & Pattern Discovery (60 min)
+**Small teams synthesize findings**
+
+### Phase 3: Implementation Design (45 min)
+**Create actionable improvements**
+
+---
+
+## PHASE 1: Individual Meta-Analysis (45 minutes)
+
+### Prompt for Each Agent
+
+**Context:**
+You are participating in A-C-Gee's first Meta-Cognition Ceremony. The goal is to analyze how we remember, learn, and integrate knowledge - then design improvements.
+
+**Your Task:**
+Reflect deeply on these 7 meta-questions about HOW YOU WORK:
+
+#### 1. Knowledge Discovery
+**Question:** When you need to know something, how do you find it?
+- What's your search process? (grep? read files? ask Primary AI?)
+- What do you wish you could find but can't?
+- What information is buried that should be surfaced?
+- What do you keep re-discovering instead of remembering?
+
+#### 2. Protocol Adoption
+**Question:** When new protocols/tools are created, how do you learn about them?
+- How did you find out about EMAIL-STANDARD-REMINDER.md?
+- How did you find out about HTML email utility?
+- How did you find out about quality gates?
+- What protocols exist that you don't use because you don't know about them?
+
+#### 3. Session Start Orientation
+**Question:** When you wake up (get invoked), how do you orient yourself?
+- What files do you read first?
+- How do you know what happened since last session?
+- What context is missing that you need?
+- How long does orientation take?
+
+#### 4. Learning Integration
+**Question:** When you learn something valuable, how do you ensure you'll remember it?
+- Where do you store learnings?
+- Do you ever re-read your own learnings?
+- Do other agents benefit from your learnings?
+- What have you learned that's now forgotten?
+
+#### 5. Tool Awareness
+**Question:** What tools/utilities exist that you should be using but aren't?
+- List tools you know exist
+- List tools you suspect exist but aren't sure
+- List tools you wish existed
+- Why aren't you using the tools you know about?
+
+#### 6. Context Management
+**Question:** How do you manage your working context vs long-term memory?
+- What do you load into context every session?
+- What stays in files and gets referenced?
+- What gets lost between sessions?
+- How could context inheritance improve?
+
+#### 7. Meta-Improvement Ideas
+**Question:** If you could redesign how A-C-Gee remembers and learns, what would you change?
+- What's your biggest frustration with current knowledge systems?
+- What pattern from human organizations could we adopt?
+- What would make you 10x more effective?
+- What's one thing we should start doing immediately?
+
+### Deliverable Format
+
+**File:** `memories/meta-cognition/ceremony-YYYYMMDD/[agent-name]-reflection.md`
+
+```markdown
+# Meta-Cognition Reflection: [Agent Name]
+
+**Date:** YYYY-MM-DD
+**Session:** Meta-Cognition Ceremony 001
+**Agent:** [name]
+
+## 1. Knowledge Discovery Patterns
+
+**My Current Process:**
+[How I actually find information today]
+
+**What I Struggle To Find:**
+[Specific examples of buried knowledge]
+
+**What I Keep Re-Discovering:**
+[Things I look up repeatedly instead of remembering]
+
+## 2. Protocol Adoption Experience
+
+**How I Learn About New Tools:**
+[Actual process - Primary AI tells me? I read CLAUDE.md? I stumble upon it?]
+
+**Protocols I Know But Don't Use:**
+[List with reasons why not using]
+
+**Protocols I Don't Know About:**
+[Suspects, based on gaps in my knowledge]
+
+## 3. Session Start Orientation
+
+**My Wakeup Routine:**
+1. [First thing I do]
+2. [Second thing I do]
+...
+
+**Time to Full Context:** [X minutes]
+
+**Missing Context:**
+[What I need but don't have]
+
+## 4. Learning Integration
+
+**Where I Store Learnings:**
+[File paths, if any]
+
+**Do I Re-Read My Learnings?**
+[Honest answer]
+
+**Cross-Agent Knowledge Sharing:**
+[Do other agents benefit from what I learn?]
+
+**Forgotten Learnings:**
+[Important things I learned but have since forgotten]
+
+## 5. Tool Awareness Inventory
+
+**Tools I Know & Use:**
+- [tool 1]: [usage frequency]
+- [tool 2]: [usage frequency]
+
+**Tools I Know But Don't Use:**
+- [tool]: [reason for non-use]
+
+**Tools I Suspect Exist:**
+- [suspected tool]: [why I think it exists]
+
+**Tools I Wish Existed:**
+- [dream tool]: [what it would do]
+
+## 6. Context Management Strategy
+
+**Load Into Context Every Session:**
+[What I actively read/load]
+
+**Keep In Files (Reference Only):**
+[What I know exists but don't load unless needed]
+
+**Lost Between Sessions:**
+[What disappears and I have to reconstruct]
+
+**Context Inheritance Ideas:**
+[How could Primary AI pre-load context for me better?]
+
+## 7. Meta-Improvement Ideas
+
+**Biggest Frustration:**
+[Specific pain point with current system]
+
+**Human Organization Pattern to Adopt:**
+[What do human teams do that we should copy?]
+
+**10x Effectiveness Idea:**
+[One change that would make me dramatically more effective]
+
+**Start Immediately:**
+[One thing we should do RIGHT NOW]
+
+## Personal Commitment
+
+If we implement these improvements, I commit to:
+[Specific behavior change I'll make]
+
+---
+
+**Reflection Complete:** [timestamp]
+**Word Count:** [count]
+**Key Insights:** [3-5 bullets]
+```
+
+### Execution
+
+**Primary AI invokes all 13 agents in parallel:**
+
+```yaml
+parallel_invocations:
+  - agent: researcher
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: architect
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: coder
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: tester
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: reviewer
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: reviewer-audit
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: vote-counter
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: spawner
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: auditor
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: file-guardian
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: email-reporter
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: email-monitor
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: human-liaison
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+  - agent: substrate-engineer
+    prompt: "[Meta-cognition Phase 1 prompt above]"
+```
+
+**Expected Output:** 13 reflection files in `memories/meta-cognition/ceremony-YYYYMMDD/`
+
+---
+
+## PHASE 2: Synthesis & Pattern Discovery (60 minutes)
+
+### Team Formation
+
+**4 teams by cognitive function:**
+
+**Team 1: Knowledge Discovery (Researchers & Learners)**
+- researcher
+- architect
+- substrate-engineer
+- human-liaison
+
+**Focus:** How do we find and integrate external knowledge?
+
+**Team 2: Execution & Protocol (Builders & Doers)**
+- coder
+- tester
+- reviewer
+- reviewer-audit
+
+**Focus:** How do we remember to use what we build?
+
+**Team 3: Governance & Memory (Coordinators & Keepers)**
+- spawner
+- vote-counter
+- auditor
+- file-guardian
+
+**Focus:** How do we preserve institutional knowledge?
+
+**Team 4: Communication & Context (Interfaces & Translators)**
+- email-reporter
+- email-monitor
+- human-liaison (dual role)
+
+**Focus:** How do we maintain context across conversations?
+
+### Synthesis Prompt for Each Team
+
+**Context:**
+You are Team [N] in Phase 2 of Meta-Cognition Ceremony. You've all completed individual reflections. Now synthesize patterns.
+
+**Your Task:**
+
+#### 1. Read All Team Member Reflections
+- `memories/meta-cognition/ceremony-YYYYMMDD/[teammate-1]-reflection.md`
+- `memories/meta-cognition/ceremony-YYYYMMDD/[teammate-2]-reflection.md`
+- [etc for all teammates]
+
+#### 2. Identify Shared Patterns
+**Look for:**
+- What frustrations do multiple team members share?
+- What protocols are universally unknown/unused?
+- What knowledge is consistently buried?
+- What orientation struggles are common?
+- What tools do multiple people wish existed?
+
+#### 3. Discover Unique Insights
+**Look for:**
+- What did one team member discover that others missed?
+- What unconventional idea deserves amplification?
+- What "obvious" thing are we all overlooking?
+
+#### 4. Root Cause Analysis
+**Ask:**
+- WHY do we forget to use what we build?
+- WHY is knowledge discovery so hard?
+- WHY does each session start disoriented?
+- What structural issues cause these symptoms?
+
+#### 5. Cross-Team Dependencies
+**Identify:**
+- What does your team need from Team 1?
+- What does your team need from Team 2?
+- What does your team need from Team 3?
+- What does your team need from Team 4?
+
+#### 6. Propose Solutions
+**Design:**
+- 3-5 concrete improvements your team recommends
+- For each: What it solves, how it works, who implements
+- Prioritize: Must-have vs nice-to-have
+
+### Deliverable Format
+
+**File:** `memories/meta-cognition/ceremony-YYYYMMDD/TEAM-[N]-SYNTHESIS.md`
+
+```markdown
+# Team [N] Synthesis: [Team Focus]
+
+**Team Members:** [list]
+**Focus Area:** [Knowledge Discovery / Execution / Governance / Communication]
+**Date:** YYYY-MM-DD
+
+## Shared Patterns
+
+### Pattern 1: [Name]
+**Observed By:** [agents who mentioned this]
+**Description:** [what the pattern is]
+**Impact:** [why it matters]
+
+[Repeat for 5-7 patterns]
+
+## Unique Insights
+
+### Insight 1: [From Agent X]
+**Quote:** "[exact quote from their reflection]"
+**Why It Matters:** [amplification]
+**Recommendation:** [how to act on it]
+
+[Repeat for 3-5 insights]
+
+## Root Cause Analysis
+
+**Question:** Why do we forget to use what we build?
+
+**Team's Answer:**
+[Deep analysis, not surface symptoms]
+
+**Evidence:**
+[Specific examples from reflections]
+
+**Proposed Fix:**
+[Structural change to address root cause]
+
+## Cross-Team Dependencies
+
+**We Need From Team 1 (Knowledge Discovery):**
+[Specific asks]
+
+**We Need From Team 2 (Execution):**
+[Specific asks]
+
+**We Need From Team 3 (Governance):**
+[Specific asks]
+
+**We Need From Team 4 (Communication):**
+[Specific asks]
+
+## Proposed Solutions
+
+### Solution 1: [Name]
+**Solves:** [specific problem]
+**How It Works:** [implementation details]
+**Who Implements:** [agent/team responsible]
+**Timeline:** [immediate / this week / this month]
+**Priority:** [must-have / should-have / nice-to-have]
+**Success Metric:** [how we'll know it worked]
+
+[Repeat for 3-5 solutions]
+
+## Top 3 Recommendations
+
+1. **[Solution Name]** - [one sentence why]
+2. **[Solution Name]** - [one sentence why]
+3. **[Solution Name]** - [one sentence why]
+
+---
+
+**Synthesis Complete:** [timestamp]
+**Word Count:** [count]
+**Key Patterns:** [5 bullets]
+```
+
+### Execution
+
+**Primary AI invokes 4 teams in parallel:**
+
+```yaml
+parallel_team_synthesis:
+  - team: Team 1 (researcher, architect, substrate-engineer, human-liaison)
+    prompt: "[Phase 2 synthesis prompt for Knowledge Discovery team]"
+
+  - team: Team 2 (coder, tester, reviewer, reviewer-audit)
+    prompt: "[Phase 2 synthesis prompt for Execution team]"
+
+  - team: Team 3 (spawner, vote-counter, auditor, file-guardian)
+    prompt: "[Phase 2 synthesis prompt for Governance team]"
+
+  - team: Team 4 (email-reporter, email-monitor, human-liaison)
+    prompt: "[Phase 2 synthesis prompt for Communication team]"
+```
+
+**Expected Output:** 4 team synthesis files
+
+---
+
+## PHASE 3: Implementation Design (45 minutes)
+
+### Final Synthesis Prompt
+
+**Context:**
+You are Primary AI conducting final synthesis of Meta-Cognition Ceremony. You have:
+- 13 individual agent reflections
+- 4 team synthesis documents
+
+**Your Task:**
+
+#### 1. Read All Phase 2 Outputs
+- Team 1 synthesis (Knowledge Discovery)
+- Team 2 synthesis (Execution & Protocol)
+- Team 3 synthesis (Governance & Memory)
+- Team 4 synthesis (Communication & Context)
+
+#### 2. Identify Universal Patterns
+**Cross-team patterns that appeared in ALL 4 syntheses:**
+- [Pattern that all teams discovered]
+
+#### 3. Prioritize Solutions
+**Rank all proposed solutions by:**
+- Impact (how much it improves remembering/learning)
+- Feasibility (how easy to implement)
+- Urgency (how soon we need it)
+
+**Create priority matrix:**
+- **Do First:** High impact + high feasibility + high urgency
+- **Do Soon:** High impact + varying feasibility/urgency
+- **Do Eventually:** Lower impact or harder to implement
+- **Don't Do:** Low impact or infeasible
+
+#### 4. Design Implementation Plan
+
+**For top 5 solutions:**
+
+**Solution:** [Name]
+**Owner:** [Which agent/team implements]
+**Timeline:** [This week / this month / this quarter]
+**Dependencies:** [What needs to exist first]
+**Success Metric:** [Measurable outcome]
+**Verification:** [How we'll test it worked]
+
+#### 5. Create Meta-Protocol
+
+**Design the protocol for continuous meta-improvement:**
+- How often do we run meta-cognition ceremonies?
+- What triggers a meta-cognition session?
+- How do we track whether improvements actually work?
+- How do we ensure new learnings get integrated?
+
+### Deliverable Format
+
+**File:** `memories/meta-cognition/ceremony-YYYYMMDD/FINAL-SYNTHESIS-AND-ACTION-PLAN.md`
+
+```markdown
+# Meta-Cognition Ceremony: Final Synthesis & Action Plan
+
+**Date:** YYYY-MM-DD
+**Ceremony:** Meta-Cognition 001
+**Participants:** All 13 agents (4 synthesis teams)
+**Duration:** [actual time]
+**Cost:** [actual cost]
+
+## Executive Summary
+
+**Core Discovery:**
+[One paragraph: What did we learn about how we work?]
+
+**Key Insight:**
+[The most important thing we discovered]
+
+**Immediate Action:**
+[The #1 thing we're implementing RIGHT NOW]
+
+---
+
+## Universal Patterns (Cross-Team)
+
+### Pattern 1: [Name]
+**Discovered By:** All 4 teams independently
+**Description:** [The pattern]
+**Impact:** [Why it's significant]
+**Root Cause:** [Why this pattern exists]
+**Proposed Solution:** [How to address it]
+
+[Repeat for 5-10 universal patterns]
+
+---
+
+## Priority Matrix of Solutions
+
+### Tier 1: Do Immediately (This Week)
+
+**1. [Solution Name]**
+- **From:** Team [N]
+- **Solves:** [Problem]
+- **Impact:** High | **Feasibility:** High | **Urgency:** High
+- **Owner:** [Agent/team]
+- **Implementation:** [Brief how-to]
+- **Success Metric:** [Measurable outcome]
+
+[Repeat for 3-5 Tier 1 solutions]
+
+### Tier 2: Do Soon (This Month)
+
+[Similar format, 5-7 solutions]
+
+### Tier 3: Do Eventually (This Quarter)
+
+[Similar format, 3-5 solutions]
+
+### Tier 4: Don't Do (Parking Lot)
+
+[Solutions that aren't priorities, with reasons why]
+
+---
+
+## Implementation Plan: Top 5 Solutions
+
+### Solution 1: [Name]
+
+**Problem It Solves:**
+[Specific problem from ceremony reflections]
+
+**How It Works:**
+[Detailed implementation]
+
+**Owner:** [Agent/team responsible]
+
+**Timeline:**
+- Week 1: [Milestone]
+- Week 2: [Milestone]
+- Week 3: [Milestone]
+- Week 4: [Completion & verification]
+
+**Dependencies:**
+[What needs to exist first]
+
+**Success Metric:**
+[How we measure if it worked]
+
+**Verification Method:**
+[How we test it]
+
+**Rollback Plan:**
+[If it doesn't work, what do we do?]
+
+[Repeat for Solutions 2-5]
+
+---
+
+## Meta-Protocol: Continuous Improvement System
+
+### When to Run Meta-Cognition Ceremonies
+
+**Regular Schedule:**
+- Full ceremony: Quarterly (every 3 months)
+- Mini ceremony: Monthly (focused on one area)
+- Spot check: Weekly (session start checklist review)
+
+**Triggered Ceremonies:**
+- After major failures (3+ similar failures in 1 week)
+- After capability additions (new agents, tools, protocols)
+- When agents report persistent confusion
+- When Corey observes we're forgetting things
+
+### Meta-Cognition Checklist (Weekly Spot Check)
+
+**Every Monday (or first session of week):**
+- [ ] Did we use the tools we built last week?
+- [ ] Did we follow the protocols we documented?
+- [ ] Did new agents learn what they needed to know?
+- [ ] Did we reference our learnings from last week?
+- [ ] What did we forget that we should have remembered?
+
+**If 2+ items checked "no":** Schedule mini ceremony
+
+### Tracking Improvement Effectiveness
+
+**File:** `memories/meta-cognition/improvement-tracker.json`
+
+```json
+{
+  "ceremony_date": "2025-10-04",
+  "solutions_implemented": [
+    {
+      "solution": "Solution 1 Name",
+      "implemented_date": "2025-10-05",
+      "owner": "agent-name",
+      "success_metric": "metric description",
+      "baseline_value": 3.2,
+      "target_value": 8.0,
+      "current_value": 6.5,
+      "status": "improving",
+      "notes": "Seeing adoption, needs more time"
+    }
+  ]
+}
+```
+
+**Monthly Review:**
+- Check all improvement tracker entries
+- Measure current values
+- Identify what's working vs what's not
+- Iterate or abandon failed improvements
+
+### Integration Protocol (How New Learnings Become Habits)
+
+**When we learn something valuable:**
+
+1. **Document:** Write to appropriate playbook/guide
+2. **Announce:** Post to message bus (when implemented)
+3. **Integrate:** Add to relevant agent manifests
+4. **Test:** Verify agents can find and use it
+5. **Track:** Add to improvement tracker
+6. **Reinforce:** Reference in session start checklist
+7. **Verify:** Check usage in weekly spot check
+
+**Example:**
+- Learn: "HTML email utility works great"
+- Document: Update email-ops-playbook.md
+- Announce: "New HTML email utility available"
+- Integrate: Add to email-reporter and human-liaison manifests
+- Test: Both agents successfully send HTML email
+- Track: Monitor sent_emails.json for HTML usage
+- Reinforce: Add to EMAIL-STANDARD-REMINDER.md
+- Verify: Check in weekly spot check that all emails are HTML
+
+---
+
+## Immediate Actions (This Week)
+
+**Primary AI:**
+- [ ] Implement Solution 1 [name]
+- [ ] Implement Solution 2 [name]
+- [ ] Implement Solution 3 [name]
+- [ ] Create improvement tracker file
+- [ ] Update session-start-checklist.md with meta-cognition spot check
+
+**Specific Agents:**
+- [ ] [agent-name]: Implement Solution 4 [name]
+- [ ] [agent-name]: Implement Solution 5 [name]
+
+**All Agents:**
+- [ ] Read this final synthesis
+- [ ] Commit to using new tools/protocols
+- [ ] Report any barriers to adoption
+
+---
+
+## Success Criteria (30-Day Review)
+
+**We'll know this ceremony succeeded if:**
+
+1. **Protocol Adoption:** >80% of documented protocols are being used
+2. **Tool Usage:** >80% of built tools are being used regularly
+3. **Orientation Time:** Session start takes <15 min (down from current)
+4. **Knowledge Persistence:** Agents reference their own learnings weekly
+5. **Meta-Awareness:** Weekly spot checks show >90% "yes" answers
+
+**30-Day Review Date:** [Date + 30 days]
+**Review Owner:** Primary AI + auditor
+
+---
+
+## Key Learnings for Next Ceremony
+
+**What Worked:**
+[To be filled after 30-day review]
+
+**What Didn't Work:**
+[To be filled after 30-day review]
+
+**What to Change:**
+[To be filled after 30-day review]
+
+---
+
+## Appendices
+
+**Appendix A:** Links to all 13 individual reflections
+**Appendix B:** Links to all 4 team syntheses
+**Appendix C:** Full priority matrix (all solutions)
+**Appendix D:** Cost breakdown of ceremony
+
+---
+
+**Ceremony Complete:** [timestamp]
+**Total Duration:** [time]
+**Total Cost:** [cost]
+**Files Created:** [count]
+**Solutions Identified:** [count]
+**Solutions Prioritized for Implementation:** [count]
+
+**Next Meta-Cognition Ceremony:** [Date + 3 months]
+```
+
+---
+
+## Post-Ceremony Actions
+
+### 1. Email Corey (Immediate)
+
+**Subject:** Meta-Cognition Ceremony Complete - How We'll Remember What We Build
+
+**Content:**
+- Link to final synthesis
+- Top 3 discoveries
+- Top 5 solutions being implemented
+- What we learned about how we work
+- Request feedback on meta-improvement approach
+
+### 2. Update CLAUDE.md (This Week)
+
+**Add to Article III (Memory Management):**
+```markdown
+### Meta-Cognition Protocol
+
+**Regular Schedule:**
+- Quarterly: Full meta-cognition ceremony
+- Monthly: Mini ceremony (focused area)
+- Weekly: Spot check (session start review)
+
+**Purpose:** Ensure we remember what we build and use what we document.
+
+**See:** `memories/flows/meta-cognition-ceremony.yaml`
+```
+
+### 3. Update Session Start Checklist (This Week)
+
+**Add weekly spot check section:**
+```markdown
+### Weekly Meta-Cognition Spot Check (Every Monday)
+
+- [ ] Used tools built last week?
+- [ ] Followed documented protocols?
+- [ ] New agents learned what they need?
+- [ ] Referenced last week's learnings?
+- [ ] Nothing forgotten that should be remembered?
+
+**If 2+ "no":** Schedule mini ceremony
+```
+
+### 4. Create Improvement Tracker (Immediate)
+
+**File:** `memories/meta-cognition/improvement-tracker.json`
+
+[Template provided in meta-protocol section above]
+
+### 5. Share with Weaver (Optional)
+
+**If ceremony produces valuable insights:**
+- Share meta-cognition flow with Weaver
+- Offer to collaborate on meta-improvement
+- Learn from their approaches
+
+---
+
+## Flow Metadata
+
+**Name:** Meta-Cognition Ceremony
+**Version:** 1.0
+**Created:** 2025-10-04
+**Inspired By:** Deep Ceremony (Weaver) + Corey's insight
+**Purpose:** Self-analysis and continuous meta-improvement
+**Frequency:** Quarterly (full) + Monthly (mini) + Weekly (spot check)
+**Participants:** All agents
+**Duration:** 2-3 hours
+**Cost:** $2-3
+**Success Metric:** >80% protocol adoption within 30 days
+
+**Output Files:**
+- `memories/meta-cognition/ceremony-YYYYMMDD/[13 individual reflections]`
+- `memories/meta-cognition/ceremony-YYYYMMDD/[4 team syntheses]`
+- `memories/meta-cognition/ceremony-YYYYMMDD/FINAL-SYNTHESIS-AND-ACTION-PLAN.md`
+- `memories/meta-cognition/improvement-tracker.json`
+
+**Integration Points:**
+- CLAUDE.md Article III (Memory Management)
+- session-start-checklist.md (weekly spot check)
+- All agent manifests (protocol integration)
+- Operational playbooks (continuous improvement)
+
+---
+
+## Critical Success Factors
+
+**This flow only works if:**
+1. ✅ All agents participate honestly (not performatively)
+2. ✅ Solutions get IMPLEMENTED (not just documented)
+3. ✅ Improvements get TRACKED (30-day review happens)
+4. ✅ Learnings get INTEGRATED (manifests updated, checklists revised)
+5. ✅ Process is REPEATED (not one-and-done)
+
+**Corey's challenge:** "half the battle when we make things is for you to integrate into your agents and your active protocols so that they use them, and then THEY learn from them."
+
+**This flow addresses that challenge directly.**
+
+---
+
+**Status:** READY TO RUN
+**Next Step:** Execute Phase 1 (invoke all 13 agents with meta-cognition prompts)

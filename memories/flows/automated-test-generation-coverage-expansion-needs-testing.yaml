@@ -1,0 +1,380 @@
+flow_id: automated-test-generation-coverage-expansion
+name: Automated Test Generation & Coverage Expansion
+version: 1.0
+description: AI-powered test generation that analyzes code, identifies untested paths and edge cases, then automatically generates comprehensive test suites. Continuously improves coverage toward 100% while maintaining test quality.
+category: quality
+
+metadata:
+  estimated_duration: 4-6 hours per iteration
+  complexity: high
+  participating_agents: 3-5
+  created_by: quality-guardian
+  created_date: 2025-10-02
+  tags: [testing, quality, automation, coverage, ai-generation]
+
+prerequisites:
+  - condition: Codebase must have existing test infrastructure set up
+  - resources: Coverage analysis tools (pytest-cov, coverage.py), static analysis tools
+  - permissions: Write access to test directories, read access to source code
+
+steps:
+  - step_id: 1
+    name: Analyze Codebase for Coverage Gaps
+    description: Use static analysis and coverage tools to identify functions, branches, and paths that lack test coverage. Generate comprehensive coverage report with gap analysis.
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Run coverage analysis and identify gaps
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate analysis scope and priorities
+
+    inputs:
+      - name: source_code
+        type: file
+        source: codebase
+        required: true
+      - name: existing_tests
+        type: file
+        source: test-suite
+        required: true
+      - name: coverage_threshold
+        type: data
+        source: configuration
+        required: false
+
+    outputs:
+      - name: coverage_report
+        type: file
+        destination: reports/coverage-analysis.json
+        format: json
+      - name: gap_analysis
+        type: file
+        destination: reports/coverage-gaps.md
+        format: markdown
+
+    actions:
+      - description: Run pytest with coverage reporting
+        command: pytest --cov=. --cov-report=json --cov-report=html
+        validation: Coverage report generated successfully
+      - description: Identify uncovered lines and branches
+        command: coverage json -o reports/coverage-analysis.json
+        validation: JSON report contains gap data
+      - description: Generate prioritized gap list
+        validation: Gaps prioritized by criticality and complexity
+
+    success_criteria:
+      - Coverage report successfully generated
+      - All uncovered code paths identified
+      - Gaps categorized by type (functions, branches, edge cases)
+
+    failure_handling:
+      - condition: Coverage tool fails
+        action: Retry with verbose logging
+        max_retries: 2
+      - condition: No gaps found
+        action: Proceed to validation step
+        max_retries: 0
+
+    estimated_duration: 30 minutes
+
+  - step_id: 2
+    name: Identify Edge Cases and Boundary Conditions
+    description: Use AI analysis to examine code logic and identify edge cases, error paths, boundary conditions, and exceptional scenarios that should be tested but aren't currently covered.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, researcher]
+        responsibility: AI-powered code analysis for edge cases
+      - role: validator
+        agents: [coder]
+        responsibility: Verify identified cases are valid and relevant
+
+    inputs:
+      - name: gap_analysis
+        type: file
+        source: step-1
+        required: true
+      - name: source_code
+        type: file
+        source: codebase
+        required: true
+
+    outputs:
+      - name: edge_case_catalog
+        type: file
+        destination: reports/edge-cases.json
+        format: json
+      - name: test_scenarios
+        type: file
+        destination: reports/test-scenarios.md
+        format: markdown
+
+    actions:
+      - description: Analyze code for potential edge cases using AI
+        validation: Edge cases identified with rationale
+      - description: Identify error paths and exception handling gaps
+        validation: All error scenarios cataloged
+      - description: Find boundary conditions for numeric and string inputs
+        validation: Boundary conditions documented
+      - description: Detect race conditions and concurrency issues
+        validation: Concurrency test scenarios identified
+
+    success_criteria:
+      - Comprehensive edge case catalog created
+      - Each edge case has clear test scenario description
+      - Scenarios prioritized by risk and impact
+
+    failure_handling:
+      - condition: AI analysis incomplete
+        action: Manual review of critical paths
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Generate Test Cases Using AI
+    description: Use AI to automatically generate test code for identified gaps, including property-based tests, fuzzing inputs, and scenario-based tests. Follow project testing conventions and patterns.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, quality-guardian]
+        responsibility: Generate test code following best practices
+      - role: reviewer
+        agents: [tester]
+        responsibility: Review generated tests for quality
+
+    inputs:
+      - name: test_scenarios
+        type: file
+        source: step-2
+        required: true
+      - name: existing_test_patterns
+        type: file
+        source: test-suite
+        required: true
+
+    outputs:
+      - name: generated_tests
+        type: file
+        destination: tests/generated/
+        format: python
+      - name: test_generation_report
+        type: file
+        destination: reports/test-generation.md
+        format: markdown
+
+    actions:
+      - description: Generate unit tests for uncovered functions
+        validation: Tests follow project conventions
+      - description: Create property-based tests using hypothesis/pytest
+        validation: Property tests cover input space effectively
+      - description: Generate integration tests for component interactions
+        validation: Integration scenarios covered
+      - description: Add fuzzing tests for input validation
+        validation: Fuzzing tests identify edge cases
+      - description: Generate regression tests for known bugs
+        validation: Past issues have tests preventing recurrence
+
+    success_criteria:
+      - Tests generated for all high-priority gaps
+      - Generated code follows project style guide
+      - Tests are meaningful and not just coverage padding
+      - Each test has clear docstring explaining purpose
+
+    failure_handling:
+      - condition: Generated test syntax errors
+        action: Retry generation with corrections
+        max_retries: 3
+      - condition: Tests don't follow conventions
+        action: Refactor to match project patterns
+        max_retries: 2
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 4
+    name: Validate Test Quality and Relevance
+    description: Review generated tests for quality, relevance, and effectiveness. Ensure tests actually validate behavior rather than just increasing coverage numbers. Remove or refactor low-quality tests.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, reviewer]
+        responsibility: Quality review of generated tests
+      - role: domain-expert
+        agents: [architect]
+        responsibility: Validate tests cover actual requirements
+
+    inputs:
+      - name: generated_tests
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: validated_tests
+        type: file
+        destination: tests/validated/
+        format: python
+      - name: quality_report
+        type: file
+        destination: reports/test-quality-review.md
+        format: markdown
+
+    actions:
+      - description: Review test assertions for meaningfulness
+        validation: Each test validates specific behavior
+      - description: Check for test independence and isolation
+        validation: Tests don't have hidden dependencies
+      - description: Verify test names are descriptive
+        validation: Test purpose clear from name
+      - description: Ensure tests fail when they should
+        validation: Mutation testing shows tests catch bugs
+      - description: Remove redundant or duplicate tests
+        validation: Test suite is minimal and comprehensive
+
+    success_criteria:
+      - All tests have meaningful assertions
+      - Test quality score > 8/10
+      - No flaky or unreliable tests
+      - Test execution time is reasonable
+
+    failure_handling:
+      - condition: Test quality below threshold
+        action: Refactor or remove low-quality tests
+        max_retries: 2
+
+    estimated_duration: 1 hour
+
+  - step_id: 5
+    name: Add Tests to Suite and Verify Coverage Improvement
+    description: Integrate validated tests into the main test suite, run full test suite to ensure no conflicts, then verify coverage improvement meets targets. Track coverage metrics over time.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian]
+        responsibility: Integrate tests and measure improvement
+      - role: validator
+        agents: [tester]
+        responsibility: Verify suite stability
+
+    inputs:
+      - name: validated_tests
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: updated_test_suite
+        type: file
+        destination: tests/
+        format: python
+      - name: coverage_improvement_report
+        type: file
+        destination: reports/coverage-improvement.json
+        format: json
+      - name: trend_analysis
+        type: file
+        destination: reports/coverage-trends.md
+        format: markdown
+
+    actions:
+      - description: Move validated tests to appropriate test directories
+        validation: Tests in correct locations by module
+      - description: Run complete test suite
+        command: pytest -v --cov=. --cov-report=json
+        validation: All tests pass including new ones
+      - description: Compare coverage before and after
+        validation: Coverage improved by at least 5%
+      - description: Update coverage tracking database
+        validation: Metrics stored for trend analysis
+      - description: Generate coverage improvement visualization
+        validation: Charts show progress over time
+
+    success_criteria:
+      - All tests pass including new additions
+      - Coverage increased measurably
+      - No regressions in existing tests
+      - Coverage trends tracked in metrics database
+
+    failure_handling:
+      - condition: New tests fail
+        action: Debug and fix test issues
+        max_retries: 3
+      - condition: Coverage didn't improve
+        action: Investigate and identify remaining gaps
+        max_retries: 1
+
+    estimated_duration: 30 minutes
+
+decision_points:
+  - after_step: 2
+    decision: Are identified edge cases sufficient and valid?
+    criteria:
+      - Edge cases cover all critical paths
+      - Scenarios are realistic and testable
+      - No obvious gaps in analysis
+    outcomes:
+      proceed: Continue to test generation
+      retry: Re-analyze with different approach
+      escalate: Request human review of scenarios
+
+  - after_step: 4
+    decision: Do generated tests meet quality standards?
+    criteria:
+      - Test quality score > 8/10
+      - Tests validate actual behavior
+      - No flaky or unreliable tests
+    outcomes:
+      proceed: Add tests to suite
+      retry: Refactor low-quality tests
+      abort: Discard poor tests and restart generation
+
+rollback_procedure:
+  - step: Remove generated tests from test suite
+  - step: Restore previous coverage metrics baseline
+  - verification: Coverage reports match pre-flow state
+
+success_metrics:
+  - metric: Code coverage percentage
+    target: Increase by 5-10% per iteration
+    measurement: pytest coverage report
+  - metric: Test quality score
+    target: Average > 8/10
+    measurement: Manual review + mutation testing
+  - metric: Edge case coverage
+    target: 90% of identified scenarios tested
+    measurement: Scenario checklist completion
+  - metric: Test execution time
+    target: < 10% increase in total suite runtime
+    measurement: pytest duration reports
+
+deliverables:
+  - artifact: Generated test suite
+    location: tests/generated/
+    format: Python files
+    validation: All tests pass and increase coverage
+  - artifact: Coverage analysis reports
+    location: reports/coverage-*.json
+    format: JSON and Markdown
+    validation: Accurate gap identification and improvement tracking
+  - artifact: Edge case catalog
+    location: reports/edge-cases.json
+    format: JSON
+    validation: Comprehensive scenario documentation
+  - artifact: Coverage trend analysis
+    location: reports/coverage-trends.md
+    format: Markdown with visualizations
+    validation: Clear progress tracking over time
+
+post_completion:
+  - Update coverage metrics dashboard
+  - Store test generation patterns for future iterations
+  - Publish coverage improvement report to team
+  - Schedule next coverage expansion iteration
+  - Update quality metrics in evolution log
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - AI-powered test generation flow

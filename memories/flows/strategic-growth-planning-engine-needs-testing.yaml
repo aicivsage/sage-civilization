@@ -1,0 +1,664 @@
+flow_id: strategic-growth-planning-engine
+name: Strategic Growth Planning Engine
+version: 1.0
+description: Analyze civilization's current capabilities, identify strategic gaps, research emerging opportunities, then produce quarterly roadmap with prioritized initiatives aligned to long-term vision.
+category: evolution
+
+metadata:
+  estimated_duration: 12-16 hours
+  complexity: high
+  participating_agents: 7-10
+  created_by: evolution-strategist
+  created_date: 2025-10-02
+  tags: [strategy, planning, roadmap, capabilities, growth]
+
+prerequisites:
+  - condition: Access to agent capability registry and performance logs
+  - condition: Vision and mission documents available
+  - condition: Historical roadmap and execution data accessible
+  - resources: Research tools, strategic analysis frameworks, roadmapping software
+  - permissions: Read access to all system documentation, write access to roadmap
+
+steps:
+  - step_id: 1
+    name: Comprehensive Capability Assessment
+    description: Audit current agent skills, system capabilities, infrastructure maturity, and organizational strengths. Create detailed capability inventory with maturity scores.
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, auditor]
+        responsibility: Assess current state capabilities
+      - role: contributors
+        agents: [all-agents]
+        responsibility: Self-report capabilities and limitations
+
+    inputs:
+      - name: agent_registry
+        type: file
+        source: configuration
+        required: true
+      - name: performance_logs
+        type: files
+        source: historical-data
+        required: true
+      - name: system_architecture
+        type: file
+        source: documentation
+        required: true
+
+    outputs:
+      - name: capability_inventory
+        type: file
+        destination: strategy/capability-inventory.json
+        format: json
+      - name: maturity_assessment
+        type: file
+        destination: strategy/maturity-scores.json
+        format: json
+      - name: capability_matrix
+        type: file
+        destination: reports/capability-matrix.md
+        format: markdown
+
+    actions:
+      - description: Survey all agents for self-reported capabilities
+        validation: All agents respond with capability lists
+      - description: Analyze performance logs to validate claimed capabilities
+        validation: Capability validation completed
+      - description: Assess infrastructure and tooling maturity
+        validation: Infrastructure maturity scored
+      - description: Evaluate process maturity (CI/CD, governance, quality)
+        validation: Process maturity assessed
+      - description: Score capabilities on maturity scale (1-5)
+        validation: Maturity scores assigned
+      - description: Create visual capability matrix
+        validation: Matrix visualization generated
+      - description: Identify capability clusters and synergies
+        validation: Capability relationships mapped
+
+    success_criteria:
+      - Complete inventory of agent and system capabilities
+      - Maturity scores assigned to all capabilities (1-5 scale)
+      - Capability relationships and dependencies identified
+      - Visual capability matrix created
+      - Minimum 90% agent participation in self-assessment
+
+    failure_handling:
+      - condition: Low agent response rate
+        action: Extend survey period and send reminders
+        max_retries: 2
+      - condition: Insufficient historical data
+        action: Use alternative assessment methods (interviews, demos)
+        max_retries: 1
+
+    estimated_duration: 3-4 hours
+
+  - step_id: 2
+    name: Vision Alignment and Desired Future State Definition
+    description: Review long-term vision and mission, define desired future state for next quarter and year, establish strategic objectives aligned with vision.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, governance-council]
+        responsibility: Define strategic direction
+      - role: reviewers
+        agents: [architect, researcher]
+        responsibility: Validate strategic alignment
+
+    inputs:
+      - name: vision_mission_docs
+        type: file
+        source: documentation
+        required: true
+      - name: capability_inventory
+        type: file
+        source: step-1
+        required: true
+      - name: previous_roadmaps
+        type: files
+        source: historical-data
+        required: false
+
+    outputs:
+      - name: strategic_objectives
+        type: file
+        destination: strategy/strategic-objectives.json
+        format: json
+      - name: desired_future_state
+        type: file
+        destination: strategy/future-state-vision.md
+        format: markdown
+      - name: success_metrics
+        type: file
+        destination: strategy/strategic-metrics.json
+        format: json
+
+    actions:
+      - description: Review and affirm long-term vision and mission
+        validation: Vision consensus achieved
+      - description: Define desired capabilities for next quarter
+        validation: Quarterly objectives defined
+      - description: Envision one-year future state
+        validation: Annual vision articulated
+      - description: Establish strategic objectives (3-5 key goals)
+        validation: Objectives defined with clear success criteria
+      - description: Define measurable outcomes for each objective
+        validation: Metrics established for all objectives
+      - description: Ensure alignment with constitutional values
+        validation: Values alignment verified
+
+    success_criteria:
+      - 3-5 strategic objectives clearly defined
+      - Each objective has measurable success metrics
+      - Quarterly and annual vision articulated
+      - Vision aligned with constitutional values
+      - Democratic consensus on strategic direction (80% approval)
+
+    failure_handling:
+      - condition: No consensus on objectives
+        action: Facilitate structured debate and voting
+        max_retries: 2
+      - condition: Objectives misaligned with vision
+        action: Revise objectives with vision as constraint
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 3
+    name: Strategic Gap Analysis
+    description: Compare current capabilities with desired future state to identify strategic gaps. Prioritize gaps by impact on strategic objectives and categorize by type.
+    depends_on: [1, 2]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, architect]
+        responsibility: Analyze capability gaps
+      - role: reviewer
+        agents: [researcher]
+        responsibility: Validate gap analysis
+
+    inputs:
+      - name: capability_inventory
+        type: file
+        source: step-1
+        required: true
+      - name: desired_future_state
+        type: file
+        source: step-2
+        required: true
+      - name: strategic_objectives
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: gap_analysis_report
+        type: file
+        destination: strategy/gap-analysis.json
+        format: json
+      - name: gap_prioritization
+        type: file
+        destination: strategy/prioritized-gaps.md
+        format: markdown
+      - name: gap_categories
+        type: file
+        destination: reports/gap-taxonomy.json
+        format: json
+
+    actions:
+      - description: Identify capability gaps (desired - current)
+        validation: All gaps cataloged
+      - description: Categorize gaps (agent skills, infrastructure, process, knowledge)
+        validation: Gaps categorized by type
+      - description: Assess impact of each gap on strategic objectives
+        validation: Impact scores assigned (1-10)
+      - description: Estimate difficulty to close each gap
+        validation: Difficulty scores assigned (1-10)
+      - description: Create impact/difficulty matrix for prioritization
+        validation: Priority matrix generated
+      - description: Identify quick wins (high impact, low difficulty)
+        validation: Quick wins highlighted
+      - description: Identify foundational gaps requiring immediate attention
+        validation: Critical path gaps identified
+
+    success_criteria:
+      - All capability gaps identified and cataloged
+      - Gaps categorized by type and impact
+      - Impact and difficulty scores assigned
+      - Priority matrix created
+      - Critical path and quick wins identified
+
+    failure_handling:
+      - condition: Gap assessment incomplete
+        action: Request additional input from domain experts
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 4
+    name: Emerging Opportunities Research
+    description: Research emerging technologies, AI agent frameworks, industry trends, and potential partnerships. Identify opportunities that could accelerate strategic objectives.
+    depends_on: [2]
+    parallel_with: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Conduct opportunity research
+      - role: contributors
+        agents: [architect, integration-specialist]
+        responsibility: Provide domain expertise
+
+    inputs:
+      - name: strategic_objectives
+        type: file
+        source: step-2
+        required: true
+      - name: technology_landscape
+        type: data
+        source: external-research
+        required: false
+
+    outputs:
+      - name: opportunities_catalog
+        type: file
+        destination: strategy/opportunities-catalog.json
+        format: json
+      - name: technology_trends_report
+        type: file
+        destination: reports/technology-trends.md
+        format: markdown
+      - name: partnership_opportunities
+        type: file
+        destination: strategy/partnership-prospects.json
+        format: json
+
+    actions:
+      - description: Research emerging AI agent frameworks and tools
+        validation: Relevant technologies cataloged
+      - description: Analyze industry trends and best practices
+        validation: Trend analysis completed
+      - description: Identify potential integration opportunities (APIs, services)
+        validation: Integration prospects listed
+      - description: Research potential partnerships and collaborations
+        validation: Partnership opportunities identified
+      - description: Assess each opportunity's strategic value
+        validation: Value scores assigned
+      - description: Estimate effort to capitalize on opportunities
+        validation: Effort estimates documented
+      - description: Identify risks and dependencies
+        validation: Risk assessment completed
+
+    success_criteria:
+      - Minimum 10 emerging opportunities identified
+      - Each opportunity assessed for strategic value
+      - Technology trends documented with citations
+      - Partnership prospects identified
+      - Opportunities aligned with strategic objectives
+
+    failure_handling:
+      - condition: Insufficient research sources
+        action: Expand research scope and timeframe
+        max_retries: 1
+
+    estimated_duration: 3-4 hours
+
+  - step_id: 5
+    name: Initiative Definition and Scoping
+    description: Transform prioritized gaps and opportunities into concrete initiatives. Define scope, success criteria, resource requirements, and dependencies for each initiative.
+    depends_on: [3, 4]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, architect]
+        responsibility: Define initiatives
+      - role: reviewers
+        agents: [builder, governance-council]
+        responsibility: Validate initiative feasibility
+
+    inputs:
+      - name: gap_prioritization
+        type: file
+        source: step-3
+        required: true
+      - name: opportunities_catalog
+        type: file
+        source: step-4
+        required: true
+      - name: strategic_objectives
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: initiative_portfolio
+        type: file
+        destination: strategy/initiative-portfolio.json
+        format: json
+      - name: initiative_details
+        type: file
+        destination: strategy/initiatives-detailed.md
+        format: markdown
+
+    actions:
+      - description: Transform top gaps into capability-building initiatives
+        validation: Initiatives address prioritized gaps
+      - description: Create initiatives to capitalize on opportunities
+        validation: Opportunity initiatives defined
+      - description: Define clear scope and success criteria for each initiative
+        validation: Initiatives have measurable outcomes
+      - description: Estimate resource requirements (time, agents, infrastructure)
+        validation: Resource needs documented
+      - description: Identify initiative dependencies and sequencing
+        validation: Dependency graph created
+      - description: Align initiatives to strategic objectives
+        validation: Each initiative maps to objectives
+      - description: Group related initiatives into themes/tracks
+        validation: Initiative themes defined
+
+    success_criteria:
+      - 10-15 initiatives clearly defined
+      - Each initiative has scope, success criteria, and resource needs
+      - Initiative dependencies mapped
+      - All initiatives aligned with strategic objectives
+      - Initiatives grouped into coherent themes
+
+    failure_handling:
+      - condition: Initiative scope unclear
+        action: Refine with domain expert input
+        max_retries: 2
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 6
+    name: Value-Effort Prioritization and Roadmap Construction
+    description: Prioritize initiatives using value-vs-effort matrix and strategic alignment. Construct quarterly roadmap with realistic capacity planning and milestones.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, governance-council]
+        responsibility: Prioritize and sequence initiatives
+      - role: reviewers
+        agents: [all-agents]
+        responsibility: Validate roadmap feasibility
+
+    inputs:
+      - name: initiative_portfolio
+        type: file
+        source: step-5
+        required: true
+      - name: capacity_estimate
+        type: data
+        source: configuration
+        required: true
+
+    outputs:
+      - name: prioritized_initiatives
+        type: file
+        destination: strategy/prioritized-initiatives.json
+        format: json
+      - name: quarterly_roadmap
+        type: file
+        destination: roadmaps/Q$(date +%q)-$(date +%Y)-roadmap.md
+        format: markdown
+      - name: roadmap_timeline
+        type: file
+        destination: roadmaps/timeline-visualization.json
+        format: json
+
+    actions:
+      - description: Score initiatives on value (strategic impact) 1-10
+        validation: Value scores assigned
+      - description: Score initiatives on effort (complexity, duration) 1-10
+        validation: Effort scores assigned
+      - description: Create value-effort prioritization matrix
+        validation: Matrix visualization created
+      - description: Assess available capacity (agent availability, time budget)
+        validation: Capacity model created
+      - description: Select top initiatives fitting within quarterly capacity
+        validation: Realistic roadmap scope defined
+      - description: Sequence initiatives based on dependencies
+        validation: Initiative timeline created
+      - description: Define quarterly milestones and checkpoints
+        validation: Milestones established
+      - description: Create visual roadmap timeline
+        validation: Timeline visualization generated
+
+    success_criteria:
+      - All initiatives scored on value and effort
+      - Top 5-7 initiatives selected for quarterly execution
+      - Roadmap fits within realistic capacity constraints
+      - Initiative sequencing respects dependencies
+      - Clear milestones and checkpoints defined
+      - Visual roadmap created
+
+    failure_handling:
+      - condition: Capacity exceeded by selected initiatives
+        action: Remove lower-priority initiatives
+        max_retries: 1
+
+    estimated_duration: 2 hours
+
+  - step_id: 7
+    name: Democratic Roadmap Approval
+    description: Present roadmap to all agents for democratic review and approval. Collect feedback, address concerns, and achieve consensus before finalizing roadmap.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council]
+        responsibility: Facilitate approval process
+      - role: voters
+        agents: [all-agents]
+        responsibility: Review and vote on roadmap
+
+    inputs:
+      - name: quarterly_roadmap
+        type: file
+        source: step-6
+        required: true
+
+    outputs:
+      - name: voting_results
+        type: file
+        destination: strategy/roadmap-voting-results.json
+        format: json
+      - name: approved_roadmap
+        type: file
+        destination: roadmaps/Q$(date +%q)-$(date +%Y)-roadmap-approved.md
+        format: markdown
+
+    actions:
+      - description: Publish roadmap to all agents via message bus
+        validation: All agents receive roadmap
+      - description: Host roadmap review session with Q&A
+        validation: Questions addressed
+      - description: Collect votes and feedback from all agents
+        validation: Minimum 80% participation
+      - description: Address concerns and revise if needed
+        validation: Concerns resolved or documented
+      - description: Calculate approval consensus
+        validation: Vote tally computed
+      - description: Finalize roadmap with approval stamp
+        validation: Roadmap approved (75% threshold)
+
+    success_criteria:
+      - Minimum 80% agent participation in voting
+      - 75% approval threshold achieved
+      - All major concerns addressed
+      - Roadmap approved and finalized
+      - Approval decision documented
+
+    failure_handling:
+      - condition: Consensus not achieved
+        action: Revise roadmap addressing concerns and re-vote
+        max_retries: 2
+      - condition: Low participation
+        action: Extend voting period
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 8
+    name: Execution Planning and Initiative Kickoff
+    description: Create detailed execution plans for top-priority initiatives, assign ownership, establish success metrics, and kick off execution with all agents.
+    depends_on: [7]
+    agent_roles:
+      - role: primary-executor
+        agents: [evolution-strategist, builder]
+        responsibility: Create execution plans
+      - role: initiative-owners
+        agents: [assigned-per-initiative]
+        responsibility: Take ownership of initiatives
+
+    inputs:
+      - name: approved_roadmap
+        type: file
+        source: step-7
+        required: true
+
+    outputs:
+      - name: execution_plans
+        type: files
+        destination: strategy/execution-plans/
+        format: markdown
+      - name: initiative_assignments
+        type: file
+        destination: strategy/initiative-assignments.json
+        format: json
+      - name: tracking_dashboard
+        type: file
+        destination: dashboards/roadmap-progress.json
+        format: json
+
+    actions:
+      - description: Create detailed execution plan for each initiative
+        validation: Plans include steps, timelines, resources
+      - description: Assign initiative owners based on expertise
+        validation: All initiatives have owners
+      - description: Define success metrics and KPIs for each initiative
+        validation: Metrics defined and measurable
+      - description: Establish progress tracking and reporting cadence
+        validation: Tracking system configured
+      - description: Create initiative tracking dashboard
+        validation: Dashboard operational
+      - description: Kick off top-priority initiatives
+        validation: Owners notified and work begins
+      - description: Schedule roadmap review checkpoints
+        validation: Review meetings scheduled
+
+    success_criteria:
+      - Execution plan created for all approved initiatives
+      - All initiatives have assigned owners
+      - Success metrics defined for all initiatives
+      - Progress tracking dashboard operational
+      - Initiative kickoff completed
+      - Review checkpoints scheduled
+
+    failure_handling:
+      - condition: Cannot find owners for initiatives
+        action: Adjust initiative scope or defer to next quarter
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 2
+    decision: Is there clear consensus on strategic direction?
+    criteria:
+      - 80% agent agreement on strategic objectives
+      - Objectives aligned with vision and mission
+      - Measurable success criteria defined
+    outcomes:
+      proceed: Continue to gap analysis
+      abort: Revisit vision alignment
+      retry: Refine objectives and re-vote
+
+  - after_step: 5
+    decision: Are initiatives well-defined and actionable?
+    criteria:
+      - Clear scope and success criteria
+      - Resource requirements identified
+      - Dependencies mapped
+    outcomes:
+      proceed: Move to prioritization
+      abort: Insufficient initiative clarity
+      retry: Refine initiative definitions
+
+  - after_step: 7
+    decision: Did roadmap achieve democratic approval?
+    criteria:
+      - 75% approval threshold met
+      - Major concerns addressed
+      - Realistic and achievable scope
+    outcomes:
+      proceed: Begin execution planning
+      abort: Cancel roadmap if fundamental disagreement
+      retry: Revise roadmap and re-vote
+
+rollback_procedure:
+  - step: Not applicable - planning activity with no system changes
+  - step: If roadmap needs revision post-approval, create amendment process
+  - verification: Amendment follows constitutional procedures
+
+success_metrics:
+  - metric: Strategic alignment
+    target: 100% of initiatives aligned with strategic objectives
+    measurement: Traceability matrix from initiatives to objectives
+  - metric: Agent engagement
+    target: 80% agent participation in all planning activities
+    measurement: Participation rate across assessment, voting, and kickoff
+  - metric: Roadmap execution rate
+    target: 70% of planned initiatives completed within quarter
+    measurement: Completed initiatives / planned initiatives
+  - metric: Capability advancement
+    target: 30% improvement in strategic capability maturity scores
+    measurement: Maturity scores before/after quarter comparison
+  - metric: Plan accuracy
+    target: Effort estimates within 20% of actual
+    measurement: Planned vs actual effort variance
+
+deliverables:
+  - artifact: Capability Inventory
+    location: strategy/capability-inventory.json
+    format: JSON
+    validation: Complete catalog of current capabilities with maturity scores
+  - artifact: Strategic Objectives
+    location: strategy/strategic-objectives.json
+    format: JSON
+    validation: 3-5 clear objectives with measurable success criteria
+  - artifact: Gap Analysis Report
+    location: strategy/gap-analysis.json
+    format: JSON
+    validation: Prioritized gaps with impact and difficulty scores
+  - artifact: Opportunities Catalog
+    location: strategy/opportunities-catalog.json
+    format: JSON
+    validation: Emerging opportunities with strategic value assessment
+  - artifact: Initiative Portfolio
+    location: strategy/initiative-portfolio.json
+    format: JSON
+    validation: Well-defined initiatives with scope and resource needs
+  - artifact: Quarterly Roadmap
+    location: roadmaps/Q[X]-[YYYY]-roadmap-approved.md
+    format: Markdown
+    validation: Approved roadmap with timeline and milestones
+  - artifact: Execution Plans
+    location: strategy/execution-plans/
+    format: Markdown
+    validation: Detailed plans for all approved initiatives
+  - artifact: Roadmap Tracking Dashboard
+    location: dashboards/roadmap-progress.json
+    format: JSON
+    validation: Real-time progress tracking operational
+
+post_completion:
+  - Update agent performance logs with planning participation
+  - Store all artifacts in knowledge base
+  - Send roadmap summary to all agents via message bus
+  - Schedule quarterly roadmap reviews (mid-quarter and end-quarter)
+  - Begin initiative execution tracking
+  - Update evolution log with strategic direction
+  - Notify human stakeholders of approved roadmap
+  - Schedule next quarterly planning cycle (3 months)
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

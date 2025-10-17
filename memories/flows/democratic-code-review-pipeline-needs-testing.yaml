@@ -1,0 +1,409 @@
+flow_id: democratic-code-review-pipeline
+name: Democratic Code Review Pipeline
+version: 1.0
+description: When code changes are proposed, automatically assign multiple reviewer agents based on expertise. Reviewers vote on approval with weighted scores. Code merges only when consensus threshold is met (e.g., 80% approval).
+category: decision
+
+metadata:
+  estimated_duration: 2-4 hours
+  complexity: medium
+  participating_agents: 3-5 reviewers minimum
+  created_by: orchestrator
+  created_date: 2025-10-02
+  tags: [code-review, democratic-decision, quality-assurance, consensus]
+
+prerequisites:
+  - condition: Code changes must be committed to a branch
+  - condition: Git repository must be properly configured
+  - resources: Access to codebase, git history, and relevant documentation
+  - resources: Agent reputation scores for vote weighting
+  - permissions: Reviewers must have read access to affected code areas
+
+steps:
+  - step_id: 1
+    name: Code Change Detection and Analysis
+    description: Detect new code changes via git hooks or PR creation, analyze the scope, complexity, and affected areas to determine appropriate reviewers
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, auditor]
+        responsibility: Detect changes and analyze impact
+      - role: metadata-collector
+        agents: [architect]
+        responsibility: Identify code area expertise requirements
+
+    inputs:
+      - name: code_changes
+        type: data
+        source: git-diff
+        required: true
+      - name: branch_name
+        type: data
+        source: git-branch
+        required: true
+      - name: change_metadata
+        type: data
+        source: git-log
+        required: true
+
+    outputs:
+      - name: impact_analysis
+        type: data
+        destination: memories/reviews/impact-analysis.json
+        format: json
+      - name: required_expertise
+        type: data
+        destination: memories/reviews/required-expertise.json
+        format: json
+
+    actions:
+      - description: Run git diff to identify changed files and lines
+        command: git diff main...HEAD --stat
+        validation: Verify output contains file list and change counts
+      - description: Analyze code complexity and risk level
+        command: radon cc -a -s changed_files
+        validation: Complexity metrics generated successfully
+      - description: Identify code areas (frontend, backend, database, etc.)
+        validation: Code area tags extracted from file paths
+
+    success_criteria:
+      - All changed files identified and categorized
+      - Complexity and risk assessment complete
+      - Required expertise areas documented
+
+    failure_handling:
+      - condition: Git diff fails
+        action: Escalate to human with error details
+        max_retries: 2
+      - condition: Cannot determine code area
+        action: Default to requiring full agent quorum
+        max_retries: 0
+
+    estimated_duration: 15 minutes
+
+  - step_id: 2
+    name: Reviewer Assignment
+    description: Select 3-5 reviewer agents based on code area expertise, recent contributions, and availability. Ensure diversity of perspectives.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator]
+        responsibility: Select optimal reviewer panel
+      - role: expertise-provider
+        agents: [all-agents]
+        responsibility: Provide availability and expertise metadata
+
+    inputs:
+      - name: required_expertise
+        type: data
+        source: step-1
+        required: true
+      - name: agent_expertise_map
+        type: file
+        source: memories/agents/expertise-map.json
+        required: true
+      - name: agent_availability
+        type: data
+        source: message-bus-status-topic
+        required: true
+
+    outputs:
+      - name: reviewer_assignments
+        type: data
+        destination: memories/reviews/reviewer-assignments.json
+        format: json
+      - name: review_request_notifications
+        type: data
+        destination: message-bus-review-topic
+        format: json
+
+    actions:
+      - description: Query agent expertise database for matching skills
+        validation: At least 3 qualified reviewers identified
+      - description: Check agent workload and availability
+        validation: Selected reviewers have capacity
+      - description: Publish review requests to message bus
+        validation: All reviewers acknowledge request
+
+    success_criteria:
+      - 3-5 reviewers assigned with diverse expertise
+      - All reviewers acknowledged within 5 minutes
+      - No single point of failure (no reviewer is the only expert)
+
+    failure_handling:
+      - condition: Insufficient reviewers available
+        action: Expand search criteria or delay review
+        max_retries: 2
+      - condition: No response from assigned reviewer
+        action: Reassign to backup reviewer
+        max_retries: 3
+
+    estimated_duration: 10 minutes
+
+  - step_id: 3
+    name: Parallel Code Review
+    description: All assigned reviewers independently analyze code, identify issues, assess quality, and provide scores (1-10) with detailed comments
+    depends_on: [2]
+    agent_roles:
+      - role: reviewers
+        agents: [assigned-reviewers]
+        responsibility: Thorough code review and scoring
+      - role: monitor
+        agents: [orchestrator]
+        responsibility: Track review progress
+
+    inputs:
+      - name: code_changes
+        type: data
+        source: step-1
+        required: true
+      - name: review_checklist
+        type: file
+        source: memories/standards/code-review-checklist.md
+        required: true
+      - name: coding_standards
+        type: file
+        source: CLAUDE.md
+        required: true
+
+    outputs:
+      - name: review_scores
+        type: data
+        destination: memories/reviews/review-scores.json
+        format: json
+      - name: review_comments
+        type: data
+        destination: memories/reviews/review-comments.json
+        format: json
+      - name: identified_issues
+        type: data
+        destination: memories/reviews/identified-issues.json
+        format: json
+
+    actions:
+      - description: Each reviewer analyzes code against standards
+        validation: Review checklist completed
+      - description: Identify bugs, security issues, style violations
+        validation: Issues documented with severity levels
+      - description: Assess code quality dimensions (readability, maintainability, performance)
+        validation: Multi-dimensional scoring provided
+      - description: Provide constructive feedback and suggestions
+        validation: Comments are specific and actionable
+      - description: Submit review score (1-10) with justification
+        validation: Score aligns with identified issues
+
+    success_criteria:
+      - All reviewers submit complete reviews within 2 hours
+      - Reviews include both scores and detailed comments
+      - Critical issues are flagged with severity levels
+      - Positive aspects are acknowledged
+
+    failure_handling:
+      - condition: Reviewer takes too long (>2 hours)
+        action: Send reminder and extend deadline by 1 hour
+        max_retries: 2
+      - condition: Reviewer unresponsive after deadline
+        action: Proceed with available reviews or assign backup
+        max_retries: 1
+
+    estimated_duration: 30-120 minutes
+
+  - step_id: 4
+    name: Vote Aggregation and Consensus Calculation
+    description: Collect all review scores, apply reputation weighting, calculate consensus percentage, and determine if approval threshold (80%) is met
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council, orchestrator]
+        responsibility: Calculate weighted consensus
+      - role: data-provider
+        agents: [auditor]
+        responsibility: Provide agent reputation scores
+
+    inputs:
+      - name: review_scores
+        type: data
+        source: step-3
+        required: true
+      - name: agent_reputation_scores
+        type: file
+        source: memories/agents/reputation-scores.json
+        required: true
+      - name: voting_configuration
+        type: file
+        source: memories/governance/voting-config.json
+        required: true
+
+    outputs:
+      - name: consensus_result
+        type: data
+        destination: memories/reviews/consensus-result.json
+        format: json
+      - name: weighted_scores
+        type: data
+        destination: memories/reviews/weighted-scores.json
+        format: json
+      - name: decision_recommendation
+        type: data
+        destination: memories/reviews/decision-recommendation.json
+        format: json
+
+    actions:
+      - description: Apply reputation weighting to each reviewer's score
+        validation: Weighted scores calculated correctly
+      - description: Calculate average weighted score (1-10 scale)
+        validation: Average falls within valid range
+      - description: Convert score to approval percentage (8+ = approve)
+        validation: Percentage calculation correct
+      - description: Check if consensus threshold (80%) is met
+        validation: Pass/fail decision is clear
+      - description: Generate detailed decision report with breakdown
+        validation: Report includes all reviewer inputs
+
+    success_criteria:
+      - Consensus calculation uses correct weighting formula
+      - Decision threshold clearly met or not met
+      - Transparent audit trail of all votes and weights
+      - Minority opinions preserved in documentation
+
+    failure_handling:
+      - condition: Tie or borderline result (79-81%)
+        action: Escalate to governance council for discussion
+        max_retries: 0
+      - condition: Missing reputation data
+        action: Use equal weighting as fallback
+        max_retries: 1
+
+    estimated_duration: 5 minutes
+
+  - step_id: 5
+    name: Decision Execution
+    description: Based on consensus result, either auto-merge the code or escalate for further discussion/revision
+    depends_on: [4]
+    parallel_with: []
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, builder]
+        responsibility: Execute merge or escalation
+      - role: notifier
+        agents: [citizen-advocate]
+        responsibility: Communicate decision to author
+
+    inputs:
+      - name: consensus_result
+        type: data
+        source: step-4
+        required: true
+      - name: review_comments
+        type: data
+        source: step-3
+        required: true
+      - name: branch_name
+        type: data
+        source: step-1
+        required: true
+
+    outputs:
+      - name: merge_confirmation
+        type: data
+        destination: memories/reviews/merge-confirmation.json
+        format: json
+      - name: notification_sent
+        type: data
+        destination: message-bus-notifications-topic
+        format: json
+      - name: evolution_log_entry
+        type: file
+        destination: memories/evolution-log.jsonl
+        format: jsonl
+
+    actions:
+      - description: If consensus >= 80%, execute git merge
+        command: git merge --no-ff branch_name -m "Democratic approval with X% consensus"
+        validation: Merge completes without conflicts
+      - description: If consensus < 80%, compile feedback for author
+        validation: Feedback document created with actionable items
+      - description: Notify author and all reviewers of decision
+        validation: Notifications delivered successfully
+      - description: Update evolution log with review outcome
+        validation: Log entry written
+      - description: If critical issues found, create tracking tasks
+        validation: Issues logged in task system
+
+    success_criteria:
+      - Decision executed according to consensus result
+      - All stakeholders notified
+      - Audit trail complete
+      - If merged, code integrates cleanly
+
+    failure_handling:
+      - condition: Merge conflicts detected
+        action: Abort merge, notify author to rebase
+        max_retries: 0
+      - condition: Post-merge tests fail
+        action: Immediate rollback and escalate
+        max_retries: 1
+
+    estimated_duration: 10 minutes
+
+decision_points:
+  - after_step: 4
+    decision: Does the code meet the 80% consensus threshold?
+    criteria:
+      - Weighted consensus score >= 80%
+      - No critical security or correctness issues flagged
+      - At least 3 reviewers participated
+    outcomes:
+      proceed: Continue to step 5 (auto-merge)
+      abort: Compile feedback and return to author for revision
+      escalate: If borderline (79-81%), escalate to governance council
+
+rollback_procedure:
+  - step: If post-merge issues detected, execute git revert
+  - step: Run full test suite to verify stability restored
+  - step: Notify all stakeholders of rollback and reason
+  - verification: System returns to pre-merge state with passing tests
+
+success_metrics:
+  - metric: Consensus accuracy
+    target: 95% of merged code has no post-merge bugs
+    measurement: Track bug reports within 7 days of merge
+  - metric: Review turnaround time
+    target: Complete reviews within 4 hours on average
+    measurement: Timestamp analysis from step 1 to step 5
+  - metric: Reviewer participation
+    target: 100% of assigned reviewers complete reviews
+    measurement: Count submitted reviews vs assignments
+  - metric: Democratic legitimacy
+    target: No merged code below 80% consensus
+    measurement: Audit consensus_result.json for all merges
+
+deliverables:
+  - artifact: Impact Analysis Report
+    location: memories/reviews/impact-analysis.json
+    format: JSON
+    validation: Contains complexity metrics and affected areas
+  - artifact: Consensus Result with Vote Breakdown
+    location: memories/reviews/consensus-result.json
+    format: JSON
+    validation: Shows all reviewer scores and final weighted result
+  - artifact: Review Comments and Feedback
+    location: memories/reviews/review-comments.json
+    format: JSON
+    validation: Contains detailed, actionable feedback from all reviewers
+  - artifact: Merge Confirmation or Rejection Notice
+    location: memories/reviews/merge-confirmation.json
+    format: JSON
+    validation: Documents final decision with justification
+
+post_completion:
+  - Update reviewer reputation scores based on review quality
+  - Store review artifacts in knowledge base for future reference
+  - Send summary notifications to all participants
+  - Update code review metrics dashboard
+  - Log completion in evolution log with outcome and metrics
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

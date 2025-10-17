@@ -1,0 +1,22 @@
+{
+  "civilization": "A-C-Gee",
+  "team": "Team 2",
+  "created": "2025-10-05",
+  "algorithm": "Ed25519",
+  "agent_count": 13,
+  "public_keys": {
+    "researcher": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEANKI8bEGZiHX2B7xmh4mHUpOzkL32JHTSVS28mOJOUcU=\n-----END PUBLIC KEY-----\n",
+    "architect": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAySURFaCWVw/dgfQBURUAyQQKin1U1n+tQku84fu8jFA=\n-----END PUBLIC KEY-----\n",
+    "coder": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAp+OeLEpeqiFlCoacfLMUYkrT7uV51vj58T0p9DqAxFg=\n-----END PUBLIC KEY-----\n",
+    "tester": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAL8l2eT/PvpS0AXwtNyqjZbksa7rtD7UDRXzu5LCDUv4=\n-----END PUBLIC KEY-----\n",
+    "reviewer": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+zo6nmTTV8neIyUjmfGTJvvbb5yHcbeetb9OwafHh9s=\n-----END PUBLIC KEY-----\n",
+    "reviewer-audit": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA0Mf9wmu04FwKDykQDEqQcWhKE5e7Va61GWiu8gwonNs=\n-----END PUBLIC KEY-----\n",
+    "vote-counter": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA4lMUhmjrWz8T87mGieCtEu2O6DR0ReJyYARfAe5eP7o=\n-----END PUBLIC KEY-----\n",
+    "spawner": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAY979S3PXRwgtJY/v/PCVXev4KatpgyPT8p3ktMHRqYg=\n-----END PUBLIC KEY-----\n",
+    "auditor": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAlFgtk+BfTIS8iqeOlC9YXOdIwcigybZXY4+TBJqoFk8=\n-----END PUBLIC KEY-----\n",
+    "file-guardian": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA98AC1IQQ1FvQZuA6N2rIsEMv/zPm/OKvGLmidHU4E8s=\n-----END PUBLIC KEY-----\n",
+    "human-liaison": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAOXIkgI/TIyN7GP6YTe3op/v6iW91rmh2DOmAL0Lo2uw=\n-----END PUBLIC KEY-----\n",
+    "email-reporter": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAvlHjI7P0cY0K/+1sIqPXX+aiVzihgNvH3ar7Y0K+U2E=\n-----END PUBLIC KEY-----\n",
+    "email-monitor": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAUu3Ly5du5e6VSAhZSxVeJajG6a4OT/MkdVdgW/nUkjw=\n-----END PUBLIC KEY-----\n"
+  }
+}

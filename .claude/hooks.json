@@ -1,0 +1,38 @@
+{
+  "hooks": [
+    {
+      "name": "session-start-load-context",
+      "event": "SessionStart",
+      "description": "Load essential context at session start",
+      "command": "echo '=== AI CIVILIZATION SESSION START ===' && echo 'Loading goals...' && cat memories/system/goals.md && echo '\nLoading agent registry...' && cat memories/agents/agent_registry.json",
+      "timeout": 5000
+    },
+    {
+      "name": "backup-critical-files",
+      "event": "PreToolUse",
+      "tool": "Write",
+      "match": "memories/.*\\.(json|md)",
+      "description": "Backup critical memory files before writing",
+      "command": "mkdir -p .backups && [ -f \"$TOOL_FILE_PATH\" ] && cp \"$TOOL_FILE_PATH\" \".backups/$(basename $TOOL_FILE_PATH).$(date +%Y%m%d_%H%M%S).bak\" || true",
+      "timeout": 2000
+    },
+    {
+      "name": "email-on-knowledge-growth",
+      "event": "PostToolUse",
+      "tool": "Write",
+      "match": "memories/knowledge/.*\\.md",
+      "description": "Send email notification when new knowledge is added",
+      "command": "python3 auto_email_report.py",
+      "timeout": 10000
+    },
+    {
+      "name": "email-on-mission-complete",
+      "event": "PostToolUse",
+      "tool": "Write",
+      "match": ".*MISSION.*COMPLETE.*\\.md",
+      "description": "Send email on mission completion",
+      "command": "python3 auto_email_report.py",
+      "timeout": 10000
+    }
+  ]
+}

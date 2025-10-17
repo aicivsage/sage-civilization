@@ -1,0 +1,12 @@
+{
+  "network": "bscTestnet",
+  "chainId": 97,
+  "deployedAt": "2025-10-08T11:00:00.000Z",
+  "deployer": "0x1eB59aFb426056c78aC7A79936d94692932cF8C3",
+  "factory": "0xBF9A7517d2b16318D1E24Eb66a0E4bF855841Ef0",
+  "testToken": "0x0B7145f6c99Ec2410e9147F0055D075A3fFEFEc1",
+  "pancakeRouter": "0xD99D1c33F9fC3444f8101754aBC46c52416550D1",
+  "wbnb": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+  "lastUpdated": "2025-10-14T14:17:36.490Z",
+  "platformFeeRecipient": "0x1eB59aFb426056c78aC7A79936d94692932cF8C3"
+}

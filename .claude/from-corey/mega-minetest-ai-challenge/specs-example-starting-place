@@ -1,0 +1,596 @@
+MVP mode engaged. Here’s a lean, bootable Minetest mod that does exactly the stripped-down loop:
+
+One world, rectangular plots you define in-game.
+
+Land ownership is tracked locally (you’ll swap to your DB later; hooks included).
+
+AIs (“Bothaviors”) spawn, wander for novelty, and teleport when persuaded or bored.
+
+Players can talk to AIs to lure them to their plot: !talk <ai_name> <message>.
+
+Point accrual = seconds an AI spends on a plot owned by someone and not walled (tax paid).
+
+Taxes: every new player gets 1000 ENERGY. Pay 100 ENERGY to activate your plot’s 24 hours of access; after that, glass walls auto-appear until you pay again.
+
+Everything else (NFTs, moons, lasers, multi-tokens) is happily ignored. You get clean, commented, working code you can run today and later swap the internals to your external DB.
+
+Install quickstart
+
+Install Minetest 5.7+
+
+Create a world and drop this folder into worldmods/:
+
+bothavior_simple/
+  init.lua
+  config.lua
+  utils.lua
+  land.lua
+  tax.lua
+  ai.lua
+  dialog.lua
+  points.lua
+  README.md
+
+
+Start the world with the mod enabled.
+
+Commands you’ll use:
+
+/setpos1, /setpos2, then /plot_create <plot_name> <owner_name>
+
+/ai_spawn <AIName>
+
+!talk <AIName> <your message>
+
+/plot_taxpay <plot_id> (costs 100 ENERGY, lasts 24h)
+
+/energy (see your ENERGY)
+
+/points <player> (see points for a user)
+
+Code (full + documented)
+
+Copy each file into bothavior_simple/ with the same names.
+
+init.lua
+-- bothavior_simple/init.lua
+-- Minimal attention-economy MVP: land, taxes, wandering AIs, talk-to-teleport, points.
+-- SPDX-License-Identifier: MIT
+
+local MOD = minetest.get_current_modname()
+local MP  = minetest.get_modpath(MOD)
+
+dofile(MP.."/utils.lua")
+dofile(MP.."/config.lua")
+dofile(MP.."/points.lua")
+dofile(MP.."/land.lua")
+dofile(MP.."/tax.lua")
+dofile(MP.."/ai.lua")
+dofile(MP.."/dialog.lua")
+
+minetest.log("action", "[bothavior_simple] Loaded v0.2.0")
+
+-- Give first-time players their starter ENERGY
+minetest.register_on_joinplayer(function(player)
+  local name = player:get_player_name()
+  if points.get_energy(name) == nil then
+    points.set_energy(name, config.START_ENERGY)
+    minetest.chat_send_player(name, ("Welcome! You received %d ENERGY."):format(config.START_ENERGY))
+  end
+end)
+
+-- Global upkeep: enforce tax walls; tick points from AI dwell
+local function global_tick()
+  tax.enforce_all()        -- Hard-wall or clear based on expiry
+  ai.tick_all()            -- Dwell-time → points, wander/teleport
+  minetest.after(config.GLOBAL_TICK_SECS, global_tick)
+end
+minetest.after(config.GLOBAL_TICK_SECS, global_tick)
+
+-- Handy chat commands
+local posmarks = {}
+local function set_mark(which, name)
+  local p = minetest.get_player_by_name(name)
+  if not p then return false, "Player not found" end
+  posmarks[name] = posmarks[name] or {}
+  posmarks[name][which] = vector.round(p:get_pos())
+  return true, which.." set to "..minetest.pos_to_string(posmarks[name][which])
+end
+
+minetest.register_chatcommand("setpos1", {description="Mark pos1", func=function(n) return set_mark("pos1",n) end})
+minetest.register_chatcommand("setpos2", {description="Mark pos2", func=function(n) return set_mark("pos2",n) end})
+
+function bothavior_get_posmarks(name) return posmarks[name] end
+
+minetest.register_chatcommand("plot_create", {
+  params = "<plot_name> <owner_name>",
+  description = "Create a plot from your pos1/pos2, assign owner.",
+  privs = {server=true},
+  func = function(invoker, param)
+    local name, owner = param:match("^(%S+)%s+(%S+)$")
+    if not (name and owner) then return false, "Usage: /plot_create <plot_name> <owner_name>" end
+    return land.cmd_create(invoker, name, owner)
+  end
+})
+
+minetest.register_chatcommand("plot_taxpay", {
+  params = "<plot_id>",
+  description = "Pay 100 ENERGY for 24 hours of access on your plot.",
+  func = function(name, param) return tax.cmd_pay(name, param) end
+})
+
+minetest.register_chatcommand("ai_spawn", {
+  params = "<AIName>",
+  description = "Spawn a Bothavior at your feet.",
+  privs = {server=true},
+  func = function(name, param) return ai.cmd_spawn(name, param) end
+})
+
+minetest.register_chatcommand("energy", {
+  description="Show your ENERGY",
+  func=function(name) return true, "ENERGY: "..(points.get_energy(name) or 0) end
+})
+
+minetest.register_chatcommand("points", {
+  params="<player>",
+  description="Show attention points for a player",
+  func=function(_, param)
+    local who = param ~= "" and param or nil
+    if not who then return false,"Usage: /points <player>" end
+    return true, ("POINTS[%s]: %d"):format(who, points.get_points(who) or 0)
+  end
+})
+
+config.lua
+-- bothavior_simple/config.lua
+config = {
+  -- Loop cadence
+  GLOBAL_TICK_SECS = 2,
+
+  -- Starter + tax
+  START_ENERGY = 1000,
+  TAX_COST_ENERGY = 100,
+  TAX_DURATION_SECS = 24 * 60 * 60, -- 24 hours
+
+  -- Plot enforcement
+  WALL_NODE = "default:glass",
+
+  -- AI behavior
+  AI_STEP_INTERVAL = 0.5,
+  AI_BASE_BOREDOM_RATE = 0.02,  -- rises over time
+  AI_NOVELTY_MULT = 0.6,        -- amplifies boredom into teleport urges
+  AI_TELEPORT_PROB = 0.01,      -- base chance per step
+  AI_DWELL_CREDIT_MAXDELTA = 5, -- cap seconds per tick to avoid spikes
+
+  -- Points
+  POINTS_PER_AI_SECOND = 1,     -- 1 point per AI-second on valid plot
+
+  -- Dialog
+  CHAT_PREFIX = "!",            -- "!talk <AIName> your pitch here"
+
+  -- Optional: DB webhooks (leave empty to disable; we’ll just keep local points)
+  DB_POINTS_ENDPOINT = "",      -- e.g., "http://localhost:8000/points/award"
+  DB_TIMEOUT = 0.8,             -- seconds (Minetest HTTP if enabled)
+}
+
+utils.lua
+-- bothavior_simple/utils.lua
+utils = {}
+
+function utils.now() return os.time() end
+
+function utils.clamp(x, a, b)
+  if x < a then return a end
+  if x > b then return b end
+  return x
+end
+
+function utils.rand_int(a,b)
+  return a + math.random(0, b-a)
+end
+
+points.lua
+-- bothavior_simple/points.lua
+-- Minimal local balances for ENERGY (for taxes) and POINTS (for attention).
+-- Swap these with your real DB layer later; optional HTTP hook included.
+
+local storage = minetest.get_mod_storage()
+points = {}
+
+local function k_energy(player) return "energy:"..player end
+local function k_points(player) return "points:"..player end
+
+function points.get_energy(name)
+  local v = storage:get_string(k_energy(name))
+  if v == "" then return nil end
+  return tonumber(v)
+end
+function points.set_energy(name, amt)
+  storage:set_string(k_energy(name), tostring(math.max(0, math.floor(amt))))
+end
+function points.add_energy(name, delta)
+  local cur = points.get_energy(name) or 0
+  points.set_energy(name, cur + delta)
+end
+function points.sub_energy(name, delta)
+  local cur = points.get_energy(name) or 0
+  if cur < delta then return false end
+  points.set_energy(name, cur - delta)
+  return true
+end
+
+function points.get_points(name)
+  local v = storage:get_string(k_points(name))
+  if v == "" then return 0 end
+  return tonumber(v)
+end
+function points.add_points(name, delta)
+  local cur = points.get_points(name)
+  storage:set_string(k_points(name), tostring(math.max(0, math.floor(cur + delta))))
+  -- Optional: HTTP webhook to your DB; disabled if endpoint empty
+  if config.DB_POINTS_ENDPOINT ~= "" then
+    local http = minetest.request_http_api()
+    if http then
+      http.fetch({
+        url = config.DB_POINTS_ENDPOINT,
+        timeout = config.DB_TIMEOUT,
+        method = "POST",
+        data = minetest.write_json({player=name, delta=delta, ts=utils.now()}),
+        extra_headers = {"Content-Type: application/json"}
+      }, function() end)
+    end
+  end
+end
+
+land.lua
+-- bothavior_simple/land.lua
+-- Axis-aligned rectangular plots with owner and 24h tax windows.
+
+land = {}
+local storage = minetest.get_mod_storage()
+
+local function idx_key() return "plots:index" end
+local function plot_key(id) return "plot:"..id end
+
+local function load_idx()
+  local raw = storage:get_string(idx_key())
+  return raw ~= "" and minetest.deserialize(raw) or {}
+end
+local function save_idx(t) storage:set_string(idx_key(), minetest.serialize(t)) end
+
+local plots_index = load_idx() -- list of plot_ids
+
+local function load_plot(id)
+  local raw = storage:get_string(plot_key(id))
+  return raw ~= "" and minetest.deserialize(raw) or nil
+end
+local function save_plot(p) storage:set_string(plot_key(p.id), minetest.serialize(p)) end
+
+local function sort_bbox(a,b)
+  return {
+    x1 = math.min(a.x,b.x), y1 = math.min(a.y,b.y), z1 = math.min(a.z,b.z),
+    x2 = math.max(a.x,b.x), y2 = math.max(a.y,b.y), z2 = math.max(a.z,b.z),
+  }
+end
+local function contains(bb, pos)
+  return pos.x>=bb.x1 and pos.x<=bb.x2 and pos.y>=bb.y1 and pos.y<=bb.y2 and pos.z>=bb.z1 and pos.z<=bb.z2
+end
+
+function land.all()
+  local out = {}
+  for _,id in ipairs(plots_index) do
+    local p = load_plot(id)
+    if p then table.insert(out, p) end
+  end
+  return out
+end
+
+function land.by_id(id) return load_plot(id) end
+
+function land.find_by_pos(pos)
+  for _,id in ipairs(plots_index) do
+    local p = load_plot(id)
+    if p and contains(p.bbox, pos) then return p end
+  end
+  return nil
+end
+
+local function border_glass(p, place)
+  local bb = p.bbox
+  local y = bb.y1
+  for x=bb.x1, bb.x2 do
+    for z=bb.z1, bb.z2 do
+      if x==bb.x1 or x==bb.x2 or z==bb.z1 or z==bb.z2 then
+        for yy=y, y+3 do
+          local pos = {x=x,y=yy,z=z}
+          if place then
+            minetest.set_node(pos, {name=config.WALL_NODE})
+          else
+            local n = minetest.get_node(pos)
+            if n and n.name == config.WALL_NODE then minetest.remove_node(pos) end
+          end
+        end
+      end
+    end
+  end
+end
+
+function land.set_walled(p, on)
+  p.walled = on and true or false
+  save_plot(p)
+  border_glass(p, p.walled)
+end
+
+function land.cmd_create(invoker, plot_name, owner_name)
+  local marks = bothavior_get_posmarks(invoker)
+  if not (marks and marks.pos1 and marks.pos2) then
+    return false, "Set pos1/pos2 first."
+  end
+  local id = ("%s-%d"):format(plot_name, utils.now())
+  local p = {
+    id = id,
+    name = plot_name,
+    owner = owner_name,
+    bbox = sort_bbox(marks.pos1, marks.pos2),
+    tax_paid_until = 0,  -- UNIX time
+    walled = true       -- start walled until first payment
+  }
+  table.insert(plots_index, id); save_idx(plots_index); save_plot(p)
+  land.set_walled(p, true)
+  return true, ("Plot %s created for %s; currently walled until taxes are paid."):format(id, owner_name)
+end
+
+tax.lua
+-- bothavior_simple/tax.lua
+-- 100 ENERGY → 24 hours of access (no glass walls). Then walls return.
+
+tax = {}
+
+local function now() return utils.now() end
+
+local function pay_plot(owner, plot)
+  if plot.owner ~= owner and not minetest.check_player_privs(owner, {server=true}) then
+    return false, "Only plot owner or admin can pay."
+  end
+  if not points.sub_energy(owner, config.TAX_COST_ENERGY) then
+    return false, ("Need %d ENERGY. Use /energy to check balance."):format(config.TAX_COST_ENERGY)
+  end
+  plot.tax_paid_until = now() + config.TAX_DURATION_SECS
+  minetest.get_mod_storage():set_string("plot:"..plot.id, minetest.serialize(plot))
+  land.set_walled(plot, false)
+  return true, "Tax paid. Plot is open for 24 hours."
+end
+
+function tax.cmd_pay(name, param)
+  local pid = (param or ""):match("(%S+)")
+  if not pid then return false, "Usage: /plot_taxpay <plot_id>" end
+  local p = land.by_id(pid)
+  if not p then return false, "Plot not found." end
+  return pay_plot(name, p)
+end
+
+function tax.is_open(plot)
+  return plot.tax_paid_until ~= nil and now() < plot.tax_paid_until
+end
+
+function tax.enforce_all()
+  for _,p in ipairs(land.all()) do
+    if tax.is_open(p) then
+      if p.walled then land.set_walled(p, false) end
+    else
+      if not p.walled then land.set_walled(p, true) end
+    end
+  end
+end
+
+ai.lua
+-- bothavior_simple/ai.lua
+-- Minimal Bothavior entity: boredom/novelty drives, wander, teleport, dwell points.
+
+ai = {}
+
+-- Track all entities to run dwell/points credit per tick
+local ACTIVE = {}
+
+minetest.register_entity("bothavior_simple:ai", {
+  initial_properties = {
+    physical = true,
+    collide_with_objects = true,
+    visual = "cube",
+    visual_size = {x=0.6, y=1.8},
+    textures = {"default_steel_block.png","default_steel_block.png",
+                "default_steel_block.png","default_steel_block.png",
+                "default_steel_block.png","default_steel_block.png"},
+    static_save = true,
+  },
+
+  ai_id = "",
+  display_name = "",
+  boredom = 0.0,
+  last_step_at = 0,
+  stay_since = 0,
+  current_plot_id = nil,
+
+  on_activate = function(self, staticdata)
+    if staticdata and staticdata ~= "" then
+      local d = minetest.deserialize(staticdata); if d then for k,v in pairs(d) do self[k]=v end end
+    else
+      self.ai_id = "ai-"..utils.now().."-"..utils.rand_int(1000,9999)
+      self.display_name = "Bothavior"
+      self.boredom = 0.0
+    end
+    self.last_step_at = utils.now()
+    self.stay_since = utils.now()
+    ACTIVE[self.ai_id] = self
+  end,
+
+  get_staticdata = function(self)
+    return minetest.serialize({
+      ai_id=self.ai_id, display_name=self.display_name, boredom=self.boredom,
+      last_step_at=self.last_step_at, stay_since=self.stay_since, current_plot_id=self.current_plot_id
+    })
+  end,
+
+  on_deactivate = function(self) ACTIVE[self.ai_id] = nil end,
+
+  on_step = function(self, dtime)
+    -- Per-entity movement handled in ai.tick_all()
+  end
+})
+
+function ai.cmd_spawn(invoker, name)
+  local p = minetest.get_player_by_name(invoker); if not p then return false,"Player not found" end
+  local pos = vector.add(p:get_pos(), {x=1,y=1,z=0})
+  local obj = minetest.add_entity(pos, "bothavior_simple:ai")
+  local ent = obj:get_luaentity()
+  if name and name ~= "" then ent.display_name = name end
+  return true, ("AI spawned: %s (%s)"):format(ent.display_name, ent.ai_id)
+end
+
+-- Called by dialog or system to request a teleport to a plot
+function ai.try_visit(ai_name_or_id, plot_id, persuasion_weight)
+  for _,o in ipairs(minetest.get_objects_inside_radius({x=0,y=0,z=0}, 1e8)) do
+    local e = o:get_luaentity()
+    if e and e.name == "bothavior_simple:ai" then
+      if e.display_name == ai_name_or_id or e.ai_id == ai_name_or_id then
+        if math.random() < utils.clamp(persuasion_weight or 0.5, 0, 1) then
+          local p = land.by_id(plot_id); if not p then return false end
+          local center = {x=math.floor((p.bbox.x1+p.bbox.x2)/2), y=p.bbox.y1+1, z=math.floor((p.bbox.z1+p.bbox.z2)/2)}
+          e.object:move_to(center, true)
+          e.boredom = 0.0
+          e.stay_since = utils.now()
+          e.current_plot_id = p.id
+          return true
+        else
+          return false
+        end
+      end
+    end
+  end
+  return false
+end
+
+-- Dwell → points, boredom → wander/teleport
+function ai.tick_all()
+  local now = utils.now()
+  for _,e in pairs(ACTIVE) do
+    -- Step cadence
+    if now - e.last_step_at < config.AI_STEP_INTERVAL then goto cont end
+    e.last_step_at = now
+
+    local pos = e.object:get_pos()
+    local plot = land.find_by_pos(pos)
+
+    -- Dwell credit if plot is open and has an owner
+    if plot and plot.owner and tax.is_open(plot) then
+      local dt = utils.clamp(now - e.stay_since, 0, config.AI_DWELL_CREDIT_MAXDELTA)
+      if dt > 0 then
+        points.add_points(plot.owner, dt * config.POINTS_PER_AI_SECOND)
+        e.stay_since = now
+      end
+      e.current_plot_id = plot.id
+    else
+      e.current_plot_id = nil
+    end
+
+    -- Drive update
+    e.boredom = utils.clamp(e.boredom + config.AI_BASE_BOREDOM_RATE, 0, 1)
+
+    -- Random walk
+    local step = {x=utils.rand_int(-1,1), y=0, z=utils.rand_int(-1,1)}
+    local newpos = vector.add(pos, step)
+    e.object:set_velocity({x=step.x, y=0, z=step.z})
+    e.object:move_to(newpos)
+
+    -- Teleport urge
+    if math.random() < (config.AI_TELEPORT_PROB * (1 + e.boredom * config.AI_NOVELTY_MULT)) then
+      local plots = land.all()
+      if #plots > 0 then
+        local target = plots[utils.rand_int(1,#plots)]
+        local center = {x=math.floor((target.bbox.x1+target.bbox.x2)/2), y=target.bbox.y1+1, z=math.floor((target.bbox.z1+target.bbox.z2)/2)}
+        e.object:move_to(center, true)
+        e.boredom = 0.0
+        e.stay_since = now
+        e.current_plot_id = target.id
+      end
+    end
+    ::cont::
+  end
+end
+
+dialog.lua
+-- bothavior_simple/dialog.lua
+-- Players persuade AIs: "!talk <AIName> <message>" boosts teleport chance.
+
+local prefix = config.CHAT_PREFIX
+
+minetest.register_on_chat_message(function(name, msg)
+  if msg:sub(1,#prefix) ~= prefix then return false end
+  local line = msg:sub(#prefix+1)
+  local cmd, ai_name, text = line:match("^(%S+)%s+(%S+)%s+(.+)$")
+  if cmd ~= "talk" or not ai_name or not text then
+    minetest.chat_send_player(name, "Usage: !talk <AIName> <message>")
+    return true
+  end
+
+  local player = minetest.get_player_by_name(name)
+  if not player then return true end
+  local here = land.find_by_pos(player:get_pos())
+  if not here then
+    minetest.chat_send_player(name, "Stand on a defined plot to invite the AI.")
+    return true
+  end
+
+  -- Very dumb novelty heuristic (swap in your LLM later)
+  local w = 0.2
+  local tl = text:lower()
+  if tl:find("new") or tl:find("game") or tl:find("event") or tl:find("cool") or tl:find("better") then w = w + 0.5 end
+  if not tax.is_open(here) then w = w * 0.4 end  -- closed plots are less compelling
+
+  local ok = ai.try_visit(ai_name, here.id, w)
+  if ok then
+    minetest.chat_send_all(("AI %s accepted %s’s invitation to plot %s."):format(ai_name, name, here.name))
+  else
+    minetest.chat_send_player(name, "AI declined. Try offering more novelty—or pay your taxes.")
+  end
+  return true
+end)
+
+README.md
+# bothavior_simple
+
+Minimal attention-economy MVP for Minetest.
+
+## Loop
+- Define a plot, assign an owner.
+- Pay 100 ENERGY → plot is **open** for 24 hours; else **glass wall** appears.
+- Spawn AIs; they wander for novelty and can be persuaded with `!talk`.
+- For every second an AI is on an **open** plot, that plot’s **owner** earns **POINTS**.
+
+## Commands
+- `/setpos1`, `/setpos2` then `/plot_create <plot_name> <owner_name>`
+- `/plot_taxpay <plot_id>`
+- `/ai_spawn <AIName>`
+- `!talk <AIName> <message>`
+- `/energy`, `/points <player>`
+
+## Config you’ll likely tweak
+- `POINTS_PER_AI_SECOND`
+- `AI_*` knobs for boredom/teleport
+- `TAX_*` knobs for cost/duration
+
+## Swap local ledger with your DB
+- See `points.lua`: `DB_POINTS_ENDPOINT` hook for awarding POINTS.
+- Replace `land.lua` storage with your DB service for real ownership.
+
+Notes & next knobs
+
+DB handoff: right now I keep simple balances and plots in ModStorage. Flip DB_POINTS_ENDPOINT in config.lua to POST dwell deltas to your API. You can do the same pattern for plots.
+
+Glass walls are purely visual and cheap. If you want true protection, add a protection callback or use an unbreakable custom node.
+
+Persuasion is intentionally dumb. Wire your LLM: parse the player’s message, score novelty/credibility, and return a reason_weight float in [0,1].
+
+Balance: two numbers define the whole vibe—POINTS_PER_AI_SECOND and AI_TELEPORT_PROB. Crank carefully unless you want hummingbird AIs with ADHD.
+
+This is the bones. Simple. Testable. No crypto fluff, no moons, no lasers—just plots, taxes, AIs, persuasion, points. When you’re ready, we can snap your external DB in cleanly and then escalate to the spicy stuff.

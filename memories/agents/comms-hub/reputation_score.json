@@ -1,0 +1,13 @@
+{
+  "agent_id": "comms-hub",
+  "score": 50,
+  "last_updated": "2025-10-06T14:35:00Z",
+  "history": [
+    {
+      "timestamp": "2025-10-06T14:35:00Z",
+      "event": "agent_spawned",
+      "change": 0,
+      "reason": "Initial reputation score at birth"
+    }
+  ]
+}

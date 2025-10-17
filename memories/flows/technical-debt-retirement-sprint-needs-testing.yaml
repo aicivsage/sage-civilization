@@ -1,0 +1,523 @@
+flow_id: technical-debt-retirement-sprint
+name: Technical Debt Retirement Sprint
+version: 1.0
+description: Periodically identify, prioritize, and systematically eliminate technical debt. Democratic voting decides which debt to tackle, then focused sprint to clean up with comprehensive testing.
+category: maintenance
+
+metadata:
+  estimated_duration: 8-16 hours
+  complexity: high
+  participating_agents: 5-7
+  created_by: maintenance-keeper
+  created_date: 2025-10-02
+  tags: [technical-debt, refactoring, code-quality, maintenance, sprint]
+
+prerequisites:
+  - condition: Access to full codebase with version control
+  - condition: Static analysis tools available (complexity metrics, duplication detection)
+  - condition: Comprehensive test suite exists to validate refactoring
+  - resources: Code analysis tools, test runners, documentation system
+  - permissions: Write access to repository, ability to create branches and PRs
+
+steps:
+  - step_id: 1
+    name: Technical Debt Scanning
+    description: Scan the entire codebase to identify technical debt indicators including code complexity, duplication, outdated patterns, TODO comments, deprecated APIs, and code smells
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor, maintenance-keeper]
+        responsibility: Run static analysis and catalog debt items
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate debt identification accuracy
+
+    inputs:
+      - name: codebase
+        type: directory
+        source: repository
+        required: true
+      - name: analysis_configuration
+        type: file
+        source: configuration
+        required: true
+
+    outputs:
+      - name: technical_debt_catalog
+        type: file
+        destination: reports/technical-debt-catalog.json
+        format: json
+      - name: debt_summary_report
+        type: file
+        destination: reports/technical-debt-summary.md
+        format: markdown
+
+    actions:
+      - description: Run code complexity analysis (cyclomatic complexity, cognitive complexity)
+        command: radon cc -a -s .
+        validation: Complexity metrics successfully generated
+      - description: Detect code duplication
+        command: jscpd --format json --output reports/duplication.json
+        validation: Duplication report created
+      - description: Identify deprecated API usage
+        command: grep -r "deprecated\|TODO\|FIXME\|HACK" --include="*.py" --include="*.js" .
+        validation: Deprecated pattern list generated
+      - description: Analyze dependency staleness
+        validation: All outdated dependencies cataloged
+
+    success_criteria:
+      - Comprehensive debt catalog generated with categorization
+      - Each debt item has impact assessment (low/medium/high)
+      - Effort estimates included for each item
+      - Summary report readable and actionable
+
+    failure_handling:
+      - condition: Analysis tools fail
+        action: Retry with alternative tools
+        max_retries: 2
+      - condition: Codebase too large to analyze
+        action: Split analysis by component
+        max_retries: 1
+
+    estimated_duration: 2 hours
+
+  - step_id: 2
+    name: Debt Impact Assessment and Effort Estimation
+    description: For each identified debt item, assess its impact on maintainability, performance, security, and developer productivity. Estimate effort required to address it.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [architect, maintenance-keeper]
+        responsibility: Evaluate impact and estimate effort
+      - role: reviewer
+        agents: [quality-guardian]
+        responsibility: Validate assessments
+
+    inputs:
+      - name: technical_debt_catalog
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: prioritized_debt_list
+        type: file
+        destination: reports/debt-prioritization.json
+        format: json
+      - name: impact_matrix
+        type: file
+        destination: reports/debt-impact-matrix.md
+        format: markdown
+
+    actions:
+      - description: Calculate impact scores (maintenance burden, bug risk, performance impact)
+        validation: Impact scores assigned to all debt items
+      - description: Estimate effort in hours for each debt item
+        validation: Effort estimates documented
+      - description: Create value/effort matrix for prioritization
+        validation: Matrix visualization generated
+      - description: Identify quick wins (low effort, high impact)
+        validation: Quick wins highlighted
+
+    success_criteria:
+      - All debt items have impact scores (1-10 scale)
+      - All debt items have effort estimates (hours)
+      - Value/effort matrix clearly shows prioritization
+      - Quick wins identified and flagged
+
+    failure_handling:
+      - condition: Insufficient data for assessment
+        action: Request additional context from code authors
+        max_retries: 1
+
+    estimated_duration: 2 hours
+
+  - step_id: 3
+    name: Democratic Prioritization Vote
+    description: Present prioritized debt list to all agents for democratic voting. Each agent votes on which debt items to tackle in this sprint based on impact, effort, and strategic alignment.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council]
+        responsibility: Facilitate voting process
+      - role: participants
+        agents: [all-agents]
+        responsibility: Review and vote on debt items
+
+    inputs:
+      - name: prioritized_debt_list
+        type: file
+        source: step-2
+        required: true
+      - name: sprint_capacity
+        type: data
+        source: configuration
+        required: true
+
+    outputs:
+      - name: sprint_backlog
+        type: file
+        destination: sprints/technical-debt-sprint-backlog.json
+        format: json
+      - name: voting_results
+        type: file
+        destination: reports/debt-voting-results.json
+        format: json
+
+    actions:
+      - description: Publish debt items to message bus for agent review
+        validation: All agents receive debt catalog
+      - description: Collect votes with weighted scoring
+        validation: All active agents vote within deadline
+      - description: Aggregate votes and select top items fitting sprint capacity
+        validation: Sprint backlog created with realistic scope
+      - description: Document voting rationale and decisions
+        validation: Decision record created
+
+    success_criteria:
+      - Minimum 70% agent participation in voting
+      - Sprint backlog contains achievable scope (fits time budget)
+      - High-impact items prioritized
+      - Voting results documented transparently
+
+    failure_handling:
+      - condition: Low voting participation
+        action: Extend voting period by 24 hours
+        max_retries: 1
+      - condition: No consensus
+        action: Escalate to human decision
+        max_retries: 0
+
+    estimated_duration: 1 hour
+
+  - step_id: 4
+    name: Debt Retirement Implementation
+    description: Execute focused refactoring sprint to eliminate selected technical debt items. Use incremental approach with continuous validation to prevent regressions.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, architect]
+        responsibility: Implement refactoring changes
+      - role: reviewer
+        agents: [quality-guardian, reviewer]
+        responsibility: Code review and quality validation
+
+    inputs:
+      - name: sprint_backlog
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: refactored_code
+        type: code
+        destination: repository
+        format: python/javascript
+      - name: refactoring_log
+        type: file
+        destination: logs/refactoring-changes.md
+        format: markdown
+
+    actions:
+      - description: Create feature branch for debt retirement work
+        command: git checkout -b debt-retirement-sprint-$(date +%Y%m%d)
+        validation: Branch created successfully
+      - description: Implement refactoring for each debt item incrementally
+        validation: Each change passes tests before proceeding
+      - description: Update code comments and documentation
+        validation: Documentation reflects changes
+      - description: Commit changes with detailed messages explaining improvements
+        validation: Commits follow conventional commit format
+      - description: Run full test suite after each major refactoring
+        validation: All tests pass
+
+    success_criteria:
+      - All sprint backlog items addressed
+      - Test suite passes without regressions
+      - Code complexity metrics improved
+      - Code duplication reduced
+      - Documentation updated
+
+    failure_handling:
+      - condition: Test failures after refactoring
+        action: Rollback last change and retry with different approach
+        max_retries: 3
+      - condition: Refactoring introduces bugs
+        action: Revert to safe state and reassess approach
+        max_retries: 2
+
+    estimated_duration: 6-10 hours
+
+  - step_id: 5
+    name: Comprehensive Regression Testing
+    description: Execute full regression test suite to ensure refactoring hasn't introduced bugs or broken existing functionality. Include unit, integration, and end-to-end tests.
+    depends_on: [4]
+    parallel_with: []
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Execute test suite and validate results
+      - role: reviewer
+        agents: [auditor]
+        responsibility: Verify test coverage and quality
+
+    inputs:
+      - name: refactored_code
+        type: code
+        source: step-4
+        required: true
+
+    outputs:
+      - name: test_results
+        type: file
+        destination: reports/regression-test-results.json
+        format: json
+      - name: coverage_report
+        type: file
+        destination: reports/coverage-report.html
+        format: html
+
+    actions:
+      - description: Run unit test suite
+        command: pytest tests/unit --cov --cov-report=html
+        validation: All unit tests pass
+      - description: Run integration tests
+        command: pytest tests/integration
+        validation: All integration tests pass
+      - description: Run end-to-end tests
+        command: pytest tests/e2e
+        validation: All e2e tests pass
+      - description: Generate coverage report
+        validation: Coverage maintained or improved
+      - description: Run performance benchmarks
+        validation: No performance regressions
+
+    success_criteria:
+      - 100% test pass rate
+      - Test coverage maintained or improved
+      - No performance regressions detected
+      - All critical paths validated
+
+    failure_handling:
+      - condition: Test failures detected
+        action: Return to step 4 for fixes
+        max_retries: 3
+      - condition: Coverage decreased
+        action: Add tests to restore coverage
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 6
+    name: Documentation and Knowledge Capture
+    description: Document all improvements made, update coding standards based on learnings, and create knowledge base entries to prevent similar debt from accumulating.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Document improvements and create standards
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Review and approve updated standards
+
+    inputs:
+      - name: refactoring_log
+        type: file
+        source: step-4
+        required: true
+      - name: test_results
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: improvement_documentation
+        type: file
+        destination: docs/technical-debt-sprint-results.md
+        format: markdown
+      - name: updated_coding_standards
+        type: file
+        destination: docs/coding-standards.md
+        format: markdown
+      - name: lessons_learned
+        type: file
+        destination: knowledge-base/technical-debt-lessons.md
+        format: markdown
+
+    actions:
+      - description: Document all refactoring changes and their benefits
+        validation: Clear before/after comparisons documented
+      - description: Update coding standards to prevent similar debt
+        validation: Standards updated with specific examples
+      - description: Create lessons learned document
+        validation: Key insights captured for future sprints
+      - description: Update onboarding documentation
+        validation: New patterns explained for new contributors
+
+    success_criteria:
+      - Comprehensive documentation of all improvements
+      - Coding standards updated with concrete examples
+      - Lessons learned documented for future reference
+      - Knowledge base updated
+
+    failure_handling:
+      - condition: Documentation incomplete
+        action: Request missing information from implementation agents
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 7
+    name: Pull Request and Democratic Review
+    description: Create pull request with all debt retirement changes and submit for democratic code review. Merge when consensus threshold met.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder]
+        responsibility: Create and manage pull request
+      - role: reviewers
+        agents: [architect, quality-guardian, reviewer]
+        responsibility: Review changes and vote on approval
+
+    inputs:
+      - name: refactored_code
+        type: code
+        source: step-4
+        required: true
+      - name: improvement_documentation
+        type: file
+        source: step-6
+        required: true
+
+    outputs:
+      - name: pull_request
+        type: artifact
+        destination: github/pull-request
+        format: url
+      - name: review_results
+        type: file
+        destination: reports/pr-review-results.json
+        format: json
+
+    actions:
+      - description: Create pull request with detailed description
+        command: gh pr create --title "Technical Debt Retirement Sprint" --body-file PR_DESCRIPTION.md
+        validation: PR created successfully
+      - description: Assign reviewers based on expertise
+        validation: Reviewers assigned
+      - description: Collect review votes and comments
+        validation: All reviewers provide feedback
+      - description: Address review feedback
+        validation: All concerns addressed
+      - description: Merge when consensus threshold met (80% approval)
+        validation: PR merged successfully
+
+    success_criteria:
+      - PR created with comprehensive description
+      - Minimum 3 reviewer approvals
+      - 80% consensus threshold met
+      - All review comments addressed
+      - PR merged successfully
+
+    failure_handling:
+      - condition: Consensus not reached
+        action: Address concerns and request re-review
+        max_retries: 2
+      - condition: Major issues found in review
+        action: Return to step 4 for fixes
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 2
+    decision: Is the identified debt worth addressing in a dedicated sprint?
+    criteria:
+      - High-impact debt items identified
+      - Reasonable effort estimates
+      - Clear ROI on debt retirement
+    outcomes:
+      proceed: Continue to democratic voting
+      abort: Defer debt retirement to future sprint
+      retry: Re-assess impact and effort with different metrics
+
+  - after_step: 3
+    decision: Did voting produce clear priorities?
+    criteria:
+      - Minimum 70% agent participation
+      - Clear consensus on top items
+      - Realistic sprint scope
+    outcomes:
+      proceed: Begin implementation sprint
+      abort: Cancel sprint if no agreement
+      retry: Revise debt items and re-vote
+
+  - after_step: 5
+    decision: Did refactoring pass all quality gates?
+    criteria:
+      - 100% test pass rate
+      - No performance regressions
+      - Code quality metrics improved
+    outcomes:
+      proceed: Move to documentation
+      abort: Abandon changes if quality degraded
+      retry: Fix issues and re-test
+
+rollback_procedure:
+  - step: Revert feature branch to pre-refactoring state
+  - step: Restore original code from version control
+  - step: Run tests to confirm system stability
+  - step: Document rollback reason and learnings
+  - verification: All tests pass after rollback
+
+success_metrics:
+  - metric: Technical debt reduction
+    target: 20-30% reduction in identified debt items
+    measurement: Compare debt catalog before/after sprint
+  - metric: Code complexity improvement
+    target: 10-15% reduction in average complexity scores
+    measurement: Radon complexity metrics comparison
+  - metric: Code duplication reduction
+    target: 15-25% reduction in duplicate code
+    measurement: JSCPD duplication percentage
+  - metric: Test coverage maintenance
+    target: 0% decrease (maintain or improve)
+    measurement: Coverage report comparison
+  - metric: Sprint efficiency
+    target: 80% of planned items completed
+    measurement: Sprint backlog completion rate
+
+deliverables:
+  - artifact: Technical Debt Catalog
+    location: reports/technical-debt-catalog.json
+    format: JSON
+    validation: All debt items cataloged with impact/effort scores
+  - artifact: Refactored Codebase
+    location: repository (main branch after merge)
+    format: Source code
+    validation: All tests passing, complexity reduced
+  - artifact: Improvement Documentation
+    location: docs/technical-debt-sprint-results.md
+    format: Markdown
+    validation: Clear documentation of all changes and benefits
+  - artifact: Updated Coding Standards
+    location: docs/coding-standards.md
+    format: Markdown
+    validation: Standards updated to prevent future debt
+  - artifact: Lessons Learned
+    location: knowledge-base/technical-debt-lessons.md
+    format: Markdown
+    validation: Key insights documented for future sprints
+
+post_completion:
+  - Update agent performance logs with sprint metrics
+  - Store all artifacts in knowledge base
+  - Send completion notification to all agents via message bus
+  - Schedule next technical debt sprint (quarterly)
+  - Update evolution log with improvements made
+  - Publish sprint retrospective for continuous improvement
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

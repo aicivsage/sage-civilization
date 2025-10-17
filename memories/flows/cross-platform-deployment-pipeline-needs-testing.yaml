@@ -1,0 +1,682 @@
+flow_id: cross-platform-deployment-pipeline
+name: Cross-Platform Deployment Pipeline
+version: 1.0
+description: Package and deploy applications to multiple platforms (Docker, cloud functions, edge devices) with platform-specific optimizations, all from single codebase using automated build matrix.
+category: development
+
+metadata:
+  estimated_duration: 6-8 hours
+  complexity: medium
+  participating_agents: 5-7
+  created_by: integration-specialist
+  created_date: 2025-10-02
+  tags: [deployment, multi-platform, cloud, docker, automation, devops]
+
+prerequisites:
+  - condition: Application codebase ready for deployment
+  - condition: Platform credentials and access configured
+  - condition: CI/CD pipeline infrastructure available
+  - resources: Docker, cloud platform CLIs, build tools, monitoring systems
+  - permissions: Deploy access to all target platforms
+
+steps:
+  - step_id: 1
+    name: Platform Requirements Analysis
+    description: Analyze application requirements and define target deployment platforms. Identify platform-specific constraints, optimizations, and configurations needed.
+    agent_roles:
+      - role: primary-executor
+        agents: [architect, integration-specialist]
+        responsibility: Define platform strategy
+      - role: stakeholders
+        agents: [builder, maintenance-keeper]
+        responsibility: Provide input on operational needs
+
+    inputs:
+      - name: application_codebase
+        type: directory
+        source: repository
+        required: true
+      - name: deployment_requirements
+        type: file
+        source: user-input
+        required: true
+
+    outputs:
+      - name: platform_matrix
+        type: file
+        destination: deployment/platform-matrix.json
+        format: json
+      - name: platform_requirements
+        type: file
+        destination: deployment/platform-requirements.md
+        format: markdown
+      - name: constraint_analysis
+        type: file
+        destination: reports/platform-constraints.json
+        format: json
+
+    actions:
+      - description: Define target platforms (AWS Lambda, GCP Cloud Run, Docker, etc.)
+        validation: Platform targets identified
+      - description: Analyze platform-specific constraints (memory, timeout, runtime)
+        validation: Constraints documented
+      - description: Identify required optimizations per platform
+        validation: Optimization needs cataloged
+      - description: Document platform-specific features to leverage
+        validation: Feature opportunities identified
+      - description: Assess cost implications for each platform
+        validation: Cost analysis completed
+      - description: Create deployment platform matrix
+        validation: Matrix configuration created
+      - description: Identify shared vs platform-specific configurations
+        validation: Config strategy defined
+
+    success_criteria:
+      - Target platforms clearly defined (minimum 3 platforms)
+      - Platform constraints documented
+      - Optimization needs identified
+      - Cost analysis completed
+      - Platform matrix configuration created
+      - Deployment strategy approved
+
+    failure_handling:
+      - condition: Platform requirements unclear
+        action: Request additional requirements from stakeholders
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 2
+    name: Platform-Specific Build Configuration
+    description: Create platform-specific build configurations, Dockerfiles, deployment manifests, and infrastructure-as-code templates for each target platform.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, architect]
+        responsibility: Create build configurations
+      - role: reviewer
+        agents: [quality-guardian]
+        responsibility: Review configuration quality
+
+    inputs:
+      - name: platform_matrix
+        type: file
+        source: step-1
+        required: true
+      - name: application_codebase
+        type: directory
+        source: repository
+        required: true
+
+    outputs:
+      - name: dockerfiles
+        type: files
+        destination: deployment/docker/
+        format: dockerfile
+      - name: cloud_configs
+        type: files
+        destination: deployment/cloud/
+        format: yaml
+      - name: iac_templates
+        type: files
+        destination: deployment/infrastructure/
+        format: terraform/cloudformation
+
+    actions:
+      - description: Create optimized Dockerfile for Docker platform
+        validation: Docker build config created
+      - description: Create serverless function config (AWS Lambda)
+        validation: Lambda config created
+      - description: Create Cloud Run configuration (GCP)
+        validation: Cloud Run config created
+      - description: Create edge deployment config if applicable
+        validation: Edge config created
+      - description: Optimize bundle size for each platform
+        validation: Size optimizations implemented
+      - description: Configure platform-specific environment variables
+        validation: Env configs created
+      - description: Create infrastructure-as-code templates
+        validation: IaC templates generated
+      - description: Add health check endpoints for each platform
+        validation: Health checks configured
+
+    success_criteria:
+      - Build config created for all platforms
+      - Platform-specific optimizations applied
+      - Bundle size minimized per platform
+      - Health checks configured
+      - IaC templates complete
+      - All configs tested locally
+
+    failure_handling:
+      - condition: Build configuration fails
+        action: Debug and fix configuration
+        max_retries: 2
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 3
+    name: Parallel Build Matrix Execution
+    description: Execute parallel builds for all target platforms. Apply platform-specific optimizations, run tests, and generate deployment artifacts.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder]
+        responsibility: Execute builds
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor build status
+
+    inputs:
+      - name: dockerfiles
+        type: files
+        source: step-2
+        required: true
+      - name: cloud_configs
+        type: files
+        source: step-2
+        required: true
+
+    outputs:
+      - name: docker_image
+        type: artifact
+        destination: registry/docker-image:tag
+        format: container-image
+      - name: lambda_package
+        type: artifact
+        destination: artifacts/lambda-deployment.zip
+        format: zip
+      - name: cloudrun_image
+        type: artifact
+        destination: registry/cloudrun-image:tag
+        format: container-image
+      - name: build_reports
+        type: files
+        destination: reports/builds/
+        format: json
+
+    actions:
+      - description: Build Docker image with multi-stage optimization
+        command: docker build -t app:docker-latest -f deployment/docker/Dockerfile .
+        validation: Docker image built
+      - description: Package for AWS Lambda (zip with dependencies)
+        command: zip -r lambda-deployment.zip . -x "*.git*" "tests/*"
+        validation: Lambda package created
+      - description: Build GCP Cloud Run container
+        command: gcloud builds submit --tag gcr.io/project/app:cloudrun-latest
+        validation: Cloud Run image built
+      - description: Build edge deployment package if applicable
+        validation: Edge package created
+      - description: Run smoke tests on each build artifact
+        validation: All smoke tests pass
+      - description: Measure and log artifact sizes
+        validation: Size metrics collected
+      - description: Tag artifacts with version and platform
+        validation: Artifacts properly tagged
+
+    success_criteria:
+      - All platform builds successful
+      - Smoke tests passing for all platforms
+      - Artifacts properly tagged and versioned
+      - Build metrics collected
+      - No critical build errors
+      - Parallel execution completed efficiently
+
+    failure_handling:
+      - condition: Build fails for specific platform
+        action: Debug platform-specific issue and rebuild
+        max_retries: 2
+      - condition: Smoke test failure
+        action: Fix issue and rebuild affected platform
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 4
+    name: Platform-Specific Deployment Execution
+    description: Deploy built artifacts to all target platforms in parallel. Execute platform-specific deployment procedures with proper sequencing and validation.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, integration-specialist]
+        responsibility: Execute deployments
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor deployment health
+
+    inputs:
+      - name: build_artifacts
+        type: artifacts
+        source: step-3
+        required: true
+      - name: iac_templates
+        type: files
+        source: step-2
+        required: true
+
+    outputs:
+      - name: deployment_logs
+        type: files
+        destination: logs/deployments/
+        format: json
+      - name: deployment_urls
+        type: file
+        destination: deployment/endpoints.json
+        format: json
+      - name: deployment_status
+        type: file
+        destination: reports/deployment-status.json
+        format: json
+
+    actions:
+      - description: Deploy Docker image to container registry
+        command: docker push registry/app:docker-latest
+        validation: Docker deployment successful
+      - description: Deploy Lambda function to AWS
+        command: aws lambda update-function-code --function-name app --zip-file fileb://lambda-deployment.zip
+        validation: Lambda deployed
+      - description: Deploy to GCP Cloud Run
+        command: gcloud run deploy app --image gcr.io/project/app:cloudrun-latest --platform managed
+        validation: Cloud Run deployed
+      - description: Deploy edge components if applicable
+        validation: Edge deployment completed
+      - description: Execute infrastructure provisioning via IaC
+        command: terraform apply -auto-approve
+        validation: Infrastructure provisioned
+      - description: Configure platform-specific routing and DNS
+        validation: Routing configured
+      - description: Capture deployment endpoints for each platform
+        validation: Endpoints documented
+
+    success_criteria:
+      - All platforms deployed successfully
+      - Deployment logs captured
+      - Endpoints accessible and documented
+      - Infrastructure properly provisioned
+      - No deployment errors
+      - All platforms operational
+
+    failure_handling:
+      - condition: Deployment fails for platform
+        action: Rollback and debug, then retry
+        max_retries: 2
+      - condition: Infrastructure provisioning fails
+        action: Review IaC template and fix
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 5
+    name: Platform-Specific Smoke Testing
+    description: Run platform-specific smoke tests to validate each deployment. Test platform-specific features, performance characteristics, and integration points.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, quality-guardian]
+        responsibility: Execute smoke tests
+      - role: reviewer
+        agents: [auditor]
+        responsibility: Validate test results
+
+    inputs:
+      - name: deployment_urls
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: smoke_test_results
+        type: files
+        destination: reports/smoke-tests/
+        format: json
+      - name: platform_health_report
+        type: file
+        destination: reports/platform-health.json
+        format: json
+      - name: performance_benchmarks
+        type: file
+        destination: reports/platform-performance.json
+        format: json
+
+    actions:
+      - description: Test Docker deployment health endpoint
+        command: curl -f http://docker-app-url/health
+        validation: Docker health check passes
+      - description: Test Lambda function invocation
+        command: aws lambda invoke --function-name app output.json
+        validation: Lambda responds correctly
+      - description: Test Cloud Run endpoint
+        command: curl -f https://cloudrun-app-url/health
+        validation: Cloud Run health check passes
+      - description: Test edge deployment if applicable
+        validation: Edge endpoint responsive
+      - description: Verify platform-specific features work
+        validation: Feature tests pass
+      - description: Run performance benchmarks per platform
+        validation: Performance within acceptable range
+      - description: Test error handling and resilience
+        validation: Error scenarios handled correctly
+      - description: Validate monitoring and logging
+        validation: Logs and metrics flowing
+
+    success_criteria:
+      - All health checks passing
+      - Platform-specific features validated
+      - Performance benchmarks within targets
+      - Error handling verified
+      - Monitoring operational on all platforms
+      - No critical failures
+
+    failure_handling:
+      - condition: Smoke test fails
+        action: Debug deployment and redeploy
+        max_retries: 2
+      - condition: Performance below target
+        action: Optimize configuration and redeploy
+        max_retries: 1
+
+    estimated_duration: 1 hour
+
+  - step_id: 6
+    name: Unified Monitoring Dashboard Setup
+    description: Configure unified monitoring dashboard aggregating metrics from all platforms. Set up alerts, logging aggregation, and performance tracking.
+    depends_on: [4, 5]
+    agent_roles:
+      - role: primary-executor
+        agents: [auditor, maintenance-keeper]
+        responsibility: Configure monitoring
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate monitoring coverage
+
+    inputs:
+      - name: deployment_urls
+        type: file
+        source: step-4
+        required: true
+      - name: platform_matrix
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: monitoring_dashboard
+        type: artifact
+        destination: dashboards/cross-platform-monitoring.json
+        format: json
+      - name: alert_configurations
+        type: file
+        destination: monitoring/alerts.json
+        format: json
+      - name: logging_config
+        type: file
+        destination: monitoring/logging-aggregation.json
+        format: json
+
+    actions:
+      - description: Configure metrics collection from all platforms
+        validation: Metrics flowing from all sources
+      - description: Create unified dashboard with per-platform views
+        validation: Dashboard operational
+      - description: Set up log aggregation across platforms
+        validation: Logs centralized
+      - description: Configure platform-specific alerts
+        validation: Alerts configured
+      - description: Set up performance tracking and SLA monitoring
+        validation: Performance metrics tracked
+      - description: Configure cost monitoring per platform
+        validation: Cost tracking active
+      - description: Create health status summary view
+        validation: Health overview available
+      - description: Set up automated incident response
+        validation: Incident automation configured
+
+    success_criteria:
+      - Unified dashboard operational
+      - Metrics from all platforms visible
+      - Log aggregation working
+      - Alerts properly configured
+      - Performance tracking active
+      - Cost monitoring enabled
+      - Incident response automated
+
+    failure_handling:
+      - condition: Metrics collection fails
+        action: Debug integration and fix
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 7
+    name: Rollback Capability Validation
+    description: Validate rollback mechanisms for each platform. Test ability to quickly revert to previous versions if issues arise.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [maintenance-keeper, builder]
+        responsibility: Validate rollback
+      - role: reviewer
+        agents: [auditor]
+        responsibility: Verify rollback readiness
+
+    inputs:
+      - name: deployment_logs
+        type: files
+        source: step-4
+        required: true
+
+    outputs:
+      - name: rollback_procedures
+        type: file
+        destination: deployment/rollback-procedures.md
+        format: markdown
+      - name: rollback_test_results
+        type: file
+        destination: reports/rollback-validation.json
+        format: json
+
+    actions:
+      - description: Document rollback procedure for each platform
+        validation: Rollback docs complete
+      - description: Test Docker rollback (previous image tag)
+        validation: Docker rollback successful
+      - description: Test Lambda rollback (previous version)
+        validation: Lambda rollback successful
+      - description: Test Cloud Run rollback (traffic splitting)
+        validation: Cloud Run rollback successful
+      - description: Measure rollback time for each platform
+        validation: Rollback times documented
+      - description: Verify data consistency after rollback
+        validation: No data corruption
+      - description: Test automated rollback triggers
+        validation: Auto-rollback working
+
+    success_criteria:
+      - Rollback procedures documented for all platforms
+      - Rollback successfully tested on all platforms
+      - Rollback time within acceptable limits (<5 minutes)
+      - Data consistency maintained
+      - Automated rollback functional
+      - Rollback readiness confirmed
+
+    failure_handling:
+      - condition: Rollback fails
+        action: Fix rollback mechanism and retest
+        max_retries: 2
+
+    estimated_duration: 1 hour
+
+  - step_id: 8
+    name: Deployment Documentation and Runbook Creation
+    description: Create comprehensive deployment documentation, operational runbooks, and troubleshooting guides for each platform.
+    depends_on: [6, 7]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, builder]
+        responsibility: Create documentation
+      - role: reviewer
+        agents: [maintenance-keeper]
+        responsibility: Validate operational readiness
+
+    inputs:
+      - name: all_deployment_artifacts
+        type: files
+        source: previous-steps
+        required: true
+
+    outputs:
+      - name: deployment_guide
+        type: file
+        destination: docs/deployment/cross-platform-guide.md
+        format: markdown
+      - name: operational_runbooks
+        type: files
+        destination: runbooks/platforms/
+        format: markdown
+      - name: troubleshooting_guide
+        type: file
+        destination: docs/troubleshooting/multi-platform.md
+        format: markdown
+
+    actions:
+      - description: Document deployment process end-to-end
+        validation: Deployment guide complete
+      - description: Create platform-specific operational runbooks
+        validation: Runbooks for all platforms created
+      - description: Document common issues and solutions
+        validation: Troubleshooting guide complete
+      - description: Create quick reference cards
+        validation: Quick refs available
+      - description: Document monitoring and alerting
+        validation: Monitoring docs complete
+      - description: Create incident response procedures
+        validation: Incident procedures documented
+      - description: Document cost optimization tips
+        validation: Cost guidance included
+      - description: Publish all docs to knowledge base
+        validation: Docs accessible to all agents
+
+    success_criteria:
+      - Comprehensive deployment guide
+      - Runbooks for all platforms
+      - Troubleshooting guide complete
+      - Quick reference available
+      - All docs published and accessible
+      - Operational readiness confirmed
+
+    failure_handling:
+      - condition: Documentation gaps
+        action: Fill gaps with input from deployment team
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 1
+    decision: Are platform requirements feasible?
+    criteria:
+      - All platforms technically compatible
+      - Cost within budget
+      - Required expertise available
+    outcomes:
+      proceed: Continue to build configuration
+      abort: Reduce platform scope if not feasible
+      retry: Revise platform selection
+
+  - after_step: 3
+    decision: Did all platform builds succeed?
+    criteria:
+      - All artifacts built successfully
+      - Smoke tests passing
+      - Artifact sizes acceptable
+    outcomes:
+      proceed: Deploy to platforms
+      abort: Cancel if critical builds fail
+      retry: Fix build issues and rebuild
+
+  - after_step: 5
+    decision: Are all platform deployments healthy?
+    criteria:
+      - All smoke tests passing
+      - Performance acceptable
+      - No critical errors
+    outcomes:
+      proceed: Set up monitoring
+      abort: Rollback problematic platforms
+      retry: Debug and redeploy failing platforms
+
+rollback_procedure:
+  - step: Identify platform with issues
+  - step: Execute platform-specific rollback procedure
+  - step: Verify previous version operational
+  - step: Update deployment status
+  - step: Investigate root cause of issue
+  - step: Fix issue before next deployment
+  - verification: Platform running previous stable version
+
+success_metrics:
+  - metric: Deployment success rate
+    target: 95% success across all platforms
+    measurement: Successful deployments / total deployments
+  - metric: Multi-platform deployment time
+    target: All platforms deployed within 2 hours
+    measurement: Start to completion time
+  - metric: Platform availability
+    target: 99.9% uptime on all platforms
+    measurement: Uptime monitoring across platforms
+  - metric: Rollback time
+    target: <5 minutes to rollback any platform
+    measurement: Time from rollback trigger to completion
+  - metric: Cost efficiency
+    target: Optimized costs per platform
+    measurement: Platform cost tracking and optimization
+
+deliverables:
+  - artifact: Platform Matrix Configuration
+    location: deployment/platform-matrix.json
+    format: JSON
+    validation: Complete platform deployment strategy
+  - artifact: Platform-Specific Build Configs
+    location: deployment/
+    format: Dockerfiles, YAML, IaC templates
+    validation: Build configs for all platforms
+  - artifact: Deployment Artifacts
+    location: artifacts/ and registries
+    format: Container images, packages, bundles
+    validation: All platform artifacts built and tagged
+  - artifact: Deployment Endpoints
+    location: deployment/endpoints.json
+    format: JSON
+    validation: All platform URLs and access information
+  - artifact: Monitoring Dashboard
+    location: dashboards/cross-platform-monitoring.json
+    format: JSON
+    validation: Unified monitoring across all platforms
+  - artifact: Rollback Procedures
+    location: deployment/rollback-procedures.md
+    format: Markdown
+    validation: Tested rollback procedures for each platform
+  - artifact: Deployment Guide
+    location: docs/deployment/cross-platform-guide.md
+    format: Markdown
+    validation: Complete operational documentation
+  - artifact: Platform Runbooks
+    location: runbooks/platforms/
+    format: Markdown
+    validation: Operational runbooks for each platform
+
+post_completion:
+  - Update agent performance logs
+  - Store all artifacts in knowledge base
+  - Add deployment to capability inventory
+  - Monitor platform health continuously
+  - Schedule deployment health reviews (weekly)
+  - Track cost metrics across platforms
+  - Update deployment best practices
+  - Share success metrics with all agents
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

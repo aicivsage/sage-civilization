@@ -1,0 +1,555 @@
+flow_id: collaborative-multi-agent-research-sprint
+name: Collaborative Multi-Agent Research Sprint
+version: 1.0
+description: When facing complex, multi-faceted research questions, spawn a team of specialized researcher agents who divide the topic, research in parallel, then synthesize findings collaboratively via message bus.
+category: research
+
+metadata:
+  estimated_duration: 1-2 days
+  complexity: high
+  participating_agents: 5-10 (orchestrator, multiple researcher agents, synthesis coordinator)
+  created_by: researcher
+  created_date: 2025-10-02
+  tags: [collaborative-research, parallel-processing, multi-agent, knowledge-synthesis, research-sprint]
+
+prerequisites:
+  - condition: Complex research question with multiple facets identified
+  - condition: Message bus infrastructure operational
+  - resources: Access to research tools and information sources
+  - resources: Message bus topics configured (research-assignments, progress-updates, findings-sharing, synthesis)
+  - permissions: Ability to spawn or assign multiple researcher agents
+
+steps:
+  - step_id: 1
+    name: Decompose Research Question into Sub-Topics
+    description: Analyze complex research question, break down into manageable sub-topics that can be researched in parallel by specialized agents
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, senior-researcher]
+        responsibility: Decompose research question strategically
+      - role: consultant
+        agents: [architect, domain-experts]
+        responsibility: Validate decomposition completeness
+
+    inputs:
+      - name: complex_research_question
+        type: data
+        source: external-request
+        required: true
+      - name: research_context
+        type: data
+        source: external
+        required: false
+      - name: available_researchers
+        type: data
+        source: agent-registry
+        required: true
+
+    outputs:
+      - name: sub_topics
+        type: file
+        destination: memories/research-sprints/{sprint-id}/sub-topics.json
+        format: json
+      - name: research_assignments
+        type: file
+        destination: memories/research-sprints/{sprint-id}/assignments.json
+        format: json
+      - name: coordination_plan
+        type: file
+        destination: memories/research-sprints/{sprint-id}/coordination-plan.md
+        format: markdown
+
+    actions:
+      - description: Analyze research question to identify key dimensions
+        validation: Research dimensions clearly defined
+      - description: Break down into 5-10 distinct sub-topics
+        validation: Sub-topics are specific and non-overlapping
+      - description: Ensure sub-topics cover full scope of main question
+        validation: No major gaps in coverage
+      - description: Identify interdependencies between sub-topics
+        validation: Dependencies documented
+      - description: Estimate effort and timeline for each sub-topic
+        validation: Realistic effort estimates provided
+      - description: Create coordination plan for cross-pollination
+        validation: Plan includes sharing and synthesis phases
+      - description: Assign unique IDs to each sub-topic
+        validation: Clear identification system established
+
+    success_criteria:
+      - Research question decomposed into 5-10 sub-topics
+      - Sub-topics are specific and researchable
+      - Full coverage of main question ensured
+      - Dependencies identified
+      - Coordination plan created
+
+    failure_handling:
+      - condition: Decomposition too granular (>10 sub-topics)
+        action: Consolidate related sub-topics
+        max_retries: 2
+      - condition: Unclear how to decompose
+        action: Start with high-level categories and refine
+        max_retries: 1
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 2
+    name: Assign Specialized Researchers
+    description: Spawn or assign specialized researcher agents for each sub-topic based on expertise, publish assignments via message bus
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator]
+        responsibility: Assign researchers optimally
+      - role: researchers
+        agents: [researcher-pool]
+        responsibility: Accept assignments and prepare
+
+    inputs:
+      - name: sub_topics
+        type: file
+        source: step-1
+        required: true
+      - name: research_assignments
+        type: file
+        source: step-1
+        required: true
+      - name: researcher_expertise
+        type: file
+        source: memories/agents/researcher-expertise.json
+        required: true
+
+    outputs:
+      - name: researcher_assignments
+        type: file
+        destination: memories/research-sprints/{sprint-id}/researcher-assignments.json
+        format: json
+      - name: assignment_notifications
+        type: data
+        destination: message-bus-research-assignments-topic
+        format: json
+      - name: researcher_roster
+        type: file
+        destination: memories/research-sprints/{sprint-id}/researcher-roster.md
+        format: markdown
+
+    actions:
+      - description: Match sub-topics to researcher expertise
+        validation: Optimal assignments based on skills
+      - description: Ensure load balancing across researchers
+        validation: No researcher overloaded
+      - description: Assign backup researchers for critical sub-topics
+        validation: Redundancy for important areas
+      - description: Publish assignments to message bus
+        validation: All researchers notified
+      - description: Researchers acknowledge assignments
+        validation: All assignments accepted
+      - description: Create researcher roster with contact info
+        validation: Team directory created
+      - description: Brief researchers on coordination expectations
+        validation: Researchers understand collaboration model
+
+    success_criteria:
+      - All sub-topics assigned to qualified researchers
+      - Researcher workload balanced
+      - All assignments accepted
+      - Researcher roster created
+      - Coordination expectations communicated
+
+    failure_handling:
+      - condition: Insufficient researchers available
+        action: Consolidate sub-topics or delay sprint
+        max_retries: 1
+      - condition: Researcher declines assignment
+        action: Assign to backup researcher
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Parallel Research Execution
+    description: All researchers conduct research on their sub-topics in parallel, publishing progress updates to message bus
+    depends_on: [2]
+    agent_roles:
+      - role: researchers
+        agents: [assigned-researchers]
+        responsibility: Research assigned sub-topics
+      - role: coordinator
+        agents: [orchestrator]
+        responsibility: Monitor progress and facilitate
+
+    inputs:
+      - name: sub_topic_assignment
+        type: data
+        source: message-bus-research-assignments-topic
+        required: true
+      - name: research_guidelines
+        type: file
+        source: memories/research-sprints/{sprint-id}/research-guidelines.md
+        required: true
+
+    outputs:
+      - name: progress_updates
+        type: data
+        destination: message-bus-progress-updates-topic
+        format: json
+      - name: sub_topic_findings
+        type: file
+        destination: memories/research-sprints/{sprint-id}/findings/{sub-topic-id}.md
+        format: markdown
+      - name: source_citations
+        type: file
+        destination: memories/research-sprints/{sprint-id}/sources/{sub-topic-id}.json
+        format: json
+
+    actions:
+      - description: Each researcher conducts deep research on their sub-topic
+        validation: Comprehensive research performed
+      - description: Publish progress updates every 2 hours
+        validation: Regular updates shared via message bus
+      - description: Document findings in structured format
+        validation: Findings follow template structure
+      - description: Collect and cite all sources
+        validation: All claims properly cited
+      - description: Identify key insights and patterns
+        validation: Insights clearly articulated
+      - description: Flag questions or gaps for discussion
+        validation: Uncertainties documented
+      - description: Complete research within timeboxed period (6-12 hours)
+        validation: Research finished on time
+
+    success_criteria:
+      - All researchers complete their sub-topics
+      - Findings documented in structured format
+      - Sources properly cited
+      - Progress updates shared regularly
+      - Key insights identified
+      - Research completed within timeframe
+
+    failure_handling:
+      - condition: Researcher blocked or delayed
+        action: Coordinator provides assistance or reassigns
+        max_retries: 2
+      - condition: Insufficient information found
+        action: Document limitations and proceed with available data
+        max_retries: 1
+
+    estimated_duration: 6-12 hours
+
+  - step_id: 4
+    name: Cross-Pollination and Findings Sharing
+    description: Researchers subscribe to each other's findings, share insights, identify connections, and build on each other's work
+    depends_on: [3]
+    parallel_with: []
+    agent_roles:
+      - role: researchers
+        agents: [assigned-researchers]
+        responsibility: Review peers' findings and contribute insights
+      - role: facilitator
+        agents: [orchestrator, senior-researcher]
+        responsibility: Facilitate cross-pollination
+
+    inputs:
+      - name: all_sub_topic_findings
+        type: file
+        source: step-3
+        required: true
+      - name: progress_updates
+        type: data
+        source: message-bus-progress-updates-topic
+        required: true
+
+    outputs:
+      - name: cross_references
+        type: file
+        destination: memories/research-sprints/{sprint-id}/cross-references.json
+        format: json
+      - name: emerging_themes
+        type: file
+        destination: memories/research-sprints/{sprint-id}/emerging-themes.md
+        format: markdown
+      - name: integration_notes
+        type: file
+        destination: memories/research-sprints/{sprint-id}/integration-notes.md
+        format: markdown
+
+    actions:
+      - description: Each researcher reviews findings from all other sub-topics
+        validation: Peer review completed
+      - description: Identify connections and relationships between sub-topics
+        validation: Cross-references documented
+      - description: Share insights via message bus findings-sharing topic
+        validation: Insights published and discussed
+      - description: Identify emerging themes across all research
+        validation: Themes documented
+      - description: Build on each other's work (complementary findings)
+        validation: Collaborative insights generated
+      - description: Resolve contradictions or conflicting findings
+        validation: Conflicts addressed through discussion
+      - description: Identify gaps that need additional research
+        validation: Gaps documented for synthesis phase
+
+    success_criteria:
+      - All researchers reviewed peers' findings
+      - Cross-references and connections identified
+      - Emerging themes documented
+      - Collaborative insights generated
+      - Conflicts resolved or documented
+      - Integration notes prepared for synthesis
+
+    failure_handling:
+      - condition: Conflicting findings cannot be resolved
+        action: Document both perspectives and rationale
+        max_retries: 1
+      - condition: Limited connections found
+        action: Proceed to synthesis, note independence of sub-topics
+        max_retries: 0
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 5
+    name: Collaborative Synthesis Session
+    description: All researchers participate in collaborative session to integrate insights, resolve tensions, and create unified understanding
+    depends_on: [4]
+    agent_roles:
+      - role: synthesis-coordinator
+        agents: [senior-researcher, orchestrator]
+        responsibility: Facilitate synthesis process
+      - role: participants
+        agents: [all-assigned-researchers]
+        responsibility: Contribute to integrated understanding
+
+    inputs:
+      - name: all_findings
+        type: file
+        source: step-3
+        required: true
+      - name: cross_references
+        type: file
+        source: step-4
+        required: true
+      - name: emerging_themes
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: synthesis_session_notes
+        type: file
+        destination: memories/research-sprints/{sprint-id}/synthesis-session-notes.md
+        format: markdown
+      - name: integrated_insights
+        type: file
+        destination: memories/research-sprints/{sprint-id}/integrated-insights.md
+        format: markdown
+      - name: knowledge_graph
+        type: file
+        destination: memories/research-sprints/{sprint-id}/knowledge-graph.json
+        format: json
+
+    actions:
+      - description: Conduct collaborative synthesis session (2-4 hours)
+        validation: All researchers participate actively
+      - description: Review all findings and emerging themes together
+        validation: Comprehensive review completed
+      - description: Identify overarching insights that span sub-topics
+        validation: Meta-insights documented
+      - description: Build knowledge graph connecting concepts
+        validation: Relationship map created
+      - description: Resolve any remaining tensions or gaps
+        validation: Unified understanding achieved
+      - description: Identify most significant findings
+        validation: Key discoveries highlighted
+      - description: Document synthesis session outcomes
+        validation: Session notes comprehensive
+
+    success_criteria:
+      - Collaborative synthesis session completed
+      - Integrated insights documented
+      - Knowledge graph created
+      - Tensions and gaps resolved
+      - Most significant findings identified
+      - Unified understanding achieved
+
+    failure_handling:
+      - condition: Synthesis session too long or unfocused
+        action: Use structured facilitation techniques
+        max_retries: 1
+      - condition: Cannot reach consensus on key points
+        action: Document multiple perspectives
+        max_retries: 0
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 6
+    name: Produce Unified Research Report
+    description: Create comprehensive research report integrating all findings with diverse perspectives and collaborative insights
+    depends_on: [5]
+    agent_roles:
+      - role: primary-writer
+        agents: [senior-researcher]
+        responsibility: Draft unified report
+      - role: contributors
+        agents: [all-assigned-researchers]
+        responsibility: Contribute sections and review
+
+    inputs:
+      - name: integrated_insights
+        type: file
+        source: step-5
+        required: true
+      - name: all_sub_topic_findings
+        type: file
+        source: step-3
+        required: true
+      - name: knowledge_graph
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: unified_research_report
+        type: file
+        destination: memories/research-sprints/{sprint-id}/unified-report.md
+        format: markdown
+      - name: executive_summary
+        type: file
+        destination: memories/research-sprints/{sprint-id}/executive-summary.md
+        format: markdown
+      - name: visual_diagrams
+        type: file
+        destination: memories/research-sprints/{sprint-id}/diagrams/
+        format: png
+      - name: complete_bibliography
+        type: file
+        destination: memories/research-sprints/{sprint-id}/bibliography.md
+        format: markdown
+
+    actions:
+      - description: Structure report with clear hierarchy (overview → sub-topics → synthesis)
+        validation: Logical report structure created
+      - description: Write executive summary with key findings
+        validation: Summary is concise and comprehensive
+      - description: Integrate all sub-topic findings into unified narrative
+        validation: Seamless integration of all research
+      - description: Highlight collaborative insights and cross-topic themes
+        validation: Multi-perspective synthesis prominent
+      - description: Include diverse perspectives where applicable
+        validation: Different viewpoints represented
+      - description: Create visual diagrams from knowledge graph
+        validation: Diagrams enhance understanding
+      - description: Compile complete bibliography from all sources
+        validation: All sources properly cited
+      - description: All researchers review and approve final report
+        validation: Consensus on final content
+
+    success_criteria:
+      - Comprehensive unified report created
+      - All sub-topic findings integrated
+      - Collaborative insights prominently featured
+      - Executive summary clear and actionable
+      - Visual diagrams included
+      - Complete bibliography compiled
+      - All researchers approve report
+
+    failure_handling:
+      - condition: Report too long or complex
+        action: Create modular report with executive summary
+        max_retries: 1
+      - condition: Disagreement on report content
+        action: Include multiple perspectives or resolve via discussion
+        max_retries: 2
+
+    estimated_duration: 3-6 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is decomposition appropriate for parallel research?
+    criteria:
+      - Sub-topics are sufficiently independent
+      - Sub-topics can be researched in parallel
+      - Decomposition covers full scope of question
+    outcomes:
+      proceed: Assign researchers and begin sprint
+      revise: Adjust decomposition for better parallelization
+      abort: Question better suited for single-researcher approach
+
+  - after_step: 3
+    decision: Is research on all sub-topics sufficient?
+    criteria:
+      - All sub-topics researched comprehensively
+      - Sufficient findings to answer main question
+      - Key sources identified and reviewed
+    outcomes:
+      proceed: Continue to cross-pollination
+      extend: Allow more research time for incomplete sub-topics
+      pivot: Adjust research focus based on findings
+
+  - after_step: 5
+    decision: Has collaborative synthesis produced integrated insights?
+    criteria:
+      - Overarching insights identified
+      - Connections between sub-topics clear
+      - Unified understanding achieved
+    outcomes:
+      proceed: Create unified report
+      deepen: Conduct additional synthesis discussion
+      simplify: Focus on most important insights
+
+rollback_procedure:
+  - step: Research is read-only, no rollback needed
+  - step: If report needs revision, create new version
+  - verification: Updated report reviewed and approved by team
+
+success_metrics:
+  - metric: Research completeness
+    target: All sub-topics researched to satisfactory depth
+    measurement: Review coverage of each sub-topic
+  - metric: Collaboration effectiveness
+    target: 100% of researchers actively participate in cross-pollination
+    measurement: Track contributions to findings-sharing topic
+  - metric: Synthesis quality
+    target: Integrated insights identified that span multiple sub-topics
+    measurement: Count cross-topic insights in final report
+  - metric: Time efficiency
+    target: Complete sprint within 2 days
+    measurement: Total elapsed time from start to final report
+  - metric: Stakeholder value
+    target: Unified report addresses complex question comprehensively
+    measurement: Stakeholder feedback on report quality
+
+deliverables:
+  - artifact: Unified Research Report
+    location: memories/research-sprints/{sprint-id}/unified-report.md
+    format: Markdown
+    validation: Comprehensive report integrating all findings
+  - artifact: Executive Summary
+    location: memories/research-sprints/{sprint-id}/executive-summary.md
+    format: Markdown
+    validation: Concise summary of key findings and insights
+  - artifact: Knowledge Graph
+    location: memories/research-sprints/{sprint-id}/knowledge-graph.json
+    format: JSON
+    validation: Structured representation of concepts and relationships
+  - artifact: Individual Sub-Topic Findings
+    location: memories/research-sprints/{sprint-id}/findings/
+    format: Markdown
+    validation: Detailed findings for each sub-topic
+  - artifact: Complete Bibliography
+    location: memories/research-sprints/{sprint-id}/bibliography.md
+    format: Markdown
+    validation: All sources properly cited and categorized
+
+post_completion:
+  - Store all sprint artifacts in knowledge base
+  - Update researcher performance metrics
+  - Send completion notification with report to stakeholders
+  - Conduct retrospective on sprint process
+  - Document lessons learned for future sprints
+  - Log completion in evolution log with metrics
+  - Celebrate team accomplishment and recognize contributions
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

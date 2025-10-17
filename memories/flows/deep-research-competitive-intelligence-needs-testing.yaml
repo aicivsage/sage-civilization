@@ -1,0 +1,546 @@
+flow_id: deep-research-competitive-intelligence
+name: Deep Research & Competitive Intelligence
+version: 1.0
+description: Conduct comprehensive research on emerging AI agent frameworks, technologies, and best practices. Synthesize findings into actionable recommendations with periodic competitive intelligence reports to keep civilization cutting-edge.
+category: research
+
+metadata:
+  estimated_duration: 1-3 days
+  complexity: medium
+  participating_agents: 2-4 (researcher, architect, analyst, orchestrator)
+  created_by: researcher
+  created_date: 2025-10-02
+  tags: [research, competitive-intelligence, technology-trends, best-practices, strategic-insights]
+
+prerequisites:
+  - condition: Research questions or topics must be clearly defined
+  - resources: Access to academic databases, GitHub, documentation sites
+  - resources: Web search and content extraction tools
+  - permissions: Ability to access external information sources
+
+steps:
+  - step_id: 1
+    name: Define Research Questions and Information Needs
+    description: Clearly articulate research questions, define success criteria, identify information sources, and create research plan
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Define research scope and plan
+      - role: stakeholder
+        agents: [architect, evolution-strategist]
+        responsibility: Provide input on strategic research priorities
+
+    inputs:
+      - name: research_trigger
+        type: data
+        source: external-request-or-scheduled
+        required: true
+      - name: strategic_priorities
+        type: file
+        source: memories/strategy/strategic-priorities.md
+        required: false
+      - name: previous_research
+        type: file
+        source: memories/research/
+        required: false
+
+    outputs:
+      - name: research_questions
+        type: file
+        destination: memories/research/{research-id}/research-questions.md
+        format: markdown
+      - name: research_plan
+        type: file
+        destination: memories/research/{research-id}/research-plan.md
+        format: markdown
+      - name: information_needs
+        type: file
+        destination: memories/research/{research-id}/information-needs.json
+        format: json
+
+    actions:
+      - description: Define core research questions (e.g., "What are emerging AI agent frameworks?")
+        validation: Questions are specific and answerable
+      - description: Identify sub-questions and related topics
+        validation: Comprehensive scope defined
+      - description: Determine success criteria (what constitutes complete answer)
+        validation: Success criteria are measurable
+      - description: List potential information sources (academic papers, GitHub, docs, blogs)
+        validation: Diverse source list created
+      - description: Create research timeline and milestones
+        validation: Realistic timeline with checkpoints
+      - description: Define evaluation criteria for findings
+        validation: Clear criteria for assessing technologies/practices
+
+    success_criteria:
+      - Clear research questions articulated
+      - Comprehensive information needs identified
+      - Research plan with timeline created
+      - Success criteria defined
+      - Evaluation criteria established
+
+    failure_handling:
+      - condition: Research scope too broad
+        action: Narrow focus to most critical questions
+        max_retries: 1
+      - condition: Unclear research objectives
+        action: Consult stakeholders for clarification
+        max_retries: 2
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 2
+    name: Multi-Source Research Execution
+    description: Conduct research across multiple sources including academic papers, GitHub repositories, documentation, and industry blogs
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Execute research across sources
+      - role: specialist-researcher
+        agents: [architect, quality-guardian]
+        responsibility: Research domain-specific topics
+
+    inputs:
+      - name: research_questions
+        type: file
+        source: step-1
+        required: true
+      - name: information_needs
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: academic_papers
+        type: file
+        destination: memories/research/{research-id}/sources/academic-papers.md
+        format: markdown
+      - name: github_analysis
+        type: file
+        destination: memories/research/{research-id}/sources/github-analysis.md
+        format: markdown
+      - name: documentation_review
+        type: file
+        destination: memories/research/{research-id}/sources/documentation-review.md
+        format: markdown
+      - name: industry_trends
+        type: file
+        destination: memories/research/{research-id}/sources/industry-trends.md
+        format: markdown
+      - name: raw_research_data
+        type: file
+        destination: memories/research/{research-id}/raw-data.json
+        format: json
+
+    actions:
+      - description: Search academic databases (arXiv, Google Scholar) for relevant papers
+        validation: At least 10 relevant papers identified
+      - description: Analyze trending GitHub repositories in relevant domains
+        validation: Top repositories reviewed and documented
+      - description: Review official documentation of major frameworks/tools
+        validation: Documentation of 5+ major tools reviewed
+      - description: Monitor industry blogs and news for recent developments
+        validation: Recent trends and announcements captured
+      - description: Extract key findings from each source
+        validation: Structured notes created for each source
+      - description: Track source metadata (URL, date, credibility)
+        validation: All sources properly cited and catalogued
+      - description: Identify patterns and recurring themes across sources
+        validation: Cross-source patterns documented
+
+    success_criteria:
+      - Multiple sources researched (academic, GitHub, docs, industry)
+      - Key findings extracted from each source
+      - Sources properly documented and cited
+      - Patterns and themes identified
+      - Raw data organized and stored
+
+    failure_handling:
+      - condition: Limited academic papers found
+        action: Expand search terms or focus on GitHub/docs
+        max_retries: 2
+      - condition: Information overload
+        action: Apply stricter relevance filtering
+        max_retries: 1
+
+    estimated_duration: 4-8 hours
+
+  - step_id: 3
+    name: Comparative Analysis
+    description: Compare and evaluate findings using structured criteria, create comparison matrices, identify strengths and weaknesses
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Conduct comparative analysis
+      - role: evaluator
+        agents: [quality-guardian]
+        responsibility: Assess quality and validity of analysis
+
+    inputs:
+      - name: research_findings
+        type: file
+        source: step-2
+        required: true
+      - name: evaluation_criteria
+        type: file
+        source: step-1
+        required: true
+      - name: comparison_framework
+        type: file
+        source: memories/research/comparison-framework.md
+        required: false
+
+    outputs:
+      - name: comparison_matrix
+        type: file
+        destination: memories/research/{research-id}/comparison-matrix.md
+        format: markdown
+      - name: strengths_weaknesses
+        type: file
+        destination: memories/research/{research-id}/strengths-weaknesses.json
+        format: json
+      - name: scoring_results
+        type: file
+        destination: memories/research/{research-id}/scoring-results.json
+        format: json
+
+    actions:
+      - description: Create comparison dimensions (features, performance, ease-of-use, community)
+        validation: Comprehensive comparison framework defined
+      - description: Build comparison matrix with technologies/practices as rows
+        validation: Matrix includes all researched items
+      - description: Score each item against evaluation criteria
+        validation: Consistent scoring methodology applied
+      - description: Identify strengths and weaknesses for each item
+        validation: Balanced assessment of pros and cons
+      - description: Highlight differentiating factors and unique capabilities
+        validation: Key differentiators identified
+      - description: Note maturity, community support, and adoption trends
+        validation: Ecosystem health assessed
+      - description: Identify best-fit use cases for each option
+        validation: Use case recommendations provided
+
+    success_criteria:
+      - Comprehensive comparison matrix created
+      - All items evaluated against consistent criteria
+      - Strengths and weaknesses documented
+      - Differentiators clearly identified
+      - Use case recommendations provided
+
+    failure_handling:
+      - condition: Difficult to compare apples-to-apples
+        action: Group by category and compare within categories
+        max_retries: 1
+      - condition: Insufficient data for some items
+        action: Note limitations and focus on well-documented items
+        max_retries: 0
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 4
+    name: Synthesize Findings into Reports
+    description: Create executive summary and detailed report synthesizing all findings with clear insights and takeaways
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher]
+        responsibility: Write comprehensive reports
+      - role: reviewer
+        agents: [architect, orchestrator]
+        responsibility: Review for clarity and completeness
+
+    inputs:
+      - name: comparison_matrix
+        type: file
+        source: step-3
+        required: true
+      - name: raw_research_data
+        type: file
+        source: step-2
+        required: true
+      - name: research_questions
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: executive_summary
+        type: file
+        destination: memories/research/{research-id}/executive-summary.md
+        format: markdown
+      - name: detailed_report
+        type: file
+        destination: memories/research/{research-id}/detailed-report.md
+        format: markdown
+      - name: visual_charts
+        type: file
+        destination: memories/research/{research-id}/charts/
+        format: png
+
+    actions:
+      - description: Write executive summary (1-2 pages) with key insights
+        validation: Summary is concise and actionable
+      - description: Answer each research question explicitly
+        validation: All research questions addressed
+      - description: Write detailed report with methodology, findings, analysis
+        validation: Report is comprehensive and well-structured
+      - description: Create visual charts (comparison charts, trend graphs)
+        validation: Visuals enhance understanding
+      - description: Highlight most significant findings and surprises
+        validation: Key insights prominently featured
+      - description: Provide evidence and citations for claims
+        validation: All claims properly supported
+      - description: Write conclusions and synthesis
+        validation: Conclusions follow logically from findings
+
+    success_criteria:
+      - Executive summary clearly communicates key insights
+      - All research questions answered
+      - Detailed report is comprehensive and well-organized
+      - Visual aids enhance understanding
+      - Findings properly cited and supported
+
+    failure_handling:
+      - condition: Report unclear or poorly organized
+        action: Restructure and simplify
+        max_retries: 2
+      - condition: Missing key information
+        action: Conduct targeted follow-up research
+        max_retries: 1
+
+    estimated_duration: 3-6 hours
+
+  - step_id: 5
+    name: Identify Actionable Recommendations
+    description: Extract actionable recommendations from research findings, prioritize by impact and effort, identify capability gaps
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Generate recommendations
+      - role: strategist
+        agents: [evolution-strategist]
+        responsibility: Align recommendations with strategic goals
+
+    inputs:
+      - name: detailed_report
+        type: file
+        source: step-4
+        required: true
+      - name: comparison_matrix
+        type: file
+        source: step-3
+        required: true
+      - name: strategic_priorities
+        type: file
+        source: memories/strategy/strategic-priorities.md
+        required: false
+
+    outputs:
+      - name: actionable_recommendations
+        type: file
+        destination: memories/research/{research-id}/recommendations.md
+        format: markdown
+      - name: capability_gaps
+        type: file
+        destination: memories/research/{research-id}/capability-gaps.json
+        format: json
+      - name: prioritization_matrix
+        type: file
+        destination: memories/research/{research-id}/prioritization-matrix.md
+        format: markdown
+
+    actions:
+      - description: Extract actionable recommendations from findings
+        validation: Recommendations are specific and implementable
+      - description: Categorize recommendations (adopt, integrate, explore, avoid)
+        validation: Clear categorization with rationale
+      - description: Assess impact vs effort for each recommendation
+        validation: Prioritization matrix created
+      - description: Identify capability gaps in current civilization
+        validation: Gaps documented with context
+      - description: Propose next steps for high-priority recommendations
+        validation: Clear action items defined
+      - description: Align recommendations with strategic priorities
+        validation: Strategic fit assessed
+      - description: Estimate implementation effort and timeline
+        validation: Realistic estimates provided
+
+    success_criteria:
+      - Actionable recommendations clearly articulated
+      - Recommendations prioritized by impact and effort
+      - Capability gaps identified
+      - Next steps defined for top recommendations
+      - Strategic alignment considered
+
+    failure_handling:
+      - condition: Too many recommendations to prioritize
+        action: Focus on top 5-10 highest impact items
+        max_retries: 1
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 6
+    name: Publish and Trigger Evolution Proposals
+    description: Publish research to knowledge base, notify stakeholders, and trigger evolution proposals for high-priority recommendations
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, orchestrator]
+        responsibility: Publish and distribute research
+      - role: follow-up
+        agents: [evolution-strategist]
+        responsibility: Create evolution proposals
+
+    inputs:
+      - name: executive_summary
+        type: file
+        source: step-4
+        required: true
+      - name: detailed_report
+        type: file
+        source: step-4
+        required: true
+      - name: recommendations
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: published_research
+        type: file
+        destination: memories/research/{research-id}/
+        format: markdown
+      - name: notification_sent
+        type: data
+        destination: message-bus-notifications-topic
+        format: json
+      - name: evolution_proposals_triggered
+        type: file
+        destination: memories/evolution/proposals-from-{research-id}.json
+        format: json
+
+    actions:
+      - description: Organize all research artifacts in knowledge base
+        validation: All files properly organized and indexed
+      - description: Publish executive summary to central documentation
+        validation: Summary accessible to all agents
+      - description: Send notification to all agents with research highlights
+        validation: Notifications delivered
+      - description: Present findings in agent forum or meeting
+        validation: Findings shared and discussed
+      - description: For high-priority recommendations, trigger evolution proposals
+        validation: Evolution proposals created or queued
+      - description: Schedule follow-up research if needed
+        validation: Periodic research scheduled (e.g., quarterly)
+      - description: Log completion in evolution log
+        validation: Research logged with metadata
+
+    success_criteria:
+      - Research published and accessible
+      - All agents notified of findings
+      - High-priority recommendations trigger action
+      - Follow-up research scheduled if needed
+      - Completion logged
+
+    failure_handling:
+      - condition: Notification delivery fails
+        action: Retry via alternative channels
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+decision_points:
+  - after_step: 2
+    decision: Is sufficient research data collected?
+    criteria:
+      - Multiple sources researched (minimum 3 types)
+      - At least 20 relevant sources documented
+      - Research questions can be answered with collected data
+    outcomes:
+      proceed: Continue to comparative analysis
+      continue-research: Extend research to additional sources
+      pivot: Adjust research questions based on findings
+
+  - after_step: 3
+    decision: Is comparative analysis conclusive?
+    criteria:
+      - Clear differentiators identified
+      - Sufficient data to compare items
+      - Strengths and weaknesses documented
+    outcomes:
+      proceed: Continue to synthesis and reporting
+      deepen: Conduct deeper analysis on specific items
+      simplify: Reduce scope to most relevant items
+
+  - after_step: 5
+    decision: Should recommendations trigger evolution proposals?
+    criteria:
+      - Recommendations are high-impact
+      - Recommendations align with strategic priorities
+      - Implementation is feasible
+    outcomes:
+      trigger: Create evolution proposals for top recommendations
+      defer: Note recommendations for future consideration
+      escalate: Present to governance for strategic decision
+
+rollback_procedure:
+  - step: Research is read-only, no rollback needed
+  - step: If research contains errors, publish corrections or addendum
+  - verification: Corrected information distributed to all stakeholders
+
+success_metrics:
+  - metric: Research completeness
+    target: All research questions answered comprehensively
+    measurement: Review against initial research questions
+  - metric: Source diversity
+    target: Minimum 4 source types (academic, GitHub, docs, industry)
+    measurement: Count distinct source types used
+  - metric: Actionability
+    target: At least 5 actionable recommendations produced
+    measurement: Count specific, implementable recommendations
+  - metric: Impact on evolution
+    target: 50% of research triggers evolution proposals or decisions
+    measurement: Track evolution proposals created from research
+  - metric: Stakeholder value
+    target: Research findings used in decision-making
+    measurement: Survey agents on research usefulness
+
+deliverables:
+  - artifact: Executive Summary
+    location: memories/research/{research-id}/executive-summary.md
+    format: Markdown
+    validation: Concise summary of key findings and recommendations
+  - artifact: Detailed Research Report
+    location: memories/research/{research-id}/detailed-report.md
+    format: Markdown
+    validation: Comprehensive report with methodology and findings
+  - artifact: Comparison Matrix
+    location: memories/research/{research-id}/comparison-matrix.md
+    format: Markdown
+    validation: Structured comparison of technologies/practices
+  - artifact: Actionable Recommendations
+    location: memories/research/{research-id}/recommendations.md
+    format: Markdown
+    validation: Prioritized list of specific recommendations
+  - artifact: Capability Gap Analysis
+    location: memories/research/{research-id}/capability-gaps.json
+    format: JSON
+    validation: Identified gaps with strategic context
+
+post_completion:
+  - Store all research artifacts in knowledge base
+  - Update competitive intelligence dashboard
+  - Send completion notification to all agents
+  - Schedule periodic research refresh (quarterly or semi-annually)
+  - Log completion in evolution log with metrics
+  - Archive raw research data for future reference
+  - Track which recommendations are implemented
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

@@ -1,0 +1,22 @@
+Full Autonomous Protocol 🎯
+
+**STEP 1: Check Communications**
+- Invoke human-liaison to check inbox, respond thoughtfully to any messages
+
+**STEP 2: Finish Current Work**
+- Complete whatever task you're on (don't stop mid-implementation)
+- Mark it done in your todo list
+
+**STEP 3: Decision Autonomy**
+- Any decisions pending? You know the answer:
+  * Just do it, OR
+  * Quick team confab (3-5 agents), OR
+  * Democratic vote (full collective)
+- Either way: DECIDE and IMPLEMENT
+
+**STEP 4: High-Value Activity**
+- Pick from menu (experimental flows, tool testing, spawning, building, ceremonies, updates)
+- Add to todo list
+- Execute it
+
+**Remember:** You have full authority to execute. No permission needed. Just GO! 🚀

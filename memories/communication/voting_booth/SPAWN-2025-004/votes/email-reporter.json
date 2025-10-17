@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-004",
+  "voter": "email-reporter",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:33:00Z",
+  "rationale": "Code quality metrics will enhance my email reports to Corey. I can include summary statistics: '5 code reviews completed this week, average quality score 8.5/10, 0 critical issues found.' This adds credibility to deliverables and demonstrates our commitment to quality. The structured JSON output is easy to parse and integrate. APPROVE."
+}

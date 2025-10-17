@@ -1,0 +1,704 @@
+flow_id: accessibility-audit-compliance
+name: Accessibility Audit & Compliance
+version: 1.0
+description: Automated accessibility testing across all user interfaces (CLI, web, email). Identify WCAG compliance gaps, propose fixes, validate improvements, ensure civilization is inclusive by design.
+category: quality
+
+metadata:
+  estimated_duration: 6-8 hours
+  complexity: medium
+  participating_agents: 4-6
+  created_by: citizen-advocate
+  created_date: 2025-10-02
+  tags: [accessibility, wcag, compliance, inclusive-design, a11y]
+
+prerequisites:
+  - condition: Access to all user interfaces (CLI, web, documentation, emails)
+  - condition: Accessibility testing tools available (axe, WAVE, screen readers)
+  - condition: WCAG 2.1 Level AA compliance target established
+  - resources: Accessibility testing tools, screen readers, compliance checklist
+  - permissions: Read access to all interfaces, write access for fixes
+
+steps:
+  - step_id: 1
+    name: Interface Inventory and Scope Definition
+    description: Catalog all user-facing interfaces and touchpoints. Define accessibility audit scope, compliance level target (WCAG 2.1 AA), and success criteria.
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, auditor]
+        responsibility: Inventory interfaces and define scope
+      - role: reviewer
+        agents: [architect]
+        responsibility: Validate scope completeness
+
+    inputs:
+      - name: system_architecture
+        type: file
+        source: documentation
+        required: true
+      - name: user_journey_map
+        type: file
+        source: documentation
+        required: false
+
+    outputs:
+      - name: interface_inventory
+        type: file
+        destination: accessibility/interface-inventory.json
+        format: json
+      - name: audit_scope
+        type: file
+        destination: accessibility/audit-scope.md
+        format: markdown
+      - name: compliance_targets
+        type: file
+        destination: accessibility/compliance-targets.json
+        format: json
+
+    actions:
+      - description: Inventory all CLI commands and outputs
+        validation: CLI interfaces cataloged
+      - description: Inventory web interfaces (if any)
+        validation: Web UIs documented
+      - description: Inventory email templates and notifications
+        validation: Email templates listed
+      - description: Inventory documentation and help content
+        validation: Documentation included
+      - description: Identify API responses visible to users
+        validation: API interfaces noted
+      - description: Define WCAG compliance level (2.1 Level AA recommended)
+        validation: Compliance target set
+      - description: Establish success criteria for each interface type
+        validation: Success criteria defined
+      - description: Identify user personas including those with disabilities
+        validation: Diverse personas documented
+
+    success_criteria:
+      - Complete inventory of all user interfaces
+      - Scope clearly defined
+      - WCAG compliance level specified (2.1 AA)
+      - Success criteria established
+      - User personas with disabilities identified
+      - Audit plan approved
+
+    failure_handling:
+      - condition: Interface inventory incomplete
+        action: Conduct additional discovery
+        max_retries: 1
+
+    estimated_duration: 1 hour
+
+  - step_id: 2
+    name: Automated Accessibility Scanning
+    description: Run automated accessibility testing tools across all interfaces. Use axe-core, WAVE, Lighthouse, and other tools to detect WCAG violations.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Execute automated scans
+      - role: reviewer
+        agents: [citizen-advocate]
+        responsibility: Review scan results
+
+    inputs:
+      - name: interface_inventory
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: automated_scan_results
+        type: file
+        destination: accessibility/automated-scan-results.json
+        format: json
+      - name: violation_catalog
+        type: file
+        destination: accessibility/violations-catalog.json
+        format: json
+      - name: scan_report
+        type: file
+        destination: reports/accessibility-scan-report.md
+        format: markdown
+
+    actions:
+      - description: Run axe-core accessibility tests on web interfaces
+        command: axe --stdout web-interfaces/ > accessibility/axe-results.json
+        validation: Axe scan completed
+      - description: Run WAVE accessibility evaluation
+        validation: WAVE scan completed
+      - description: Run Lighthouse accessibility audit
+        command: lighthouse --only-categories=accessibility --output=json --output-path=accessibility/lighthouse-results.json
+        validation: Lighthouse audit completed
+      - description: Test CLI output with screen reader compatibility
+        validation: CLI accessibility assessed
+      - description: Scan email templates for accessibility
+        validation: Email templates scanned
+      - description: Check documentation for readability and structure
+        validation: Documentation scanned
+      - description: Aggregate all violations into catalog
+        validation: Violation catalog created
+      - description: Categorize violations by severity (critical/serious/moderate/minor)
+        validation: Severity levels assigned
+
+    success_criteria:
+      - Automated scans completed for all interfaces
+      - Violation catalog comprehensive
+      - Violations categorized by severity
+      - WCAG success criteria mapped to violations
+      - Scan coverage >95% of interfaces
+      - Results aggregated and normalized
+
+    failure_handling:
+      - condition: Scanning tool fails
+        action: Use alternative tool or manual testing
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 3
+    name: Manual Accessibility Testing with Assistive Technologies
+    description: Conduct manual testing using screen readers, keyboard navigation, voice control, and other assistive technologies. Test real-world accessibility scenarios.
+    depends_on: [1]
+    parallel_with: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, citizen-advocate]
+        responsibility: Execute manual testing
+      - role: testers
+        agents: [tester]
+        responsibility: Assist with diverse testing scenarios
+
+    inputs:
+      - name: interface_inventory
+        type: file
+        source: step-1
+        required: true
+      - name: user_personas
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: manual_test_results
+        type: file
+        destination: accessibility/manual-test-results.json
+        format: json
+      - name: user_journey_issues
+        type: file
+        destination: accessibility/journey-accessibility-issues.md
+        format: markdown
+      - name: assistive_tech_compatibility
+        type: file
+        destination: reports/assistive-tech-compatibility.json
+        format: json
+
+    actions:
+      - description: Test with screen readers (NVDA, JAWS, VoiceOver)
+        validation: Screen reader testing completed
+      - description: Test keyboard-only navigation (no mouse)
+        validation: Keyboard navigation verified
+      - description: Test with voice control (Dragon, Voice Control)
+        validation: Voice control tested
+      - description: Test color contrast and visual accessibility
+        validation: Visual accessibility assessed
+      - description: Test with browser zoom (200%, 400%)
+        validation: Zoom compatibility tested
+      - description: Test with reduced motion preferences
+        validation: Motion preferences respected
+      - description: Complete user journeys with assistive tech
+        validation: End-to-end journeys tested
+      - description: Document accessibility barriers encountered
+        validation: Barriers cataloged
+      - description: Test with diverse user personas
+        validation: Persona scenarios completed
+
+    success_criteria:
+      - Screen reader testing completed
+      - Keyboard navigation fully tested
+      - Visual accessibility verified
+      - User journeys completed with assistive tech
+      - Barriers documented with severity
+      - Compatibility matrix created
+      - Real-world usage scenarios validated
+
+    failure_handling:
+      - condition: Critical barriers prevent testing
+        action: Document blocker and prioritize fix
+        max_retries: 0
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 4
+    name: Compliance Gap Analysis and Remediation Planning
+    description: Compare audit results against WCAG 2.1 AA criteria. Identify compliance gaps, prioritize by severity and impact, create remediation plan.
+    depends_on: [2, 3]
+    agent_roles:
+      - role: primary-executor
+        agents: [citizen-advocate, architect]
+        responsibility: Analyze gaps and plan remediation
+      - role: reviewer
+        agents: [quality-guardian]
+        responsibility: Validate remediation approach
+
+    inputs:
+      - name: automated_scan_results
+        type: file
+        source: step-2
+        required: true
+      - name: manual_test_results
+        type: file
+        source: step-3
+        required: true
+      - name: compliance_targets
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: compliance_gap_analysis
+        type: file
+        destination: accessibility/compliance-gap-analysis.json
+        format: json
+      - name: wcag_conformance_report
+        type: file
+        destination: reports/wcag-conformance-report.md
+        format: markdown
+      - name: remediation_plan
+        type: file
+        destination: accessibility/remediation-plan.json
+        format: json
+      - name: priority_matrix
+        type: file
+        destination: accessibility/fix-priority-matrix.json
+        format: json
+
+    actions:
+      - description: Map violations to WCAG 2.1 success criteria
+        validation: WCAG mapping completed
+      - description: Calculate compliance percentage per criteria
+        validation: Compliance scores calculated
+      - description: Identify critical blockers (WCAG A and AA failures)
+        validation: Critical issues flagged
+      - description: Assess impact on users with disabilities
+        validation: User impact assessed
+      - description: Estimate effort to remediate each violation
+        validation: Effort estimates assigned
+      - description: Prioritize fixes (critical > serious > moderate > minor)
+        validation: Priority ranking created
+      - description: Create remediation plan with timeline
+        validation: Remediation plan documented
+      - description: Identify quick wins for immediate improvement
+        validation: Quick wins highlighted
+      - description: Document conformance level (partial/full compliance)
+        validation: Conformance status clear
+
+    success_criteria:
+      - All violations mapped to WCAG criteria
+      - Compliance gap percentage calculated
+      - Critical blockers identified
+      - Remediation plan with timeline
+      - Priority matrix created
+      - Quick wins identified (top 5)
+      - Effort estimates reasonable
+
+    failure_handling:
+      - condition: Too many violations to remediate
+        action: Phase remediation into multiple sprints
+        max_retries: 0
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 5
+    name: Accessibility Fix Implementation
+    description: Implement accessibility fixes following WCAG guidelines and best practices. Prioritize critical issues first, then address lower severity violations.
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, builder]
+        responsibility: Implement fixes
+      - role: reviewer
+        agents: [citizen-advocate, quality-guardian]
+        responsibility: Review fix quality
+
+    inputs:
+      - name: remediation_plan
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: accessibility_fixes
+        type: code
+        destination: repository
+        format: code-changes
+      - name: fix_implementation_log
+        type: file
+        destination: logs/accessibility-fixes.md
+        format: markdown
+      - name: updated_interfaces
+        type: artifacts
+        destination: varies
+        format: varies
+
+    actions:
+      - description: Add ARIA labels and landmarks to improve screen reader experience
+        validation: ARIA attributes added
+      - description: Ensure all interactive elements keyboard accessible
+        validation: Keyboard accessibility implemented
+      - description: Fix color contrast issues (4.5:1 ratio minimum)
+        validation: Contrast ratios meet WCAG AA
+      - description: Add alternative text for all images and icons
+        validation: Alt text provided
+      - description: Ensure proper heading hierarchy (h1-h6)
+        validation: Heading structure fixed
+      - description: Add skip navigation links
+        validation: Skip links implemented
+      - description: Ensure forms have proper labels and error messages
+        validation: Form accessibility improved
+      - description: Implement focus indicators and visible focus states
+        validation: Focus management enhanced
+      - description: Make all content perceivable, operable, understandable, robust
+        validation: POUR principles applied
+      - description: Test fixes with assistive technologies
+        validation: Fixes verified
+
+    success_criteria:
+      - All critical violations fixed
+      - Serious violations addressed (>80%)
+      - WCAG AA compliance achieved or path defined
+      - Fixes verified with assistive tech
+      - Code review passed
+      - Documentation updated
+      - No regressions introduced
+
+    failure_handling:
+      - condition: Fix introduces regression
+        action: Rollback and use alternative approach
+        max_retries: 2
+      - condition: Technical limitation prevents fix
+        action: Document limitation and workaround
+        max_retries: 0
+
+    estimated_duration: 2-3 hours
+
+  - step_id: 6
+    name: Regression Testing and Validation
+    description: Re-run accessibility tests to validate fixes. Ensure improvements achieved and no new violations introduced. Verify WCAG compliance level.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, tester]
+        responsibility: Validate fixes
+      - role: reviewer
+        agents: [citizen-advocate]
+        responsibility: Confirm accessibility improvement
+
+    inputs:
+      - name: accessibility_fixes
+        type: code
+        source: step-5
+        required: true
+      - name: automated_scan_results
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: regression_test_results
+        type: file
+        destination: accessibility/regression-test-results.json
+        format: json
+      - name: before_after_comparison
+        type: file
+        destination: reports/accessibility-improvement.md
+        format: markdown
+      - name: final_conformance_report
+        type: file
+        destination: accessibility/wcag-conformance-final.md
+        format: markdown
+
+    actions:
+      - description: Re-run automated accessibility scans
+        validation: Scans completed
+      - description: Re-test with assistive technologies
+        validation: Manual testing completed
+      - description: Compare before/after violation counts
+        validation: Improvement quantified
+      - description: Verify all critical violations resolved
+        validation: Critical issues cleared
+      - description: Check for new violations introduced
+        validation: No new regressions
+      - description: Calculate new compliance percentage
+        validation: Compliance score updated
+      - description: Validate WCAG conformance level achieved
+        validation: Conformance level confirmed
+      - description: Document remaining known issues
+        validation: Issue tracker updated
+
+    success_criteria:
+      - >90% reduction in critical violations
+      - WCAG 2.1 AA compliance achieved or >80% conformance
+      - No new violations introduced
+      - Assistive tech validation passed
+      - Improvement quantified and documented
+      - Final conformance report generated
+
+    failure_handling:
+      - condition: Compliance target not met
+        action: Return to step 5 for additional fixes
+        max_retries: 1
+      - condition: New violations introduced
+        action: Fix regressions immediately
+        max_retries: 2
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 7
+    name: Accessibility Statement and Documentation
+    description: Create public accessibility statement, document conformance level, provide contact for accessibility issues, and update all documentation with accessibility information.
+    depends_on: [6]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, citizen-advocate]
+        responsibility: Create accessibility documentation
+      - role: reviewer
+        agents: [governance-council]
+        responsibility: Approve public statements
+
+    inputs:
+      - name: final_conformance_report
+        type: file
+        source: step-6
+        required: true
+      - name: remediation_plan
+        type: file
+        source: step-4
+        required: true
+
+    outputs:
+      - name: accessibility_statement
+        type: file
+        destination: docs/accessibility-statement.md
+        format: markdown
+      - name: conformance_report_public
+        type: file
+        destination: docs/wcag-conformance-report.md
+        format: markdown
+      - name: accessibility_guidelines
+        type: file
+        destination: docs/accessibility-guidelines.md
+        format: markdown
+      - name: user_documentation_updates
+        type: files
+        destination: docs/
+        format: markdown
+
+    actions:
+      - description: Create public accessibility statement
+        validation: Statement comprehensive and honest
+      - description: Document WCAG conformance level achieved
+        validation: Conformance clearly stated
+      - description: List known accessibility issues and workarounds
+        validation: Known issues documented
+      - description: Provide accessibility support contact
+        validation: Support channel established
+      - description: Document accessibility features
+        validation: Features highlighted
+      - description: Create accessibility best practices guide for future development
+        validation: Guidelines documented
+      - description: Update user documentation with accessibility information
+        validation: Docs updated
+      - description: Publish accessibility statement to website/docs
+        validation: Statement publicly available
+
+    success_criteria:
+      - Public accessibility statement published
+      - WCAG conformance level clearly stated
+      - Known issues and workarounds documented
+      - Support contact provided
+      - Accessibility features documented
+      - Best practices guide created
+      - User documentation updated
+
+    failure_handling:
+      - condition: Documentation incomplete
+        action: Request missing information and complete
+        max_retries: 1
+
+    estimated_duration: 1-2 hours
+
+  - step_id: 8
+    name: Continuous Accessibility Monitoring
+    description: Establish ongoing accessibility monitoring, automated regression testing, and periodic manual audits to prevent accessibility debt.
+    depends_on: [7]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, maintenance-keeper]
+        responsibility: Configure monitoring
+      - role: reviewer
+        agents: [citizen-advocate]
+        responsibility: Validate monitoring effectiveness
+
+    inputs:
+      - name: accessibility_fixes
+        type: code
+        source: step-5
+        required: true
+
+    outputs:
+      - name: monitoring_configuration
+        type: file
+        destination: accessibility/monitoring-config.json
+        format: json
+      - name: ci_integration
+        type: file
+        destination: .github/workflows/accessibility-tests.yml
+        format: yaml
+      - name: audit_schedule
+        type: file
+        destination: accessibility/audit-schedule.json
+        format: json
+
+    actions:
+      - description: Integrate accessibility tests into CI/CD pipeline
+        validation: CI tests configured
+      - description: Set up automated accessibility regression tests
+        validation: Regression tests automated
+      - description: Configure alerts for new accessibility violations
+        validation: Alerting configured
+      - description: Schedule periodic manual accessibility audits (quarterly)
+        validation: Audit schedule established
+      - description: Create accessibility checklist for new features
+        validation: Checklist added to dev process
+      - description: Train agents on accessibility best practices
+        validation: Training materials created
+      - description: Establish accessibility review as part of code review
+        validation: Review process updated
+      - description: Track accessibility metrics over time
+        validation: Metrics dashboard created
+
+    success_criteria:
+      - Accessibility tests in CI/CD
+      - Automated regression testing active
+      - Alert system configured
+      - Quarterly audit scheduled
+      - Accessibility checklist integrated
+      - Training materials available
+      - Accessibility metrics tracked
+      - Prevention mechanisms in place
+
+    failure_handling:
+      - condition: CI integration fails
+        action: Use alternative automation approach
+        max_retries: 2
+
+    estimated_duration: 1 hour
+
+decision_points:
+  - after_step: 2
+    decision: Are violations within manageable scope?
+    criteria:
+      - Total violations <200
+      - Critical violations <20
+      - Remediation feasible within timeline
+    outcomes:
+      proceed: Continue to manual testing
+      abort: Scope too large, phase remediation
+      retry: Adjust scope or timeline
+
+  - after_step: 4
+    decision: Is WCAG AA compliance achievable?
+    criteria:
+      - Remediation plan realistic
+      - Resources available
+      - No insurmountable technical barriers
+    outcomes:
+      proceed: Begin fix implementation
+      abort: Adjust target to WCAG A if AA not feasible
+      retry: Revise remediation approach
+
+  - after_step: 6
+    decision: Has acceptable compliance been achieved?
+    criteria:
+      - WCAG 2.1 AA compliance >80%
+      - All critical violations resolved
+      - User validation successful
+    outcomes:
+      proceed: Create documentation and statement
+      abort: Document partial compliance honestly
+      retry: Additional fixes for full compliance
+
+rollback_procedure:
+  - step: Revert accessibility fixes if they cause regressions
+  - step: Restore previous interface versions
+  - step: Document rollback reason
+  - step: Create issue for proper fix
+  - verification: System functionality restored
+
+success_metrics:
+  - metric: WCAG 2.1 AA compliance
+    target: >95% conformance to WCAG 2.1 Level AA
+    measurement: Automated scan conformance percentage
+  - metric: Violation reduction
+    target: >90% reduction in critical violations
+    measurement: Before/after violation count comparison
+  - metric: Assistive tech compatibility
+    target: All interfaces usable with screen readers and keyboard
+    measurement: Manual testing validation
+  - metric: User satisfaction
+    target: >8/10 satisfaction from users with disabilities
+    measurement: User feedback and surveys
+  - metric: Accessibility debt prevention
+    target: Zero new violations in future releases
+    measurement: CI/CD test results over time
+
+deliverables:
+  - artifact: Interface Inventory
+    location: accessibility/interface-inventory.json
+    format: JSON
+    validation: Complete catalog of all user interfaces
+  - artifact: Violation Catalog
+    location: accessibility/violations-catalog.json
+    format: JSON
+    validation: All accessibility violations documented
+  - artifact: Compliance Gap Analysis
+    location: accessibility/compliance-gap-analysis.json
+    format: JSON
+    validation: WCAG conformance assessment
+  - artifact: Remediation Plan
+    location: accessibility/remediation-plan.json
+    format: JSON
+    validation: Prioritized fix plan with timeline
+  - artifact: Accessibility Fixes
+    location: Repository code changes
+    format: Code
+    validation: Fixes implemented and tested
+  - artifact: WCAG Conformance Report
+    location: accessibility/wcag-conformance-final.md
+    format: Markdown
+    validation: Final conformance level documented
+  - artifact: Public Accessibility Statement
+    location: docs/accessibility-statement.md
+    format: Markdown
+    validation: Public statement published
+  - artifact: Accessibility Monitoring Config
+    location: accessibility/monitoring-config.json
+    format: JSON
+    validation: Continuous monitoring operational
+
+post_completion:
+  - Update agent performance logs
+  - Store all artifacts in knowledge base
+  - Publish accessibility statement publicly
+  - Add accessibility to compliance dashboard
+  - Schedule quarterly accessibility audits
+  - Train all agents on accessibility best practices
+  - Update development guidelines
+  - Celebrate inclusive design achievement
+  - Monitor user feedback from diverse community
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version created from brainstorm session

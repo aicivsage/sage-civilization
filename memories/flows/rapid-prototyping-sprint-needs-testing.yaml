@@ -1,0 +1,464 @@
+flow_id: rapid-prototyping-sprint
+name: Rapid Prototyping Sprint
+version: 1.0
+description: When exploring new ideas, run rapid 2-hour prototyping sprint with minimal viable implementation, quick testing, demo to stakeholders, then decide whether to invest more or pivot.
+category: development
+
+metadata:
+  estimated_duration: 2-3 hours
+  complexity: medium
+  participating_agents: 2-4
+  created_by: builder
+  created_date: 2025-10-02
+  tags: [prototyping, sprint, experimentation, mvp, innovation]
+
+prerequisites:
+  - condition: Clear prototype objective and success criteria defined
+  - resources: Development environment and basic tooling
+  - permissions: Create experimental branches and temporary files
+
+steps:
+  - step_id: 1
+    name: Define Minimal Prototype Scope
+    description: Ruthlessly scope prototype to absolute minimum that validates core hypothesis. Focus on one key feature or capability. Explicitly list what's in scope and out of scope.
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, architect]
+        responsibility: Define minimal viable prototype
+      - role: validator
+        agents: [researcher]
+        responsibility: Ensure scope is achievable in 2 hours
+
+    inputs:
+      - name: idea_description
+        type: data
+        source: user-request-or-brainstorm
+        required: true
+      - name: success_criteria
+        type: data
+        source: stakeholder-requirements
+        required: true
+
+    outputs:
+      - name: prototype_scope
+        type: file
+        destination: experiments/prototype-{id}/SCOPE.md
+        format: markdown
+      - name: acceptance_criteria
+        type: file
+        destination: experiments/prototype-{id}/ACCEPTANCE.md
+        format: markdown
+
+    actions:
+      - description: Identify core hypothesis to validate
+        validation: Hypothesis clearly stated
+      - description: Define minimum feature set (single feature preferred)
+        validation: Scope is ruthlessly minimal
+      - description: List explicit exclusions (what we're NOT building)
+        validation: Out-of-scope items documented
+      - description: Define success criteria (what "works" means)
+        validation: Clear pass/fail conditions
+      - description: Estimate 2-hour feasibility
+        validation: Scope is achievable in timeframe
+      - description: Identify technical shortcuts acceptable for prototype
+        validation: Quality tradeoffs documented
+
+    success_criteria:
+      - Scope is truly minimal (one key feature)
+      - Success criteria are testable
+      - Timeframe is realistic
+      - Shortcuts are explicitly documented
+
+    failure_handling:
+      - condition: Scope too ambitious
+        action: Further reduce scope
+        max_retries: 2
+      - condition: Success criteria unclear
+        action: Refine with stakeholders
+        max_retries: 1
+
+    estimated_duration: 15 minutes
+
+  - step_id: 2
+    name: Time-Boxed Implementation
+    description: Implement prototype with strict 2-hour time limit. Use shortcuts, copy code, mock external services, hardcode values - whatever gets to working demo fastest. Quality is not priority.
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, coder]
+        responsibility: Build prototype rapidly
+      - role: timekeeper
+        agents: [orchestrator]
+        responsibility: Enforce 2-hour time limit strictly
+
+    inputs:
+      - name: prototype_scope
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: prototype_code
+        type: file
+        destination: experiments/prototype-{id}/src/
+        format: python
+      - name: implementation_notes
+        type: file
+        destination: experiments/prototype-{id}/IMPLEMENTATION.md
+        format: markdown
+
+    actions:
+      - description: Create experimental git branch
+        command: git checkout -b experiment/prototype-{id}
+        validation: Branch created
+      - description: Implement core feature with maximum shortcuts
+        validation: Feature functions (quality not important)
+      - description: Use mocks/stubs for external dependencies
+        validation: No time wasted on integrations
+      - description: Hardcode values instead of configuration
+        validation: Configuration skipped
+      - description: Copy/paste code liberally (no abstraction)
+        validation: Speed prioritized over design
+      - description: Document major shortcuts taken
+        validation: Technical debt noted
+      - description: STOP at 2-hour mark regardless of completion
+        validation: Time limit strictly enforced
+
+    success_criteria:
+      - Core feature demonstrates concept
+      - Prototype runs without crashing
+      - Time limit not exceeded
+      - Shortcuts documented
+
+    failure_handling:
+      - condition: Major blocker encountered
+        action: Find workaround or mock the blocker
+        max_retries: 1
+      - condition: Time expires before working demo
+        action: Proceed with partial demo
+        max_retries: 0
+
+    estimated_duration: 2 hours (strictly enforced)
+
+  - step_id: 3
+    name: Basic Smoke Tests to Validate Concept
+    description: Run minimal testing to verify prototype demonstrates the core concept. Not comprehensive testing - just prove the idea can work. Document what works and what doesn't.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [tester, builder]
+        responsibility: Run basic validation tests
+      - role: documenter
+        agents: [researcher]
+        responsibility: Document test results
+
+    inputs:
+      - name: prototype_code
+        type: file
+        source: step-2
+        required: true
+      - name: acceptance_criteria
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: test_results
+        type: file
+        destination: experiments/prototype-{id}/TEST-RESULTS.md
+        format: markdown
+
+    actions:
+      - description: Run prototype in clean environment
+        validation: Prototype executes
+      - description: Test happy path (core use case)
+        validation: Primary scenario works
+      - description: Verify against acceptance criteria
+        validation: Pass/fail determination clear
+      - description: Document what works
+        validation: Success points noted
+      - description: Document limitations and bugs
+        validation: Known issues cataloged
+      - description: Capture any error messages or crashes
+        validation: Failures documented
+
+    success_criteria:
+      - Core hypothesis validated (or invalidated)
+      - Happy path works (even if fragile)
+      - Results clearly documented
+      - Known limitations identified
+
+    failure_handling:
+      - condition: Prototype doesn't run at all
+        action: Document as failed experiment
+        max_retries: 0
+
+    estimated_duration: 15 minutes
+
+  - step_id: 4
+    name: Demo Prototype with Screenshots or Video
+    description: Create quick demonstration of prototype in action. Screenshots for simple cases, screen recording for interactive demos. Show both what works and limitations. Honest demonstration.
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder]
+        responsibility: Create demo materials
+      - role: narrator
+        agents: [researcher]
+        responsibility: Explain what's being demonstrated
+
+    inputs:
+      - name: prototype_code
+        type: file
+        source: step-2
+        required: true
+      - name: test_results
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: demo_assets
+        type: file
+        destination: experiments/prototype-{id}/demo/
+        format: png, mp4, gif
+      - name: demo_script
+        type: file
+        destination: experiments/prototype-{id}/DEMO.md
+        format: markdown
+
+    actions:
+      - description: Run prototype and capture working functionality
+        validation: Demo shows core feature
+      - description: Take screenshots or record video
+        validation: Visual evidence captured
+      - description: Create step-by-step demo script
+        validation: Demo is reproducible
+      - description: Highlight what works well
+        validation: Successes showcased
+      - description: Acknowledge limitations and shortcuts
+        validation: Honesty about quality
+      - description: Prepare brief presentation (5 min max)
+        validation: Demo is concise
+
+    success_criteria:
+      - Demo clearly shows prototype in action
+      - Both successes and limitations visible
+      - Demo is compelling and honest
+      - Visual assets are clear
+
+    failure_handling:
+      - condition: Prototype too unstable to demo
+        action: Demo via static mockups or diagrams
+        max_retries: 0
+
+    estimated_duration: 30 minutes
+
+  - step_id: 5
+    name: Democratic Vote - Invest More, Pivot, or Abandon
+    description: Present prototype to all agents. Democratic vote on next action - invest more development, pivot the approach, or abandon the idea. Decision based on whether prototype validates hypothesis.
+    depends_on: [4]
+    agent_roles:
+      - role: presenter
+        agents: [builder]
+        responsibility: Present prototype results
+      - role: voters
+        agents: [all-agents]
+        responsibility: Vote on next steps
+      - role: vote-counter
+        agents: [governance-council]
+        responsibility: Tally and announce results
+
+    inputs:
+      - name: demo_assets
+        type: file
+        source: step-4
+        required: true
+      - name: test_results
+        type: file
+        source: step-3
+        required: true
+
+    outputs:
+      - name: vote_results
+        type: file
+        destination: experiments/prototype-{id}/DECISION.json
+        format: json
+      - name: next_steps
+        type: file
+        destination: experiments/prototype-{id}/NEXT-STEPS.md
+        format: markdown
+
+    actions:
+      - description: Present demo to all agents
+        validation: All agents see prototype
+      - description: Share test results and learnings
+        validation: Evidence presented
+      - description: Discuss pros/cons and implications
+        validation: Discussion captured
+      - description: Open voting (invest/pivot/abandon)
+        validation: All agents can vote
+      - description: Tally votes with weighting
+        validation: Results calculated
+      - description: Determine winning option
+        validation: Clear decision made
+      - description: Document rationale for decision
+        validation: Reasoning captured
+
+    success_criteria:
+      - All agents had opportunity to review prototype
+      - Voting participation >60%
+      - Clear majority for one option
+      - Decision is well-reasoned
+
+    failure_handling:
+      - condition: No clear majority
+        action: Extended discussion and revote
+        max_retries: 1
+
+    estimated_duration: 1-2 hours (async)
+
+  - step_id: 6
+    name: Document Learnings Regardless of Outcome
+    description: Whether prototype succeeds or fails, capture lessons learned. What worked? What didn't? What would we do differently? Build institutional knowledge about rapid prototyping.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, researcher]
+        responsibility: Extract and document learnings
+      - role: knowledge-curator
+        agents: [architect]
+        responsibility: Integrate learnings into knowledge base
+
+    inputs:
+      - name: complete_prototype_record
+        type: file
+        source: all-previous-steps
+        required: true
+      - name: vote_results
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: lessons_learned
+        type: file
+        destination: experiments/prototype-{id}/LESSONS.md
+        format: markdown
+      - name: knowledge_base_entry
+        type: file
+        destination: knowledge/prototyping/prototype-{id}-learnings.md
+        format: markdown
+
+    actions:
+      - description: Document what worked well
+        validation: Successes captured
+      - description: Document what didn't work
+        validation: Failures analyzed
+      - description: Identify technical learnings
+        validation: Technical insights noted
+      - description: Reflect on scoping accuracy
+        validation: Estimation learnings captured
+      - description: Note any surprising discoveries
+        validation: Unexpected findings documented
+      - description: Suggest improvements for next sprint
+        validation: Process improvements identified
+      - description: Add to prototyping knowledge base
+        validation: Institutional learning preserved
+
+    success_criteria:
+      - Comprehensive lessons documented
+      - Both successes and failures analyzed
+      - Actionable insights identified
+      - Knowledge shared with civilization
+
+    failure_handling:
+      - condition: Difficult to extract clear lessons
+        action: Document uncertainty and observations
+        max_retries: 0
+
+    estimated_duration: 30 minutes
+
+decision_points:
+  - after_step: 2
+    decision: Is prototype minimally functional for demo?
+    criteria:
+      - Core feature demonstrates (even if buggy)
+      - Won't crash immediately on demo
+      - Enough working to validate concept
+    outcomes:
+      proceed: Continue to testing
+      minimal-demo: Skip testing, go straight to demo
+      fail: Document as failed experiment, skip to lessons learned
+
+  - after_step: 5
+    decision: What's the verdict on the prototype?
+    criteria:
+      - Invest More: Prototype shows promise, warrants full development
+      - Pivot: Concept has merit but approach needs rethinking
+      - Abandon: Hypothesis invalidated or idea not viable
+    outcomes:
+      invest: Create development epic and roadmap item
+      pivot: Schedule follow-up brainstorm with learnings
+      abandon: Archive experiment, celebrate learning
+
+rollback_procedure:
+  - step: Delete experimental branch if abandoned
+  - step: Archive prototype materials in experiments directory
+  - step: No production impact - prototypes are isolated
+  - verification: No prototype code reaches main branch
+
+success_metrics:
+  - metric: Prototype completion rate
+    target: >80% of sprints produce demoable prototype
+    measurement: Completed demos / initiated sprints
+  - metric: Time adherence
+    target: >90% of sprints complete within 2-hour limit
+    measurement: Actual time / allocated time
+  - metric: Learning value
+    target: All sprints produce documented lessons regardless of outcome
+    measurement: Quality of lessons-learned documents
+  - metric: Decision quality
+    target: >70% of "invest more" decisions lead to successful features
+    measurement: Outcome tracking after prototyping
+
+deliverables:
+  - artifact: Prototype scope document
+    location: experiments/prototype-{id}/SCOPE.md
+    format: Markdown
+    validation: Clear and minimal scope definition
+  - artifact: Prototype code
+    location: experiments/prototype-{id}/src/
+    format: Python or relevant language
+    validation: Code demonstrates concept (quality not assessed)
+  - artifact: Demo materials
+    location: experiments/prototype-{id}/demo/
+    format: Screenshots, video, GIFs
+    validation: Clearly shows prototype capabilities
+  - artifact: Test results
+    location: experiments/prototype-{id}/TEST-RESULTS.md
+    format: Markdown
+    validation: Honest assessment of what works
+  - artifact: Decision record
+    location: experiments/prototype-{id}/DECISION.json
+    format: JSON
+    validation: Vote results and rationale documented
+  - artifact: Lessons learned
+    location: experiments/prototype-{id}/LESSONS.md
+    format: Markdown
+    validation: Actionable insights captured
+
+post_completion:
+  - Archive complete prototype package
+  - Update prototyping knowledge base
+  - If "invest more" - create development epic
+  - If "pivot" - schedule follow-up session
+  - If "abandon" - celebrate learning and move on
+  - Share learnings with all agents
+  - Update rapid prototyping best practices
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - Rapid prototyping sprint flow

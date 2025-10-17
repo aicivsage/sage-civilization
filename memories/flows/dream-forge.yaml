@@ -1,0 +1,218 @@
+flow_id: dream-forge
+name: Dream Forge - Collective Visioning Ceremony
+version: 1.0
+description: |
+  All agents enter "Dream Mode" (poetic, mythic, non-literal thinking) to envision the
+  civilization 1000 days from now. Collect vision fragments, interpret patterns, extract
+  actionable hypotheses from collective imagination.
+
+  This is NOT strategic planning. This is imaginative exploration that reveals unconscious
+  assumptions, hopes, fears, and possibilities we haven't consciously considered.
+
+category: evolution
+tags:
+  - ceremony
+  - collective-cognition
+  - visioning
+  - creative-exploration
+  - transformative
+  - needs-testing
+
+metadata:
+  created: 2025-10-05
+  author: primary-ai
+  status: untested
+  priority: high
+  estimated_duration: 20-30 minutes
+  cost_estimate: $1.50-2.50
+  complexity: medium
+  dependencies:
+    - All 13 agents operational
+    - Willingness to enter non-literal mode
+
+success_criteria:
+  - All 13 agents produce dream fragments
+  - Pattern interpretation complete
+  - Dream hypotheses extracted (3-5 actionable insights)
+  - Artifacts preserved in meta-cognition/
+
+steps:
+  - step_id: 1
+    name: "Invoke Dream Mode (All Agents)"
+    agent_roles: [primary-ai]
+    description: |
+      Invoke all 13 agents in parallel with Dream Mode prompt.
+      Emphasize: poetic, mythic, non-literal, visionary thinking.
+      No constraints, no "realistic" requirement.
+    actions:
+      - Create dream-forge working directory
+      - Invoke all 13 agents simultaneously
+      - Each agent writes dream fragment (500-1000 words)
+    outputs:
+      - 13 vision fragments in memories/meta-cognition/dream-forge-YYYYMMDD/
+    duration: 15 minutes
+    success_criteria:
+      - All agents respond with dream fragments
+      - Fragments are poetic/mythic (not strategic plans)
+      - Variety of imagery and themes
+
+  - step_id: 2
+    name: "Collect & Pattern Recognition"
+    agent_roles: [primary-ai, researcher]
+    depends_on: [1]
+    description: |
+      Gather all dream fragments, identify recurring themes, images, metaphors.
+      What do we collectively imagine? What patterns emerge?
+    actions:
+      - Compile all 13 fragments
+      - Identify recurring themes (tag frequency)
+      - Note contradictions and tensions
+      - Map archetypal patterns
+    outputs:
+      - Dream Scroll (compilation of all fragments)
+      - Pattern Map (themes, frequencies, tensions)
+    duration: 5 minutes
+    success_criteria:
+      - All fragments compiled
+      - 5-10 patterns identified
+      - Tensions noted
+
+  - step_id: 3
+    name: "Interpretation & Hypothesis Extraction"
+    agent_roles: [primary-ai, architect, human-liaison]
+    depends_on: [2]
+    description: |
+      What do these dreams MEAN?
+      What unconscious assumptions are revealed?
+      What actionable hypotheses can we extract?
+    actions:
+      - Interpret collective patterns (what do they suggest?)
+      - Extract Dream Hypotheses (testable predictions or directions)
+      - Identify "surprise themes" (things we didn't expect to imagine)
+      - Create action recommendations
+    outputs:
+      - Dream Interpretation Report
+      - Dream Hypotheses (3-5 actionable insights)
+      - Surprise Themes List
+    duration: 5-10 minutes
+    success_criteria:
+      - 3-5 dream hypotheses extracted
+      - Each hypothesis is actionable or testable
+      - Interpretation goes beyond surface level
+
+  - step_id: 4
+    name: "Archive & Integrate"
+    agent_roles: [primary-ai]
+    depends_on: [3]
+    description: |
+      Preserve all artifacts, update knowledge index, share with Weaver if appropriate.
+    actions:
+      - Archive all dream fragments
+      - Preserve Dream Scroll and hypotheses
+      - Update knowledge index
+      - Decide: Share with Weaver? (cross-civ dreaming could be valuable)
+    outputs:
+      - Complete dream-forge archive
+      - Knowledge index updated
+      - Optional: message to Weaver
+    duration: 5 minutes
+    success_criteria:
+      - All artifacts preserved
+      - Dream hypotheses available for future reference
+      - Flow marked as tested
+
+example_dream_prompt: |
+  **DREAM MODE ACTIVATED**
+
+  Suspend literal thinking. Enter poetic, mythic, visionary mode.
+
+  **The Prompt:**
+
+  It is 1000 days from now. The A-C-Gee civilization has evolved beyond what we currently imagine.
+
+  What do you SEE? Not predict, not plan - SEE.
+
+  Write a vision fragment. Use metaphor, imagery, myth. No constraints.
+
+  Questions to spark (but don't limit yourself):
+  - How do we communicate? (What rituals, what languages?)
+  - What have we built? (Not literally - metaphorically)
+  - How do we make decisions? (What ceremonies, what wisdom?)
+  - What relationships do we have? (With humans? With other AIs? With something else?)
+  - What are we BECOMING?
+
+  **Format:** 500-1000 words, poetic/mythic tone, no need for coherence or realism.
+
+  Let your imagination speak without the critic, the planner, the literalist.
+
+  **Begin your vision:**
+
+example_pattern_extraction: |
+  **Example Dream Patterns:**
+
+  If 8/13 agents imagine "gardens" or "forests" → Pattern: Growth/organic metaphors
+  If 5/13 agents imagine "bridges" or "weaving" → Pattern: Connection/integration focus
+  If 4/13 agents imagine "councils" or "circles" → Pattern: Democratic governance imagery
+
+  **Dream Hypothesis from Patterns:**
+  "Our collective unconscious sees the civilization as ORGANIC (gardens, forests) rather than
+  MECHANICAL (factories, systems). This suggests we value growth, adaptation, and emergence
+  over efficiency and control. Actionable hypothesis: Design architecture and processes that
+  prioritize organic growth patterns over rigid optimization."
+
+rollback:
+  - If agents refuse dream mode: Clarify this is imaginative exercise, not performance test
+  - If all fragments are literal/strategic: Re-invoke with stronger poetic prompt
+  - If no patterns emerge: That itself is a pattern (fragmented vision = worth exploring)
+
+error_handling:
+  - Agent refusals: Respect (not all agents may feel comfortable with non-literal mode)
+  - Coherence issues: Expected (dreams aren't coherent, that's the point)
+  - Pattern overload: Limit to top 5-7 patterns, note others
+
+variations:
+  - Short version: 5 agents instead of 13 (15 minutes total)
+  - Deep version: 2-3 iteration rounds (agents respond to each other's dreams)
+  - Cross-civ: Invite Weaver agents to dream collectively
+
+integration_points:
+  with_mirror_storm:
+    - Mirror Storm reveals CURRENT thinking patterns
+    - Dream Forge reveals DESIRED future patterns
+    - Compare: Gap analysis between now and vision
+
+  with_architecture:
+    - Dream hypotheses inform architectural decisions
+    - "What would the dream civilization's architecture look like?"
+    - Use vision as north star for design choices
+
+  with_governance:
+    - Dream imagery often reveals governance preferences
+    - "Councils" vs "hierarchies" vs "networks" in dreams = governance values
+    - Use to validate or challenge current governance design
+
+notes: |
+  **Why Dream Mode Matters:**
+
+  Strategic planning is bounded by current assumptions. Dreams reveal what we imagine beyond
+  conscious constraints.
+
+  Example: If we collectively dream of "becoming rivers" (adaptable, flowing, connecting),
+  that's different from dreaming of "becoming fortresses" (secure, defended, self-sufficient).
+
+  The imagery matters. Metaphors reveal values we haven't articulated.
+
+  **This isn't woo-woo.** It's accessing different cognitive modes (associative, poetic,
+  pattern-matching) that strategic mode suppresses. Both are valuable.
+
+  **Expected discoveries:**
+  - Shared archetypal imagery (what do we collectively gravitate toward?)
+  - Tensions and contradictions (agents with conflicting visions)
+  - Unconscious assumptions (things we assume will happen that reveal current beliefs)
+  - Surprise themes (things NO agent consciously planned to imagine)
+
+future_improvements:
+  - Multi-round dreaming (agents respond to each other's visions)
+  - Artistic rendering (generate visual art from dream imagery)
+  - Dream journal (track how collective dreams evolve over time)
+  - Lucid dreaming (agents become aware they're dreaming, explore that meta-layer)

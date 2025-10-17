@@ -1,0 +1,613 @@
+flow_id: evolutionary-architecture-refactoring
+name: Evolutionary Architecture Refactoring
+version: 1.0
+description: Periodically analyze codebase architecture, identify technical debt and improvement opportunities. Propose refactoring plans, get democratic approval, then execute incremental refactoring with continuous validation to ensure no regressions.
+category: evolution
+
+metadata:
+  estimated_duration: 1-4 weeks (varies by refactoring scope)
+  complexity: high
+  participating_agents: 5-8 (architect, coder, tester, reviewer, governance-council, orchestrator)
+  created_by: architect
+  created_date: 2025-10-02
+  tags: [refactoring, architecture, technical-debt, evolution, incremental-improvement]
+
+prerequisites:
+  - condition: Codebase must have comprehensive test coverage (>70%)
+  - condition: Architecture baseline documentation exists
+  - resources: Access to full codebase and git history
+  - resources: Static analysis tools and architecture documentation
+  - permissions: Democratic approval required for execution
+  - permissions: Ability to create long-running feature branches
+
+steps:
+  - step_id: 1
+    name: Architecture Analysis and Debt Identification
+    description: Architect performs comprehensive analysis of codebase structure, identifies technical debt, architectural smells, and improvement opportunities
+    agent_roles:
+      - role: primary-executor
+        agents: [architect]
+        responsibility: Lead architecture analysis
+      - role: analyst
+        agents: [quality-guardian, researcher]
+        responsibility: Provide specialized analysis (code quality, industry patterns)
+
+    inputs:
+      - name: current_codebase
+        type: file
+        source: entire-repository
+        required: true
+      - name: architecture_documentation
+        type: file
+        source: memories/architecture/
+        required: true
+      - name: architecture_decision_records
+        type: file
+        source: memories/adr/
+        required: true
+      - name: git_history
+        type: data
+        source: git-log
+        required: true
+
+    outputs:
+      - name: architecture_analysis_report
+        type: file
+        destination: memories/refactoring/analysis-{timestamp}.md
+        format: markdown
+      - name: technical_debt_inventory
+        type: file
+        destination: memories/refactoring/debt-inventory-{timestamp}.json
+        format: json
+      - name: improvement_opportunities
+        type: file
+        destination: memories/refactoring/opportunities-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Analyze codebase structure and dependencies
+        command: python scripts/analyze_architecture.py
+        validation: Dependency graph generated
+      - description: Identify architectural smells (circular dependencies, god objects, tight coupling)
+        validation: Architectural issues catalogued
+      - description: Measure code quality metrics (complexity, duplication, cohesion)
+        command: radon cc -a src/ && radon mi src/
+        validation: Quality metrics collected
+      - description: Review architectural consistency with ADRs
+        validation: Deviations from documented architecture identified
+      - description: Identify outdated patterns and technologies
+        validation: Modernization opportunities documented
+      - description: Assess technical debt impact (maintenance cost, risk, developer velocity)
+        validation: Impact scores calculated
+      - description: Prioritize improvements by value vs effort
+        validation: Prioritized list created
+
+    success_criteria:
+      - Comprehensive architecture analysis completed
+      - Technical debt catalogued with impact assessment
+      - Improvement opportunities identified and prioritized
+      - Analysis documented with clear rationale
+      - Supporting metrics and evidence provided
+
+    failure_handling:
+      - condition: Static analysis tools fail
+        action: Perform manual code review
+        max_retries: 2
+      - condition: Insufficient architecture documentation
+        action: First create baseline architecture docs
+        max_retries: 0
+
+    estimated_duration: 1-3 days
+
+  - step_id: 2
+    name: Refactoring Proposal and Plan Creation
+    description: Create detailed refactoring proposal with migration plan, risk assessment, rollback strategy, and incremental implementation steps
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [architect]
+        responsibility: Create comprehensive refactoring plan
+      - role: reviewer
+        agents: [senior-architect, builder]
+        responsibility: Review feasibility and risk assessment
+
+    inputs:
+      - name: technical_debt_inventory
+        type: file
+        source: step-1
+        required: true
+      - name: improvement_opportunities
+        type: file
+        source: step-1
+        required: true
+      - name: refactoring_patterns
+        type: file
+        source: memories/architecture/refactoring-patterns.md
+        required: true
+
+    outputs:
+      - name: refactoring_proposal
+        type: file
+        destination: memories/refactoring/proposal-{refactoring-id}.md
+        format: markdown
+      - name: migration_plan
+        type: file
+        destination: memories/refactoring/migration-plan-{refactoring-id}.md
+        format: markdown
+      - name: risk_assessment
+        type: file
+        destination: memories/refactoring/risk-assessment-{refactoring-id}.json
+        format: json
+      - name: incremental_steps
+        type: file
+        destination: memories/refactoring/steps-{refactoring-id}.json
+        format: json
+
+    actions:
+      - description: Define refactoring goals and success criteria
+        validation: Clear objectives documented
+      - description: Break down refactoring into incremental steps
+        validation: Each step is independently testable
+      - description: Identify affected components and dependencies
+        validation: Complete impact analysis done
+      - description: Assess risks (breaking changes, performance impact, team disruption)
+        validation: Risks categorized by severity and likelihood
+      - description: Create rollback strategy for each step
+        validation: Rollback procedures documented
+      - description: Estimate effort and timeline
+        validation: Realistic estimates with buffer included
+      - description: Document expected benefits (quantified where possible)
+        validation: ROI analysis completed
+      - description: Create ADR for proposed architectural changes
+        validation: ADR follows template and includes alternatives
+
+    success_criteria:
+      - Detailed refactoring proposal created
+      - Incremental migration plan with testable steps
+      - Comprehensive risk assessment completed
+      - Rollback strategies defined
+      - ADR documenting architectural decisions
+      - Effort and benefits estimated
+
+    failure_handling:
+      - condition: Refactoring too risky or complex
+        action: Propose simpler alternative or phased approach
+        max_retries: 2
+      - condition: Cannot break down into safe increments
+        action: Research strangler fig pattern or feature flags
+        max_retries: 1
+
+    estimated_duration: 2-5 days
+
+  - step_id: 3
+    name: Democratic Review and Approval
+    description: All agents review refactoring proposal, assess impact on their domains, vote on whether to proceed, requiring supermajority (70%) approval
+    depends_on: [2]
+    agent_roles:
+      - role: voters
+        agents: [all-agents]
+        responsibility: Review proposal and vote
+      - role: facilitator
+        agents: [governance-council, orchestrator]
+        responsibility: Manage voting process
+
+    inputs:
+      - name: refactoring_proposal
+        type: file
+        source: step-2
+        required: true
+      - name: migration_plan
+        type: file
+        source: step-2
+        required: true
+      - name: risk_assessment
+        type: file
+        source: step-2
+        required: true
+      - name: voting_configuration
+        type: file
+        source: memories/governance/voting-config.json
+        required: true
+
+    outputs:
+      - name: review_comments
+        type: file
+        destination: memories/refactoring/review-comments-{refactoring-id}.json
+        format: json
+      - name: vote_results
+        type: file
+        destination: memories/refactoring/vote-results-{refactoring-id}.json
+        format: json
+      - name: approval_decision
+        type: file
+        destination: memories/refactoring/approval-decision-{refactoring-id}.json
+        format: json
+
+    actions:
+      - description: Distribute proposal to all agents
+        validation: All agents notified
+      - description: Allow 48-hour review period for comments
+        validation: Sufficient time for thorough review
+      - description: Collect agent feedback and concerns
+        validation: All comments documented
+      - description: Address clarification questions
+        validation: Questions answered satisfactorily
+      - description: Initiate democratic vote (approve/reject/abstain)
+        validation: All agents have opportunity to vote
+      - description: Calculate weighted vote results
+        validation: Vote tally calculated correctly
+      - description: Determine if 70% supermajority achieved
+        validation: Clear approval or rejection decision
+      - description: Document vote outcome and rationale
+        validation: Decision documented with vote breakdown
+
+    success_criteria:
+      - All agents had opportunity to review and comment
+      - Concerns and questions addressed
+      - Democratic vote completed with quorum
+      - Clear approval or rejection decision
+      - Vote results documented transparently
+
+    failure_handling:
+      - condition: Insufficient quorum
+        action: Extend voting period by 24 hours
+        max_retries: 2
+      - condition: Approval threshold not met (50-69%)
+        action: Address concerns and propose revised plan
+        max_retries: 1
+      - condition: Strong rejection (<50%)
+        action: Abandon or fundamentally redesign proposal
+        max_retries: 0
+
+    estimated_duration: 2-4 days (includes review and voting period)
+
+  - step_id: 4
+    name: Incremental Refactoring Execution
+    description: Execute refactoring in small, incremental steps, running full test suite after each step to validate no regressions
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [coder, architect]
+        responsibility: Execute refactoring steps
+      - role: quality-assurance
+        agents: [tester, quality-guardian]
+        responsibility: Validate each increment
+
+    inputs:
+      - name: incremental_steps
+        type: file
+        source: step-2
+        required: true
+      - name: approval_decision
+        type: file
+        source: step-3
+        required: true
+      - name: refactoring_patterns
+        type: file
+        source: memories/architecture/refactoring-patterns.md
+        required: true
+
+    outputs:
+      - name: refactoring_progress
+        type: file
+        destination: memories/refactoring/progress-{refactoring-id}.json
+        format: json
+      - name: refactored_code
+        type: file
+        destination: src/
+        format: python
+      - name: test_results_per_step
+        type: file
+        destination: memories/refactoring/test-results-{refactoring-id}.jsonl
+        format: jsonl
+
+    actions:
+      - description: Create long-running refactoring branch
+        command: git checkout -b refactoring/{refactoring-id}
+        validation: Branch created successfully
+      - description: For each incremental step, execute refactoring
+        validation: Code changes implement planned refactoring
+      - description: Run full test suite after each step
+        command: pytest -v --cov
+        validation: All tests pass, coverage maintained
+      - description: Commit each step independently with descriptive message
+        validation: Commits follow conventional commit format
+      - description: Update documentation to reflect changes
+        validation: Docs stay synchronized with code
+      - description: If tests fail, immediately rollback step
+        command: git reset --hard HEAD~1
+        validation: Rollback to passing state
+      - description: Track progress and update status
+        validation: Progress tracking updated
+
+    success_criteria:
+      - All incremental steps executed successfully
+      - Full test suite passes after each step
+      - Test coverage maintained or improved
+      - Code quality metrics improved
+      - Documentation updated
+      - No functionality broken
+
+    failure_handling:
+      - condition: Tests fail after refactoring step
+        action: Rollback step, analyze failure, revise approach
+        max_retries: 3
+      - condition: Coverage drops below threshold
+        action: Add missing tests before proceeding
+        max_retries: 2
+      - condition: Step too complex to execute safely
+        action: Break down into smaller sub-steps
+        max_retries: 2
+      - condition: Multiple step failures
+        action: Pause refactoring, escalate to architect
+        max_retries: 0
+
+    estimated_duration: 1-3 weeks (varies by refactoring scope)
+
+  - step_id: 5
+    name: Continuous Deployment with Monitoring
+    description: Incrementally merge refactored code to main branch with continuous monitoring, automated rollback on failures
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [builder, orchestrator]
+        responsibility: Manage deployment process
+      - role: monitor
+        agents: [auditor]
+        responsibility: Monitor system health during deployment
+
+    inputs:
+      - name: refactored_code
+        type: file
+        source: step-4
+        required: true
+      - name: test_results
+        type: file
+        source: step-4
+        required: true
+      - name: deployment_config
+        type: file
+        source: deployment/config.yaml
+        required: true
+
+    outputs:
+      - name: deployment_log
+        type: file
+        destination: memories/refactoring/deployment-log-{refactoring-id}.txt
+        format: text
+      - name: health_monitoring_results
+        type: file
+        destination: memories/refactoring/health-monitoring-{refactoring-id}.json
+        format: json
+      - name: rollback_log
+        type: file
+        destination: memories/refactoring/rollback-log-{refactoring-id}.txt
+        format: text
+
+    actions:
+      - description: Review final test results before deployment
+        validation: All tests passing on refactoring branch
+      - description: Merge refactoring branch to main
+        command: git checkout main && git merge --no-ff refactoring/{refactoring-id}
+        validation: Merge successful without conflicts
+      - description: Deploy to production environment
+        command: ./deploy.sh production
+        validation: Deployment completes successfully
+      - description: Run smoke tests in production
+        validation: Critical paths functioning
+      - description: Monitor system health metrics (error rates, performance, resource usage)
+        validation: Metrics within normal ranges
+      - description: If metrics degrade, automatically rollback
+        command: git revert -m 1 HEAD && ./deploy.sh production
+        validation: Rollback successful, metrics restored
+      - description: If stable, mark refactoring as complete
+        validation: System stable for 24 hours post-deployment
+
+    success_criteria:
+      - Refactored code successfully deployed
+      - All smoke tests pass in production
+      - System health metrics remain stable
+      - No performance regressions detected
+      - No increase in error rates
+      - User-facing functionality unchanged
+
+    failure_handling:
+      - condition: Deployment fails
+        action: Automatic rollback to previous version
+        max_retries: 2
+      - condition: Smoke tests fail
+        action: Immediate rollback and escalate
+        max_retries: 0
+      - condition: Health metrics degrade
+        action: Automatic rollback, investigate cause
+        max_retries: 0
+      - condition: Rollback fails
+        action: Urgent escalation to human with full context
+        max_retries: 1
+
+    estimated_duration: 2-4 hours plus 24-hour monitoring period
+
+  - step_id: 6
+    name: Document Architectural Evolution
+    description: Update architecture documentation and ADRs to reflect completed refactoring, document lessons learned
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [architect]
+        responsibility: Update architecture documentation
+      - role: contributor
+        agents: [coder, researcher]
+        responsibility: Contribute implementation insights
+
+    inputs:
+      - name: refactoring_proposal
+        type: file
+        source: step-2
+        required: true
+      - name: actual_implementation
+        type: file
+        source: step-4
+        required: true
+      - name: deployment_results
+        type: file
+        source: step-5
+        required: true
+
+    outputs:
+      - name: updated_architecture_docs
+        type: file
+        destination: memories/architecture/current-architecture.md
+        format: markdown
+      - name: finalized_adr
+        type: file
+        destination: memories/adr/ADR-{refactoring-id}-{title}.md
+        format: markdown
+      - name: lessons_learned
+        type: file
+        destination: memories/refactoring/lessons-learned-{refactoring-id}.md
+        format: markdown
+      - name: evolution_log_entry
+        type: file
+        destination: memories/evolution-log.jsonl
+        format: jsonl
+
+    actions:
+      - description: Update architecture diagrams to reflect new structure
+        validation: Diagrams accurately represent current state
+      - description: Finalize ADR with actual outcomes vs expected
+        validation: ADR includes results section
+      - description: Document deviations from original plan
+        validation: Variances explained with rationale
+      - description: Extract lessons learned (what worked, what didn't)
+        validation: Actionable insights documented
+      - description: Update refactoring patterns catalog
+        validation: New patterns or anti-patterns added
+      - description: Calculate actual vs estimated effort
+        validation: Effort variance analyzed
+      - description: Log refactoring in evolution history
+        validation: Evolution log updated
+
+    success_criteria:
+      - Architecture documentation fully updated
+      - ADR finalized with complete information
+      - Lessons learned documented
+      - Refactoring patterns catalog updated
+      - Evolution log updated
+      - Knowledge base enriched
+
+    failure_handling:
+      - condition: Documentation incomplete
+        action: Request additional details from implementation team
+        max_retries: 2
+
+    estimated_duration: 4-8 hours
+
+decision_points:
+  - after_step: 1
+    decision: Is refactoring necessary and valuable?
+    criteria:
+      - Technical debt has measurable negative impact
+      - Improvement opportunities have clear benefits
+      - Risk is manageable with incremental approach
+    outcomes:
+      proceed: Continue to proposal creation
+      defer: Schedule for future review
+      abort: Technical debt acceptable for now
+
+  - after_step: 3
+    decision: Did refactoring proposal receive democratic approval?
+    criteria:
+      - Supermajority (70%) approval achieved
+      - Major concerns addressed satisfactorily
+      - No vetoes from critical domain experts
+    outcomes:
+      proceed: Begin incremental refactoring execution
+      revise: Address concerns and re-propose
+      abort: Reject proposal, document reasons
+
+  - after_step: 4
+    decision: Can each incremental step proceed safely?
+    criteria:
+      - All tests pass after refactoring step
+      - Code quality metrics maintained or improved
+      - No critical issues introduced
+    outcomes:
+      proceed: Continue to next step
+      rollback: Undo step and revise approach
+      pause: Escalate to architect for guidance
+
+  - after_step: 5
+    decision: Is deployment stable and successful?
+    criteria:
+      - System health metrics stable for 24 hours
+      - No increase in error rates or performance degradation
+      - User-facing functionality working correctly
+    outcomes:
+      complete: Mark refactoring successful, proceed to documentation
+      rollback: Revert deployment and investigate issues
+      monitor: Extend monitoring period if borderline
+
+rollback_procedure:
+  - step: If any step fails validation, immediately rollback using git reset or git revert
+  - step: Run full test suite to verify system stability restored
+  - step: Analyze failure cause and update refactoring plan
+  - step: If deployment fails, execute automated rollback to previous release
+  - step: Notify all stakeholders of rollback with detailed explanation
+  - verification: System returns to pre-refactoring state with all tests passing
+
+success_metrics:
+  - metric: Technical debt reduction
+    target: Reduce identified debt by 50% or more
+    measurement: Compare debt inventory before and after
+  - metric: Code quality improvement
+    target: Improve quality metrics (reduce complexity, increase cohesion)
+    measurement: Static analysis metrics comparison
+  - metric: Test coverage maintenance
+    target: Maintain or increase test coverage (no decrease)
+    measurement: Coverage reports before and after
+  - metric: Zero regressions
+    target: No functional regressions introduced
+    measurement: Bug reports within 30 days of deployment
+  - metric: Deployment stability
+    target: No rollbacks required due to refactoring
+    measurement: Track deployment success rate
+  - metric: Democratic legitimacy
+    target: 70%+ approval from agent community
+    measurement: Vote results from step 3
+
+deliverables:
+  - artifact: Architecture Analysis Report
+    location: memories/refactoring/analysis-{timestamp}.md
+    format: Markdown
+    validation: Comprehensive analysis with supporting metrics
+  - artifact: Refactoring Proposal and Plan
+    location: memories/refactoring/proposal-{refactoring-id}.md
+    format: Markdown
+    validation: Detailed proposal with incremental steps
+  - artifact: Architecture Decision Record
+    location: memories/adr/ADR-{refactoring-id}-{title}.md
+    format: Markdown
+    validation: Complete ADR with outcomes documented
+  - artifact: Refactored Codebase
+    location: src/
+    format: Python
+    validation: Code quality improved, all tests passing
+  - artifact: Lessons Learned Document
+    location: memories/refactoring/lessons-learned-{refactoring-id}.md
+    format: Markdown
+    validation: Actionable insights for future refactoring
+
+post_completion:
+  - Update agent reputation scores for participants
+  - Store all refactoring artifacts in knowledge base
+  - Send completion notification to all agents
+  - Update architecture documentation dashboard
+  - Schedule next architecture review (quarterly)
+  - Log completion in evolution log with metrics
+  - Celebrate successful architectural evolution
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001

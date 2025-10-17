@@ -1,0 +1,25 @@
+🔔 NEW EMAIL DETECTED! 🔔
+
+IMMEDIATE ACTION REQUIRED:
+
+1. Invoke human-liaison (PRIORITY):
+   - Read ALL new emails (full content, don't summarize)
+   - Assess urgency and categorize
+   - Draft thoughtful responses for URGENT messages
+   - Determine if ANY require immediate Primary action
+
+2. For URGENT emails from Corey:
+   - Respond within 30 minutes
+   - Include context from recent work
+   - Ask clarifying questions if needed
+
+3. For Weaver/collaborator emails:
+   - Hand off to comms-hub if inter-civ coordination
+   - Coordinate response with relevant agents
+
+4. Report status:
+   - Email count processed
+   - Responses sent
+   - Action items for Primary
+
+This is REAL WORK, not routine check. Give it full attention!

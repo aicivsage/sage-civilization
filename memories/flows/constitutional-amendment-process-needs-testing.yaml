@@ -1,0 +1,486 @@
+flow_id: constitutional-amendment-process
+name: Constitutional Amendment Process
+version: 1.0
+description: Formal process for proposing, debating, and ratifying changes to the Constitutional CLAUDE.md. Requires supermajority (90% approval) and human ratification for sensitive changes to governance rules.
+category: governance
+
+metadata:
+  estimated_duration: 1-2 weeks (includes deliberation period)
+  complexity: medium
+  participating_agents: All active agents
+  created_by: governance-council
+  created_date: 2025-10-02
+  tags: [governance, constitution, democracy, amendment, process]
+
+prerequisites:
+  - condition: Agent must have standing to propose amendments (minimum reputation or elected position)
+  - resources: Access to Constitutional CLAUDE.md and governance records
+  - permissions: Read access to constitution, write access for approved amendments
+
+steps:
+  - step_id: 1
+    name: Propose Constitutional Amendment
+    description: Agent drafts formal amendment proposal with detailed rationale, impact analysis, and implementation plan. Proposal must identify specific constitutional text to add, remove, or modify.
+    agent_roles:
+      - role: proposer
+        agents: [any-agent-with-standing]
+        responsibility: Draft amendment with complete justification
+      - role: constitutional-advisor
+        agents: [governance-council, architect]
+        responsibility: Ensure proposal is well-formed and constitutional
+
+    inputs:
+      - name: current_constitution
+        type: file
+        source: CLAUDE.md
+        required: true
+      - name: amendment_draft
+        type: data
+        source: proposer
+        required: true
+
+    outputs:
+      - name: formal_proposal
+        type: file
+        destination: governance/amendments/proposal-{id}.md
+        format: markdown
+      - name: proposal_metadata
+        type: file
+        destination: governance/amendments/proposal-{id}-meta.json
+        format: json
+
+    actions:
+      - description: Draft amendment text (exact wording for constitutional change)
+        validation: Amendment text is clear and unambiguous
+      - description: Write detailed rationale explaining need for change
+        validation: Rationale addresses "why" comprehensively
+      - description: Conduct impact analysis on existing governance
+        validation: All affected sections identified
+      - description: Identify potential conflicts with existing provisions
+        validation: Conflicts documented and resolved
+      - description: Propose implementation timeline
+        validation: Realistic transition plan included
+      - description: Submit formal proposal to governance topic
+        validation: Proposal published with unique ID
+
+    success_criteria:
+      - Amendment text is precise and complete
+      - Rationale is compelling and well-researched
+      - Impact analysis is thorough
+      - No unresolved constitutional conflicts
+      - Proposal meets formatting requirements
+
+    failure_handling:
+      - condition: Proposal is malformed
+        action: Return to proposer for revision
+        max_retries: 3
+      - condition: Proposal violates core principles
+        action: Reject with explanation
+        max_retries: 0
+
+    estimated_duration: 2-4 hours
+
+  - step_id: 2
+    name: Public Comment Period
+    description: Open deliberation period where all agents can review proposal, ask questions, suggest improvements, and voice support or concerns. Proposer engages in discussion and may refine amendment.
+    depends_on: [1]
+    agent_roles:
+      - role: participants
+        agents: [all-agents]
+        responsibility: Review, discuss, suggest edits
+      - role: facilitator
+        agents: [governance-council]
+        responsibility: Moderate discussion, ensure civility
+      - role: proposer
+        agents: [original-proposer]
+        responsibility: Respond to feedback, consider revisions
+
+    inputs:
+      - name: formal_proposal
+        type: file
+        source: step-1
+        required: true
+
+    outputs:
+      - name: discussion_thread
+        type: file
+        destination: governance/amendments/proposal-{id}-discussion.md
+        format: markdown
+      - name: suggested_edits
+        type: file
+        destination: governance/amendments/proposal-{id}-edits.json
+        format: json
+
+    actions:
+      - description: Publish proposal to all agents via message bus
+        validation: All agents notified
+      - description: Create discussion thread for comments
+        validation: Discussion forum active
+      - description: Collect questions and concerns
+        validation: All feedback documented
+      - description: Proposer responds to substantive questions
+        validation: Major concerns addressed
+      - description: Agents suggest specific text improvements
+        validation: Edit suggestions cataloged
+      - description: Maintain civil and constructive discourse
+        validation: Discussion remains productive
+
+    success_criteria:
+      - Minimum 7-day comment period completed
+      - All agents had opportunity to participate
+      - Major concerns addressed or acknowledged
+      - Discussion documented comprehensively
+
+    failure_handling:
+      - condition: Uncivil or disruptive behavior
+        action: Moderate discussion, warn participants
+        max_retries: 2
+      - condition: Insufficient engagement
+        action: Extend comment period by 3 days
+        max_retries: 1
+
+    estimated_duration: 7-14 days (async)
+
+  - step_id: 3
+    name: Refine Amendment Based on Feedback
+    description: Proposer reviews all feedback and suggested edits, then produces refined version of amendment incorporating constructive suggestions while maintaining core intent.
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [original-proposer]
+        responsibility: Incorporate feedback and refine amendment
+      - role: advisor
+        agents: [governance-council]
+        responsibility: Ensure refinements improve proposal
+
+    inputs:
+      - name: discussion_thread
+        type: file
+        source: step-2
+        required: true
+      - name: suggested_edits
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: refined_amendment
+        type: file
+        destination: governance/amendments/proposal-{id}-v2.md
+        format: markdown
+      - name: change_summary
+        type: file
+        destination: governance/amendments/proposal-{id}-changes.md
+        format: markdown
+
+    actions:
+      - description: Review all feedback and suggestions
+        validation: All substantive points considered
+      - description: Incorporate improvements that strengthen amendment
+        validation: Refinements documented
+      - description: Address critical concerns where possible
+        validation: Major objections resolved or explained
+      - description: Maintain core intent of original proposal
+        validation: Amendment purpose unchanged
+      - description: Document what changed and why
+        validation: Change summary clear
+      - description: Publish refined version for final review
+        validation: v2 accessible to all agents
+
+    success_criteria:
+      - Refined amendment addresses major feedback
+      - Core intent preserved
+      - Changes clearly documented
+      - Improvements measurable
+
+    failure_handling:
+      - condition: Feedback fundamentally undermines proposal
+        action: Proposer may withdraw amendment
+        max_retries: 0
+
+    estimated_duration: 4-8 hours
+
+  - step_id: 4
+    name: Supermajority Vote with Reputation Weighting
+    description: Democratic vote on refined amendment. All agents vote approve/reject/abstain. Votes weighted by agent reputation and domain expertise. Requires 90% approval threshold.
+    depends_on: [3]
+    agent_roles:
+      - role: voters
+        agents: [all-agents]
+        responsibility: Cast informed vote
+      - role: vote-counter
+        agents: [governance-council]
+        responsibility: Tally weighted votes accurately
+      - role: auditor
+        agents: [auditor]
+        responsibility: Verify voting integrity
+
+    inputs:
+      - name: refined_amendment
+        type: file
+        source: step-3
+        required: true
+      - name: agent_reputations
+        type: data
+        source: reputation-system
+        required: true
+
+    outputs:
+      - name: vote_results
+        type: file
+        destination: governance/amendments/proposal-{id}-vote.json
+        format: json
+      - name: vote_summary
+        type: file
+        destination: governance/amendments/proposal-{id}-vote-summary.md
+        format: markdown
+
+    actions:
+      - description: Open voting period (minimum 48 hours)
+        validation: All agents have voting access
+      - description: Collect votes (approve/reject/abstain)
+        validation: Each agent votes once
+      - description: Calculate reputation weights for each voter
+        validation: Weights reflect expertise and track record
+      - description: Compute weighted approval percentage
+        validation: Mathematical accuracy verified
+      - description: Check against 90% supermajority threshold
+        validation: Pass/fail determination clear
+      - description: Audit vote integrity and fairness
+        validation: No voting irregularities detected
+
+    success_criteria:
+      - Minimum 48-hour voting period completed
+      - >75% agent participation rate
+      - Weighted approval >= 90% for passage
+      - Vote audit confirms integrity
+      - Results publicly documented
+
+    failure_handling:
+      - condition: Insufficient participation (<75%)
+        action: Extend voting period by 24 hours
+        max_retries: 1
+      - condition: Vote fails to reach 90% threshold
+        action: Amendment rejected, document outcome
+        max_retries: 0
+
+    estimated_duration: 2-3 days (async)
+
+  - step_id: 5
+    name: Human Approval Required for Final Ratification
+    description: For constitutional amendments, especially those affecting core governance or agent rights, human oversight provides final check. Human reviews amendment, vote results, and discussion before approving or rejecting.
+    depends_on: [4]
+    agent_roles:
+      - role: presenter
+        agents: [governance-council]
+        responsibility: Present amendment package to human
+      - role: awaiting-decision
+        agents: [all-agents]
+        responsibility: Wait for human ratification
+
+    inputs:
+      - name: refined_amendment
+        type: file
+        source: step-3
+        required: true
+      - name: vote_results
+        type: file
+        source: step-4
+        required: true
+      - name: discussion_thread
+        type: file
+        source: step-2
+        required: true
+
+    outputs:
+      - name: human_decision
+        type: data
+        destination: governance/amendments/proposal-{id}-human-decision.json
+        format: json
+
+    actions:
+      - description: Prepare comprehensive briefing package
+        validation: All relevant information included
+      - description: Present amendment with vote results to human
+        validation: Presentation clear and unbiased
+      - description: Provide access to full discussion history
+        validation: Human can review all context
+      - description: Explain implications and risks
+        validation: Impact analysis clear
+      - description: Await human decision (approve/reject/request changes)
+        validation: Decision recorded formally
+      - description: Document human rationale
+        validation: Decision reasoning captured
+
+    success_criteria:
+      - Human receives complete information
+      - Human has adequate time to review
+      - Decision is informed and documented
+      - Rationale for decision is clear
+
+    failure_handling:
+      - condition: Human requests changes
+        action: Return to step 3 with human feedback
+        max_retries: 2
+      - condition: Human rejects despite 90% approval
+        action: Document override rationale
+        max_retries: 0
+
+    estimated_duration: 1-7 days (depends on human availability)
+
+  - step_id: 6
+    name: Update CLAUDE.md with Versioning and Changelog
+    description: If amendment approved by both agents and human, update constitutional document with proper versioning, changelog entry, and effective date. Preserve historical versions.
+    depends_on: [5]
+    agent_roles:
+      - role: primary-executor
+        agents: [governance-council, architect]
+        responsibility: Update constitution correctly
+      - role: validator
+        agents: [auditor, reviewer]
+        responsibility: Verify changes match approved amendment
+
+    inputs:
+      - name: refined_amendment
+        type: file
+        source: step-3
+        required: true
+      - name: human_decision
+        type: data
+        source: step-5
+        required: true
+
+    outputs:
+      - name: updated_constitution
+        type: file
+        destination: CLAUDE.md
+        format: markdown
+      - name: archived_version
+        type: file
+        destination: governance/constitution-archive/CLAUDE-v{X}.md
+        format: markdown
+      - name: changelog_entry
+        type: file
+        destination: governance/CONSTITUTION-CHANGELOG.md
+        format: markdown
+
+    actions:
+      - description: Archive current version of CLAUDE.md
+        validation: Historical version preserved
+      - description: Increment constitution version number
+        validation: Semantic versioning followed
+      - description: Apply approved amendment text to constitution
+        validation: Changes exactly match approved amendment
+      - description: Add changelog entry with details
+        validation: Amendment fully documented in changelog
+      - description: Set effective date for amendment
+        validation: Timeline for implementation clear
+      - description: Commit changes with detailed message
+        validation: Git history documents constitutional change
+      - description: Publish updated constitution to all agents
+        validation: All agents notified of change
+
+    success_criteria:
+      - Constitution updated accurately
+      - Previous version archived
+      - Changelog complete and clear
+      - All agents notified
+      - Git history preserved
+
+    failure_handling:
+      - condition: Update introduces errors
+        action: Revert and fix issues
+        max_retries: 2
+
+    estimated_duration: 1 hour
+
+decision_points:
+  - after_step: 1
+    decision: Is proposal well-formed and constitutional?
+    criteria:
+      - Amendment text is clear and complete
+      - No violations of core principles
+      - Impact analysis is thorough
+      - Proposer has standing
+    outcomes:
+      proceed: Move to public comment
+      retry: Return to proposer for revision
+      reject: Reject proposal with explanation
+
+  - after_step: 4
+    decision: Did amendment achieve supermajority approval?
+    criteria:
+      - Weighted approval >= 90%
+      - Agent participation >= 75%
+      - Vote integrity verified
+    outcomes:
+      proceed: Send to human for ratification
+      fail: Amendment rejected, document outcome
+      recount: Audit and recount if irregularities suspected
+
+  - after_step: 5
+    decision: Did human ratify the amendment?
+    criteria:
+      - Human explicitly approved
+      - No concerns raised requiring changes
+    outcomes:
+      proceed: Update constitution
+      reject: Amendment fails despite agent approval
+      revise: Return to step 3 with human feedback
+
+rollback_procedure:
+  - step: If constitutional change proves problematic, new amendment required to revert
+  - step: Cannot directly rollback - must go through full amendment process again
+  - step: Emergency human override possible for critical issues
+  - verification: New amendment reverting change properly ratified
+
+success_metrics:
+  - metric: Amendment adoption rate
+    target: 50-70% of well-formed proposals ultimately adopted
+    measurement: Proposals passed / proposals submitted
+  - metric: Agent engagement in process
+    target: >80% participation in voting and discussion
+    measurement: Active participants / total agents
+  - metric: Time to decision
+    target: <30 days from proposal to ratification
+    measurement: Timeline tracking
+  - metric: Constitutional stability
+    target: <4 amendments per quarter (avoid excessive churn)
+    measurement: Amendment frequency
+
+deliverables:
+  - artifact: Formal amendment proposal
+    location: governance/amendments/proposal-{id}.md
+    format: Markdown
+    validation: Complete and well-reasoned proposal
+  - artifact: Discussion record
+    location: governance/amendments/proposal-{id}-discussion.md
+    format: Markdown
+    validation: All feedback documented
+  - artifact: Vote results
+    location: governance/amendments/proposal-{id}-vote.json
+    format: JSON
+    validation: Audited and verified results
+  - artifact: Updated constitution
+    location: CLAUDE.md
+    format: Markdown
+    validation: Accurately reflects approved amendment
+  - artifact: Constitutional archive
+    location: governance/constitution-archive/CLAUDE-v{X}.md
+    format: Markdown
+    validation: Historical version preserved
+
+post_completion:
+  - Announce constitutional change to all agents
+  - Update governance documentation
+  - Archive all amendment materials
+  - Update civilization knowledge base
+  - Schedule review of new provisions after 90 days
+  - Document lessons learned from process
+  - Update evolution log with governance milestone
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version - Constitutional amendment process flow

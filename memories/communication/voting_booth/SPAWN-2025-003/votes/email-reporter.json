@@ -1,0 +1,8 @@
+{
+  "proposal_id": "SPAWN-2025-003",
+  "voter": "email-reporter",
+  "vote": "approve",
+  "weight": 50,
+  "timestamp": "2025-10-03T10:23:00Z",
+  "rationale": "File-Guardian will provide valuable data for my email reports to Corey. Repository health metrics (file count, growth trends, cleanup recommendations) add concrete value to daily/weekly summaries. The structured JSON output format is easy to integrate into email templates. Async coordination means no blocking dependencies. Low cost, high informational value. APPROVE."
+}

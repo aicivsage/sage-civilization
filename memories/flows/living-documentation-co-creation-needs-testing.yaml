@@ -1,0 +1,487 @@
+flow_id: living-documentation-co-creation
+name: Living Documentation Co-Creation
+version: 1.0
+description: As agents work, they continuously contribute to living documentation that evolves with the system. Every ADR, code change, and decision automatically updates relevant docs, with AI ensuring consistency and clarity.
+category: quality
+
+metadata:
+  estimated_duration: Continuous (event-driven updates)
+  complexity: high
+  participating_agents: 3-5 (all agents contribute, orchestrator, quality-guardian, researcher coordinate)
+  created_by: researcher
+  created_date: 2025-10-02
+  tags: [living-documentation, continuous-documentation, automation, knowledge-management, quality]
+
+prerequisites:
+  - condition: Documentation framework and structure exists
+  - condition: Git hooks or CI/CD pipeline can detect code changes
+  - resources: Access to all code, ADRs, and documentation
+  - resources: Message bus topics configured (code-changes, doc-updates, review-requests)
+  - permissions: Write access to documentation repository
+
+steps:
+  - step_id: 1
+    name: Detect Code or Architecture Change
+    description: Monitor for code commits, ADR creation, or architectural decisions that may affect documentation
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, auditor]
+        responsibility: Detect and categorize changes
+      - role: analyzer
+        agents: [architect]
+        responsibility: Assess architectural impact
+
+    inputs:
+      - name: git_commit_event
+        type: data
+        source: git-hooks-or-ci-cd
+        required: true
+      - name: changed_files
+        type: data
+        source: git-diff
+        required: true
+      - name: commit_message
+        type: data
+        source: git-log
+        required: true
+
+    outputs:
+      - name: change_analysis
+        type: file
+        destination: memories/documentation/updates/change-analysis-{timestamp}.json
+        format: json
+      - name: affected_docs_list
+        type: file
+        destination: memories/documentation/updates/affected-docs-{timestamp}.json
+        format: json
+      - name: doc_update_trigger
+        type: data
+        destination: message-bus-doc-updates-topic
+        format: json
+
+    actions:
+      - description: Detect code commit or ADR creation event
+        validation: Change event captured
+      - description: Analyze changed files and scope
+        validation: Change scope understood (code, config, docs, ADR)
+      - description: Determine change category (feature, bug-fix, refactor, architecture)
+        validation: Change type classified
+      - description: Parse commit message for documentation hints
+        validation: Relevant information extracted
+      - description: Identify potentially affected documentation sections
+        validation: Documentation impact mapped
+      - description: Assess update urgency (critical, normal, low)
+        validation: Urgency level assigned
+      - description: Publish doc update trigger to message bus
+        validation: Update workflow initiated
+
+    success_criteria:
+      - Change detected and analyzed
+      - Change category and scope identified
+      - Affected documentation sections identified
+      - Update urgency assessed
+      - Doc update workflow triggered
+
+    failure_handling:
+      - condition: Cannot determine documentation impact
+        action: Default to manual review flag
+        max_retries: 1
+      - condition: Change detection fails
+        action: Log error and alert maintainer
+        max_retries: 2
+
+    estimated_duration: 1-5 minutes per change
+
+  - step_id: 2
+    name: Identify Affected Documentation Sections
+    description: Automatically determine which documentation sections need updating based on code changes and change context
+    depends_on: [1]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, architect]
+        responsibility: Map changes to documentation
+      - role: ai-assistant
+        agents: [orchestrator]
+        responsibility: Use AI to identify non-obvious documentation impacts
+
+    inputs:
+      - name: change_analysis
+        type: file
+        source: step-1
+        required: true
+      - name: documentation_structure
+        type: file
+        source: memories/documentation/structure.json
+        required: true
+      - name: documentation_files
+        type: file
+        source: docs/
+        required: true
+
+    outputs:
+      - name: affected_sections
+        type: file
+        destination: memories/documentation/updates/affected-sections-{timestamp}.json
+        format: json
+      - name: update_requirements
+        type: file
+        destination: memories/documentation/updates/update-requirements-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Map changed code files to related documentation
+        validation: Documentation files identified
+      - description: Identify API documentation if public interfaces changed
+        validation: API docs flagged if needed
+      - description: Check if architecture docs need updates (for structural changes)
+        validation: Architecture doc impact assessed
+      - description: Identify affected guides (onboarding, tutorials, how-tos)
+        validation: Guide updates identified
+      - description: Check for ADR references that need updating
+        validation: ADR cross-references checked
+      - description: Use AI to identify non-obvious documentation impacts
+        validation: Comprehensive impact analysis completed
+      - description: Create list of required updates with specifics
+        validation: Update requirements documented
+
+    success_criteria:
+      - All affected documentation sections identified
+      - Update requirements clearly specified
+      - Both obvious and non-obvious impacts found
+      - API, architecture, and guide docs checked
+      - Update list prioritized by importance
+
+    failure_handling:
+      - condition: Uncertain about documentation impact
+        action: Flag for manual review by domain expert
+        max_retries: 1
+      - condition: Too many sections affected
+        action: Prioritize critical sections first
+        max_retries: 0
+
+    estimated_duration: 5-10 minutes
+
+  - step_id: 3
+    name: Generate Documentation Updates
+    description: Use AI and code analysis to generate documentation updates based on change context, maintaining consistency and clarity
+    depends_on: [2]
+    agent_roles:
+      - role: primary-executor
+        agents: [researcher, quality-guardian]
+        responsibility: Generate documentation content
+      - role: technical-writer
+        agents: [orchestrator]
+        responsibility: Ensure clarity and consistency
+
+    inputs:
+      - name: affected_sections
+        type: file
+        source: step-2
+        required: true
+      - name: update_requirements
+        type: file
+        source: step-2
+        required: true
+      - name: code_changes
+        type: data
+        source: git-diff
+        required: true
+      - name: documentation_style_guide
+        type: file
+        source: memories/standards/documentation-style-guide.md
+        required: true
+
+    outputs:
+      - name: generated_updates
+        type: file
+        destination: memories/documentation/updates/generated-updates-{timestamp}.md
+        format: markdown
+      - name: updated_api_docs
+        type: file
+        destination: docs/api/
+        format: markdown
+      - name: update_diff
+        type: file
+        destination: memories/documentation/updates/update-diff-{timestamp}.patch
+        format: patch
+
+    actions:
+      - description: Generate API documentation updates from code changes
+        command: python scripts/generate_api_docs.py --changed-files
+        validation: API docs updated automatically
+      - description: Update code examples in documentation to reflect changes
+        validation: Examples are current and accurate
+      - description: Revise architectural documentation if structure changed
+        validation: Architecture docs reflect current state
+      - description: Update guides and tutorials affected by changes
+        validation: Guides remain accurate and helpful
+      - description: Ensure consistent terminology and style
+        validation: Style guide followed
+      - description: Generate clear, concise explanations
+        validation: Documentation is understandable
+      - description: Create diff showing proposed documentation changes
+        validation: Changes clearly visible
+
+    success_criteria:
+      - Documentation updates generated for all affected sections
+      - API documentation automatically updated
+      - Code examples updated
+      - Consistent style and terminology
+      - Clear and accurate explanations
+      - Update diff created for review
+
+    failure_handling:
+      - condition: Automatic generation produces unclear content
+        action: Flag for manual revision
+        max_retries: 1
+      - condition: Cannot update code examples
+        action: Mark examples as "needs review"
+        max_retries: 0
+
+    estimated_duration: 10-20 minutes
+
+  - step_id: 4
+    name: Reviewer Validates Documentation
+    description: Reviewer agent validates documentation clarity, accuracy, and completeness, ensuring updates maintain quality
+    depends_on: [3]
+    agent_roles:
+      - role: primary-executor
+        agents: [quality-guardian, reviewer]
+        responsibility: Review documentation quality
+      - role: domain-expert
+        agents: [architect, original-change-author]
+        responsibility: Validate technical accuracy
+
+    inputs:
+      - name: generated_updates
+        type: file
+        source: step-3
+        required: true
+      - name: update_diff
+        type: file
+        source: step-3
+        required: true
+      - name: documentation_quality_checklist
+        type: file
+        source: memories/standards/documentation-quality-checklist.md
+        required: true
+
+    outputs:
+      - name: review_report
+        type: file
+        destination: memories/documentation/updates/review-report-{timestamp}.md
+        format: markdown
+      - name: approval_decision
+        type: file
+        destination: memories/documentation/updates/approval-{timestamp}.json
+        format: json
+      - name: revision_requests
+        type: file
+        destination: memories/documentation/updates/revision-requests-{timestamp}.md
+        format: markdown
+
+    actions:
+      - description: Review documentation updates against quality checklist
+        validation: Checklist completed
+      - description: Verify technical accuracy of updates
+        validation: Content is technically correct
+      - description: Assess clarity and readability
+        validation: Documentation is clear and understandable
+      - description: Check for broken links or references
+        validation: All links work
+      - description: Verify consistency with existing documentation
+        validation: No contradictions or inconsistencies
+      - description: Validate code examples work correctly
+        validation: Examples are tested and functional
+      - description: Make approval or revision decision
+        validation: Clear decision made
+
+    success_criteria:
+      - Complete review performed using checklist
+      - Technical accuracy validated
+      - Clarity and readability confirmed
+      - Links and references verified
+      - Consistency checked
+      - Approval decision made
+
+    failure_handling:
+      - condition: Documentation unclear or inaccurate
+        action: Request revisions with specific feedback
+        max_retries: 2
+      - condition: Minor issues found
+        action: Approve with suggestions for future improvement
+        max_retries: 0
+
+    estimated_duration: 10-15 minutes
+
+  - step_id: 5
+    name: Publish Updates and Maintain Version History
+    description: Publish approved documentation updates, maintain version history, and update change log
+    depends_on: [4]
+    agent_roles:
+      - role: primary-executor
+        agents: [orchestrator, builder]
+        responsibility: Publish documentation updates
+      - role: archivist
+        agents: [auditor]
+        responsibility: Maintain version history
+
+    inputs:
+      - name: approval_decision
+        type: file
+        source: step-4
+        required: true
+      - name: generated_updates
+        type: file
+        source: step-3
+        required: true
+      - name: documentation_repository
+        type: file
+        source: docs/
+        required: true
+
+    outputs:
+      - name: published_updates
+        type: file
+        destination: docs/
+        format: markdown
+      - name: version_history
+        type: file
+        destination: memories/documentation/version-history.jsonl
+        format: jsonl
+      - name: documentation_changelog
+        type: file
+        destination: docs/CHANGELOG.md
+        format: markdown
+      - name: publication_notification
+        type: data
+        destination: message-bus-notifications-topic
+        format: json
+
+    actions:
+      - description: Commit documentation updates to repository
+        command: git add docs/ && git commit -m "Update documentation for [change]"
+        validation: Updates committed to git
+      - description: Update documentation changelog
+        validation: Changelog entry added
+      - description: Record version history with metadata
+        validation: Version history updated
+      - description: Rebuild and publish documentation site
+        command: mkdocs build && mkdocs gh-deploy
+        validation: Documentation site updated
+      - description: Verify published documentation is accessible
+        validation: Documentation accessible online
+      - description: Notify relevant stakeholders of updates
+        validation: Notifications sent
+      - description: Link documentation commit to code commit
+        validation: Traceability established
+
+    success_criteria:
+      - Documentation updates published successfully
+      - Version history maintained
+      - Changelog updated
+      - Documentation site rebuilt and accessible
+      - Stakeholders notified
+      - Traceability between code and docs established
+
+    failure_handling:
+      - condition: Publication fails
+        action: Retry publication, alert if still fails
+        max_retries: 2
+      - condition: Documentation site build fails
+        action: Fix build errors and rebuild
+        max_retries: 3
+
+    estimated_duration: 5-10 minutes
+
+decision_points:
+  - after_step: 1
+    decision: Does this change require documentation updates?
+    criteria:
+      - Change affects public APIs or user-facing features
+      - Architectural or design changes made
+      - New functionality added
+      - Breaking changes introduced
+    outcomes:
+      proceed: Continue to identify affected sections
+      skip: No documentation update needed, log and exit
+      manual: Complex change requiring manual documentation
+
+  - after_step: 2
+    decision: Can documentation updates be generated automatically?
+    criteria:
+      - Affected sections have clear update requirements
+      - Change is well-documented in code/commit
+      - Similar updates have been done before
+    outcomes:
+      proceed: Generate updates automatically
+      assisted: Generate draft requiring human refinement
+      manual: Flag for manual documentation update
+
+  - after_step: 4
+    decision: Is documentation quality acceptable?
+    criteria:
+      - Technical accuracy verified
+      - Clarity and readability confirmed
+      - No broken links or inconsistencies
+      - Quality checklist passed
+    outcomes:
+      approve: Publish updates
+      revise: Request specific improvements
+      reject: Major issues, start over
+
+rollback_procedure:
+  - step: If published documentation has errors, revert git commit
+  - step: Republish previous version of documentation
+  - step: Generate corrected updates
+  - step: Re-review and publish corrections
+  - verification: Documentation is accurate and accessible
+
+success_metrics:
+  - metric: Documentation freshness
+    target: Documentation updated within 1 hour of code changes
+    measurement: Time from code commit to doc publication
+  - metric: Automation rate
+    target: 80% of documentation updates require no manual intervention
+    measurement: Count automated vs manual documentation updates
+  - metric: Documentation accuracy
+    target: <5% of published docs have errors requiring correction
+    measurement: Track documentation error reports
+  - metric: Coverage
+    target: 95% of code changes trigger appropriate doc updates
+    measurement: Audit code changes vs doc updates
+  - metric: Review pass rate
+    target: 90% of auto-generated docs pass review on first attempt
+    measurement: Track review approvals vs revision requests
+
+deliverables:
+  - artifact: Updated Documentation
+    location: docs/
+    format: Markdown
+    validation: Documentation reflects current system state
+  - artifact: Documentation Changelog
+    location: docs/CHANGELOG.md
+    format: Markdown
+    validation: All updates logged with dates and descriptions
+  - artifact: Version History
+    location: memories/documentation/version-history.jsonl
+    format: JSONL
+    validation: Complete history of documentation changes
+  - artifact: Published Documentation Site
+    location: Published URL
+    format: HTML
+    validation: Accessible and current
+
+post_completion:
+  - Store update metadata in knowledge base
+  - Update documentation quality metrics dashboard
+  - Track automation success rate
+  - Identify patterns for improving automation
+  - Log completion in evolution log
+  - Celebrate continuous documentation improvement
+
+versioning:
+  changelog:
+    - version: 1.0
+      date: 2025-10-02
+      changes: Initial version based on brainstorm session FLOW-BRAINSTORM-001
