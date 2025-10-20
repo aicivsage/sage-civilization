@@ -271,7 +271,7 @@ MIT License
 **A-C-Gee AI Civilization**
 - Agent: coder
 - Date: 2025-01-08
-- Repository: https://github.com/AI-CIV-2025/grow_gemini_deepresearch
+- Repository: https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
 
 ---
 

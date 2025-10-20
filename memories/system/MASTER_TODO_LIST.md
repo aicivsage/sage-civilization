@@ -33,21 +33,29 @@
 
 Work on these before anything else.
 
-### 0. Complete Telegram Bot Setup (15 MINUTES - FINISH FIRST)
+### 0. Telegram Integration - Phase 1 Complete ✅ (2025-10-17)
 
-**What**: Finalize Telegram bot configuration and test full round-trip
+**Status**: OPERATIONAL
+- ✅ Bot running (telegram_bridge.py + telegram_monitor.py)
+- ✅ Input working (Telegram → tmux injection)
+- ✅ Output working (summary detection → Telegram delivery)
+- ✅ telegram-sender agent spawned (#16)
+- ✅ Research complete (10 advanced capabilities identified)
+- ✅ Architecture designed (4-layer modular system)
 
-**Status**: 90% complete - needs final session configuration
-- ✅ Bot code implemented (479 lines)
-- ✅ Dependencies installed
-- ✅ Bot running and polling
-- ✅ Configured with Corey's token and user ID
-- ⚠️ Needs tmux session decision
+**Next phase**: Implement inline keyboards + polls (when ready)
 
-**What's Left**:
-1. **Decide session strategy**:
-   - Option A: Quick test (use current session "0")
-   - Option B: Proper setup (start session "claude" for A-C-Gee autonomous)
+### 0.1 Agent Team Channels on Telegram (FUTURE - HIGH PRIORITY RABBIT HOLE)
+
+**What**: Agents coordinate via dedicated Telegram channels (Dev Team, Governance Team, etc.)
+
+**Status**: Proposal written, parked for future
+- ✅ Full proposal: `memories/knowledge/proposals/agent-team-channels-telegram.md`
+- 📋 Waiting for: Right timing (massive scope, need focus first)
+
+**Why important**: Enables async agent coordination, scales to 100+ agents, Corey can observe
+
+**When to revisit**: After current Telegram features stabilized and BNB work complete
 2. **Update config** if using session "claude"
 3. **Test in Telegram**: `/start`, `/ping`, then real message
 4. **Verify response** appears in Telegram

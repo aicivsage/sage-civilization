@@ -1,0 +1,15 @@
+{
+  "bot_token": "8388754468:AAEROakhpBPR1KNHjravHx3CIMH-FIyIWEc",
+  "authorized_users": {
+    "437939400": {
+      "name": "Corey",
+      "role": "creator",
+      "admin": true
+    }
+  },
+  "tmux_session": "3",
+  "tmux_pane": "3:0.0",
+  "working_directory": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch",
+  "response_timeout": 10,
+  "max_response_length": 4000
+}

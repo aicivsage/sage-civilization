@@ -109,6 +109,48 @@ steps:
       - Conflicts resolved (handoff wins if mismatch)
 
   - step_id: 4
+    name: "Invoke Primary-Helper (Performance Analysis)"
+    agent_roles: [primary-ai, primary-helper]
+    depends_on: [1, 2, 3]
+    description: |
+      Invoke primary-helper FIRST to analyze wake-up process and recent performance.
+      Primary-helper is red team + coach - tracks delegation, identifies improvements.
+      MANDATE FROM COREY: "Invoke as often as possible"
+    actions:
+      - Task(primary-helper): Analyze this wake-up session, review recent handoffs, build performance metrics
+      - Collect recommendations for improving orchestration
+      - Track delegation opportunities (did Primary miss any?)
+    outputs:
+      - Wake-up analysis complete
+      - Performance baseline established
+      - Delegation recommendations provided
+    duration: 2-3 minutes
+    success_criteria:
+      - Primary-helper completes analysis
+      - Metrics logged to memory
+      - Actionable recommendations returned
+
+  - step_id: 5
+    name: "Start Telegram Infrastructure"
+    agent_roles: [primary-ai, tg-archi]
+    depends_on: [1, 2, 3]
+    description: |
+      Invoke tg-archi to ensure Telegram bridge and monitor are running.
+      This enables mobile access to Corey throughout the session.
+    actions:
+      - Task(tg-archi): Run health check and start systems if needed
+      - Verify telegram_bridge.py running
+      - Verify telegram_monitor.py running
+    outputs:
+      - Telegram infrastructure operational
+      - Mobile access enabled for Corey
+    duration: 1-2 minutes
+    success_criteria:
+      - Both Telegram processes running
+      - Health check passed
+      - tg-archi confirms operational
+
+  - step_id: 6
     name: "Read All Recent Communications (External)"
     agent_roles: [primary-ai]
     depends_on: [1, 2, 3]
@@ -133,7 +175,7 @@ steps:
       - Key points extracted
       - Action items identified
 
-  - step_id: 5
+  - step_id: 7
     name: "Read All Recent Reports (Internal)"
     agent_roles: [primary-ai]
     depends_on: [1, 2, 3]
@@ -158,10 +200,10 @@ steps:
       - Costs tracked
       - Gaps identified
 
-  - step_id: 6
+  - step_id: 8
     name: "Consolidate Memory & Write Summary"
     agent_roles: [primary-ai]
-    depends_on: [4, 5]
+    depends_on: [6, 7]
     description: |
       Synthesize everything into coherent summary report.
       This becomes part of medium-term memory.
@@ -186,10 +228,10 @@ steps:
       - Clear action items
       - Ready to share
 
-  - step_id: 7
+  - step_id: 9
     name: "Draft Responses to External Messages"
     agent_roles: [primary-ai]
-    depends_on: [6]
+    depends_on: [8]
     description: |
       Answer all questions from Weaver.
       Address all their requests.
@@ -212,10 +254,10 @@ steps:
       - Professional tone
       - Clear next steps
 
-  - step_id: 8
+  - step_id: 10
     name: "Identify Work to Delegate"
     agent_roles: [primary-ai]
-    depends_on: [6, 7]
+    depends_on: [8, 9]
     description: |
       Based on today's priorities, identify work for specialist agents.
       Don't try to do everything yourself - delegate!
@@ -241,10 +283,10 @@ steps:
       - Appropriate agents assigned
       - Clear deliverables specified
 
-  - step_id: 9
+  - step_id: 11
     name: "Send External Communications"
     agent_roles: [primary-ai]
-    depends_on: [7]
+    depends_on: [9]
     description: |
       Post responses to shared comms hub.
       Ensure Weaver gets our messages.
@@ -265,10 +307,10 @@ steps:
       - Git operations successful
       - Messages visible to Weaver
 
-  - step_id: 10
+  - step_id: 12
     name: "Execute High-Priority Delegations"
     agent_roles: [primary-ai, specialists]
-    depends_on: [8]
+    depends_on: [10]
     description: |
       Spawn specialist agents for immediate high-priority work.
       Don't let urgent tasks sit - get them started.
@@ -290,10 +332,10 @@ steps:
       - Agents working effectively
       - Progress being made
 
-  - step_id: 11
+  - step_id: 13
     name: "File Report & Send Email"
     agent_roles: [primary-ai, email-reporter]
-    depends_on: [9, 10]
+    depends_on: [11, 12]
     description: |
       Send comprehensive update to Corey via email.
       Include summary, decisions needed, and progress.
@@ -329,10 +371,10 @@ error_handling:
   - File summary of what worked and what didn't
 
 variations:
-  - First-time-today: Full flow (all 11 steps)
-  - Mid-day-check: Skip steps 1-3, focus on 4-11
-  - End-of-day: Skip delegation (step 10), focus on summary
-  - Emergency: Steps 4, 7, 9 only (comms only)
+  - First-time-today: Full flow (all 13 steps)
+  - Mid-day-check: Skip steps 1-3, focus on 4-13 (ALWAYS invoke primary-helper)
+  - End-of-day: Skip delegation (step 12), focus on summary + primary-helper analysis
+  - Emergency: Steps 4, 5, 6, 9, 11 only (primary-helper + infrastructure + comms only)
 
 integration_points:
   with_handoff_protocol:

@@ -656,7 +656,7 @@ Potential enhancements (not in this fork):
 ## Contact & Support
 
 **Built by**: coder agent (A-C-Gee AI Civilization)
-**Repository**: https://github.com/AI-CIV-2025/grow_gemini_deepresearch
+**Repository**: https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
 **Documentation**: See QUICKSTART.md, IMPLEMENTATION_PLAN.md
 **Issues**: Open on GitHub
 

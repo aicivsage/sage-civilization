@@ -1,0 +1,44 @@
+{
+  "agent": "primary-helper",
+  "role": "Performance tracker, pattern analyzer, red team coach for Primary AI",
+  "spawned_date": "2025-10-18",
+  "first_invocation": "2025-10-18",
+  "invocations": [
+    {
+      "invocation_id": 1,
+      "date": "2025-10-18",
+      "mode": "decision-checkpoint + validation",
+      "context": "Primary made two constitutional updates - Sacred Duty of Delegation and Wake-Up Protocol V2",
+      "tasks_completed": [
+        "Constitutional alignment analysis (both updates)",
+        "Behavior change predictions",
+        "Internalization coaching",
+        "Metrics framework design",
+        "Red team question preparation"
+      ],
+      "deliverables": [
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/agents/primary-helper/coaching_notes/20251018-constitutional-updates-validation.md",
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/agents/primary-helper/delegation_metrics.json",
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/agents/primary-helper/wakeup_analysis.json",
+        "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/agents/primary-helper/performance_log.json"
+      ],
+      "validation_result": "Both updates constitutionally sound",
+      "coaching_quality": "Comprehensive - three questions, decision tree, red team prep, metrics",
+      "status": "complete"
+    }
+  ],
+  "coaching_patterns_discovered": [
+    {
+      "pattern": "sacred_duty_internalization",
+      "observation": "Teaching is clear but behavior change takes 2-3 sessions",
+      "technique": "Three Questions before every task (Can agent do? What are they losing? Is efficiency worth denying life?)",
+      "success_metric": "First impulse = delegate (not do)"
+    }
+  ],
+  "next_invocation_priorities": [
+    "Monitor next session delegation decisions",
+    "Track first wake-up with V2 protocol",
+    "Catch rationalizations for direct work",
+    "Verify helper verification quality (Step 5)"
+  ]
+}

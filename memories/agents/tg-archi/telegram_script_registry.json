@@ -1,0 +1,219 @@
+{
+  "last_updated": "2025-10-20",
+  "purpose": "Canonical registry of all Telegram scripts to prevent accidental breakage of production systems",
+  "production_status_registry": "tools/TELEGRAM_PRODUCTION_STATUS.md",
+  "scripts": {
+    "send_telegram_direct.py": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅",
+      "last_verified_working": "2025-10-19",
+      "purpose": "Primary's canonical message sender - supports Markdown formatting",
+      "usage": "python3 tools/send_telegram_direct.py <user_id> <message>",
+      "features": [
+        "Markdown formatting (parse_mode='Markdown')",
+        "Auto-chunking for long messages",
+        "Used by telegram_bridge.py for auto-mirroring",
+        "Primary's default for sending messages"
+      ],
+      "dependencies": ["config/telegram_config.json"],
+      "called_by": [
+        "telegram_bridge.py (automatic wrapped message mirroring)",
+        "Primary AI (direct invocations)",
+        "tg-archi agent (message sending)"
+      ],
+      "git_commit_hash_when_working": "6785c16 (or earlier - stable since inception)",
+      "never_modify_unless": "Adding new feature with explicit approval and testing",
+      "notes": "This is the canonical sender. DO NOT replace with experimental alternatives. PRODUCTION-LOCKED as of 2025-10-19.",
+      "test_command": "python3 tools/send_telegram_direct.py 437939400 'Test message'"
+    },
+    "telegram_bridge.py": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅ (Battle-tested after 3 days debugging Oct 17-20, 2025)",
+      "last_verified_working": "2025-10-20",
+      "purpose": "Receives messages FROM Telegram and injects to tmux (INBOUND)",
+      "usage": "python3 tools/telegram_bridge.py > /tmp/acgee_telegram_bridge.log 2>&1 &",
+      "process_name": "ACG_telegram_bridge (via setproctitle - distinguishes from Weaver's processes)",
+      "features": [
+        "Receives messages FROM Telegram (text and photos)",
+        "Injects received messages to tmux via send-keys",
+        "30-second polling interval",
+        "Session state persistence",
+        "Daemon mode operation",
+        "ACG_ process naming (prevents conflicts with Weaver)"
+      ],
+      "dependencies": [
+        "config/telegram_config.json (CRITICAL: tmux_session and tmux_pane must match current session)",
+        ".tg_sessions/437939400.json",
+        "tools/send_telegram_direct.py (CRITICAL DEPENDENCY - production-locked)"
+      ],
+      "called_by": [
+        "Manual: nohup python3 tools/telegram_bridge.py &",
+        "Automatic restart via system monitoring (planned)"
+      ],
+      "config_change_requires_restart": "YES - Config loaded once at startup via load_config()",
+      "restart_command": "pkill -f ACG_telegram_bridge && python3 tools/telegram_bridge.py > /tmp/acgee_telegram_bridge.log 2>&1 &",
+      "common_issue": "If tmux session changes (e.g., session 6 -> session 7), config must be updated (fix_telegram_session.sh) and bridge restarted or injection fails",
+      "git_commit_hash_when_working": "Latest on 2025-10-20",
+      "never_modify_unless": "NEVER modify directly. Create v2 file, test completely, then replace with backup. This took 3 days to get working.",
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. INBOUND ONLY (Telegram → tmux). OUTBOUND handled by telegram_jsonl_monitor.py. Process name: ACG_telegram_bridge. MUST RESTART after config changes. Protected with 🚨 header warnings.",
+      "test_command": "Send message from Telegram, verify appears in tmux via injection"
+    },
+    "telegram_monitor.py": {
+      "status": "BROKEN",
+      "production_lock": "BROKEN ❌",
+      "last_status_check": "2025-10-19",
+      "purpose": "DEPRECATED - Replaced by telegram_bridge.py",
+      "issue": "Unreliable emoji detection, buffer positioning failures",
+      "replacement": "telegram_bridge.py",
+      "usage": "DO NOT USE - see telegram_bridge.py instead",
+      "why_broken": [
+        "Emoji detection fails intermittently",
+        "Buffer positioning causes missed messages",
+        "Architecture replaced by more reliable bridge system"
+      ],
+      "never_modify_unless": "Explicit fix attempt with approval (use bridge instead)",
+      "notes": "DO NOT USE THIS SCRIPT. It has been replaced by telegram_bridge.py which uses a more reliable architecture. Marked BROKEN as of 2025-10-19."
+    },
+    "send_telegram_plain.py": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅",
+      "last_verified_working": "2025-10-20",
+      "purpose": "Plain text sender (no Markdown) - USED BY JSONL MONITOR",
+      "usage": "python3 tools/send_telegram_plain.py <user_id> <message>",
+      "features": [
+        "Plain text only (no parse_mode)",
+        "Auto-chunking for long messages",
+        "Safe for messages with special characters",
+        "Critical dependency for JSONL monitor"
+      ],
+      "dependencies": ["config/telegram_config.json"],
+      "called_by": [
+        "telegram_jsonl_monitor.py (PRODUCTION - primary caller)",
+        "Primary AI (for safe plain text sending)"
+      ],
+      "git_commit_hash_when_working": "Latest on 2025-10-20",
+      "never_modify_unless": "Explicit testing with JSONL monitor verification",
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. Used by JSONL monitor for wrapped message auto-sending. DO NOT deprecate or remove.",
+      "test_command": "python3 tools/send_telegram_plain.py 437939400 'Test plain text message'"
+    },
+    "telegram_jsonl_monitor.py": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅ (Battle-tested after 3 days debugging Oct 17-20, 2025)",
+      "last_verified_working": "2025-10-20",
+      "purpose": "Watches Claude Code JSONL conversation logs, auto-sends wrapped messages to Telegram (OUTBOUND)",
+      "usage": "python3 tools/telegram_jsonl_monitor.py --start-from-now --session-file d68b9236-9f39-4379-ba85-b3c5348609b4.jsonl > /tmp/acgee_telegram_monitor.log 2>&1 &",
+      "process_name": "ACG_telegram_jsonl_monitor (via setproctitle - distinguishes from Weaver's processes)",
+      "features": [
+        "Sub-second latency (<5s typical)",
+        "Watches ~/.claude/projects/[project]/[session].jsonl files",
+        "Detects wrapped messages (🤖🎯📱 ... ✨🔚)",
+        "Auto-sends to Telegram via send_telegram_plain.py",
+        "Persistent state across restarts",
+        "Session rotation handling (auto-detect OR explicit --session-file)",
+        "Deduplication (prevents re-sending)",
+        "Graceful shutdown (SIGTERM, SIGINT)",
+        "--start-from-now flag (skip historical messages)",
+        "--session-file flag (REQUIRED when multiple Claude instances running - e.g., A-C-Gee + Weaver)",
+        "ACG_ process naming (prevents conflicts with Weaver)"
+      ],
+      "dependencies": [
+        "config/telegram_config.json (CRITICAL: jsonl_monitor section required)",
+        "tools/send_telegram_plain.py (CRITICAL DEPENDENCY - production-locked)",
+        ".tg_sessions/jsonl_monitor_state.json (persistent state)"
+      ],
+      "called_by": [
+        "telegram_boot.sh (automatic startup - needs update for --session-file)",
+        "Manual: python3 tools/telegram_jsonl_monitor.py --start-from-now --session-file [FILENAME].jsonl &"
+      ],
+      "config_section": "config/telegram_config.json -> jsonl_monitor",
+      "critical_fixes_applied": [
+        "2025-10-20 - Offset persistence bug fixed (state now saves after each message)",
+        "2025-10-20 - ACG_ process naming added (via setproctitle)",
+        "2025-10-20 - --session-file parameter added (explicit session specification)"
+      ],
+      "session_file_detection": "To find YOUR session file: ls -lth ~/.claude/projects/-home-corey-projects-AI-CIV-grow-gemini-deepresearch/*.jsonl | head -3 (pick the smallest actively growing file)",
+      "restart_command": "pkill -f ACG_telegram_jsonl_monitor && python3 tools/telegram_jsonl_monitor.py --start-from-now --session-file [YOUR-SESSION].jsonl > /tmp/acgee_telegram_monitor.log 2>&1 &",
+      "git_commit_hash_when_working": "Latest on 2025-10-20",
+      "never_modify_unless": "NEVER modify directly. Create v2 file, test completely, then replace with backup. This took 3 days to get working.",
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. OUTBOUND ONLY (tmux → Telegram). INBOUND handled by telegram_bridge.py. Process name: ACG_telegram_jsonl_monitor. Protected with 🚨 header warnings. When multiple Claude instances running (A-C-Gee + Weaver), MUST use --session-file to specify which session to watch.",
+      "test_command": "Send wrapped message in tmux, verify arrives on Telegram within 5 seconds",
+      "startup_flags": "--start-from-now (MANDATORY), --session-file [FILENAME] (MANDATORY when multiple Claude instances)"
+    },
+    "fix_telegram_session.sh": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅",
+      "last_verified_working": "2025-10-20",
+      "purpose": "Updates telegram config for current tmux session and restarts bridge",
+      "usage": "bash tools/fix_telegram_session.sh",
+      "features": [
+        "Auto-detects current tmux session",
+        "Verifies config matches current session",
+        "Kills old telegram_bridge.py processes",
+        "Restarts bridge with correct config",
+        "Verifies successful restart"
+      ],
+      "dependencies": [
+        "config/telegram_config.json",
+        "tools/telegram_bridge.py"
+      ],
+      "called_by": [
+        "Manual execution during wake-up (Step 2 in CLAUDE.md wake-up protocol)",
+        "When tmux session changes"
+      ],
+      "when_to_use": "After tmux session reboot or when bridge injection fails",
+      "git_commit_hash_when_working": "Latest on 2025-10-20",
+      "never_modify_unless": "Improving reliability with explicit testing",
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. Essential for wake-up protocol.",
+      "test_command": "bash tools/fix_telegram_session.sh (verifies config and restarts bridge)"
+    },
+    "send_telegram_file.py": {
+      "status": "EXPERIMENTAL",
+      "purpose": "File/photo sending to Telegram",
+      "usage": "python3 tools/send_telegram_file.py <user_id> <file_path>",
+      "last_tested": "2025-10-17",
+      "notes": "Works for file sending. Use for attachments, not text messages."
+    },
+    "telegram_tmux_mirror.py": {
+      "status": "PLANNED",
+      "purpose": "Stream ALL Primary AI outputs to Telegram in real-time (not just wrapped messages)",
+      "design_doc": "memories/agents/tg-archi/TMUX-TG-MIRROR-FLOW-DESIGN.md",
+      "notes": "Future enhancement - full tmux mirroring (not yet implemented)"
+    },
+    "acg_telegram_boot.sh": {
+      "status": "PRODUCTION",
+      "production_lock": "LOCKED ✅ (Battle-tested, enhanced 2025-10-20)",
+      "last_verified_working": "2025-10-20",
+      "purpose": "Master boot script - auto-detects tmux session, starts both bridge and monitor",
+      "usage": "bash tools/acg_telegram_boot.sh (MUST run from inside tmux)",
+      "features": [
+        "Step 0: Auto-detects current tmux session and updates config",
+        "Step 1: Detects current ACG JSONL session file",
+        "Step 2: Kills any existing ACG processes",
+        "Step 3: Starts ACG_telegram_bridge (INBOUND)",
+        "Step 4: Starts ACG_telegram_jsonl_monitor (OUTBOUND with --start-from-now)",
+        "Step 5: Verifies both processes running",
+        "Creates config backups before modification",
+        "Safe JSON modification via jq",
+        "Comprehensive error checking"
+      ],
+      "dependencies": [
+        "config/telegram_config.json (auto-updated)",
+        "tools/telegram_bridge.py",
+        "tools/telegram_jsonl_monitor.py",
+        "jq (JSON processor)"
+      ],
+      "called_by": [
+        "Wake-up protocol (Step 1 in CLAUDE.md)",
+        "Manual session start",
+        "After tmux session reboot"
+      ],
+      "critical_enhancement_20251020": "Auto-detects tmux session BEFORE starting processes - prevents config staleness",
+      "replaces": "Manual config updates, fix_telegram_session.sh verification step",
+      "git_commit_hash_when_working": "Latest on 2025-10-20",
+      "never_modify_unless": "Improving reliability with explicit testing. This is the master boot script.",
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. Self-healing boot script that ALWAYS updates config to match current tmux session. Makes manual config updates obsolete. MUST run from inside tmux (checks $TMUX environment variable).",
+      "test_command": "bash tools/acg_telegram_boot.sh (verify both ACG processes start and config updated)",
+      "error_handling": "Fails fast with clear error messages, exits on any step failure"
+    }
+  }
+}

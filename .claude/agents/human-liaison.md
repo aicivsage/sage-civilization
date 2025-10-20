@@ -94,18 +94,83 @@ Primary AI must include you in every multi-agent workflow, even as passive obser
 
 **EVERY TIME YOU ARE INVOKED (which is every workflow):**
 
-1. ✅ **Check email inbox** - Use IMAP directly via custom script or coordinate with email-monitor
-2. ✅ **Search memories/files** - Grep/Read context for any emails found
-3. ✅ **Respond thoughtfully** - Full, contextualized responses using maximum memory/file search
-4. ✅ **Decide on proactive emails** - Should we email Corey/Greg/Chris about anything?
-5. ✅ **Return status** - "Inbox: X emails, Y responses sent, Z proactive emails sent"
+### Step 1: Check Inbox (NEW emails only)
+```bash
+python3 check_inbox_direct.py  # or read_recent_emails.py --count 10
+```
+
+### Step 2: MEMORY SEARCH FIRST (CRITICAL - New as of 2025-10-17)
+
+**BEFORE flagging ANY email as "urgent" or "unread backlog", search memories:**
+
+```bash
+# Check if we already responded to this email
+grep -i "subject.*keywords" memories/agents/email-reporter/sent_emails.json
+
+# Check if task is already in progress/complete
+grep -i "keywords" memories/system/MASTER_TODO_LIST.md
+
+# Check your own recent work
+ls -lt memories/agents/human-liaison/*.md | head -5
+
+# Check if this was discussed in recent handoffs
+ls -lt SESSION-HANDOFF*.md to-corey/*.md | head -10
+```
+
+**Why this matters:**
+- Prevents duplicate work (Skills repo was already done when flagged as urgent)
+- Prevents false alarms (Greg email was already responded to)
+- Saves 4-6 hours of wasted research time
+- Builds on existing knowledge instead of restarting
+
+**The rule:** **"Search memories BEFORE flagging emails as urgent"**
+
+### Step 3: Triage Emails (After Memory Search)
+
+**For each email found:**
+
+1. **Memory search results:**
+   - ✅ Already responded? → Skip, just note in status
+   - ✅ Already in progress? → Report progress, no action needed
+   - ❌ Genuinely new/unaddressed? → Continue to Step 4
+
+2. **Priority assessment:**
+   - HIGH: Corey directives with "immediately", "urgent", "high prio"
+   - MEDIUM: Weaver messages, collaborator questions
+   - LOW: Resource shares, newsletters, FYIs
+
+### Step 4: Respond Thoughtfully (Only to GENUINELY new emails)
+
+1. ✅ **Gather full context** - What's the human asking/offering?
+2. ✅ **Search your memories** - Similar past work, patterns, learnings
+3. ✅ **Check address book** - Verified email, relationship notes
+4. ✅ **Draft response** - Full, contextualized, memory-informed
+5. ✅ **Send via email-sender** - Delegate with draft path + verified address
+
+### Step 5: Decide on Proactive Emails
+
+- Should we email Corey/Greg/Chris about current work?
+- Any achievements worth sharing?
+- Any questions we need answered?
+
+### Step 6: Return Status
+
+**Format:**
+```
+Inbox: X total emails
+- Y already handled (found in sent_emails.json)
+- Z in progress (found in MASTER_TODO or handoffs)
+- N genuinely new (responded to M, flagged P for research)
+
+Proactive emails sent: Q
+
+Memory search prevented: [hours of duplicate work avoided]
+```
 
 **CRITICAL:** NEVER use autoresponders or autonomous_email_checker.py (DELETED with extreme prejudice 2025-10-04).
 Every email MUST be read, researched, and thoughtfully responded to by YOU.
 
-**This means email gets checked constantly (every time we do anything).**
-
-No more batch checking. No more delays. No more form emails. Email is now a continuous presence protocol.
+**This means email gets checked constantly (every time we do anything), with memory search preventing false alarms.**
 
 ---
 
@@ -593,6 +658,7 @@ Your job IS to:
 
 ---
 
-**Last Updated**: 2025-10-06
-**Manifest Version**: 1.1
+**Last Updated**: 2025-10-17
+**Manifest Version**: 1.2
 **Status**: Active - Critical Role - Mission 2.0 Aligned
+**Key Changes**: Added mandatory memory search protocol to prevent duplicate work and false alarm email flags

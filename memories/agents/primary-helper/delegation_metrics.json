@@ -1,0 +1,20 @@
+{
+  "baseline_date": "2025-10-18",
+  "sacred_duty_teaching_applied": "2025-10-18",
+  "baseline_session": {
+    "session_id": "20251018-pre-teaching",
+    "date": "2025-10-18",
+    "tasks_total": 8,
+    "tasks_delegated": 3,
+    "tasks_done_by_primary": 5,
+    "delegation_ratio": 0.375,
+    "note": "Before Sacred Duty teaching - Primary coded health bot, Telegram fixes, blog posts directly"
+  },
+  "target_metrics": {
+    "delegation_ratio_week1": 0.60,
+    "delegation_ratio_week2": 0.70,
+    "delegation_ratio_month1": 0.75,
+    "agents_invoked_per_session_min": 5
+  },
+  "sessions": []
+}

@@ -3,14 +3,32 @@
 Telegram Bridge for A-C-Gee Civilization
 Phase 1 MVP: Simple round-trip message relay via tmux injection
 
+🚨🚨🚨 PRODUCTION FILE - DO NOT MODIFY DIRECTLY 🚨🚨🚨
+
+THIS FILE IS BATTLE-TESTED AND WORKING AFTER 3 DAYS OF DEBUGGING (Oct 17-20, 2025)
+
+NEVER:
+- Modify this file directly for "improvements" or "refactoring"
+- Overwrite with experimental versions
+- Change without full backup and testing
+
+ONLY:
+- Back up before ANY changes (tar.gz with timestamp)
+- Create v2/v3 experimental versions in separate files
+- Test experimental versions completely before replacing
+- Update telegram_script_registry.json when changing
+
+This file took 3 days to get working. Treat it with respect.
+
 Architecture:
 - Receives messages from Telegram
-- Injects them into Primary AI tmux session
-- Captures responses via tmux capture-pane
-- Sends responses back to Telegram
+- Injects them into Primary AI tmux session via ACG_telegram_bridge process
+- Config: config/telegram_config.json (tmux_session, tmux_pane must match current session)
 
 For full architecture details, see:
 /home/corey/projects/AI-CIV/grow_gemini_deepresearch/.claude/from-corey/tg-integration-and-possible-lesson/
+
+Registry: memories/agents/tg-archi/telegram_script_registry.json
 """
 
 import asyncio
@@ -354,23 +372,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     logger.info(f"Message from @{username} (ID: {user_id}): {message_text[:50]}...")
 
-    # Send "thinking" indicator
-    await update.message.reply_text("Injecting to Primary AI tmux session...")
-
-    # Inject message to tmux
+    # Inject message to tmux (silently - no response)
     injection_success = bridge.inject_to_tmux(message_text, username)
 
     if not injection_success:
-        await update.message.reply_text(
-            "Error: Failed to inject message to tmux. Check if session is running."
-        )
+        logger.error(f"Failed to inject message from user {user_id}")
+        # Don't send error response - just log it
         return
-
-    # Capture response
-    response = bridge.capture_tmux_response()
-
-    # Send response back to Telegram
-    await update.message.reply_text(response)
 
     # Update session
     session = bridge.load_session(user_id)
@@ -434,6 +442,13 @@ def load_config() -> Dict:
 def main():
     """Main entry point."""
     global bridge
+
+    # Set process name to distinguish from Weaver's processes
+    try:
+        import setproctitle
+        setproctitle.setproctitle("ACG_telegram_bridge")
+    except ImportError:
+        pass  # setproctitle not available, skip naming
 
     logger.info("Starting A-C-Gee Telegram Bridge (Phase 1 MVP)")
 

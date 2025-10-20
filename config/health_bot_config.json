@@ -1,0 +1,7 @@
+{
+  "bot_token": "8472258805:AAFdYmIlJozyqIVjNC8PHEDAK_-XZ1vO3T4",
+  "corey_chat_id": 437939400,
+  "database_path": "health_gamification/data/health.db",
+  "daily_checkin_time": "08:00",
+  "timezone": "America/Chicago"
+}

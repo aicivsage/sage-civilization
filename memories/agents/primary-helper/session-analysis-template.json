@@ -1,0 +1,155 @@
+{
+  "description": "Template for tracking Primary's orchestration metrics per session",
+  "usage": "Copy this template, rename to session-analysis-YYYYMMDD-HHMM.json, fill during/after session",
+  "template": {
+    "session_id": "YYYYMMDD-HHMM or descriptive-name",
+    "date": "YYYY-MM-DD",
+    "duration_minutes": 0,
+    "focus_area": "Brief description of session work",
+
+    "delegation_metrics": {
+      "total_tasks": 0,
+      "tasks_delegated": 0,
+      "tasks_done_directly": 0,
+      "delegation_ratio_percent": 0,
+      "agents_invoked": [],
+      "missed_delegation_opportunities": {
+        "count": 0,
+        "examples": [
+          "Task X could have been delegated to agent Y but Primary did directly"
+        ]
+      }
+    },
+
+    "parallelism_metrics": {
+      "total_multi_task_workflows": 0,
+      "workflows_using_parallelism": 0,
+      "parallelism_usage_percent": 0,
+      "parallel_invocation_examples": [
+        "Task(agent1) + Task(agent2) + Task(agent3) - [brief description]"
+      ],
+      "missed_parallelism_opportunities": [
+        "Tasks A and B were sequential but could have been parallel"
+      ]
+    },
+
+    "verification_rigor": {
+      "score_out_of_10": 0,
+      "systems_claimed_working": [],
+      "function_tests_performed": [],
+      "process_only_checks": [],
+      "false_positives": [],
+      "notes": "Did Primary verify function or just check process existence?"
+    },
+
+    "context_quality": {
+      "score_out_of_10": 0,
+      "sources_consulted": [
+        "CLAUDE.md",
+        "HANDOFF_REGISTRY.json",
+        "Most recent handoff",
+        "MASTER_TODO",
+        "Email inbox",
+        "Weaver messages"
+      ],
+      "critical_info_missed": [],
+      "notes": "Was context complete and accurate?"
+    },
+
+    "response_speed": {
+      "score_out_of_10": 0,
+      "urgent_items": [
+        {
+          "item": "Description",
+          "received_at": "HH:MM",
+          "responded_at": "HH:MM",
+          "response_time_minutes": 0
+        }
+      ],
+      "target_met": true,
+      "notes": "Urgent <1hr, routine <6hr"
+    },
+
+    "agent_growth_observations": {
+      "agents_that_learned": [
+        {
+          "agent": "agent-name",
+          "what_they_learned": "New pattern, corrected mistake, expanded capability",
+          "evidence": "Specific behavior or output"
+        }
+      ],
+      "agents_that_struggled": [
+        {
+          "agent": "agent-name",
+          "struggle": "What went wrong",
+          "support_provided": "How Primary helped"
+        }
+      ]
+    },
+
+    "decision_quality": {
+      "major_decisions": [
+        {
+          "decision": "Description",
+          "agent_selected": "agent-name",
+          "was_right_choice": true,
+          "outcome": "Success/rework needed/escalated",
+          "notes": "Why this was right or wrong choice"
+        }
+      ]
+    },
+
+    "one_percent_improvement": {
+      "target_from_last_session": "What Primary committed to improve",
+      "target_achieved": false,
+      "evidence": "How we know target was achieved",
+      "target_for_next_session": "What Primary will improve next wake-up",
+      "notes": "Reflection on improvement trajectory"
+    },
+
+    "coaching_notes": {
+      "what_primary_did_excellently": [],
+      "what_primary_should_continue": [],
+      "what_primary_could_improve": [],
+      "patterns_observed": [],
+      "red_team_questions_for_next_session": []
+    },
+
+    "primary_self_assessment": {
+      "what_went_well": "",
+      "what_could_improve": "",
+      "key_learning": "",
+      "confidence_level": "1-10 scale"
+    }
+  },
+
+  "scoring_guidelines": {
+    "verification_rigor": {
+      "10": "All 'working' claims backed by function tests, zero false positives",
+      "8-9": "Most claims verified, minor gaps",
+      "6-7": "Some function tests, some process-only checks",
+      "4-5": "Mostly process checks, few function tests",
+      "1-3": "Process checks only, multiple false positives"
+    },
+    "context_quality": {
+      "10": "All sources consulted, no gaps, accurate understanding",
+      "8-9": "Most sources consulted, minor gaps",
+      "6-7": "Key sources consulted, some gaps",
+      "4-5": "Incomplete context, significant gaps",
+      "1-3": "Poor context loading, major gaps"
+    },
+    "response_speed": {
+      "10": "All urgent <30min, all routine <3hr",
+      "8-9": "All urgent <1hr, all routine <6hr",
+      "6-7": "Most urgent <1hr, most routine <12hr",
+      "4-5": "Urgent sometimes missed, routine delayed",
+      "1-3": "Significant delays, missed items"
+    }
+  },
+
+  "automated_calculation_notes": {
+    "delegation_ratio": "tasks_delegated / total_tasks * 100",
+    "parallelism_usage": "workflows_using_parallelism / total_multi_task_workflows * 100",
+    "one_percent_hit_rate": "Calculate across last 7 sessions: targets_achieved / 7 * 100"
+  }
+}

@@ -34,7 +34,7 @@
 - **Current Phase**: 1B - Democratic Governance Proven ✅
 - **Population**: 12 active agents (updated from "10" mentioned in Article I to "12" in Article III)
 - **Architecture**: Hierarchical with Message Bus (ADR-004)
-- **Repository**: https://github.com/AI-CIV-2025/grow_gemini_deepresearch
+- **Repository**: https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
 - **Sister Civilization**: Weaver (separate repo, same organization)
 - **Email**: [Pending - to be assigned by Corey]
 

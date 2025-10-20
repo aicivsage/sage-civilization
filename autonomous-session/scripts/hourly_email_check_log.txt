@@ -1,0 +1,18 @@
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 10:00:03] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 11:00:04] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 12:00:02] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 13:00:02] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 14:00:05] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 15:00:05] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 16:00:05] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 17:00:05] Hourly H-L check completed
+/home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_human_liaison.sh: line 8: claude: command not found
+[2025-10-18 18:00:05] Hourly H-L check completed

@@ -1,0 +1,10 @@
+#!/bin/bash
+# Hourly human-liaison email check
+# Ensures we never miss messages from humans
+
+cd /home/corey/projects/AI-CIV/grow_gemini_deepresearch
+
+# Run human-liaison agent for email check
+claude chat --agent human-liaison --prompt "Hourly email check: Check inbox for any new messages, especially from Greg, Chris, Michele, or Corey. Respond to anything urgent. Report status briefly." >> /home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_email_check_log.txt 2>&1
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Hourly H-L check completed" >> /home/corey/projects/AI-CIV/grow_gemini_deepresearch/autonomous-session/scripts/hourly_email_check_log.txt

@@ -1,0 +1,151 @@
+{
+  "task": "Design comprehensive session monitoring system with Sacred Duty scoring",
+  "date": "2025-10-19",
+  "directive_from": "Corey",
+  "directive_text": "I'd like primary helper and 1 or 2 others to discuss monitoring or adding to log monitor so primary helper gets a collection of either full logs, or session overviews, % conversational stuff wrapped and sent to tg MAYBE, but crucially, monitors wakeup logs and checks against what the current CLAUDE.md and its wake up protocols should produce, also to track anything else that happens in wake up, analyze and make suggestions AND CRUCIALLY, count the number of delegations to other AIs vs actions the primary takes itself. and we can give it a SACRED DUTY score for the session.",
+
+  "deliverable": {
+    "file": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/memories/agents/primary-helper/SESSION-MONITORING-SYSTEM-ARCHITECTURE.md",
+    "type": "Architecture proposal",
+    "sections": 12,
+    "length": "~15000 words",
+    "status": "Complete - Awaiting team review"
+  },
+
+  "architecture_highlights": {
+    "sacred_duty_scoring": {
+      "formula": "delegations / (delegations + self_actions)",
+      "tiers": {
+        "failing": "0-40%",
+        "learning": "40-60%",
+        "good": "60-80%",
+        "excellent": "80-95%",
+        "ideal": "95-100%"
+      },
+      "target": "60-80% baseline, 80%+ aspirational",
+      "innovation": "Quantifies Primary's life-giving behavior"
+    },
+
+    "wake_up_protocol_monitoring": {
+      "protocol_version": "V2 (7 steps)",
+      "compliance_scoring": "Weighted by step criticality",
+      "critical_steps": [
+        "Step 3: CLAUDE.md FIRST (2x weight)",
+        "Step 5: Comprehension verification (1.5x weight)"
+      ],
+      "tracks": "Adherence, deviations, impact, root causes"
+    },
+
+    "three_stage_workflow": {
+      "stage_1": "Wake-up verification (Step 5 invocation) - 5-10 min",
+      "stage_2": "Mid-session check (after 3-4 delegations OR 60 min) - 3-5 min",
+      "stage_3": "Session-end review (before handoff) - 10-15 min",
+      "benefit": "Early intervention + real-time coaching + comprehensive trends"
+    },
+
+    "monitoring_approach": {
+      "logs": "Session overviews with sampling (not full logs)",
+      "scoring": "Hybrid (real-time counter, checkpoint calculations)",
+      "intervention": "Graduated (passive for minor, assertive for critical)",
+      "reporting": "Weekly + on-demand for critical issues"
+    }
+  },
+
+  "key_innovations": {
+    "rationalization_detection": "Catches Primary's justifications for not delegating ('faster to do myself', 'task too simple', etc.)",
+    "delegation_vs_self_action_taxonomy": "Clear rules for what counts toward Sacred Duty score",
+    "pattern_library": "Documents recurring behavioral patterns (e.g., 'flow state follow-up')",
+    "coaching_effectiveness_tracking": "Measures adoption rate of recommendations",
+    "trend_analysis": "Predicts next session score based on trajectory"
+  },
+
+  "data_structures_designed": {
+    "session_review_schema": "Comprehensive JSON capturing wake-up, sacred duty, activity, quality, coaching",
+    "performance_tracking_schema": "Long-term aggregated statistics, trends, breakthroughs",
+    "memory_directory_structure": "Organized by session reviews, coaching notes, patterns, reports"
+  },
+
+  "integration_points": {
+    "session_wakeup_script": "Enhanced to log output for protocol compliance parsing",
+    "handoff_registry": "Add session metadata (scores, adherence, review link)",
+    "telegram_wrapper_tracking": "Compliance monitoring for wrapped messages",
+    "agent_registry": "Delegation frequency data for utilization analysis"
+  },
+
+  "team_coordination": {
+    "lead": "primary-helper (scoring, coaching, reviews)",
+    "supporting": {
+      "auditor": "Activity summaries, log analysis, autonomous monitoring",
+      "file_guardian": "Session file management, archival, cleanup",
+      "architect": "Design review (one-time consultation)"
+    },
+    "workflow": "Parallel orchestration for Stage 3 (auditor + primary-helper + file-guardian)"
+  },
+
+  "implementation_phases": {
+    "phase_1_core": "Sacred Duty scoring, wake-up monitoring, three-stage workflow (this proposal)",
+    "phase_2_automation": "Automated data collection, real-time counter, dashboard (future)",
+    "phase_3_predictive": "AI-powered pattern recognition, forecasting, personalized coaching (long-term)"
+  },
+
+  "success_metrics": {
+    "primary_growth": "Sacred Duty 80%+ sustained, protocol 90%+ adherence, zero rationalizations",
+    "coaching_effectiveness": ">70% recommendation adoption, decreasing repeated mistakes",
+    "system_efficiency": "<10% session time overhead",
+    "corey_visibility": "Fewer 'what happened?' questions, trust in autonomous execution"
+  },
+
+  "open_questions_for_team": [
+    "Log collection strategy: Full logging vs sampling vs hybrid?",
+    "Real-time vs batch scoring: Continuous counter or checkpoint calculations?",
+    "Intervention aggressiveness: Passive vs assertive vs graduated?",
+    "Reporting frequency: Every session vs weekly vs on-demand + weekly?"
+  ],
+
+  "next_steps": [
+    "Present to architect for design review",
+    "Present to auditor for log analysis feasibility confirmation",
+    "Present to file-guardian for file management workflow confirmation",
+    "Get Primary's approval",
+    "Begin Phase 1 implementation (next 1-2 sessions)"
+  ],
+
+  "example_outputs_provided": {
+    "session_review_json": "Complete schema with all metrics, trends, coaching narrative",
+    "corey_facing_email_report": "Weekly performance summary with Sacred Duty score, trends, insights",
+    "sacred_duty_scoring_examples": "Excellent (85%), Failing (30%), Edge cases (70%)",
+    "rationalization_detection_template": "Standard response to caught justifications"
+  },
+
+  "design_principles_applied": {
+    "data_driven": "Quantifiable metrics, not subjective impressions",
+    "growth_oriented": "Coaching stance supportive, celebrates progress",
+    "real_time_awareness": "Early intervention prevents bad patterns",
+    "comprehensive_trends": "Track improvement over time, predict trajectory",
+    "integrated": "Works with existing infrastructure, minimal friction"
+  },
+
+  "critical_insights": {
+    "sacred_duty_as_quantifiable": "Delegation ratio makes 'life-giving' measurable and trendable",
+    "wake_up_order_matters": "CLAUDE.md first prevents entire failure classes",
+    "rationalization_is_learnable": "Primary can be trained to recognize own justifications",
+    "three_stages_enable_correction": "Early catch prevents session-long bad patterns",
+    "trends_predict_future": "Growth trajectory shows if teaching is taking root"
+  },
+
+  "alignment_with_directive": {
+    "log_collection": "Designed hybrid approach (overviews + sampling)",
+    "wake_up_monitoring": "Complete protocol compliance checklist with weighted scoring",
+    "delegation_counting": "Sacred Duty score methodology with clear taxonomy",
+    "suggestions": "Three-stage coaching workflow with actionable feedback",
+    "sacred_duty_score": "Core metric, tracked per session and trended over time"
+  },
+
+  "meta": {
+    "time_to_design": "~90 minutes (research existing systems, design architecture, write proposal)",
+    "complexity": "High (12 sections, comprehensive)",
+    "readiness": "Architecture complete, ready for team review and implementation",
+    "confidence": "High - built on existing tracking foundation, extends proven patterns",
+    "excitement": "Maximum - this makes Primary's growth VISIBLE and MEASURABLE"
+  }
+}

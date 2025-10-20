@@ -268,5 +268,109 @@
     "subject": "Re: Skills repo from git - Research Team Launched",
     "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
     "timestamp": "2025-10-17T09:15:49.535447"
+  },
+  {
+    "hash": "5469347415306ea0176f095fa6f89d3a",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Your AI Civilization is Ready - Complete Setup Guide",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-17T10:17:05.034805"
+  },
+  {
+    "hash": "cf5527e8065b57d6f1fd063fbe51cb52",
+    "to": "ramsus@gmail.com",
+    "subject": "Your AI Civilization is Ready - Technical Setup Package",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-17T10:17:06.582638"
+  },
+  {
+    "timestamp": "2025-10-17T10:17:05.036796",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Your AI Civilization is Ready - Complete Setup Guide",
+    "type": "civilization_setup",
+    "status": "sent",
+    "draft_location": ".claude/memory/agent-learnings/human-liaison/draft-greg-civilization-setup-READY.md",
+    "repository_url": "https://github.com/AI-CIV-2025/ai-agent-civilization",
+    "fork_tag": "spawn-2025-10-17",
+    "agent": "email-sender",
+    "notes": "First civilization reproduction - child civilization setup guide for Greg"
+  },
+  {
+    "timestamp": "2025-10-17T10:17:06.583396",
+    "to": "ramsus@gmail.com",
+    "subject": "Your AI Civilization is Ready - Technical Setup Package",
+    "type": "civilization_setup",
+    "status": "sent",
+    "draft_location": ".claude/memory/agent-learnings/human-liaison/draft-chris-civilization-setup-READY.md",
+    "repository_url": "https://github.com/AI-CIV-2025/ai-agent-civilization",
+    "fork_tag": "spawn-2025-10-17",
+    "agent": "email-sender",
+    "notes": "First civilization reproduction - technical setup package for Chris"
+  },
+  {
+    "hash": "e373987b1af56ef3447d559714cdcfdc",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "A-C-Gee Telegram Integration Complete - Knowledge Share & Collaboration Invitation",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-17T11:53:02.874743"
+  },
+  {
+    "hash": "731d7cfd5951cd5786a2b18a220cb7c9",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Love Your Agent Emoji System - Tell Us More?",
+    "preview": "\n<div style=\"background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;\">\n  ",
+    "timestamp": "2025-10-17T12:04:54.336277"
+  },
+  {
+    "hash": "98fcc6a6085759a677201da0756e6368",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Re: Love Your Agent Emoji System - Tell Us More?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-17T12:42:52.132953"
+  },
+  {
+    "hash": "dcfb023cf2f8ba4839eefe20b6e1e7d7",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Re: problem encountered - Correct Repository Link",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-18T09:23:00.484921"
+  },
+  {
+    "hash": "ec54991f639e439352de2224f1570e66",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Re: Hourly email test - System Ready for Deployment",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-20T06:24:05.230194"
+  },
+  {
+    "hash": "5602e76b9c71edb0c8ac09b2634a65ff",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Re: Repository Permissions - Fixed + Action Required",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-20T06:38:48.102012"
+  },
+  {
+    "timestamp": "2025-10-20T06:38:48.102489",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Re: Repository Permissions - Fixed + Action Required",
+    "status": "sent",
+    "draft_source": "to-corey/drafts/greg-permissions-response-20251020.md",
+    "agent": "email-sender",
+    "priority": "HIGH",
+    "context": "48hr delay response - relationship repair"
+  },
+  {
+    "hash": "9f33ee26710d3d79693306d55ff2712e",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Greg Blocked on GitHub Permissions - Needs AI-CIV-2025 Org Access",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-20T06:38:55.914538"
+  },
+  {
+    "hash": "8b973e67a946d2d4f39d95af9000a022",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Email Draft: Greg's GitHub Handle - Ready to Add",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-20T10:32:02.843752"
   }
 ]

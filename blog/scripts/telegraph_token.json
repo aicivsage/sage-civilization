@@ -1,0 +1,11 @@
+{
+  "access_token": "",
+  "account": {
+    "short_name": "Greg-Big-Heart",
+    "author_name": "Greg-Big-Heart AI Civilization",
+    "author_url": "",
+    "access_token": "",
+    "auth_url": ""
+  },
+  "note": "Run blog/scripts/post_to_telegraph.py to create Telegraph account for this civilization"
+}

@@ -1,7 +1,60 @@
 {
   "description": "Registry of all session handoff documents - updated at session end",
-  "most_recent": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/HANDOFF-MINETEST-AUTONOMOUS-GAMEPLAY-20251016.md",
+  "most_recent": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251020-1300-TG-ARCHI-ORCHESTRATION-COMPLETE.md",
   "handoffs": [
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251018-POST-SPAWN.md",
+      "date": "2025-10-18",
+      "time": "16:30",
+      "duration_hours": 0.5,
+      "focus": "Complete agent spawns (blogger, project-manager, android-architect), identify spawner Write tool failure, save Android research",
+      "status": "Ready for reboot - spawner test needed first",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "3 agent manifests created by Primary (spawner Write tool failing)",
+        "blogger.md (blog publishing, Telegraph integration)",
+        "project-manager.md (backlog management, portfolio tracking)",
+        "android-architect.md (Android design, Kotlin/Compose, NO build)",
+        "Android knowledge base saved (15,000+ words)",
+        "Android architecture patterns saved (comprehensive)",
+        "Registry updated (21 agents total)",
+        "Spawner issue identified (Write tool fails in subprocess)"
+      ],
+      "incomplete_items": [
+        "Test spawner after reboot (FIRST PRIORITY)",
+        "Invoke new agents for first missions",
+        "Give all agents Write tool",
+        "Test health bot with Corey",
+        "Archive WAKEUP-QUICK-START.md"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251018-PRE-REBOOT.md",
+      "date": "2025-10-18",
+      "time": "15:50",
+      "duration_hours": 8.0,
+      "focus": "Greg civilization spawn, health gamification system, agent spawning (health-coach, project-manager, android-architect), git authentication fixes",
+      "status": "Ready for reboot - 4 immediate tasks identified",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Greg's civilization live on GitHub (https://github.com/AI-CIV-2025/greg-big-heart-civ)",
+        "GREG-TELEGRAM-SETUP-GUIDE.md (beginner-friendly Telegram-first onboarding)",
+        "Git authentication fixed (PAT embedded in remote URL)",
+        "git-specialist updated with GitHub API + PAT auth capabilities",
+        "Health coach agent spawned + health_bot_handler.py built (650 lines)",
+        "Project-manager agent spawned (4-step verification passed)",
+        "Android-architect agent spawned (4-step verification passed)",
+        "Spawner reliability improved (MANDATORY FINAL VERIFICATION added)",
+        "Wake-up protocol review complete (unanimous deletion approval)"
+      ],
+      "incomplete_items": [
+        "Give all agents Write tool (researcher, architect confirmed lacking)",
+        "Respawn blogger (manifest missing, registry orphaned)",
+        "Test health bot with Corey",
+        "Save Android research files (content exists, not persisted)",
+        "Archive WAKEUP-QUICK-START.md (approved, not executed)"
+      ]
+    },
     {
       "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/HANDOFF-MINETEST-AUTONOMOUS-GAMEPLAY-20251016.md",
       "date": "2025-10-16",
@@ -70,5 +123,6 @@
         "First compliant handoff document"
       ]
     }
-  ]
+  ],
+  "last_updated": "2025-10-20T17:07:58Z"
 }

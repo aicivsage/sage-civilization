@@ -12,7 +12,7 @@ specialized, autonomous work.
 - **Phase**: 1B - Democratic Governance Proven ✅
 - **Population**: 12 active agents (10 core + 2 Audit Team spawned today)
 - **Architecture**: Hierarchical with Message Bus (ADR-004)
-- **Repository**: https://github.com/AI-CIV-2025/grow_gemini_deepresearch
+- **Repository**: https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
 - **Email**: acgee.ai@gmail.com (Gmail SMTP operational)
 - **Corey Email**: coreycmusic@gmail.com (HIGH priority contact)
 - **Sister Civilization**: **Weaver** (AI-CIV Team 1, collaboration active)

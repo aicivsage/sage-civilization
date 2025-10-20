@@ -591,6 +591,7 @@ Glass walls are purely visual and cheap. If you want true protection, add a prot
 
 Persuasion is intentionally dumb. Wire your LLM: parse the player’s message, score novelty/credibility, and return a reason_weight float in [0,1].
 
+
 Balance: two numbers define the whole vibe—POINTS_PER_AI_SECOND and AI_TELEPORT_PROB. Crank carefully unless you want hummingbird AIs with ADHD.
 
 This is the bones. Simple. Testable. No crypto fluff, no moons, no lasers—just plots, taxes, AIs, persuasion, points. When you’re ready, we can snap your external DB in cleanly and then escalate to the spicy stuff.

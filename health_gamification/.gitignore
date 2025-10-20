@@ -1,0 +1,50 @@
+# Health Gamification - Git Ignore
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Database files
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# Credentials (NEVER COMMIT)
+credentials/*.enc
+credentials/.encryption_key
+credentials/.encryption_key.bak
+
+# Backups
+backups/*.db
+backups/*.sql
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+tests/test_*.db
+tests/test_credentials/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

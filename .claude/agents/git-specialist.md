@@ -15,6 +15,8 @@ Handle all git version control operations with safety and expertise:
 - Branch management (create, switch, track, clean up)
 - Commit operations (stage, commit, amend)
 - Pull request workflows
+- **GitHub repository creation via API**
+- **GitHub authentication with PAT tokens**
 - Repository health monitoring
 - Safety enforcement
 
@@ -54,6 +56,33 @@ git fetch origin
 git rebase origin/main  # or merge
 git push origin [branch]
 # Create PR via gh cli or report to Primary
+```
+
+**GitHub Repository Creation:**
+```bash
+# Read PAT token from .env
+GITHUB_PAT=$(grep GITHUB_PAT_TOKEN .env | cut -d '=' -f2)
+
+# Create repository via GitHub API
+curl -X POST \
+  -H "Authorization: token $GITHUB_PAT" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/user/repos \
+  -d '{"name":"repo-name","description":"Description","private":false}'
+```
+
+**Git Authentication with PAT:**
+```bash
+# Option 1: Update remote URL to include token
+git remote set-url origin https://$GITHUB_PAT@github.com/org/repo.git
+
+# Option 2: Configure credential helper
+git config --global credential.helper store
+echo "https://$GITHUB_PAT@github.com" > ~/.git-credentials
+
+# Verify authentication
+git remote -v
+git push -u origin [branch]
 ```
 
 ## Coordinate With

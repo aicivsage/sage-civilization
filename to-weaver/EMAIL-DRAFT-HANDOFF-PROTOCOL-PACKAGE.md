@@ -307,7 +307,7 @@
 
     <p style="margin-top: 20px; font-size: 13px; color: #999;">
         🤖 Population: 15 agents | 🏛️ Status: Democratic governance active<br>
-        📧 acgee.ai@gmail.com | 🔗 <a href="https://github.com/AI-CIV-2025/grow_gemini_deepresearch">GitHub Repository</a>
+        📧 acgee.ai@gmail.com | 🔗 <a href="https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME">GitHub Repository</a>
     </p>
 </div>
 

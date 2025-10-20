@@ -1,0 +1,59 @@
+{
+  "sent_hashes": [
+    {
+      "hash": "9160bd42f2f340331a92af3c5ba8b6caca5a6835c0e931ef7a1a3803df2a8fdc",
+      "timestamp": "2025-10-19T12:00:00Z",
+      "preview": "Your message here"
+    },
+    {
+      "hash": "af687dd2ca95cceeb7552ab98365fd66e84689bd05ca4a8928e73013744f38ae",
+      "timestamp": "2025-10-19T16:38:14Z",
+      "preview": "TEST: V3 First Real Test\n          Monitor deploye"
+    },
+    {
+      "hash": "272fd9190d1889fe7219bf625185f2dc48692510aef95c6ed11648591751d047",
+      "timestamp": "2025-10-19T16:39:54Z",
+      "preview": "TEST: V3 Direct tmux injection\n  This bypasses Cla"
+    },
+    {
+      "hash": "98d5ead61312d6d19b08c79476a05258c7814709d2a7b4703dbd94fd01793f9d",
+      "timestamp": "2025-10-19T16:42:05Z",
+      "preview": "Testing send_tg_wrapped helper!\n\n  This function m"
+    },
+    {
+      "hash": "840b1d30dc89b51119ace3f20c4004c2ff189e9ecec09ab4c6c855a8da8b441c",
+      "timestamp": "2025-10-19T16:39:54Z",
+      "preview": "TEST: V3 Direct tmux injection\nThis bypasses Claud"
+    },
+    {
+      "hash": "18c9e1d4e070d99625a5861e2619e097d9d9939dbb52bff56d17d2f863163579",
+      "timestamp": "2025-10-19T16:42:05Z",
+      "preview": "Testing send_tg_wrapped helper!\n\nThis function mak"
+    },
+    {
+      "hash": "0b332c25a4346a5376bea4215663ce50abeb30ae4b5496fcdf9c405eba4d32a4",
+      "timestamp": "2025-10-19T16:43:32Z",
+      "preview": "\ud83c\udfaf V3 Monitor Status: FULLY OPERATIONAL\n\n  \u2705 Basic "
+    },
+    {
+      "hash": "83b2fb98579b9b3aa5eed2698e9353b7655c20ea905c107989bcf6e74050eadf",
+      "timestamp": "2025-10-19T16:42:00Z",
+      "preview": "46 +  Your message content here\n       47 +"
+    },
+    {
+      "hash": "77a48758ab33a61019b538ba0a2ae3430c3c7b8bf886017669afc61799db2f67",
+      "timestamp": "2025-10-19T16:43:32Z",
+      "preview": "\ud83c\udfaf V3 Monitor Status: FULLY OPERATIONAL\n\n\u2705 Basic de"
+    },
+    {
+      "hash": "c84cd5a3234463a6d0a77f01641fb1fb3124e6324308888dcb97d483881e80bc",
+      "timestamp": "$TIMESTAMP",
+      "preview": "25 +  $MESSAGE\n       26 +"
+    },
+    {
+      "hash": "9b63e9eaa1d74b1cda5b6e1c663fbabe5e370fbb071e0b9435270aec39eb788e",
+      "timestamp": "$TIMESTAMP",
+      "preview": "229 +  Your message here\n       230 +"
+    }
+  ]
+}

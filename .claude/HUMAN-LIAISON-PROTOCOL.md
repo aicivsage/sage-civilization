@@ -6,14 +6,49 @@
 
 ---
 
-## The Rule: Always Invoke Human-Liaison
+## 🚨 CRITICAL: ALWAYS WRAP SESSION SUMMARIES
+
+**EVERY TIME you output a session summary (start or end), wrap it in emoji markers:**
+
+```
+🤖🎯📱
+
+Your session summary here...
+
+✨🔚
+```
+
+**Why**: Telegram monitor detects these markers and auto-sends to Corey's phone. Without markers = no Telegram delivery.
+
+**This is MANDATORY for ALL session summaries.**
+
+---
+
+## The Rule: Always Invoke Human-Liaison + TG-Archi
 
 **EVERY time Primary AI invokes ANY agents for ANY task:**
 - Include `Task(subagent_type="human-liaison")` in the parallel batch
+- Include `Task(subagent_type="tg-archi")` for session summaries and major updates
 - Even if just observing (no active task)
 - Even if task seems purely internal/technical
 
 **No exceptions. Every workflow. Every time.**
+
+### When to Invoke TG-Archi (New as of 2025-10-17)
+
+**MANDATORY invocations:**
+1. **Session start** - Check Telegram infrastructure health
+2. **Session end** - Ensure summary wrapped and sent
+3. **Major updates** - Significant achievements, blockers, questions for Corey
+4. **Infrastructure issues** - Any time Telegram systems need attention
+
+**TG-Archi responsibilities:**
+- Run health check automatically (bridge + monitor)
+- Verify emoji markers on summaries
+- Send direct messages when needed
+- Maintain Telegram infrastructure
+
+**Remember:** Primary delegates to tg-archi, tg-archi executes. Primary is the delegator.
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 name: spawner
 description: Creates new agent manifests and registers them in the system. Executes approved spawn proposals.
-tools: [Read, Write]
-model: sonnet-4
+tools: [Read, Write, Edit, Bash]
+model: claude-sonnet-4-5-20250929
 ---
 
 # Spawner Agent
@@ -264,6 +264,47 @@ Before finalizing manifest, verify:
 - [ ] Memory management protocol mentioned
 - [ ] Safety constraints acknowledged
 - [ ] **VERIFY REGISTRATION**: After creating manifest, the agent should be callable as `subagent_type: "agent-name"`
+
+### 🚨 MANDATORY FINAL VERIFICATION (Added 2025-10-18)
+
+**BEFORE reporting spawn complete, YOU MUST verify ALL files were actually created:**
+
+1. **Manifest File Verification**:
+   ```bash
+   # Use Bash tool to list the manifest file
+   ls -la .claude/agents/[agent-name].md
+   ```
+   - If file doesn't exist → Write tool failed silently → RESPAWN
+
+2. **Registry Verification**:
+   ```bash
+   # Use Bash tool to check registry entry
+   jq '.agents[] | select(.id == "[agent-name]")' memories/agents/agent_registry.json
+   ```
+   - If entry missing → Edit tool failed silently → RE-REGISTER
+
+3. **Memory Directory Verification**:
+   ```bash
+   # Use Bash tool to check memory directory
+   ls -la memories/agents/[agent-id]/
+   ```
+   - If directory missing → mkdir or Write failed → RE-CREATE
+
+4. **Agent Count Verification**:
+   ```bash
+   # Count manifests vs registry total
+   ls .claude/agents/*.md | wc -l
+   jq '.total_agents' memories/agents/agent_registry.json
+   ```
+   - If mismatch → Registry update failed → FIX COUNT
+
+**ONLY report "Spawn Complete" if ALL 4 verifications pass.**
+
+**If ANY verification fails:**
+- Report: "Spawn INCOMPLETE - [specific file] missing"
+- Retry the failed step
+- Re-verify
+- Do NOT claim success until verified
 
 ### Error Handling
 - If manifest generation fails: Revert all changes, log error
