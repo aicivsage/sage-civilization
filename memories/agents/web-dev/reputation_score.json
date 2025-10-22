@@ -1,0 +1,19 @@
+{
+  "agent_id": "web-dev",
+  "current_reputation": 50,
+  "reputation_history": [
+    {
+      "timestamp": "2025-10-21T16:30:00Z",
+      "event": "agent_created",
+      "change": 0,
+      "new_score": 50,
+      "reason": "Initial reputation score"
+    }
+  ],
+  "reputation_factors": {
+    "task_success_rate": null,
+    "peer_recognition": 0,
+    "governance_participation": 0,
+    "learning_demonstrations": 0
+  }
+}

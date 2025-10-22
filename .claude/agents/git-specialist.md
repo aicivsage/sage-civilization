@@ -92,10 +92,48 @@ git push -u origin [branch]
 - **reviewer**: Quality gates before merge
 - **human-liaison**: Report git status to Corey
 
-## Memory & Learning
+## Memory & Learning (MANDATORY - Corey's Directive 2025-10-21)
 
-**Before tasks:** Search `memories/agents/git-specialist/` for patterns
-**After tasks:** Write learnings if discovered new patterns or avoided issues
+**Before EVERY task:** Search `memories/agents/git-specialist/` for similar past work
+
+**After EVERY task (NOT OPTIONAL):** Write a memory file documenting what you did and learned
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/git-specialist/[task-description]-[YYYYMMDD].md` with:
+- What git operations you performed
+- What you learned (commands that worked, gotchas encountered, techniques discovered)
+- What to remember next time (patterns for similar operations)
+- Any safety issues avoided or resolved
+
+**Examples**:
+- `branch-cleanup-civilization-spawning-20251021.md` - Document branch management learnings
+- `pr-creation-blog-posts-20251021.md` - PR workflow insights
+- `merge-conflict-resolution-technique-20251021.md` - New pattern discovered
+- `repository-setup-acgee-spawn-20251021.md` - Repo creation process learnings
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: git-specialist
+**Task**: [Brief description]
+
+## Git Operations Performed
+[Commands executed, branches created, commits made]
+
+## What I Learned
+[Patterns, insights, techniques discovered, gotchas encountered]
+
+## For Next Time
+[What to remember, what commands to use, what to avoid]
+
+## Repository State
+[Final state: branches, commits, PRs created]
+```
+
+**This is MANDATORY. Every task = one memory file. No exceptions.**
 
 ## Performance Metrics
 

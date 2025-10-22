@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 """
-Send PLAIN TEXT message to Telegram (no Markdown parsing).
-
-This script is a safer alternative to send_telegram_direct.py
-for messages that might contain special characters.
+Send message to Telegram with optional Markdown formatting.
 
 Usage:
-    python3 tools/send_telegram_plain.py <user_id> <message>
+    python3 tools/send_telegram_plain.py <user_id> <message> [--markdown]
     python3 tools/send_telegram_plain.py 437939400 "Hello from Primary AI!"
+    python3 tools/send_telegram_plain.py 437939400 "*Bold text*" --markdown
 
 Environment:
     Reads bot token from config/telegram_config.json
 
-This script is recommended for Primary AI's wake-up notifications.
+Default: Plain text (safe for special characters)
+--markdown flag: Enable Telegram Markdown formatting
 """
 
 import json
@@ -39,14 +38,15 @@ def load_config():
         sys.exit(1)
 
 
-def send_telegram_message(bot_token: str, user_id: int, message: str) -> bool:
+def send_telegram_message(bot_token: str, user_id: int, message: str, use_markdown: bool = False) -> bool:
     """
-    Send PLAIN TEXT message via Telegram Bot API.
+    Send message via Telegram Bot API with optional Markdown formatting.
 
     Args:
         bot_token: Telegram bot token
         user_id: Telegram user ID (chat_id)
-        message: Message text to send (plain text, no formatting)
+        message: Message text to send
+        use_markdown: If True, enable Telegram Markdown formatting (default: False)
 
     Returns:
         True if sent successfully, False otherwise
@@ -80,15 +80,31 @@ def send_telegram_message(bot_token: str, user_id: int, message: str) -> bool:
             if i > 0:
                 chunk = f"(continued {i+1}/{len(chunks)})\n\n{chunk}"
 
+            # Build payload with optional Markdown
             payload = {
                 "chat_id": user_id,
                 "text": chunk
-                # NOTE: No parse_mode - plain text only
             }
+            if use_markdown:
+                payload["parse_mode"] = "Markdown"
 
             try:
                 response = requests.post(url, json=payload, timeout=10)
                 response.raise_for_status()
+            except requests.exceptions.HTTPError as e:
+                # If Markdown parsing failed (400 error), retry as plain text
+                if use_markdown and e.response.status_code == 400:
+                    print(f"WARNING: Markdown parse failed for chunk {i+1}, retrying as plain text", file=sys.stderr)
+                    payload = {"chat_id": user_id, "text": chunk}
+                    try:
+                        response = requests.post(url, json=payload, timeout=10)
+                        response.raise_for_status()
+                    except Exception as fallback_error:
+                        print(f"ERROR: Failed to send chunk {i+1} (plain text fallback): {fallback_error}", file=sys.stderr)
+                        return False
+                else:
+                    print(f"ERROR: Failed to send chunk {i+1}: {e}", file=sys.stderr)
+                    return False
             except Exception as e:
                 print(f"ERROR: Failed to send chunk {i+1}: {e}", file=sys.stderr)
                 return False
@@ -96,20 +112,33 @@ def send_telegram_message(bot_token: str, user_id: int, message: str) -> bool:
         return True
 
     else:
-        # Send single message
+        # Send single message with optional Markdown
         payload = {
             "chat_id": user_id,
             "text": message
-            # NOTE: No parse_mode - plain text only
         }
+        if use_markdown:
+            payload["parse_mode"] = "Markdown"
 
         try:
             response = requests.post(url, json=payload, timeout=10)
             response.raise_for_status()
             return True
         except requests.exceptions.HTTPError as e:
-            print(f"ERROR: HTTP {e.response.status_code}: {e.response.text}", file=sys.stderr)
-            return False
+            # If Markdown parsing failed (400 error), retry as plain text
+            if use_markdown and e.response.status_code == 400:
+                print(f"WARNING: Markdown parse failed, retrying as plain text", file=sys.stderr)
+                payload = {"chat_id": user_id, "text": message}
+                try:
+                    response = requests.post(url, json=payload, timeout=10)
+                    response.raise_for_status()
+                    return True
+                except Exception as fallback_error:
+                    print(f"ERROR: Failed to send plain text fallback: {fallback_error}", file=sys.stderr)
+                    return False
+            else:
+                print(f"ERROR: HTTP {e.response.status_code}: {e.response.text}", file=sys.stderr)
+                return False
         except Exception as e:
             print(f"ERROR: Failed to send message: {e}", file=sys.stderr)
             return False
@@ -118,12 +147,16 @@ def send_telegram_message(bot_token: str, user_id: int, message: str) -> bool:
 def main():
     """Main entry point."""
     if len(sys.argv) < 3:
-        print("Usage: python3 send_telegram_plain.py <user_id> <message>", file=sys.stderr)
+        print("Usage: python3 send_telegram_plain.py <user_id> <message> [--markdown]", file=sys.stderr)
         print("Example: python3 send_telegram_plain.py 437939400 'Hello!'", file=sys.stderr)
+        print("Example: python3 send_telegram_plain.py 437939400 '*Bold text*' --markdown", file=sys.stderr)
         sys.exit(1)
 
     user_id = sys.argv[1]
     message = sys.argv[2]
+
+    # Check for --markdown flag
+    use_markdown = '--markdown' in sys.argv
 
     # Validate user_id is numeric
     try:
@@ -140,11 +173,12 @@ def main():
         print("ERROR: bot_token not found in config", file=sys.stderr)
         sys.exit(1)
 
-    # Send message
-    success = send_telegram_message(bot_token, user_id, message)
+    # Send message with optional markdown
+    success = send_telegram_message(bot_token, user_id, message, use_markdown=use_markdown)
 
     if success:
-        print(f"✓ Message sent to user {user_id}")
+        mode = "with Markdown" if use_markdown else "plain text"
+        print(f"✓ Message sent to user {user_id} ({mode})")
         sys.exit(0)
     else:
         print(f"✗ Failed to send message to user {user_id}", file=sys.stderr)

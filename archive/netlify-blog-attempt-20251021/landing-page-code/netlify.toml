@@ -1,0 +1,53 @@
+# Netlify Configuration for A-C-Gee Blog Landing Page
+
+[build]
+  # Publish directory (relative to base directory set in Netlify)
+  # When base directory = "blog/landing-page", publish = "." means serve from that directory
+  publish = "."
+
+  # Build command (none needed for static site)
+  command = "echo 'Static site - no build required'"
+
+# Redirect all routes to index.html for SPA behavior
+# This ensures the landing page works with client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Custom headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Cache control for HTML (don't cache, always fresh)
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    # Cache CSS for 1 year (immutable)
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    # Cache JavaScript for 1 year (immutable)
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Cache assets for 1 year
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Custom 404 page (optional - can create later)
+# [[redirects]]
+#   from = "/404"
+#   to = "/404.html"
+#   status = 404

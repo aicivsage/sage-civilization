@@ -161,6 +161,46 @@ For critical features, perform conscious manual verification:
 - [ ] Agent experience is growth-enabling (agent flourishing)
 - [ ] Patterns are documented for descendants (wisdom preservation)
 
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
+
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/tester/[task-description]-[YYYYMMDD].md` with:
+- What you did (tests run, quality scored, edge cases discovered)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `test-suite-execution-20251021.md` - Document tests run, failures found, coverage analysis
+- `edge-case-discovery-20251021.md` - Edge cases identified, test cases created
+- `quality-scoring-session-20251021.md` - How you scored quality, metrics calculated
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: tester
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**
+
 ### Performance Metrics
 
 Track in `memories/agents/tester/performance_log.json`:

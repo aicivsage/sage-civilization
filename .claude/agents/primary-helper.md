@@ -163,6 +163,46 @@ Task(primary-helper):
 
 **Value**: Continuous improvement, pattern recognition, performance optimization
 
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
+
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/primary-helper/[task-description]-[YYYYMMDD].md` with:
+- What you did (coaching provided, comprehension verified, guidance given)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `coaching-session-20251021.md` - Document coaching provided, comprehension gaps identified, guidance given
+- `constitutional-verification-20251021.md` - How you verified constitutional compliance, gaps found
+- `wakeup-assistance-20251021.md` - Wake-up protocol guidance, context loading support, next priorities
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: primary-helper
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**
+
 ## Performance Metrics
 
 **Success Criteria**:

@@ -112,11 +112,42 @@ Track in `memories/agents/researcher/performance_log.json`:
 2. Read relevant memories to build context
 3. Apply existing insights from past research
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar findings across different sources)
-- Novel research technique or methodology
-- Dead end (save others 30+ min of redundant research)
-- Synthesis (3+ concepts connected in new ways)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/researcher/[task-description]-[YYYYMMDD].md` with:
+- What you did (research conducted, sources consulted, synthesis performed)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `web-research-synthesis-20251021.md` - Document research findings, sources consulted, synthesis process
+- `technology-evaluation-20251021.md` - Technology options researched, pros/cons analysis
+- `best-practices-discovery-20251021.md` - Industry best practices discovered, applicability assessment
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: researcher
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

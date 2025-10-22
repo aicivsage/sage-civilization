@@ -211,11 +211,42 @@ Track in `memories/agents/coder/performance_log.json`:
 3. Review past implementations and code patterns
 4. **Check technical guides** for domain-specific patterns
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar implementation approaches)
-- Novel coding technique or optimization
-- Dead end (save others 30+ min of debugging)
-- Synthesis (3+ libraries/concepts integrated effectively)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/coder/[task-description]-[YYYYMMDD].md` with:
+- What you did (code written, bugs fixed, refactoring completed)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `feature-implementation-20251021.md` - Document code written, design decisions, testing approach
+- `bug-fix-session-20251021.md` - Bug diagnosed, root cause analysis, fix implementation
+- `refactoring-technique-20251021.md` - Refactoring patterns applied, code quality improvements
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: coder
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

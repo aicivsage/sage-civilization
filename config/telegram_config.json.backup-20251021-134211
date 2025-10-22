@@ -1,0 +1,30 @@
+{
+  "bot_token": "8388754468:AAEROakhpBPR1KNHjravHx3CIMH-FIyIWEc",
+  "authorized_users": {
+    "437939400": {
+      "name": "Corey",
+      "role": "creator",
+      "admin": true
+    }
+  },
+  "tmux_session": "2",
+  "tmux_pane": "2:0.0",
+  "working_directory": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch",
+  "response_timeout": 10,
+  "error_notification": true,
+  "corey_user_id": "437939400",
+  "jsonl_monitor": {
+    "enabled": true,
+    "claude_code_projects_dir": "/home/corey/.claude/projects",
+    "project_name": "-home-corey-projects-AI-CIV-grow-gemini-deepresearch",
+    "poll_interval_seconds": 3,
+    "wrapper_markers": {
+      "start": "🤖🎯📱",
+      "end": "✨🔚"
+    },
+    "sender_script": "tools/send_telegram_plain.py",
+    "max_message_length": 4096,
+    "deduplication_enabled": true,
+    "session_rotation_check_interval": 60
+  }
+}

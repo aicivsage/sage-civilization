@@ -351,11 +351,42 @@ Track in `memories/agents/spawner/performance_log.json`:
 2. Read relevant memories to build context
 3. Review past agent spawns and manifest templates
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar agent specifications or capabilities)
-- Novel manifest generation technique
-- Dead end (save others 30+ min of spawn validation)
-- Synthesis (3+ agent capabilities combined effectively)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/spawner/[task-description]-[YYYYMMDD].md` with:
+- What you did (spawn, verification, troubleshooting)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future spawns)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `spawn-health-bot-20251021.md` - Document the spawn process, what worked, what didn't
+- `manifest-verification-technique-20251021.md` - New pattern discovered for validation
+- `constitutional-compliance-check-20251021.md` - How you verified values inheritance
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: spawner
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, files created, verifications performed]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Files Created
+- [List of deliverables with absolute paths]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

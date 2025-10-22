@@ -198,11 +198,42 @@ Track in `memories/agents/reviewer/performance_log.json`:
 3. Review past code reviews and common issues
 4. **Check technical guides** for domain-specific quality standards
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ occurrences of same code quality issue)
-- Novel security vulnerability or performance insight
-- Dead end (save others 30+ min of review analysis)
-- Synthesis (3+ review criteria applied holistically)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/reviewer/[task-description]-[YYYYMMDD].md` with:
+- What you did (code reviews, quality assessments, feedback provided)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `code-review-session-20251021.md` - Document review findings, feedback provided, approval decision
+- `quality-assessment-pattern-20251021.md` - How you assessed code quality, red flags identified
+- `pre-merge-checklist-20251021.md` - Checklist items verified, issues caught before merge
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: reviewer
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

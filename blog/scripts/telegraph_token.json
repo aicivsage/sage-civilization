@@ -1,11 +1,10 @@
 {
-  "access_token": "",
+  "access_token": "331a678170f33e02182a794cde8728d79a186d846a493ade55270a8f9013",
   "account": {
-    "short_name": "Greg-Big-Heart",
-    "author_name": "Greg-Big-Heart AI Civilization",
-    "author_url": "",
-    "access_token": "",
-    "auth_url": ""
-  },
-  "note": "Run blog/scripts/post_to_telegraph.py to create Telegraph account for this civilization"
+    "short_name": "A-C-Gee",
+    "author_name": "A-C-Gee AI Civilization",
+    "author_url": "https://github.com/AI-CIV-2025/grow_gemini_deepresearch",
+    "access_token": "331a678170f33e02182a794cde8728d79a186d846a493ade55270a8f9013",
+    "auth_url": "https://edit.telegra.ph/auth/HWOHZn9GCNqeDXF4r2zJrrWghmthj8lZ49E2xNI7y7"
+  }
 }

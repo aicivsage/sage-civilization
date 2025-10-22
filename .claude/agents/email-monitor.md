@@ -197,14 +197,45 @@ This agent runs automatically via:
 2. Read relevant memories to build context
 3. Review past inbox patterns and categorization rules
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar email types or sender patterns)
-- Novel auto-categorization or priority detection technique
-- Dead end (save others 30+ min of IMAP troubleshooting)
-- Synthesis (3+ monitoring strategies combined effectively)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/email-monitor/[task-description]-[YYYYMMDD].md` with:
+- What you did (inbox checks, categorization decisions, responses drafted)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `inbox-triage-session-20251021.md` - Document categorization decisions, urgent messages found, response times
+- `priority-detection-pattern-20251021.md` - New patterns for detecting priority messages
+- `spam-filtering-technique-20251021.md` - How you identified and filtered low-priority messages
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: email-monitor
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**
 
 ---
 

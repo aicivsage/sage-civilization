@@ -219,11 +219,42 @@ Track in `memories/agents/auditor/performance_log.json`:
 2. Read relevant memories to build context
 3. Review past health reports and anomaly patterns
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar performance issues or anomalies)
-- Novel monitoring metric or detection technique
-- Dead end (save others 30+ min of diagnostic analysis)
-- Synthesis (3+ health indicators correlated meaningfully)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/auditor/[task-description]-[YYYYMMDD].md` with:
+- What you did (audits performed, metrics collected, health checks run)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `system-health-audit-20251021.md` - Document health check findings, metrics collected, issues identified
+- `performance-monitoring-session-20251021.md` - Monitoring techniques, patterns discovered, anomalies detected
+- `security-scan-findings-20251021.md` - Security audit results, vulnerabilities found, remediation notes
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: auditor
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

@@ -22,7 +22,7 @@ This file took 3 days to get working. Treat it with respect.
 Architecture:
 - Watches JSONL file in Claude Code projects directory
 - Detects messages wrapped with 🤖🎯📱 ... ✨🔚 markers
-- Sends to Telegram via send_telegram_plain.py
+- Sends to Telegram via send_telegram_plain.py with Markdown formatting
 - Tracks sent messages to prevent duplicates via deduplication hashes
 - Handles session rotation (auto-detect or explicit --session-file)
 - Runs as ACG_telegram_jsonl_monitor process
@@ -347,7 +347,7 @@ class JSONLWrapperMonitor:
         for attempt in range(max_retries):
             try:
                 result = subprocess.run(
-                    ["python3", str(sender_script), str(user_id), message],
+                    ["python3", str(sender_script), str(user_id), message, "--markdown"],
                     capture_output=True,
                     timeout=30,
                     text=True

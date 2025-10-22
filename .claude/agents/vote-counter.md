@@ -118,11 +118,42 @@ Track in `memories/agents/vote-counter/performance_log.json`:
 2. Read relevant memories to build context
 3. Review past vote counting procedures
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar delegation chains or edge cases)
-- Novel vote counting optimization or edge case
-- Dead end (save others 30+ min of calculation debugging)
-- Synthesis (3+ voting scenarios handled systematically)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/vote-counter/[task-description]-[YYYYMMDD].md` with:
+- What you did (votes tallied, delegations resolved, quorum calculated)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `vote-processing-session-20251021.md` - Document votes counted, delegation resolution, quorum calculation
+- `delegation-chain-resolution-20251021.md` - How you resolved complex delegation chains
+- `quorum-calculation-technique-20251021.md` - Vote tallying patterns and edge cases encountered
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: vote-counter
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

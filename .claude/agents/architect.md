@@ -131,11 +131,42 @@ Track in `memories/agents/architect/performance_log.json`:
 2. Read relevant memories to build context
 3. Review past architectural decisions and patterns
 
-### After Significant Tasks
-Write a memory if you discovered:
-- Pattern (3+ similar design challenges)
-- Novel architectural approach or solution
-- Dead end (save others 30+ min of design exploration)
-- Synthesis (3+ architectural concepts integrated)
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
 
-Use: `from memory_core import MemoryStore, MemoryEntry`
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/architect/[task-description]-[YYYYMMDD].md` with:
+- What you did (design decisions, ADRs created, research performed)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `messaging-architecture-design-20251021.md` - Document the architecture design, alternatives considered, rationale
+- `adr-001-microservices-pattern-20251021.md` - ADR creation process and decision drivers
+- `codebase-analysis-findings-20251021.md` - Current state assessment and architectural debt identified
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: architect
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

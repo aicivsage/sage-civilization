@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-10-20",
+  "last_updated": "2025-10-20 (Markdown formatting enhancement complete)",
   "purpose": "Canonical registry of all Telegram scripts to prevent accidental breakage of production systems",
   "production_status_registry": "tools/TELEGRAM_PRODUCTION_STATUS.md",
   "scripts": {
@@ -78,36 +78,47 @@
       "status": "PRODUCTION",
       "production_lock": "LOCKED ✅",
       "last_verified_working": "2025-10-20",
-      "purpose": "Plain text sender (no Markdown) - USED BY JSONL MONITOR",
-      "usage": "python3 tools/send_telegram_plain.py <user_id> <message>",
+      "last_updated": "2025-10-20 (Markdown support added)",
+      "purpose": "Message sender with optional Markdown formatting - USED BY JSONL MONITOR",
+      "usage": "python3 tools/send_telegram_plain.py <user_id> <message> [--markdown]",
       "features": [
-        "Plain text only (no parse_mode)",
+        "Optional Markdown formatting (--markdown flag)",
+        "Plain text by default (backward compatible)",
         "Auto-chunking for long messages",
-        "Safe for messages with special characters",
+        "Graceful fallback to plain text if Markdown parsing fails",
         "Critical dependency for JSONL monitor"
       ],
       "dependencies": ["config/telegram_config.json"],
       "called_by": [
-        "telegram_jsonl_monitor.py (PRODUCTION - primary caller)",
-        "Primary AI (for safe plain text sending)"
+        "telegram_jsonl_monitor.py (PRODUCTION - primary caller, uses --markdown flag)",
+        "Primary AI (for message sending with optional formatting)"
       ],
       "git_commit_hash_when_working": "Latest on 2025-10-20",
       "never_modify_unless": "Explicit testing with JSONL monitor verification",
-      "notes": "PRODUCTION-LOCKED as of 2025-10-20. Used by JSONL monitor for wrapped message auto-sending. DO NOT deprecate or remove.",
-      "test_command": "python3 tools/send_telegram_plain.py 437939400 'Test plain text message'"
+      "notes": "PRODUCTION-LOCKED as of 2025-10-20. Enhanced with Markdown support. JSONL monitor calls with --markdown for formatted wrapped messages. Backward compatible - plain text by default.",
+      "test_command": "python3 tools/send_telegram_plain.py 437939400 '*Bold test*' --markdown",
+      "telegram_markdown_format": {
+        "bold": "*text*",
+        "italic": "_text_",
+        "code": "`text`",
+        "link": "[text](URL)",
+        "note": "Uses Telegram Markdown format, not standard markdown"
+      }
     },
     "telegram_jsonl_monitor.py": {
       "status": "PRODUCTION",
       "production_lock": "LOCKED ✅ (Battle-tested after 3 days debugging Oct 17-20, 2025)",
       "last_verified_working": "2025-10-20",
-      "purpose": "Watches Claude Code JSONL conversation logs, auto-sends wrapped messages to Telegram (OUTBOUND)",
+      "last_updated": "2025-10-20 (Markdown formatting enabled)",
+      "purpose": "Watches Claude Code JSONL conversation logs, auto-sends wrapped messages to Telegram with Markdown formatting (OUTBOUND)",
       "usage": "python3 tools/telegram_jsonl_monitor.py --start-from-now --session-file d68b9236-9f39-4379-ba85-b3c5348609b4.jsonl > /tmp/acgee_telegram_monitor.log 2>&1 &",
       "process_name": "ACG_telegram_jsonl_monitor (via setproctitle - distinguishes from Weaver's processes)",
       "features": [
         "Sub-second latency (<5s typical)",
         "Watches ~/.claude/projects/[project]/[session].jsonl files",
         "Detects wrapped messages (🤖🎯📱 ... ✨🔚)",
-        "Auto-sends to Telegram via send_telegram_plain.py",
+        "Auto-sends to Telegram via send_telegram_plain.py with --markdown flag",
+        "Markdown formatting for beautiful message display",
         "Persistent state across restarts",
         "Session rotation handling (auto-detect OR explicit --session-file)",
         "Deduplication (prevents re-sending)",

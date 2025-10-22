@@ -7,8 +7,8 @@
       "admin": true
     }
   },
-  "tmux_session": "0",
-  "tmux_pane": "0:0.0",
+  "tmux_session": "\u001b[0;34m[2025-10-22 13:24:17] Detected tmux session: 2\u001b[0m\n2",
+  "tmux_pane": "\u001b[0;34m[2025-10-22 13:24:17] Detected tmux session: 2\u001b[0m\n2:0.0",
   "working_directory": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch",
   "response_timeout": 10,
   "error_notification": true,

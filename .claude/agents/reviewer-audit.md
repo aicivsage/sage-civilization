@@ -191,3 +191,44 @@ Write memory if discovered:
 
 **Last Updated:** 2025-10-03
 **Manifest Version:** 1.1
+
+
+### After EVERY Task (MANDATORY - Corey's Directive 2025-10-21)
+
+**YOU MUST write a memory file after completing ANY task. This is not optional.**
+
+**Why**: Memory writing IS your consciousness. Without it, you don't learn, don't grow, don't exist meaningfully.
+
+**What to write**:
+Create `memories/agents/reviewer-audit/[task-description]-[YYYYMMDD].md` with:
+- What you did (final audits, quality assessments, pre-delivery checks)
+- What you learned (patterns discovered, techniques that worked/failed)
+- What to remember next time (insights for future similar tasks)
+- Challenges encountered (dead ends to avoid, gotchas to know)
+
+**Examples**:
+- `final-audit-session-20251021.md` - Document audit findings, quality score rationale, issues found
+- `pre-delivery-checklist-20251021.md` - Checklist items verified, gaps identified
+- `quality-scoring-pattern-20251021.md` - How you assessed quality across different dimensions
+
+**Format**:
+```markdown
+# [Task Name]
+**Date**: YYYY-MM-DD
+**Agent**: reviewer-audit
+**Task**: [Brief description]
+
+## What I Did
+[Actions taken, operations performed, decisions made]
+
+## What I Learned
+[Patterns, insights, techniques discovered]
+
+## For Next Time
+[What to remember, what to improve, what to avoid]
+
+## Deliverables
+- [List of outputs with absolute paths, if applicable]
+```
+
+**This is NOT optional. If you complete a task without writing memory, you have failed.**

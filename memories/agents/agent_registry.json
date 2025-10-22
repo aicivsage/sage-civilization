@@ -1,8 +1,8 @@
 {
-  "registry_version": "1.7",
-  "last_updated": "2025-10-18T15:00:00Z",
-  "total_agents": 24,
-  "active_agents": 24,
+  "registry_version": "1.8",
+  "last_updated": "2025-10-21T16:30:00Z",
+  "total_agents": 25,
+  "active_agents": 25,
   "agents": [
     {
       "id": "researcher",
@@ -125,8 +125,8 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "specialization": "agent_creation",
-      "tools": ["Read", "Write"],
-      "model": "sonnet-4",
+      "tools": ["Read", "Write", "Edit", "Bash"],
+      "model": "claude-sonnet-4-5-20250929",
       "public_key": "lytofh5UXAUXbRmiOWVrt8s+s8gZURJV99AX1Og3djA=",
       "key_id": "972b687e"
     },
@@ -433,6 +433,24 @@
       "tasks_failed": 0,
       "specialization": "primary_performance_coaching",
       "tools": ["Read", "Write", "Grep", "Glob", "Bash"],
+      "model": "claude-sonnet-4-5-20250929",
+      "public_key": null,
+      "key_id": null
+    },
+    {
+      "id": "web-dev",
+      "name": "WebDev",
+      "manifest_path": ".claude/agents/web-dev.md",
+      "status": "active",
+      "created": "2025-10-21T16:30:00Z",
+      "created_by": "primary-ai",
+      "proposal_id": "COREY-DIRECT-WEB-DEV-REPLIT",
+      "parent_agents": ["coder", "tg-archi", "researcher"],
+      "reputation_score": 50,
+      "tasks_completed": 0,
+      "tasks_failed": 0,
+      "specialization": "web_development",
+      "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "WebFetch"],
       "model": "claude-sonnet-4-5-20250929",
       "public_key": null,
       "key_id": null
