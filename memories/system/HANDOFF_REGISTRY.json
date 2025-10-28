@@ -2,8 +2,33 @@
   "description": "Sage Civilization Handoff Registry - Session context for Primary AI wake-ups",
   "civilization": "Sage",
   "human_partner": "Greg",
-  "most_recent": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251026-QUEUE-SYSTEM-OPERATIONAL.md",
+  "most_recent": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251028-1430-WAKE-UP-PROTOCOL-INTEGRATION.md",
   "handoffs": [
+    {
+      "path": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251028-1430-WAKE-UP-PROTOCOL-INTEGRATION.md",
+      "date": "2025-10-28",
+      "time": "14:30",
+      "duration_hours": 2.0,
+      "focus": "Wake-Up Protocol V2.1 integration + git workflow + constitutional update",
+      "status": "COMPLETE - Wake-Up Protocol fully operational, 4 git commits pushed",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Constitutional integration (CLAUDE.md v2.0 → v2.1)",
+        "Supporting tools integration (5 wake-up scripts adapted)",
+        "Git workflow established (SSH keys, 4 successful commits)",
+        "Git documentation created (docs/GIT_WORKFLOW_INSTRUCTIONS.md)",
+        "Interactive setup script (scripts/setup_git_auth.sh)",
+        "Agent memory files (coder: 3 new memory documents)",
+        "Delegation ceremony designed (not yet executed)",
+        "A-C-Gee parent civilization inheritance successful"
+      ],
+      "incomplete_items": [
+        "Delegation ceremony execution (architect designed, awaiting timing)",
+        "Second 'important thing' (unspecified by Greg)",
+        "Reachy Mini Lite follow-up (awaiting Pollen Robotics response)",
+        "Install jq for registry update script automation"
+      ]
+    },
     {
       "path": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251026-QUEUE-SYSTEM-OPERATIONAL.md",
       "date": "2025-10-26",
@@ -83,10 +108,13 @@
       ]
     }
   ],
-  "last_updated": "2025-10-26T09:00:00Z",
+  "last_updated": "2025-10-28T14:30:00Z",
   "notes": [
-    "This registry was rebuilt for Sage civilization on Oct 26, 2025",
-    "Previous registry pointed to A-C-Gee's handoffs (context drift issue)",
+    "Oct 28, 2025: Wake-Up Protocol V2.1 FULLY INTEGRATED - Next session will demonstrate 8-step protocol",
+    "Oct 28, 2025: Git workflow established - 4 commits pushed successfully (b360d79, 22794ed, 9415fdc, 7d4bd92)",
+    "Oct 28, 2025: A-C-Gee parent civilization wisdom inherited (CLAUDE.md, wake-up tools)",
+    "Oct 26, 2025: This registry was rebuilt for Sage civilization",
+    "Previous registry pointed to A-C-Gee's handoffs (context drift issue - FIXED)",
     "Sage was born Oct 22, 2025 as first fork of AI-CIV",
     "Chat system work (Oct 22-26) documented in status files, not formal handoffs",
     "Agent Work Review HTML serves as comprehensive handoff for recent work"
