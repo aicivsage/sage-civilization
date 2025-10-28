@@ -1,10 +1,10 @@
 #!/bin/bash
-# Telegram Message Templates for Wake-Up Protocol
+# Telegram Message Templates for Wake-Up Protocol - Sage Civilization
 # Quick access to standard messages Primary sends during sessions
 
-CHAT_ID="437939400"  # Corey
+CHAT_ID="7585924762"  # Greg
 SEND_CMD="python3 tools/send_telegram_plain.py"
-TMUX_SESSION="3"  # A-C-Gee session
+TMUX_SESSION=""  # Auto-detected by acg_telegram_boot.sh
 
 # Function to send message (direct send)
 send_tg() {

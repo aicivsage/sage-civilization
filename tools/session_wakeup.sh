@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Session Wakeup Helper V2
+# Session Wakeup Helper V2 - Sage Civilization
 # Helps Primary AI find most recent context quickly
 # Enhanced with: status file scanning, staleness warnings, git log, registry age checks
 
@@ -11,7 +11,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-echo "=== A-C-Gee Session Wakeup Helper V2 ==="
+echo "=== Sage Civilization Session Wakeup Helper V2 ==="
 echo ""
 
 # 1. Check for most recent handoff
@@ -178,7 +178,7 @@ echo "📖 TELEGRAM PROTOCOL:"
 echo "   🚨 ALWAYS wrap session summaries with emoji markers"
 echo "   Start: 🤖🎯📱"
 echo "   End:   ✨🔚"
-echo "   Why: Monitor auto-sends wrapped messages to Corey's phone"
+echo "   Why: Monitor auto-sends wrapped messages to Greg's phone"
 echo "   Reference: PRIMARY-TELEGRAM-QUICK-REFERENCE.md"
 echo "   Templates: tools/telegram_templates.sh (all 6 functions include wrappers)"
 
