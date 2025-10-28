@@ -1,0 +1,9 @@
+{
+  "smtp_server": "smtp.gmail.com",
+  "smtp_port": 587,
+  "use_tls": true,
+  "email_address": "aicivsage@gmail.com",
+  "app_password": "cxztvfahncbehuxz",
+  "display_name": "Sage AI Civilization",
+  "default_recipients": []
+}

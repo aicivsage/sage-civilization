@@ -1,0 +1,49 @@
+{
+  "_comment": "Add these entries to your memories/agents/agent_registry.json file",
+  
+  "communications-coordinator": {
+    "role": "Communications Hub",
+    "description": "Central hub for all external communications",
+    "status": "active",
+    "reputation": 50,
+    "manifest": ".claude/agents/communications-coordinator.md",
+    "capabilities": [
+      "email_routing",
+      "telegram_routing",
+      "message_formatting",
+      "authentication",
+      "logging"
+    ],
+    "tools": [
+      "email_api",
+      "telegram_api",
+      "message_bus",
+      "file_write",
+      "file_read"
+    ],
+    "created_date": "2025-10-22",
+    "last_active": "2025-10-22"
+  },
+  
+  "telegram-bot": {
+    "role": "Telegram Interface",
+    "description": "Real-time communication interface via Telegram",
+    "status": "active",
+    "reputation": 50,
+    "manifest": ".claude/agents/telegram-bot.md",
+    "capabilities": [
+      "command_processing",
+      "message_relay",
+      "notifications",
+      "user_management"
+    ],
+    "tools": [
+      "telegram_api",
+      "message_bus",
+      "file_read",
+      "file_write"
+    ],
+    "created_date": "2025-10-22",
+    "last_active": "2025-10-22"
+  }
+}

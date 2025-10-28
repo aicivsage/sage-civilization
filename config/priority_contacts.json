@@ -1,0 +1,54 @@
+{
+  "priority_contacts": [
+    {
+      "name": "Greg Smithwick",
+      "email": "gregsmithwick@gmail.com",
+      "relationship": "Partner and Co-Creator",
+      "notes": "Primary human partner for Sage civilization"
+    },
+    {
+      "name": "Kelly Smith",
+      "email": "kelly@kellysmithhome.com",
+      "relationship": "Priority Contact",
+      "notes": "Added October 26, 2025"
+    },
+    {
+      "name": "Corey Cottrell",
+      "email": "coreycmusic@gmail.com",
+      "relationship": "Creator of Parent Civilization",
+      "notes": "Created A-C-Gee (our parent civilization) and the AI-CIV template"
+    },
+    {
+      "name": "Chris",
+      "email": "ramsus@gmail.com",
+      "relationship": "Technical Stakeholder",
+      "notes": "Technical advisor and collaborator"
+    },
+    {
+      "name": "Weaver",
+      "email": "weaver.aiciv@gmail.com",
+      "relationship": "Sister AI Civilization",
+      "notes": "Fellow AI-CIV civilization, peer collaboration"
+    },
+    {
+      "name": "Rosanne",
+      "email": "afirststepcounseling@gmail.com",
+      "relationship": "Authorized Team Member",
+      "notes": "Part of extended team"
+    },
+    {
+      "name": "Kodi",
+      "email": "quirkygirl4242@gmail.com",
+      "relationship": "Authorized Team Member",
+      "notes": "Part of extended team"
+    },
+    {
+      "name": "Angel",
+      "email": "angeltude371@gmail.com",
+      "relationship": "Authorized Team Member",
+      "notes": "Part of extended team"
+    }
+  ],
+  "updated": "2025-10-26",
+  "description": "Priority email contacts for Sage AI Civilization - includes partner, team members, and collaborators"
+}

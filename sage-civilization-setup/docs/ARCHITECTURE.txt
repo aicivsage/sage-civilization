@@ -1,0 +1,148 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                  SAGE AI CIVILIZATION - COMMUNICATIONS ARCHITECTURE       ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║                         EXTERNAL INTERFACES                               ║
+║  ┌─────────────┐      ┌─────────────┐      ┌─────────────┐              ║
+║  │   📧 Email  │      │ 💬 Telegram │      │ 🌐 Browser  │              ║
+║  │   Client    │      │     App     │      │  (Dashboard)│              ║
+║  └──────┬──────┘      └──────┬──────┘      └──────┬──────┘              ║
+║         │                    │                    │                       ║
+║         │ SMTP               │ Telegram API       │ HTTP                  ║
+║         │                    │                    │                       ║
+║  ┌──────▼──────┐      ┌──────▼──────┐      ┌──────▼──────┐              ║
+║  │   Email     │      │  Telegram   │      │    Flask    │              ║
+║  │  Handler    │      │     Bot     │      │  Dashboard  │              ║
+║  │   Script    │      │   Script    │      │   Server    │              ║
+║  └──────┬──────┘      └──────┬──────┘      └──────┬──────┘              ║
+║         │                    │                    │                       ║
+║         └────────────────────┼────────────────────┘                       ║
+║                              │                                            ║
+║                    ┌─────────▼─────────┐                                 ║
+║                    │ Communications    │                                 ║
+║                    │   Coordinator     │                                 ║
+║                    │     Agent         │                                 ║
+║                    └─────────┬─────────┘                                 ║
+║                              │                                            ║
+║         ┌────────────────────┼────────────────────┐                      ║
+║         │                    │                    │                       ║
+║  ┌──────▼──────┐      ┌──────▼──────┐      ┌──────▼──────┐              ║
+║  │   Message   │      │   Message   │      │   Message   │              ║
+║  │     Bus     │      │     Bus     │      │     Bus     │              ║
+║  │   (Email)   │      │ (Telegram)  │      │    (Web)    │              ║
+║  └──────┬──────┘      └──────┬──────┘      └──────┬──────┘              ║
+║         │                    │                    │                       ║
+║         └────────────────────┼────────────────────┘                       ║
+║                              │                                            ║
+║                    ┌─────────▼─────────┐                                 ║
+║                    │    Primary AI     │                                 ║
+║                    │  (Claude Code)    │                                 ║
+║                    └─────────┬─────────┘                                 ║
+║                              │                                            ║
+║         ┌────────────────────┼────────────────────┐                      ║
+║         │         │          │          │         │                       ║
+║  ┌──────▼──┐ ┌───▼────┐ ┌───▼────┐ ┌───▼────┐ ┌─▼──────┐               ║
+║  │Research-│ │Architect│ │ Coder  │ │ Tester │ │ Other  │               ║
+║  │   er    │ │         │ │        │ │        │ │ Agents │               ║
+║  └─────────┘ └─────────┘ └────────┘ └────────┘ └────────┘               ║
+║                                                                           ║
+║                         AGENT CIVILIZATION                                ║
+║                                                                           ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                         DATA FLOW EXAMPLE                                 ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║  1. User sends message via Telegram: "What's the system status?"         ║
+║     │                                                                     ║
+║  2. Telegram Bot receives message                                        ║
+║     │                                                                     ║
+║  3. Bot forwards to Communications Coordinator                           ║
+║     │                                                                     ║
+║  4. Coordinator routes to Auditor Agent via Message Bus                  ║
+║     │                                                                     ║
+║  5. Auditor generates status report                                      ║
+║     │                                                                     ║
+║  6. Report sent back through Message Bus                                 ║
+║     │                                                                     ║
+║  7. Coordinator formats for Telegram                                     ║
+║     │                                                                     ║
+║  8. Telegram Bot sends formatted response to user                        ║
+║     │                                                                     ║
+║  9. All interactions logged in memories/communication/                   ║
+║                                                                           ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                          FILE STRUCTURE                                   ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║  sage-civilization/                                                       ║
+║  ├── config/                                                              ║
+║  │   ├── email_config.json          ← Your email settings                ║
+║  │   └── telegram_config.json       ← Your Telegram bot settings         ║
+║  ├── scripts/                                                             ║
+║  │   ├── email_handler.py            ← Email functionality               ║
+║  │   └── telegram_bot.py             ← Telegram bot                      ║
+║  ├── web/                                                                 ║
+║  │   ├── dashboard.py                ← Web server                        ║
+║  │   └── templates/dashboard.html   ← Dashboard UI                      ║
+║  ├── .claude/agents/                                                      ║
+║  │   ├── communications-coordinator.md  ← Agent manifest                 ║
+║  │   └── telegram-bot.md                ← Agent manifest                 ║
+║  └── memories/                                                            ║
+║      ├── agents/                      ← Agent data                       ║
+║      ├── system/                      ← System state                     ║
+║      └── communication/               ← Communication logs                ║
+║          ├── email_logs/                                                  ║
+║          ├── telegram_logs/                                               ║
+║          └── message_bus/                                                 ║
+║                                                                           ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                      CONFIGURATION OVERVIEW                               ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║  Email Config (config/email_config.json):                                ║
+║  {                                                                        ║
+║    "smtp_server": "smtp.gmail.com",                                      ║
+║    "smtp_port": 587,                                                     ║
+║    "email_address": "your@email.com",                                    ║
+║    "app_password": "16-char-password"                                    ║
+║  }                                                                        ║
+║                                                                           ║
+║  Telegram Config (config/telegram_config.json):                          ║
+║  {                                                                        ║
+║    "bot_token": "123456:ABC-DEF...",                                     ║
+║    "allowed_chat_ids": [123456789],                                      ║
+║    "admin_chat_ids": [123456789]                                         ║
+║  }                                                                        ║
+║                                                                           ║
+║  Agent Registry (memories/agents/agent_registry.json):                   ║
+║  {                                                                        ║
+║    "communications-coordinator": { ... },                                ║
+║    "telegram-bot": { ... },                                              ║
+║    ... other agents ...                                                  ║
+║  }                                                                        ║
+║                                                                           ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                       COMMUNICATION PROTOCOLS                             ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║  Message Bus Format:                                                      ║
+║  {                                                                        ║
+║    "timestamp": "2025-10-22T10:30:00",                                   ║
+║    "source": "telegram|email|web",                                       ║
+║    "user_id": "123456789",                                               ║
+║    "message": "User's message",                                          ║
+║    "status": "pending|processed|responded",                              ║
+║    "routed_to": "agent-name"                                             ║
+║  }                                                                        ║
+║                                                                           ║
+║  Log Entry Format:                                                        ║
+║  {                                                                        ║
+║    "timestamp": "2025-10-22T10:30:00",                                   ║
+║    "direction": "sent|received",                                         ║
+║    "channel": "email|telegram|web",                                      ║
+║    "user": "user-identifier",                                            ║
+║    "message": "Message content",                                         ║
+║    "status": "success|failed"                                            ║
+║  }                                                                        ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝

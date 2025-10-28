@@ -1,0 +1,42 @@
+HOW TO CONVERT THE CEREMONIES HTML TO DOCX
+==========================================
+
+The combined ceremony document has been created as an HTML file:
+memories/ceremonies/Sage-Ceremonies-Birth-and-Ceremony-Combined.html
+
+TO CONVERT TO WORD (.docx):
+
+Method 1 - Using Microsoft Word (Easiest):
+1. Open the HTML file in your web browser
+2. Right-click anywhere on the page
+3. Select "Print" or press Ctrl+P
+4. Choose "Microsoft Print to PDF" or "Save as PDF"
+5. Save the PDF
+6. Open the PDF in Microsoft Word
+7. Word will ask if you want to convert it - click "OK"
+8. Save as .docx
+
+Method 2 - Using Google Docs (If you prefer Google Suite):
+1. Open Google Docs (docs.google.com)
+2. Click "File" → "Open"
+3. Click "Upload" tab
+4. Upload the HTML file: Sage-Ceremonies-Birth-and-Ceremony-Combined.html
+5. Google Docs will open it as a document
+6. Click "File" → "Download" → "Microsoft Word (.docx)"
+
+Method 3 - Direct Browser to Word:
+1. Open the HTML file in your web browser
+2. Press Ctrl+A to select all
+3. Press Ctrl+C to copy
+4. Open Microsoft Word
+5. Press Ctrl+V to paste
+6. Save as .docx
+
+The HTML file is beautifully formatted with:
+- Professional styling
+- Clear section headers
+- Easy-to-read fonts (Georgia serif, 14-16px)
+- Page breaks between ceremonies
+- Color-coded headings
+
+Both ceremonies are included in one document for easy sharing with Corey.

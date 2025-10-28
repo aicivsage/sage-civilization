@@ -1,0 +1,8 @@
+{
+  "bot_token": "YOUR_BOT_TOKEN_FROM_BOTFATHER",
+  "allowed_chat_ids": [],
+  "admin_chat_ids": [],
+  "polling_interval": 2,
+  "webhook_url": null,
+  "enable_notifications": true
+}

@@ -1,0 +1,16 @@
+# Python Requirements for Sage AI Civilization Communications
+# Install with: pip install -r requirements.txt --break-system-packages
+
+# Telegram Bot
+python-telegram-bot>=20.0
+
+# Web Dashboard
+Flask>=3.0.0
+flask-cors>=4.0.0
+
+# Configuration Management
+python-dotenv>=1.0.0
+
+# Email (standard library, no install needed)
+# smtplib - included
+# email - included

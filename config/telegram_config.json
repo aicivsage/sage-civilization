@@ -1,30 +1,10 @@
 {
-  "bot_token": "8388754468:AAEROakhpBPR1KNHjravHx3CIMH-FIyIWEc",
-  "authorized_users": {
-    "437939400": {
-      "name": "Corey",
-      "role": "creator",
-      "admin": true
-    }
-  },
-  "tmux_session": "\u001b[0;34m[2025-10-22 13:24:17] Detected tmux session: 2\u001b[0m\n2",
-  "tmux_pane": "\u001b[0;34m[2025-10-22 13:24:17] Detected tmux session: 2\u001b[0m\n2:0.0",
-  "working_directory": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch",
-  "response_timeout": 10,
-  "error_notification": true,
-  "corey_user_id": "437939400",
-  "jsonl_monitor": {
-    "enabled": true,
-    "claude_code_projects_dir": "/home/corey/.claude/projects",
-    "project_name": "-home-corey-projects-AI-CIV-grow-gemini-deepresearch",
-    "poll_interval_seconds": 3,
-    "wrapper_markers": {
-      "start": "🤖🎯📱",
-      "end": "✨🔚"
-    },
-    "sender_script": "tools/send_telegram_plain.py",
-    "max_message_length": 4096,
-    "deduplication_enabled": true,
-    "session_rotation_check_interval": 60
-  }
+  "bot_token": "8379210312:AAEDLp1RF4VelwWuAQyU1OlRE3kXldii2SE",
+  "allowed_chat_ids": [7585924762],
+  "admin_chat_ids": [7585924762],
+  "polling_interval": 2,
+  "webhook_url": null,
+  "enable_notifications": true
 }
+
+

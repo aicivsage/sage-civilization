@@ -1,0 +1,23 @@
+[
+  {
+    "timestamp": "2025-10-26T08:00:26.892137",
+    "recipient": "gregsmithwick@gmail.com",
+    "subject": "\ud83c\udf05 Good Morning! Daily Briefing - October 26, 2025",
+    "direction": "sent",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-26T10:00:57.489630",
+    "recipient": "gregsmithwick@gmail.com",
+    "subject": "\ud83d\udcca Weekly Deep Dive - Week of October 26, 2025",
+    "direction": "sent",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-26T18:00:35.930196",
+    "recipient": "gregsmithwick@gmail.com",
+    "subject": "\ud83c\udf06 Evening Reflection - October 26, 2025",
+    "direction": "sent",
+    "status": "success"
+  }
+]

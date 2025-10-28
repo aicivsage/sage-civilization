@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2025-10-27T08:00:17.693053",
+    "recipient": "gregsmithwick@gmail.com",
+    "subject": "\ud83c\udf05 Good Morning! Daily Briefing - October 27, 2025",
+    "direction": "sent",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-27T18:00:36.015999",
+    "recipient": "gregsmithwick@gmail.com",
+    "subject": "\ud83c\udf06 Evening Reflection - October 27, 2025",
+    "direction": "sent",
+    "status": "success"
+  }
+]

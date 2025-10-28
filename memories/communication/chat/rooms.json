@@ -1,0 +1,26 @@
+{
+  "f20893ce-ae3e-4e80-9c27-50bc0a48d02f": {
+    "id": "f20893ce-ae3e-4e80-9c27-50bc0a48d02f",
+    "name": "general",
+    "description": "General discussion room",
+    "created_by": "system",
+    "created_at": "2025-10-25T11:58:59.959047",
+    "members": [
+      "00baff74-843d-4581-94e6-7657c2af729b",
+      "238df74d-33e1-415f-a47e-1e921b54960d",
+      "d0dae929-1ae9-4b33-9bb5-3e5ad5a68c33",
+      "a8e6a7b0-a3cb-4c61-b1ef-af8e2f8b1cf6",
+      "868db1de-5e9a-4aac-9da5-d4803a3e3a74"
+    ],
+    "type": "public"
+  },
+  "fe834b19-e468-4d14-bd33-b991dbf61419": {
+    "id": "fe834b19-e468-4d14-bd33-b991dbf61419",
+    "name": "agents",
+    "description": "Agent communication channel",
+    "created_by": "system",
+    "created_at": "2025-10-25T11:58:59.962198",
+    "members": [],
+    "type": "public"
+  }
+}

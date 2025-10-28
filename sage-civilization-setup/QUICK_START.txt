@@ -1,0 +1,112 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║       SAGE AI CIVILIZATION - QUICK START CARD                     ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  📥 INSTALLATION                                                  ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  1. Extract to your sage-civilization directory                   ║
+║  2. bash sage-civilization-setup/scripts/install.sh               ║
+║                                                                   ║
+║  📧 EMAIL SETUP (2 min)                                          ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  1. Get App Password:                                             ║
+║     https://myaccount.google.com/apppasswords                     ║
+║  2. Edit: nano config/email_config.json                          ║
+║  3. Test: python3 scripts/email_handler.py test you@email.com    ║
+║                                                                   ║
+║  💬 TELEGRAM SETUP (3 min)                                       ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  1. Talk to @BotFather, send /newbot                             ║
+║  2. Talk to @userinfobot, get your ID                            ║
+║  3. Edit: nano config/telegram_config.json                       ║
+║  4. Test: python3 scripts/telegram_bot.py                        ║
+║                                                                   ║
+║  🌐 WEB DASHBOARD (30 sec)                                       ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  1. Run: python3 web/dashboard.py                                ║
+║  2. Open: http://localhost:5000                                   ║
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  COMMANDS CHEAT SHEET                                             ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  Email:                                                           ║
+║    python3 scripts/email_handler.py test EMAIL                    ║
+║    python3 scripts/email_handler.py status EMAIL                  ║
+║                                                                   ║
+║  Telegram:                                                        ║
+║    python3 scripts/telegram_bot.py                                ║
+║    nohup python3 scripts/telegram_bot.py &  (background)          ║
+║    pkill -f telegram_bot.py                 (stop)                ║
+║                                                                   ║
+║  Dashboard:                                                       ║
+║    python3 web/dashboard.py                                       ║
+║    nohup python3 web/dashboard.py &         (background)          ║
+║                                                                   ║
+║  Telegram Bot Commands:                                           ║
+║    /start   - Welcome & help                                      ║
+║    /status  - System status                                       ║
+║    /agents  - List agents                                         ║
+║    /goals   - Show goals                                          ║
+║    /myid    - Get your ID                                         ║
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  FILES YOU NEED TO EDIT                                           ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  config/email_config.json                                         ║
+║    ➜ Your email address                                           ║
+║    ➜ Gmail app password                                           ║
+║                                                                   ║
+║  config/telegram_config.json                                      ║
+║    ➜ Bot token from @BotFather                                    ║
+║    ➜ Your Telegram user ID                                        ║
+║                                                                   ║
+║  memories/agents/agent_registry.json                              ║
+║    ➜ Add: communications-coordinator                              ║
+║    ➜ Add: telegram-bot                                            ║
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  TROUBLESHOOTING                                                  ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  Email not working?                                               ║
+║    ✓ Use App Password, not regular password                       ║
+║    ✓ Check smtp.gmail.com port 587                               ║
+║    ✓ Enable 2FA to get App Password                              ║
+║                                                                   ║
+║  Telegram not responding?                                         ║
+║    ✓ Start a chat with your bot first                            ║
+║    ✓ Verify token is correct                                     ║
+║    ✓ Check your user ID is in allowed_chat_ids                   ║
+║                                                                   ║
+║  Dashboard not loading?                                           ║
+║    ✓ Check memories/ directory exists                            ║
+║    ✓ Try different port: DASHBOARD_PORT=8080                      ║
+║    ✓ Check if port 5000 is in use: lsof -i :5000               ║
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  SECURITY REMINDERS                                               ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  ⚠️  Never commit config files with real credentials              ║
+║  ⚠️  Add to .gitignore:                                           ║
+║      - config/email_config.json                                   ║
+║      - config/telegram_config.json                                ║
+║      - .env                                                       ║
+║                                                                   ║
+║  ✓ Only share Telegram bot with trusted users                    ║
+║  ✓ Use environment variables for production                       ║
+║  ✓ Don't expose dashboard to internet without auth                ║
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  NEED HELP?                                                       ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  📖 Full guide: docs/SETUP_GUIDE.md                               ║
+║  📋 Check logs: memories/communication/*/                         ║
+║  🔍 Test individually: each script has test mode                  ║
+║                                                                   ║
+║  Made with ❤️  for Sage AI Civilization                           ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝

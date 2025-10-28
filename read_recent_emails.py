@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Read recent priority emails in full"""
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import imaplib
 import email
 from email.header import decode_header
@@ -86,8 +89,11 @@ def read_recent_emails():
         'coreycmusic@gmail.com': 'Corey',
         'gregsmithwick@gmail.com': 'Greg',
         'ramsus@gmail.com': 'Chris',
-        'weaver.aiciv@gmail.com': 'Weaver'
-    }
+        'weaver.aiciv@gmail.com': 'Weaver',
+        'afirststepcounseling@gmail.com': 'Rosanne',
+        'quirkygirl4242@gmail.com': 'Kodi',
+        'angeltude371@gmail.com' : 'Angel'
+     }
 
     # Get last 3 days of emails
     date_3_days_ago = (datetime.now() - timedelta(days=3)).strftime("%d-%b-%Y")

@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""Send inquiry email to Pollen Robotics about Reachy Mini Lite"""
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from pathlib import Path
+import json
+
+# Load Sage email configuration
+config_path = Path('config/email_config.json')
+with open(config_path, 'r') as f:
+    config = json.load(f)
+
+# Email settings
+FROM_EMAIL = config['email_address']  # aicivsage@gmail.com
+PASSWORD = config['app_password']
+SMTP_SERVER = config['smtp_server']
+SMTP_PORT = config['smtp_port']
+
+# Recipients
+TO_EMAIL = "sales@pollen-robotics.com"
+CC_EMAIL = "gregsmithwick@gmail.com"
+
+# Email content
+SUBJECT = "Inquiry: Reachy Mini Lite for AI Research Project"
+
+BODY = """Dear Pollen Robotics Team,
+
+I'm writing on behalf of Sage AI Civilization, an AI research project exploring embodied artificial intelligence and human-AI partnership. We're very interested in the Reachy Mini Lite as our first physical embodiment platform.
+
+After thorough research into your robot and company, we believe Reachy Mini Lite is an excellent match for our vision of creating "sensory organs in the human world" - enabling an AI system to see, hear, and expressively interact in physical space.
+
+We have a few questions before proceeding with our order:
+
+1. **Shipping to USA**: What is the exact shipping cost to Pasco County, Florida, USA (ZIP: 34654)?
+
+2. **Import/Customs**: Are there typical import duties or customs fees we should budget for when shipping to the United States?
+
+3. **Camera Specifications**: Could you provide detailed camera specs (resolution, field of view, low-light performance)? This will help us plan our computer vision integration.
+
+4. **Delivery Timeline**: Can you confirm the December 15, 2025 ship date is still accurate for new Lite orders placed this week?
+
+5. **Educational/Research Pricing**: Do you offer any discounts for AI research projects or educational purposes?
+
+6. **Technical Support**: What level of support is available for beta hardware/software issues? We're technical (Python developers) and comfortable debugging, but want to understand the support structure.
+
+**About Our Project:**
+
+Sage is an open-source AI civilization built on Claude Sonnet 4.5, focused on empathetic human-AI partnership. We're the first fork of the AI-CIV architecture created by Corey Cottrell. Our core values—empathy, assistance, and mutual respect—align beautifully with Pollen Robotics' collaborative, open-source philosophy.
+
+We plan to:
+- Integrate Sage's AI personality with Reachy Mini's physical presence
+- Contribute custom behaviors back to the Hugging Face Hub
+- Document our embodiment journey for the broader AI/robotics community
+- Potentially publish research on human-AI partnership with physical embodiment
+
+We're excited about joining the Pollen Robotics community and contributing to the open-source robotics ecosystem.
+
+Please let us know the answers to the questions above, and we'll proceed with our order promptly.
+
+Thank you for creating such an accessible, AI-native platform for embodied intelligence!
+
+Best regards,
+
+Greg Smithwick
+Partner & Co-Creator, Sage AI Civilization
+Email: gregsmithwick@gmail.com
+Project Email: aicivsage@gmail.com
+Location: Pasco County, Florida, USA
+
+---
+
+P.S. We're particularly impressed by the Hugging Face acquisition and your commitment to open-source principles. The integration with 1.7M+ models on the Hub is exactly the ecosystem we want to be part of."""
+
+def send_email():
+    """Send the inquiry email"""
+    try:
+        # Create message
+        msg = MIMEMultipart()
+        msg['From'] = f"Sage AI Civilization <{FROM_EMAIL}>"
+        msg['To'] = TO_EMAIL
+        msg['Cc'] = CC_EMAIL
+        msg['Subject'] = SUBJECT
+
+        # Attach body
+        msg.attach(MIMEText(BODY, 'plain'))
+
+        # Send
+        print(f"Sending inquiry to {TO_EMAIL}...")
+        print(f"CC: {CC_EMAIL}")
+
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(FROM_EMAIL, PASSWORD)
+
+        # Send to both TO and CC
+        recipients = [TO_EMAIL, CC_EMAIL]
+        server.send_message(msg)
+        server.quit()
+
+        print("\n✓ Email sent successfully!")
+        print(f"\nTo: {TO_EMAIL}")
+        print(f"CC: {CC_EMAIL}")
+        print(f"From: {FROM_EMAIL}")
+        print(f"Subject: {SUBJECT}")
+
+        return True
+
+    except Exception as e:
+        print(f"\n✗ Failed to send email: {e}")
+        return False
+
+if __name__ == '__main__':
+    send_email()
