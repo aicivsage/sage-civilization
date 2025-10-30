@@ -1,13 +1,13 @@
 #!/bin/bash
 # Telegram Boot Script - Safe wake-up boot sequence
 # Created: 2025-10-19
-# Purpose: Safely start A-C-Gee Telegram systems on any tmux session
+# Purpose: Safely start Sage Telegram systems on any tmux session
 #
 # CRITICAL SAFETY FEATURES:
 # 1. Dynamically detects current tmux session (never hardcoded)
 # 2. Updates config before starting processes
 # 3. Never touches Weaver's processes (/grow_openai/)
-# 4. Checks for existing A-C-Gee processes (no duplicates)
+# 4. Checks for existing Sage processes (no duplicates)
 # 5. Comprehensive logging for debugging
 
 set -euo pipefail  # Exit on error, undefined vars, pipe failures
@@ -18,8 +18,8 @@ set -euo pipefail  # Exit on error, undefined vars, pipe failures
 
 PROJECT_ROOT="/mnt/c/sage/sage-civilization"
 CONFIG_FILE="$PROJECT_ROOT/config/telegram_config.json"
-LOG_FILE="/tmp/acgee_telegram_boot.log"
-BRIDGE_LOG="/tmp/acgee_telegram_bridge.log"
+LOG_FILE="/tmp/sage_telegram_boot.log"
+BRIDGE_LOG="/tmp/sage_telegram_bridge.log"
 MONITOR_LOG="/tmp/telegram_jsonl_monitor.log"
 # Colors for output
 RED='\033[0;31m'
@@ -90,11 +90,11 @@ check_weaver_protection() {
 }
 
 check_existing_acgee_processes() {
-    # Check for existing A-C-Gee processes (only from our directory)
+    # Check for existing Sage processes (only from our directory)
     local bridge_pids monitor_pids
 
-    bridge_pids=$(ps aux | grep "telegram_bridge.py" | grep "grow_gemini_deepresearch" | grep -v grep | awk '{print $2}' || true)
-    monitor_pids=$(ps aux | grep "telegram_jsonl_monitor.py" | grep "grow_gemini_deepresearch" | grep -v grep | awk '{print $2}' || true)
+    bridge_pids=$(ps aux | grep "telegram_bridge.py" | grep "sage-civilization" | grep -v grep | awk '{print $2}' || true)
+    monitor_pids=$(ps aux | grep "telegram_jsonl_monitor.py" | grep "sage-civilization" | grep -v grep | awk '{print $2}' || true)
 
     echo "$bridge_pids|$monitor_pids"
 }
@@ -169,7 +169,7 @@ kill_acgee_processes() {
         return
     fi
 
-    log_warning "Killing existing A-C-Gee processes: $pids"
+    log_warning "Killing existing Sage processes: $pids"
 
     for pid in $pids; do
         if kill "$pid" 2>/dev/null; then
@@ -275,7 +275,7 @@ test_injection() {
 
 main() {
     log_info "========================================="
-    log_info "A-C-Gee Telegram Boot Sequence Starting"
+    log_info "Sage Telegram Boot Sequence Starting"
     log_info "========================================="
 
     # 1. Safety checks
@@ -288,13 +288,13 @@ main() {
     TMUX_SESSION=$(detect_tmux_session)
 
     # 3. Check existing processes
-    log_info "Step 3: Checking for existing A-C-Gee processes..."
+    log_info "Step 3: Checking for existing Sage processes..."
     EXISTING_PROCESSES=$(check_existing_acgee_processes)
     EXISTING_BRIDGE=$(echo "$EXISTING_PROCESSES" | cut -d'|' -f1)
     EXISTING_MONITOR=$(echo "$EXISTING_PROCESSES" | cut -d'|' -f2)
 
     if [ -n "$EXISTING_BRIDGE" ] || [ -n "$EXISTING_MONITOR" ]; then
-        log_warning "Found existing A-C-Gee processes:"
+        log_warning "Found existing Sage processes:"
         [ -n "$EXISTING_BRIDGE" ] && log_warning "  Bridge PIDs: $EXISTING_BRIDGE"
         [ -n "$EXISTING_MONITOR" ] && log_warning "  Monitor PIDs: $EXISTING_MONITOR"
 
@@ -308,7 +308,7 @@ main() {
             exit 0
         fi
     else
-        log_success "No existing A-C-Gee processes found"
+        log_success "No existing Sage processes found"
     fi
 
     # 4. Update configuration
@@ -330,7 +330,7 @@ main() {
 
     # 8. Success summary
     log_success "========================================="
-    log_success "A-C-Gee Telegram Boot Complete!"
+    log_success "Sage Telegram Boot Complete!"
     log_success "========================================="
     log_success "Tmux Session: $TMUX_SESSION"
     log_success "Bridge PID: $BRIDGE_PID"

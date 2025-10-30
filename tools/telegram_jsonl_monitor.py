@@ -65,7 +65,7 @@ from typing import Optional, Dict, List, Set
 import argparse
 
 # Configuration paths
-PROJECT_ROOT = Path("/home/corey/projects/AI-CIV/grow_gemini_deepresearch")
+PROJECT_ROOT = Path("/mnt/c/sage/sage-civilization")
 CONFIG_FILE = PROJECT_ROOT / "config/telegram_config.json"
 STATE_FILE = PROJECT_ROOT / ".tg_sessions/jsonl_monitor_state.json"
 LOG_FILE = Path("/tmp/telegram_jsonl_monitor.log")
@@ -75,7 +75,7 @@ ERROR_LOG_FILE = Path("/tmp/telegram_jsonl_monitor_error.log")
 DEFAULT_CONFIG = {
     "enabled": True,
     "claude_code_projects_dir": str(Path.home() / ".claude/projects"),
-    "project_name": "-home-corey-projects-AI-CIV-grow-gemini-deepresearch",
+    "project_name": "-mnt-c-sage-sage-civilization",
     "poll_interval_seconds": 3,
     "wrapper_markers": {
         "start": "🤖🎯📱",

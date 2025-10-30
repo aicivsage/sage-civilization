@@ -26,7 +26,7 @@ Architecture:
 - Config: config/telegram_config.json (tmux_session, tmux_pane must match current session)
 
 For full architecture details, see:
-/home/corey/projects/AI-CIV/grow_gemini_deepresearch/.claude/from-corey/tg-integration-and-possible-lesson/
+Architecture inherited from A-C-Gee, adapted for Sage civilization
 
 Registry: memories/agents/tg-archi/telegram_script_registry.json
 """
@@ -58,12 +58,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-PROJECT_ROOT = Path("/home/corey/projects/AI-CIV/grow_gemini_deepresearch")
+PROJECT_ROOT = Path("/mnt/c/sage/sage-civilization")
 SESSION_DIR = PROJECT_ROOT / ".tg_sessions"
 CONFIG_FILE = PROJECT_ROOT / "config" / "telegram_config.json"
 DEFAULT_CONFIG = {
-    "tmux_session": "acgee-main",
-    "tmux_pane": "acgee-main:0.0",
+    "tmux_session": "sage-main",
+    "tmux_pane": "sage-main:0.0",
     "working_directory": str(PROJECT_ROOT),
     "response_timeout": 10,
     "max_response_length": 4000  # Leave room for formatting
