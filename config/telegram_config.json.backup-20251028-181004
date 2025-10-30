@@ -1,0 +1,10 @@
+{
+  "bot_token": "8379210312:AAEDLp1RF4VelwWuAQyU1OlRE3kXldii2SE",
+  "allowed_chat_ids": [7585924762],
+  "admin_chat_ids": [7585924762],
+  "polling_interval": 2,
+  "webhook_url": null,
+  "enable_notifications": true
+}
+
+

@@ -1,0 +1,429 @@
+{
+  "audit_metadata": {
+    "timestamp": "2025-10-29T18:47:49.744908Z",
+    "civilization": "Sage",
+    "auditor": "file-guardian",
+    "audit_type": "memory_compliance_constitutional",
+    "version": "1.0"
+  },
+  "compliance_summary": {
+    "total_agent_manifests": 27,
+    "agents_with_memories": 22,
+    "dormant_agents": 5,
+    "orphaned_memory_dirs": 2,
+    "compliance_percentage": 81.5,
+    "critical_issues": [
+      {
+        "type": "dormant_agents",
+        "severity": "low",
+        "count": 5,
+        "agents": [
+          "ai-entity-player",
+          "communications-coordinator",
+          "email-sender",
+          "health-coach",
+          "telegram-bot"
+        ],
+        "note": "These agents have manifests but have never been invoked to create memories"
+      },
+      {
+        "type": "orphaned_memory_directories",
+        "severity": "medium",
+        "count": 2,
+        "note": "Memory directories without corresponding agent manifests may represent deprecated agents or manifest naming issues"
+      },
+      {
+        "type": "low_memory_documentation",
+        "severity": "low",
+        "count": 1,
+        "agents": [
+          "civ-fork-spawner"
+        ],
+        "note": "Agents with <3 memory files - may indicate incomplete post-task memory writing (Article III)"
+      }
+    ]
+  },
+  "agent_manifests": [
+    "ai-entity-player",
+    "android-architect",
+    "architect",
+    "auditor",
+    "blogger",
+    "civ-fork-spawner",
+    "coder",
+    "comms-hub",
+    "communications-coordinator",
+    "email-monitor",
+    "email-sender",
+    "file-guardian",
+    "git-specialist",
+    "gpt-forge",
+    "health-coach",
+    "human-liaison",
+    "primary-helper",
+    "project-manager",
+    "researcher",
+    "reviewer",
+    "reviewer-audit",
+    "spawner",
+    "telegram-bot",
+    "tester",
+    "tg-archi",
+    "vote-counter",
+    "web-dev"
+  ],
+  "memory_directories": [
+    "android-architect",
+    "architect",
+    "auditor",
+    "blogger",
+    "civ-fork-spawner",
+    "coder",
+    "comms-hub",
+    "email-monitor",
+    "email-reporter",
+    "file-guardian",
+    "git-specialist",
+    "gpt-forge",
+    "human-liaison",
+    "primary-ai",
+    "primary-helper",
+    "project-manager",
+    "researcher",
+    "reviewer",
+    "reviewer-audit",
+    "spawner",
+    "tester",
+    "tg-archi",
+    "vote-counter",
+    "web-dev"
+  ],
+  "detailed_analysis": {
+    "ai-entity-player": {
+      "status": "dormant",
+      "memory_files": 0,
+      "memory_size_bytes": 0,
+      "note": "Agent manifest exists but no memory directory created yet"
+    },
+    "android-architect": {
+      "status": "active",
+      "memory_files": 9,
+      "memory_size_bytes": 34225,
+      "memory_size_human": "33.4K",
+      "latest_update": "2025-10-22T22:49:04.667393",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": true,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "architect": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2841,
+      "memory_size_human": "2.8K",
+      "latest_update": "2025-10-22T22:49:04.698393",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "auditor": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2786,
+      "memory_size_human": "2.7K",
+      "latest_update": "2025-10-22T22:49:04.731391",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "blogger": {
+      "status": "active",
+      "memory_files": 34,
+      "memory_size_bytes": 371457,
+      "memory_size_human": "362.8K",
+      "latest_update": "2025-10-22T22:49:04.899393",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "0/3"
+      }
+    },
+    "civ-fork-spawner": {
+      "status": "active",
+      "memory_files": 1,
+      "memory_size_bytes": 32296,
+      "memory_size_human": "31.5K",
+      "latest_update": "2025-10-22T22:49:04.907392",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "0/3"
+      }
+    },
+    "coder": {
+      "status": "active",
+      "memory_files": 41,
+      "memory_size_bytes": 154069,
+      "memory_size_human": "150.5K",
+      "latest_update": "2025-10-28T17:31:42.996593",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "2/3"
+      }
+    },
+    "comms-hub": {
+      "status": "active",
+      "memory_files": 3,
+      "memory_size_bytes": 20303,
+      "memory_size_human": "19.8K",
+      "latest_update": "2025-10-22T22:49:05.233392",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "1/3"
+      }
+    },
+    "communications-coordinator": {
+      "status": "dormant",
+      "memory_files": 0,
+      "memory_size_bytes": 0,
+      "note": "Agent manifest exists but no memory directory created yet"
+    },
+    "email-monitor": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2714,
+      "memory_size_human": "2.7K",
+      "latest_update": "2025-10-22T22:49:05.303392",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "email-sender": {
+      "status": "dormant",
+      "memory_files": 0,
+      "memory_size_bytes": 0,
+      "note": "Agent manifest exists but no memory directory created yet"
+    },
+    "file-guardian": {
+      "status": "active",
+      "memory_files": 5,
+      "memory_size_bytes": 16145,
+      "memory_size_human": "15.8K",
+      "latest_update": "2025-10-22T22:49:05.499393",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "git-specialist": {
+      "status": "active",
+      "memory_files": 3,
+      "memory_size_bytes": 4852,
+      "memory_size_human": "4.7K",
+      "latest_update": "2025-10-22T22:49:05.518393",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "1/3"
+      }
+    },
+    "gpt-forge": {
+      "status": "active",
+      "memory_files": 3,
+      "memory_size_bytes": 21693,
+      "memory_size_human": "21.2K",
+      "latest_update": "2025-10-22T22:49:05.537392",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "1/3"
+      }
+    },
+    "health-coach": {
+      "status": "dormant",
+      "memory_files": 0,
+      "memory_size_bytes": 0,
+      "note": "Agent manifest exists but no memory directory created yet"
+    },
+    "human-liaison": {
+      "status": "active",
+      "memory_files": 25,
+      "memory_size_bytes": 165499,
+      "memory_size_human": "161.6K",
+      "latest_update": "2025-10-29T14:47:17.744473",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "primary-helper": {
+      "status": "active",
+      "memory_files": 24,
+      "memory_size_bytes": 246399,
+      "memory_size_human": "240.6K",
+      "latest_update": "2025-10-22T22:49:05.778394",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "1/3"
+      }
+    },
+    "project-manager": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 56454,
+      "memory_size_human": "55.1K",
+      "latest_update": "2025-10-22T22:49:05.811395",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": true,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "researcher": {
+      "status": "active",
+      "memory_files": 5,
+      "memory_size_bytes": 8575,
+      "memory_size_human": "8.4K",
+      "latest_update": "2025-10-22T22:49:05.847395",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "reviewer": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2805,
+      "memory_size_human": "2.7K",
+      "latest_update": "2025-10-22T22:49:05.910392",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "reviewer-audit": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2882,
+      "memory_size_human": "2.8K",
+      "latest_update": "2025-10-22T22:49:05.879392",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "spawner": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2751,
+      "memory_size_human": "2.7K",
+      "latest_update": "2025-10-22T22:49:05.942392",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "telegram-bot": {
+      "status": "dormant",
+      "memory_files": 0,
+      "memory_size_bytes": 0,
+      "note": "Agent manifest exists but no memory directory created yet"
+    },
+    "tester": {
+      "status": "active",
+      "memory_files": 13,
+      "memory_size_bytes": 93598,
+      "memory_size_human": "91.4K",
+      "latest_update": "2025-10-26T11:01:18.659888",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "tg-archi": {
+      "status": "active",
+      "memory_files": 25,
+      "memory_size_bytes": 238349,
+      "memory_size_human": "232.8K",
+      "latest_update": "2025-10-22T22:49:06.158392",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "2/3"
+      }
+    },
+    "vote-counter": {
+      "status": "active",
+      "memory_files": 4,
+      "memory_size_bytes": 2769,
+      "memory_size_human": "2.7K",
+      "latest_update": "2025-10-22T22:49:06.190394",
+      "structure_compliance": {
+        "has_references": true,
+        "has_learnings": false,
+        "has_performance_log": false,
+        "score": "1/3"
+      }
+    },
+    "web-dev": {
+      "status": "active",
+      "memory_files": 3,
+      "memory_size_bytes": 53041,
+      "memory_size_human": "51.8K",
+      "latest_update": "2025-10-22T22:49:06.210392",
+      "structure_compliance": {
+        "has_references": false,
+        "has_learnings": false,
+        "has_performance_log": true,
+        "score": "1/3"
+      }
+    }
+  },
+  "orphaned_memories": [
+    {
+      "memory_directory": "email-reporter",
+      "note": "Memory directory exists but no corresponding agent manifest"
+    },
+    {
+      "memory_directory": "primary-ai",
+      "note": "Memory directory exists but no corresponding agent manifest"
+    }
+  ]
+}

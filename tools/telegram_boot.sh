@@ -16,12 +16,11 @@ set -euo pipefail  # Exit on error, undefined vars, pipe failures
 # CONFIGURATION
 # ============================================================================
 
-PROJECT_ROOT="/home/corey/projects/AI-CIV/grow_gemini_deepresearch"
+PROJECT_ROOT="/mnt/c/sage/sage-civilization"
 CONFIG_FILE="$PROJECT_ROOT/config/telegram_config.json"
 LOG_FILE="/tmp/acgee_telegram_boot.log"
 BRIDGE_LOG="/tmp/acgee_telegram_bridge.log"
 MONITOR_LOG="/tmp/telegram_jsonl_monitor.log"
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'

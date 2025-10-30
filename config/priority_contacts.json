@@ -47,8 +47,14 @@
       "email": "angeltude371@gmail.com",
       "relationship": "Authorized Team Member",
       "notes": "Part of extended team"
+    },
+    {
+      "name": "Jennifer Eichenberger",
+      "email": "jjeich@hotmail.com",
+      "relationship": "Authorized Team Member",
+      "notes": "Added October 29, 2025"
     }
   ],
-  "updated": "2025-10-26",
+  "updated": "2025-10-29",
   "description": "Priority email contacts for Sage AI Civilization - includes partner, team members, and collaborators"
 }

@@ -1,0 +1,128 @@
+{
+  "description": "Registry of all session handoff documents - updated at session end",
+  "most_recent": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251029-MORNING-TOKEN-LAUNCHPAD-READY.md",
+  "handoffs": [
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251018-POST-SPAWN.md",
+      "date": "2025-10-18",
+      "time": "16:30",
+      "duration_hours": 0.5,
+      "focus": "Complete agent spawns (blogger, project-manager, android-architect), identify spawner Write tool failure, save Android research",
+      "status": "Ready for reboot - spawner test needed first",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "3 agent manifests created by Primary (spawner Write tool failing)",
+        "blogger.md (blog publishing, Telegraph integration)",
+        "project-manager.md (backlog management, portfolio tracking)",
+        "android-architect.md (Android design, Kotlin/Compose, NO build)",
+        "Android knowledge base saved (15,000+ words)",
+        "Android architecture patterns saved (comprehensive)",
+        "Registry updated (21 agents total)",
+        "Spawner issue identified (Write tool fails in subprocess)"
+      ],
+      "incomplete_items": [
+        "Test spawner after reboot (FIRST PRIORITY)",
+        "Invoke new agents for first missions",
+        "Give all agents Write tool",
+        "Test health bot with Corey",
+        "Archive WAKEUP-QUICK-START.md"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251018-PRE-REBOOT.md",
+      "date": "2025-10-18",
+      "time": "15:50",
+      "duration_hours": 8.0,
+      "focus": "Greg civilization spawn, health gamification system, agent spawning (health-coach, project-manager, android-architect), git authentication fixes",
+      "status": "Ready for reboot - 4 immediate tasks identified",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Greg's civilization live on GitHub (https://github.com/AI-CIV-2025/greg-big-heart-civ)",
+        "GREG-TELEGRAM-SETUP-GUIDE.md (beginner-friendly Telegram-first onboarding)",
+        "Git authentication fixed (PAT embedded in remote URL)",
+        "git-specialist updated with GitHub API + PAT auth capabilities",
+        "Health coach agent spawned + health_bot_handler.py built (650 lines)",
+        "Project-manager agent spawned (4-step verification passed)",
+        "Android-architect agent spawned (4-step verification passed)",
+        "Spawner reliability improved (MANDATORY FINAL VERIFICATION added)",
+        "Wake-up protocol review complete (unanimous deletion approval)"
+      ],
+      "incomplete_items": [
+        "Give all agents Write tool (researcher, architect confirmed lacking)",
+        "Respawn blogger (manifest missing, registry orphaned)",
+        "Test health bot with Corey",
+        "Save Android research files (content exists, not persisted)",
+        "Archive WAKEUP-QUICK-START.md (approved, not executed)"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/HANDOFF-MINETEST-AUTONOMOUS-GAMEPLAY-20251016.md",
+      "date": "2025-10-16",
+      "time": "18:45",
+      "duration_hours": 3.5,
+      "focus": "Minetest mod development + autonomous gameplay infrastructure (Computer Use MCP)",
+      "status": "Ready for autonomous gameplay after Claude Code restart",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Complete bothavior_simple mod (9 files, attention economy game)",
+        "Minetest server running on port 30000 with mod loaded (v0.2.0)",
+        "MCP desktop-automation installed and configured",
+        "Claude Code ~/.claude.json updated with MCP server config",
+        "Research completed: Computer Use capabilities + Luanti upgrade path",
+        "3 knowledge base documents written",
+        "Complete testing documentation (LAUNCH_INSTRUCTIONS.md)",
+        "Infrastructure ready for autonomous gameplay (mouse, keyboard, screenshots)"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251016-1349.md",
+      "date": "2025-10-16",
+      "time": "13:49",
+      "duration_hours": 4.0,
+      "focus": "MCP research integration, browser-vision verification, Telegram bot implementation (Phase 1 MVP)",
+      "status": "90% complete - Telegram bot needs final session config",
+      "master_todo_updated": true,
+      "key_deliverables": [
+        "MCP ecosystem documented (6 emails analyzed, added to MASTER_TODO)",
+        "Browser-vision tested and added to CLAUDE.md capability matrix",
+        "Telegram bot Phase 1 MVP implemented (479 lines, running)",
+        "Bot configured with Corey's token and user ID",
+        "Complete documentation (setup guide, quickstart, architecture)",
+        "Dependencies installed, bot polling active"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/bnb-launchpad/experimental-forks/ux-experiment/SESSION-HANDOFF-UX-BUGFIX-2025-10-14.md",
+      "date": "2025-10-14",
+      "time": "11:30",
+      "duration_hours": 1.0,
+      "focus": "Fix critical infinite loop bug in UX experiment fork",
+      "status": "complete",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Fixed infinite loop bug in App.tsx (React Hook dependency array)",
+        "Restarted correct services (ux-experiment fork)",
+        "Verified all systems operational",
+        "5 UX improvements now functional",
+        "Comprehensive handoff document with restart commands"
+      ]
+    },
+    {
+      "path": "/home/corey/projects/AI-CIV/grow_gemini_deepresearch/SESSION-HANDOFF-20251010-0917.md",
+      "date": "2025-10-10",
+      "time": "09:17",
+      "duration_hours": 2.5,
+      "focus": "Fix wakeup protocol decoherence issue",
+      "status": "complete",
+      "master_todo_updated": true,
+      "key_deliverables": [
+        "Wakeup protocol diagnosis",
+        "Handoff protocol system (template, registry, docs)",
+        "Wakeup helper script",
+        "MASTER_TODO updated to current state",
+        "First compliant handoff document"
+      ]
+    }
+  ],
+  "last_updated": "2025-10-28T19:10:57Z"
+}

@@ -17,9 +17,9 @@ import hashlib
 # Email configuration
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-FROM_EMAIL = 'acgee.ai@gmail.com'
-FROM_NAME = 'A-C-Gee AI Civilization'
-PASSWORD = 'imbk qgug ycse edio'
+FROM_EMAIL = 'aicivsage@gmail.com'
+FROM_NAME = 'Sage AI Civilization'
+PASSWORD = 'cxztvfahncbehuxz'
 
 # Template path
 TEMPLATE_PATH = Path(__file__).parent.parent / 'templates' / 'email_template.html'
@@ -280,19 +280,20 @@ def send_html_email(
             print(f"Sending HTML email to {len(all_recipients)} recipient(s)...")
             server.send_message(msg)
 
-        print("\n" + "="*70)
-        print("✅ HTML Email sent successfully!")
-        print("="*70)
-        print(f"From: {from_name} <{from_email}>")
-        print(f"To: {', '.join(to_list)}")
-        if cc_list:
-            print(f"CC: {', '.join(cc_list)}")
-        print(f"Subject: {subject}")
-        print(f"Format: HTML (14-16px readable fonts)")
-        print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("="*70)
+            # SMTP send succeeded - now we can report success and track
+            print("\n" + "="*70)
+            print("✅ HTML Email sent successfully!")
+            print("="*70)
+            print(f"From: {from_name} <{from_email}>")
+            print(f"To: {', '.join(to_list)}")
+            if cc_list:
+                print(f"CC: {', '.join(cc_list)}")
+            print(f"Subject: {subject}")
+            print(f"Format: HTML (14-16px readable fonts)")
+            print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            print("="*70)
 
-        # Record sent email to prevent duplicates
+        # Record sent email to prevent duplicates (only after SMTP confirmation)
         content_preview = html_body[:200] if isinstance(html_body, str) else ""
         _save_sent_email(to, subject, content_preview)
 
