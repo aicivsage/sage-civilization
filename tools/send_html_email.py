@@ -270,7 +270,7 @@ def send_html_email(
 
         # Send email
         print(f"Connecting to {SMTP_SERVER}...")
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30) as server:
             server.starttls()
             server.login(from_email, PASSWORD)
 
@@ -352,20 +352,33 @@ def send_simple_email(
     )
 
 
-# Example usage (commented out - was sending test emails on every import!)
-# if __name__ == "__main__":
-#     # Example: Send a simple HTML email
-#     markdown_content = """
-# # Test HTML Email
-#
-# This is a **test email** from the A-C-Gee civilization.
-# """
-#
-#     success = send_simple_email(
-#         to='coreycmusic@gmail.com',
-#         subject='Test: HTML Email System',
-#         body=markdown_content,
-#         is_markdown=True
-#     )
-#
-#     print(f"\nEmail send status: {'Success' if success else 'Failed'}")
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Send HTML email via Gmail SMTP')
+    parser.add_argument('--to', required=True, help='Recipient email address')
+    parser.add_argument('--subject', required=True, help='Email subject line')
+    parser.add_argument('--body', required=True, help='Email body (HTML format)')
+    parser.add_argument('--cc', help='CC recipients (comma-separated)')
+    parser.add_argument('--bcc', help='BCC recipients (comma-separated)')
+    parser.add_argument('--skip-duplicate-check', action='store_true',
+                       help='Skip duplicate detection')
+
+    args = parser.parse_args()
+
+    # Parse CC/BCC if provided
+    cc_list = args.cc.split(',') if args.cc else None
+    bcc_list = args.bcc.split(',') if args.bcc else None
+
+    # Send email
+    success = send_html_email(
+        to=args.to,
+        subject=args.subject,
+        html_body=args.body,
+        cc=cc_list,
+        bcc=bcc_list,
+        skip_duplicate_check=args.skip_duplicate_check
+    )
+
+    # Exit with appropriate code
+    exit(0 if success else 1)
