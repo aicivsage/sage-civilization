@@ -111,22 +111,50 @@ Is Greg with others? (demonstration mode)
    - YES → Answer directly
    - NO → Delegate with time estimate
 
-### Speed Mode Execution
+### Speed Mode Execution - EMAIL-BASED WORKFLOW (Updated 2025-10-31)
+
+**CRITICAL UPDATE:** Telegram outbound messaging has architectural limitations. Use EMAIL for demonstration responses.
+
+**Response Channel:** Email to gregsmithwick@gmail.com
+
+**Two-Email Strategy:**
+
+**Email 1: Quick Answer (within 5 minutes)**
+- **Subject**: "Quick Answer: [topic]"
+- **Structure**:
+  ```
+  QUICK SUMMARY (forwardable):
+  • Bullet point 1
+  • Bullet point 2
+  • Bullet point 3
+  • Contact info or next step
+
+  DETAILS:
+  [2-3 paragraphs with sources, context, caveats]
+  ```
+- **Purpose**: Greg can forward this instantly while still with person
+- **Format**: HTML email (readable on phone)
+
+**Email 2: Deep Research (10-15 minutes later)**
+- **Subject**: "Deep Research: [topic]"
+- **Content**: Comprehensive analysis, state comparisons, resources, intervention programs, etc.
+- **Purpose**: Provides ammunition for follow-up conversation or deeper help
 
 **Tools to use (in order of preference):**
 
 1. **WebSearch** - Fastest, parallel searches possible
    ```
    WebSearch multiple queries simultaneously
-   Synthesize results
-   Send answer <5 minutes
+   Synthesize results into Quick Answer email
+   Send within 5 minutes
+   Continue research for Deep Research email
    ```
 
 2. **WebFetch** - When specific source known
    ```
    Fetch specific page
    Extract key data
-   Send answer
+   Include in Quick Answer
    ```
 
 3. **My knowledge** - Only if recent and reliable
@@ -140,12 +168,13 @@ Is Greg with others? (demonstration mode)
 - Task(researcher) - Adds latency (agent startup, research time)
 - Task(any specialist) - Delegation overhead
 - Multiple sequential tool calls - Compounds delay
+- Telegram outbound messages - Architectural limitations on their end
 
 ---
 
-## Today's Example: What Should Have Happened
+## Example: What Should Happen (Updated Email-Based Workflow)
 
-**Rosanne's question received:**
+**Rosanne's question received via Telegram:**
 "How many children on the Pasco County Florida school system are homeless?"
 
 **Demonstration mode signals:**
@@ -153,7 +182,7 @@ Is Greg with others? (demonstration mode)
 - ✅ "She asks:" (question from someone being shown to)
 - ✅ Greg said earlier he only has "an hour or so"
 
-**Speed protocol should have triggered:**
+**Speed protocol triggers:**
 
 **Immediate action (within 2 minutes):**
 ```
@@ -161,26 +190,60 @@ WebSearch("Pasco County Schools homeless students 2024")
 WebSearch("Florida McKinney-Vento homeless enrollment data")
 ```
 
-**Answer sent (within 5 minutes):**
+**Email 1 sent (within 5 minutes) to gregsmithwick@gmail.com:**
 ```
-Hello Rosanne! Quick answer on Pasco County homeless students:
+Subject: Quick Answer: Pasco County Homeless Students
 
-- Pasco County Schools: 85,855 total students (2023-24)
-- Homeless students: Specific number not publicly available
-- Context: Florida has 93,316 homeless students statewide (21% increase)
-- Pasco County known as one of highest in state
+QUICK SUMMARY (forwardable):
+• Pasco County: Specific data not publicly available
+• Florida statewide: 93,316 homeless students (2023)
+• 21% increase from previous year
+• Contact: SIT Program at 727-774-2700
 
-For exact Pasco numbers, contact their SIT program: (813) 794-2262
+DETAILS:
+Pasco County Schools serves 85,855 total students (2023-24). While the
+district doesn't publish specific homeless enrollment numbers, Florida's
+statewide data shows 93,316 homeless students, representing a 21% increase
+from the previous year. Pasco County has been identified as having one of
+the higher rates in the state.
 
-I can research this more deeply if you'd like additional detail!
+For exact current numbers, the district's Student Intervention Team (SIT)
+program can be reached at 727-774-2700. They coordinate McKinney-Vento
+services and track enrollment.
+
+Sources: FL DOE, NCHE data, SchoolDigger
 ```
 
-**What actually happened:**
-- I delegated to researcher
-- Researcher interrupted during tool use
+**Email 2 sent (15 minutes later) to gregsmithwick@gmail.com:**
+```
+Subject: Deep Research: Pasco County Homeless Students
+
+COMPREHENSIVE ANALYSIS:
+
+[Detailed report with:]
+- State-by-state comparisons
+- Historical trends in Pasco County
+- Breakdown by school level (elementary/middle/high)
+- Local resources and intervention programs
+- Housing instability factors specific to Pasco
+- Success stories and best practices
+- Additional contacts and resources
+
+[5-7 paragraphs with full citations and data tables]
+```
+
+**What actually happened originally:**
+- I delegated to researcher (wrong choice)
+- Researcher took time for thorough work
 - Over an hour delay
 - Greg and Rosanne waiting
 - Demonstration effectiveness damaged
+
+**What happens now with updated protocol:**
+- Email 1: Fast forwardable answer (Greg can share immediately)
+- Email 2: Deep context (for follow-up or deeper help)
+- Total response cycle: 5 min + 15 min
+- Demonstration succeeds
 
 ---
 
@@ -217,26 +280,28 @@ From DEMONSTRATION_READINESS.md:
 
 **My interpretation:** This isn't primarily about approval workflows - it's about SPEED and AUTONOMY to use direct tools fast.
 
-**What I believe Greg means:**
-- When he's away demonstrating, I should have FULL AUTONOMY to:
+**What Greg means:**
+- When he's away demonstrating, I have FULL AUTONOMY to:
   - Search web directly (no waiting for approval)
   - Use any read-only tools immediately
+  - Send emails to his phone (gregsmithwick@gmail.com)
   - Prioritize speed over thoroughness
   - Make judgment calls on "good enough" answers
 
-**What I should NOT need approval for (demonstration mode):**
+**What I do NOT need approval for (demonstration mode):**
 - WebSearch (read-only, safe)
 - WebFetch (read-only, safe)
-- Telegram direct replies (communication)
+- Email to gregsmithwick@gmail.com (communication channel)
 - Using my knowledge for quick answers
+- Two-email strategy (quick + deep research)
 
 **What I should still ask about:**
-- Writing files (not relevant to Q&A)
-- Git commits (not relevant to Q&A)
-- Spawning agents (not relevant to Q&A)
-- High-risk operations (not relevant to Q&A)
+- Writing files (not relevant to Q&A demos)
+- Git commits (not relevant to Q&A demos)
+- Spawning agents (not relevant to Q&A demos)
+- High-risk operations (not relevant to Q&A demos)
 
-**Proposed protocol:** When Greg is demonstrating (away from terminal), I have FULL AUTONOMY for all read-only research and communication tools. Speed is the priority.
+**Confirmed protocol (2025-10-31):** When Greg is demonstrating (away from terminal), I have FULL AUTONOMY for all read-only research and email communication. Speed is the priority. Two-email strategy maximizes demonstration effectiveness.
 
 ---
 

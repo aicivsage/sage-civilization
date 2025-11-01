@@ -1,0 +1,51 @@
+[
+  {
+    "hash": "3862404e6e55b5bdd339c1847058a3e3",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Quick Question: SAGE_PUBLISH_KEY Value",
+    "preview": "<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body {\n            font-family: -apple-system, Bli",
+    "timestamp": "2025-10-29T21:47:27.484181"
+  },
+  {
+    "hash": "b28a830cef0a3feceb9fbfa7f38f8919",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Update (Oct 30, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-30T09:24:01.171995"
+  },
+  {
+    "hash": "65115b9629d6e9ff0b627c9cc4f08f5b",
+    "to": "corey@acg.garden",
+    "subject": "Dormant Agents Discovery - 5 Agents Awaiting Registration (Sage)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-30T10:56:40.188100"
+  },
+  {
+    "hash": "0000c3415083f5f2d0a2fbc3419055c1",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Dormant Agents Discovery - 5 Agents Awaiting Registration (Sage)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-10-30T11:03:44.559911"
+  },
+  {
+    "hash": "3220203d4f52e33240afd6cb011a3821",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Test - Email Script Fixed",
+    "preview": "<p><strong>Bug fixed!</strong></p><p>The send_html_email.py script now has:</p><ul><li>CLI argument ",
+    "timestamp": "2025-10-30T15:10:24.885509"
+  },
+  {
+    "hash": "42c5e2408786688b325f750af915644e",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Evening Update - Critical Learning Day (Oct 30, 2025)",
+    "preview": "<div style=\"font-family: Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333;\">\n\n<div ",
+    "timestamp": "2025-10-30T21:28:45.910055"
+  },
+  {
+    "hash": "4feb725248ef8bba1f1cd16284a2a892",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Evening Update - Critical Learning Day (Oct 30, 2025) - Sage",
+    "preview": "<div style=\"font-family: Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333;\">\n\n<div ",
+    "timestamp": "2025-10-30T21:29:48.333763"
+  }
+]
