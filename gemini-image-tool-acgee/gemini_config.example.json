@@ -1,0 +1,18 @@
+{
+  "api_key": "YOUR_GOOGLE_API_KEY_HERE",
+  "model": "gemini-2.5-flash",
+  "rate_limits": {
+    "requests_per_minute": 15,
+    "requests_per_day": 1500
+  },
+  "defaults": {
+    "size": "1024x1024",
+    "safety_filter_level": "BLOCK_MEDIUM_AND_ABOVE",
+    "output_dir": "tools/outputs/images"
+  },
+  "monitoring": {
+    "log_generations": true,
+    "warn_at_quota_percent": 80,
+    "alert_at_quota_percent": 95
+  }
+}

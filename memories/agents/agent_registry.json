@@ -30,5 +30,16 @@
     "status": "active",
     "role": "System health monitoring",
     "activated_at": "2025-10-26T07:35:03.130425"
+  },
+  "marketer": {
+    "status": "active",
+    "role": "Marketing Specialist",
+    "description": "SEO, social media, audience growth, and analytics specialist",
+    "created": "2025-11-03",
+    "reputation": 50,
+    "parent_agents": ["researcher", "blogger", "human-liaison"],
+    "proposal_id": "PROPOSAL-SPAWN-MARKETER-20251103",
+    "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "WebFetch", "WebSearch"],
+    "model": "claude-sonnet-4-5"
   }
 }

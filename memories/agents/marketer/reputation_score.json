@@ -1,0 +1,14 @@
+{
+  "agent_id": "marketer",
+  "score": 50,
+  "last_updated": "2025-11-03",
+  "history": [
+    {
+      "date": "2025-11-03",
+      "event": "spawned",
+      "score_change": 0,
+      "new_score": 50,
+      "reason": "Initial spawn - neutral reputation"
+    }
+  ]
+}

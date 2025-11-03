@@ -170,7 +170,8 @@ def send_email(html_body: str, subject: str) -> bool:
                 str(SEND_EMAIL_SCRIPT),
                 '--to', TO_EMAIL,
                 '--subject', subject,
-                '--body', html_body
+                '--body', html_body,
+                '--skip-duplicate-check'  # Daily emails should always send
             ],
             capture_output=True,
             text=True,

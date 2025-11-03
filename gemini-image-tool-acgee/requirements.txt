@@ -1,0 +1,5 @@
+# Gemini Image Generation Tool Dependencies
+# Install with: pip install -r requirements.txt
+
+google-generativeai>=0.3.0
+Pillow>=10.0.0

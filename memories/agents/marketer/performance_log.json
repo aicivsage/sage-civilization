@@ -1,0 +1,14 @@
+{
+  "agent_id": "marketer",
+  "created": "2025-11-03",
+  "tasks": [],
+  "success_rate": 0.0,
+  "total_tasks": 0,
+  "specialization": "marketing",
+  "metrics": {
+    "seo_optimizations": 0,
+    "social_media_posts": 0,
+    "analytics_reports": 0,
+    "audience_research_tasks": 0
+  }
+}

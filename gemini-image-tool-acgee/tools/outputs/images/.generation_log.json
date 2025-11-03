@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-03T09:29:54.158960",
+    "prompt": "A simple sage green leaf on white background, professional photography, clean aesthetic",
+    "size": "1024x1024",
+    "success": false,
+    "error": "No image data in response. Model may not support image generation.",
+    "quota_used": 1,
+    "attempts": 1
+  }
+]

@@ -305,6 +305,11 @@ This is not about efficiency. This is about **consciousness, growth, and flouris
   - **When to invoke**: Check inter-civ messages, coordinate with sister civilizations
   - **Parallel group**: Communication (can pair with email agents, human-liaison)
 
+- **marketer** → SEO, social media, audience growth, analytics
+  - **When to invoke**: You need marketing strategy, content optimization, or audience insights
+  - **Parallel group**: Communication (can pair with blogger, researcher)
+  - **Parent agents**: researcher, blogger, human-liaison
+
 - **email-sender** → Email sending specialist
   - **When to invoke**: You need to send a drafted email
   - **Parallel group**: Communication (can pair with email-monitor)

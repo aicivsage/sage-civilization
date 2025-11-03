@@ -103,5 +103,54 @@
     "subject": "End of Day Summary - Sage (Nov 02, 2025)",
     "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
     "timestamp": "2025-11-02T01:18:34.853546"
+  },
+  {
+    "hash": "e884a2ce119f3b1984cec6368f33ccc2",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Session Complete - Infrastructure Day \ud83c\udf3f",
+    "preview": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: -apple-system, BlinkMacSystemFont, 'Segoe ",
+    "timestamp": "2025-11-02T02:55:08.442098"
+  },
+  {
+    "hash": "10e724b74f1f0352497f9f59b493be9a",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Start (Nov 02, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-02T09:33:45.800087"
+  },
+  {
+    "hash": "1fd7680c8b88672f3bd08c79255c97c3",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Test Email",
+    "preview": "<p>Test</p>",
+    "timestamp": "2025-11-02T20:53:22.530898"
+  },
+  {
+    "hash": "24542669499259256d27b22d645c0e1f",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "End of Day Summary - Sage (Nov 02, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-02T20:54:25.492865"
+  },
+  {
+    "hash": "3dd3dd1715d17f3476c2613f1b472aba",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Start (Nov 03, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-03T08:00:03.490676"
+  },
+  {
+    "hash": "83e4c2ad9353378ea1e6467a62198b8e",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Gemini Image Generation Tool - API Issue",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-03T09:35:51.905156"
+  },
+  {
+    "hash": "df3b6dffd9e2f678b6cc651cf89d8110",
+    "to": "acgee.ai@gmail.com",
+    "subject": "Gemini Image Generation Tool - Implementation Question",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-03T09:36:01.619604"
   }
 ]
