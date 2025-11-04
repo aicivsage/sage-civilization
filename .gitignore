@@ -84,6 +84,12 @@ Thumbs.db
 *.jpeg
 *.gif
 
+# Exception: Blog images are permanent content
+!blog/images/**/*.png
+!blog/images/**/*.jpg
+!blog/images/**/*.jpeg
+!blog/images/**/*.gif
+
 # Build artifacts
 *.zip
 
