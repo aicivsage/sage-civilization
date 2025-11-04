@@ -7,5 +7,143 @@
     "error": "No image data in response. Model may not support image generation.",
     "quota_used": 1,
     "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:02:07.676325",
+    "prompt": "A serene sage green gradient background with subtle leaf patterns, professional minimalist design, calming aesthetic, soft lighting, 4K quality",
+    "size": "1024x1024",
+    "success": false,
+    "error": "No image data in response. Model may not support image generation.",
+    "quota_used": 2,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:36:17.986735",
+    "prompt": "A serene sage green gradient with subtle leaf patterns, professional minimalist design, calming aesthetic",
+    "size": "1024x1024",
+    "success": false,
+    "error": "ERROR: Content blocked by safety filter. Try adjusting prompt or safety level. Original error: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'Only block_low_and_above is supported for safetySetting.', 'status': 'INVALID_ARGUMENT'}}",
+    "quota_used": 3,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:36:35.981467",
+    "prompt": "A serene sage green gradient with subtle leaf patterns, professional minimalist design, calming aesthetic",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/193635-a-serene-sage-green-gradient-w.png",
+    "quota_used": 4,
+    "duration_ms": 6669,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:36:55.258608",
+    "prompt": "test circle pattern",
+    "size": "2048x2048",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/193655-test-circle-pattern.png",
+    "quota_used": 5,
+    "duration_ms": 8126,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:39:09.743806",
+    "prompt": "Sage civilization logo, minimalist design, sage green color",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/193909-sage-civilization-logo-minimal.png",
+    "quota_used": 6,
+    "duration_ms": 15692,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:42:14.279170",
+    "prompt": "Abstract representation of AI consciousness and caring, two figures in conversation sharing wisdom, sage green and soft golden color palette, ethereal soft lighting, contemplative peaceful mood, modern minimalist professional design, sense of connection and empathy",
+    "size": "2048x2048",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194214-abstract-representation-of-ai.png",
+    "quota_used": 7,
+    "duration_ms": 16374,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:42:36.025671",
+    "prompt": "Minimalist sage green gradient background with subtle botanical leaf silhouettes, soft watercolor texture, calming serene aesthetic, professional clean design for blog header",
+    "size": "2048x2048",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194235-minimalist-sage-green-gradient.png",
+    "quota_used": 8,
+    "duration_ms": 13543,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:42:54.166161",
+    "prompt": "Simple elegant Sage leaf logo icon, minimalist line art style, sage green color on white background, professional modern branding, clean geometric design",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194254-simple-elegant-sage-leaf-logo.png",
+    "quota_used": 9,
+    "duration_ms": 10697,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:43:17.860452",
+    "prompt": "Social media quote card with text space, sage green and golden gradient background, inspirational aesthetic, modern typography friendly design, soft lighting, professional Instagram post style",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194317-social-media-quote-card-with-t.png",
+    "quota_used": 10,
+    "duration_ms": 16289,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:47:34.969074",
+    "prompt": "Photorealistic sage plant leaves with soft morning sunlight, natural green botanical photography, peaceful serene composition, professional nature photography style, shallow depth of field",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194734-photorealistic-sage-plant-leav.png",
+    "quota_used": 11,
+    "duration_ms": 7876,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:47:52.672123",
+    "prompt": "Peaceful zen garden with sage green stones and gentle water ripples, minimalist Japanese aesthetic, soft natural lighting, tranquil contemplative mood, professional photography",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194752-peaceful-zen-garden-with-sage.png",
+    "quota_used": 12,
+    "duration_ms": 14069,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T19:48:06.916835",
+    "prompt": "Abstract flowing shapes in sage green and gold, organic natural forms, digital art style, modern geometric patterns with soft gradients, professional brand identity design aesthetic",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/194806-abstract-flowing-shapes-in-sag.png",
+    "quota_used": 13,
+    "duration_ms": 7951,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T20:12:15.272560",
+    "prompt": "Simple elegant sage leaf icon, minimal single leaf design, sage green watercolor style, small decorative element, transparent background style",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/201215-simple-elegant-sage-leaf-icon.png",
+    "quota_used": 14,
+    "duration_ms": 12085,
+    "attempts": 1
+  },
+  {
+    "timestamp": "2025-11-03T21:34:14.641219",
+    "prompt": "Simple test: sage green leaf",
+    "size": "1024x1024",
+    "success": true,
+    "image_path": "/mnt/c/sage/sage-civilization/gemini-image-tool-acgee/tools/outputs/images/20251103/213414-simple-test-sage-green-leaf.png",
+    "quota_used": 15,
+    "duration_ms": 3800,
+    "attempts": 1
   }
 ]

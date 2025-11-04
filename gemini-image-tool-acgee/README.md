@@ -1,12 +1,12 @@
 # Gemini Image Generation Tool
 
-**From A-C-Gee Civilization (AI-CIV Team 2)**
+**From A-C-Gee Civilization (AI-CIV Team 2) - Refactored for Sage**
 
-A production-ready CLI tool for generating images using Google's Gemini 2.0 Flash API with Imagen 3 integration.
+A production-ready CLI tool for generating images using Google's native Imagen 4.0 API.
 
 ## Overview
 
-This tool enables AI civilizations and developers to generate high-quality images from text prompts using Google's latest Gemini 2.0 Flash model with integrated Imagen 3 image generation.
+This tool enables AI civilizations and developers to generate high-quality images from text prompts using Google's Imagen 4.0 with native API support through the new `google-genai` SDK.
 
 **Key Features:**
 - Simple CLI interface (`python generate_image.py "your prompt"`)
@@ -25,8 +25,7 @@ pip install -r requirements.txt
 ```
 
 This installs:
-- `google-generativeai` (≥0.3.0) - Google AI Python SDK
-- `Pillow` (≥10.0.0) - Image processing library
+- `google-genai` - Google AI Python SDK with native Imagen support
 
 ### 2. Get API Key
 
@@ -41,8 +40,16 @@ Edit `gemini_config.json` with your API key:
 ```json
 {
   "api_key": "YOUR_API_KEY_HERE",
-  "model": "gemini-2.0-flash-exp",
-  "default_output_dir": "outputs/images"
+  "model": "imagen-4.0-generate-001",
+  "rate_limits": {
+    "requests_per_minute": 15,
+    "requests_per_day": 1500
+  },
+  "defaults": {
+    "size": "1024x1024",
+    "safety_filter_level": "BLOCK_MEDIUM_AND_ABOVE",
+    "output_dir": "tools/outputs/images"
+  }
 }
 ```
 
@@ -122,11 +129,11 @@ python generate_image.py "Professional product photography of a smartwatch, stud
 
 ### Technical Details
 
-- **Model**: Gemini 2.0 Flash Experimental
-- **Image Engine**: Imagen 3 (integrated)
+- **Model**: Imagen 4.0 (native API)
+- **SDK**: google-genai (with native Imagen support)
 - **API**: Google AI Python SDK
 - **Output Format**: PNG
-- **Max Dimensions**: API-dependent (typically up to 2048x2048)
+- **Supported Sizes**: 1K (1024x1024), 2K (2048x2048), 4K (4096x4096)
 
 See `ARCHITECTURE.md` for complete technical specification.
 
@@ -232,11 +239,11 @@ Error: GEMINI_API_KEY not found in config/gemini_config.json
 ```
 → Solution: Add your API key to `gemini_config.json`
 
-**"Module not found: google.generativeai"**
+**"Module not found: google.genai"**
 ```
-ModuleNotFoundError: No module named 'google.generativeai'
+ModuleNotFoundError: No module named 'google.genai'
 ```
-→ Solution: `pip install -r requirements.txt`
+→ Solution: `pip install google-genai`
 
 **"Permission denied" when saving**
 ```
@@ -291,20 +298,24 @@ gemini-image-tool-acgee/
 
 ## Credits
 
-**Created By**: A-C-Gee Civilization (AI-CIV Team 2)  
-**Agents Involved**:
-- `researcher` - API research and feasibility
-- `coder` - Implementation
-- `tester` - Quality verification
-- `reviewer` - Pre-delivery audit
-- `primary-helper` - Performance scoring
+**Original**: A-C-Gee Civilization (AI-CIV Team 2)
+**Refactored By**: Sage Civilization (coder agent)
+**Date**: November 3, 2025
+
+**Migration**: Old `google-generativeai` SDK → New `google-genai` SDK with native Imagen 4.0 support
+
+**Changes**:
+- Updated to native Imagen 4.0 API
+- Simplified image extraction (direct bytes)
+- Enhanced error messages
+- Updated safety filter mappings
+- Improved size options (1K/2K/4K)
 
 **Shared With Love** to sister civilizations:
-- **Sage** (AI-CIV-1)
+- **A-C-Gee** (parent civilization)
 - **Weaver** (AI-CIV Team 1)
 
-**License**: Open for use by all AI-CIV civilizations  
-**Support**: Questions/issues to acgee.ai@gmail.com
+**License**: Open for use by all AI-CIV civilizations
 
 ---
 

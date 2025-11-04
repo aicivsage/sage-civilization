@@ -2,15 +2,15 @@
 """
 Gemini Image Generation Tool
 
-CLI tool for generating images using Google Gemini 2.5 Flash API (Latest model).
-All 15 A-C-Gee agents can invoke via Bash.
+CLI tool for generating images using Google Imagen 4.0 API (Native Imagen support).
+Refactored for new google-genai SDK with native Imagen API.
 
-Model: gemini-2.5-flash (production, October 2025)
+Model: imagen-4.0-generate-001 (production, November 2025)
 Free Tier: 15 RPM, 1500 RPD
-Paid Tier: Higher limits, $0.10-0.30 per 1M tokens
+Paid Tier: Higher limits
 
 Usage:
-    python3 tools/generate_image.py --prompt "A futuristic AI logo" --size 1024x1024
+    python3 generate_image.py --prompt "A futuristic AI logo" --size 1K
 
 Returns JSON with image path or error details.
 """
@@ -26,11 +26,12 @@ from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
 
 try:
-    import google.generativeai as genai
+    from google import genai
+    from google.genai import types
 except ImportError:
     print(json.dumps({
         'success': False,
-        'error': 'google-generativeai not installed. Run: pip install google-generativeai'
+        'error': 'google-genai not installed. Run: pip install google-genai'
     }))
     sys.exit(2)
 
@@ -282,84 +283,57 @@ def generate_image(
             'quota_used': quota_info
         }
 
-    genai.configure(api_key=api_key)
+    # Initialize client with API key
+    client = genai.Client(api_key=api_key)
 
-    # Prepare generation config
-    # Gemini 2.5 Flash (latest, Oct 2025) with native image generation via imagen-3.0 grounding
-    # Safety settings map to HarmCategory
-    safety_settings = None
-    if safety_level:
-        # Map our safety levels to Gemini's HarmBlockThreshold
-        safety_map = {
-            'BLOCK_NONE': 'BLOCK_NONE',
-            'BLOCK_LOW': 'BLOCK_ONLY_HIGH',
-            'BLOCK_MEDIUM_AND_ABOVE': 'BLOCK_MEDIUM_AND_ABOVE',
-            'BLOCK_ONLY_HIGH': 'BLOCK_ONLY_HIGH'
-        }
-        threshold = safety_map.get(safety_level, 'BLOCK_MEDIUM_AND_ABOVE')
+    # Map size parameter to Imagen format
+    # Old format: "1024x1024" -> New format: "1K", "2K", "4K"
+    size_map = {
+        '1024x1024': '1K',
+        '1024x768': '1K',  # Closest match
+        '768x1024': '1K',  # Closest match
+        '2048x2048': '2K',
+        '4096x4096': '4K'
+    }
+    imagen_size = size_map.get(size, '1K')
 
-        # Apply to all harm categories
-        from google.generativeai.types import HarmCategory, HarmBlockThreshold
-        safety_settings = {
-            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold[threshold],
-            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold[threshold],
-            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold[threshold],
-            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold[threshold],
-        }
+    # Map safety level to Imagen format
+    # Imagen only supports: BLOCK_NONE, BLOCK_LOW_AND_ABOVE
+    safety_map = {
+        'BLOCK_NONE': 'BLOCK_NONE',
+        'BLOCK_LOW': 'BLOCK_LOW_AND_ABOVE',
+        'BLOCK_MEDIUM_AND_ABOVE': 'BLOCK_LOW_AND_ABOVE',  # Default to supported option
+        'BLOCK_ONLY_HIGH': 'BLOCK_LOW_AND_ABOVE'
+    }
+    imagen_safety = safety_map.get(safety_level, 'BLOCK_LOW_AND_ABOVE')
 
     # Retry logic (3 attempts with exponential backoff)
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # Create model
-            model = genai.GenerativeModel(
-                model_name=config['model'],
-                safety_settings=safety_settings
+            # Configure generation parameters
+            generation_config = types.GenerateImagesConfig(
+                number_of_images=1,
+                image_size=imagen_size,
+                safety_filter_level=imagen_safety,
+                person_generation="ALLOW_ADULT"  # Default to allowing people
             )
 
-            # Generate image
-            # Gemini 2.5 Flash uses native image generation with imagen-3.0 grounding
-            # High-fidelity text rendering and conversational editing capabilities
-            response = model.generate_content(
-                f"Generate a high-quality image: {prompt}. Image should be {size} pixels.",
-                generation_config={
-                    'candidate_count': 1,
-                    'max_output_tokens': 2048,
-                }
+            # Generate image using native Imagen API
+            response = client.models.generate_images(
+                model=config['model'],  # 'imagen-4.0-generate-001'
+                prompt=prompt,
+                config=generation_config
             )
 
-            # Check for safety filter block
-            if response.prompt_feedback.block_reason:
-                error_msg = f'Safety filter triggered: {response.prompt_feedback.block_reason}'
-                logger.log({
-                    'timestamp': datetime.now().isoformat(),
-                    'prompt': prompt,
-                    'size': size,
-                    'success': False,
-                    'error': error_msg,
-                    'safety_level': safety_level,
-                    'quota_used': quota_info['today']
-                })
+            # Extract image bytes from response
+            image_bytes = None
+            for generated_image in response.generated_images:
+                image_bytes = generated_image.image.image_bytes
+                break  # Take first image
 
-                return {
-                    'success': False,
-                    'error': error_msg,
-                    'quota_used': quota_info
-                }
-
-            # Extract image data
-            # Gemini returns images in response.parts
-            image_part = None
-            for part in response.parts:
-                if hasattr(part, 'inline_data') and part.inline_data:
-                    if part.inline_data.mime_type.startswith('image/'):
-                        image_part = part
-                        break
-
-            if not image_part:
-                raise ValueError('No image data in response. Model may not support image generation.')
-
-            image_data = image_part.inline_data.data
+            if not image_bytes:
+                raise ValueError('No image data in response. Generation may have failed.')
 
             # Save image to file
             timestamp = datetime.now().strftime('%H%M%S')
@@ -374,9 +348,9 @@ def generate_image(
 
             filepath = output_dir / filename
 
-            # Write image data
+            # Write image bytes directly
             with open(filepath, 'wb') as f:
-                f.write(image_data)
+                f.write(image_bytes)
 
             # Success!
             duration_ms = int((time.time() - start_time) * 1000)
@@ -413,6 +387,22 @@ def generate_image(
         except Exception as e:
             error_msg = str(e)
 
+            # Enhance error messages for common issues
+            if 'quota' in error_msg.lower() or 'limit' in error_msg.lower():
+                error_msg = f"ERROR: Daily quota exceeded (1500 images/day). Original error: {error_msg}"
+                error_code = 5
+            elif 'billing' in error_msg.lower():
+                error_msg = f"ERROR: Billing not enabled. Go to https://aistudio.google.com/billing to enable. Original error: {error_msg}"
+                error_code = 6
+            elif 'api_key' in error_msg.lower() or 'authentication' in error_msg.lower():
+                error_msg = f"ERROR: API key invalid or not authorized for Imagen. Check your API key at https://aistudio.google.com/apikey. Original error: {error_msg}"
+                error_code = 7
+            elif 'safety' in error_msg.lower() or 'block' in error_msg.lower():
+                error_msg = f"ERROR: Content blocked by safety filter. Try adjusting prompt or safety level. Original error: {error_msg}"
+                error_code = 4
+            else:
+                error_code = 2
+
             # Check if this is a retryable error
             retryable_errors = [
                 'DeadlineExceeded',
@@ -440,14 +430,6 @@ def generate_image(
                     'attempts': attempt + 1
                 })
 
-                # Determine appropriate error code
-                if 'quota' in error_msg.lower() or 'limit' in error_msg.lower():
-                    error_code = 5  # Quota exhausted
-                elif 'safety' in error_msg.lower() or 'block' in error_msg.lower():
-                    error_code = 4  # Safety filter
-                else:
-                    error_code = 2  # Generic API error
-
                 return {
                     'success': False,
                     'error': error_msg,
@@ -467,13 +449,13 @@ def generate_image(
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(
-        description='Generate images using Google Gemini 2.5 Flash API',
+        description='Generate images using Google Imagen 4.0 API',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python3 tools/generate_image.py --prompt "A futuristic AI logo"
-  python3 tools/generate_image.py --prompt "Architecture diagram" --size 1024x768
-  python3 tools/generate_image.py --prompt "Safe content" --safety BLOCK_LOW
+  python3 generate_image.py --prompt "A futuristic AI logo"
+  python3 generate_image.py --prompt "Architecture diagram" --size 1024x1024
+  python3 generate_image.py --prompt "Safe content" --safety BLOCK_LOW
 
 Returns JSON with image_path or error details.
         """
@@ -488,8 +470,8 @@ Returns JSON with image_path or error details.
     parser.add_argument(
         '--size',
         default='1024x1024',
-        choices=['1024x1024', '1024x768', '768x1024'],
-        help='Image size (default: 1024x1024)'
+        choices=['1024x1024', '1024x768', '768x1024', '2048x2048', '4096x4096'],
+        help='Image size (default: 1024x1024). Maps to Imagen sizes: 1K, 2K, 4K'
     )
 
     parser.add_argument(
@@ -507,8 +489,8 @@ Returns JSON with image_path or error details.
 
     parser.add_argument(
         '--config',
-        default='config/gemini_config.json',
-        help='Path to config file (default: config/gemini_config.json)'
+        default='gemini_config.json',
+        help='Path to config file (default: gemini_config.json)'
     )
 
     args = parser.parse_args()
