@@ -4,6 +4,16 @@
 .env.local
 .env.*.local
 
+# Configuration files with credentials
+**/gemini_config.json
+**/telegram_config.json
+**/*_secrets.json
+**/*_credentials.json
+**/config/*_config.json
+
+# Keep example templates
+!**/*.example.json
+
 # Python
 __pycache__/
 *.py[cod]
