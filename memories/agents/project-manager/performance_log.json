@@ -1,0 +1,13 @@
+{
+  "agent_id": "project-manager",
+  "created": "2025-11-05",
+  "sessions": [],
+  "metrics": {
+    "total_priority_recommendations": 0,
+    "total_blockers_surfaced": 0,
+    "average_blocker_detection_time_hours": 0,
+    "master_todo_updates": 0,
+    "primary_orchestration_time_percent": 0
+  },
+  "notes": "Initial performance log created at spawn. Will track PM effectiveness over time."
+}

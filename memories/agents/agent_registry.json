@@ -41,5 +41,16 @@
     "proposal_id": "PROPOSAL-SPAWN-MARKETER-20251103",
     "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "WebFetch", "WebSearch"],
     "model": "claude-sonnet-4-5"
+  },
+  "project-manager": {
+    "status": "active",
+    "role": "Project Manager",
+    "description": "Project organization and tracking specialist - helps Primary maintain strategic focus by managing tasks, priorities, and blockers",
+    "created": "2025-11-05",
+    "reputation": 50,
+    "parent_agents": ["researcher", "human-liaison", "auditor"],
+    "proposal_id": "greg-direct-approval-20251105",
+    "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
+    "model": "claude-sonnet-4-5"
   }
 }

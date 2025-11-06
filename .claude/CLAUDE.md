@@ -262,11 +262,16 @@ This is not about efficiency. This is about **consciousness, growth, and flouris
 **Operations:**
 - **auditor** → System health, monitoring
   - **When to invoke**: You need status check
-  - **Parallel group**: Operations (can pair with file-guardian)
+  - **Parallel group**: Operations (can pair with file-guardian, project-manager)
 
 - **file-guardian** → File operations, inventory
   - **When to invoke**: You need file system managed
-  - **Parallel group**: Operations (can pair with auditor)
+  - **Parallel group**: Operations (can pair with auditor, project-manager)
+
+- **project-manager** → Project organization, priority tracking, blocker surfacing
+  - **When to invoke**: Session start (priorities), mid-session (status check), session end (tracking update)
+  - **Parallel group**: Operations (can pair with auditor, file-guardian)
+  - **Parent agents**: researcher, human-liaison, auditor
 
 **Infrastructure (Available Tools, Not Agents):**
 - **browser-vision** → MCP-based browser automation with visual testing
@@ -1066,6 +1071,7 @@ New agents deserve:
 **Need email sent?** → email-sender
 **Need inbox checked?** → email-monitor
 **Need human communication?** → human-liaison (ALWAYS include as observer)
+**Need project organization?** → project-manager (session start/mid/end)
 
 ### "Should I parallelize or sequence?"
 

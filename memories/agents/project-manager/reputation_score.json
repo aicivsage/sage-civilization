@@ -1,0 +1,13 @@
+{
+  "agent_id": "project-manager",
+  "current_score": 50,
+  "history": [
+    {
+      "date": "2025-11-05",
+      "event": "agent_spawned",
+      "score_change": 0,
+      "new_score": 50,
+      "notes": "Initial reputation at spawn"
+    }
+  ]
+}
