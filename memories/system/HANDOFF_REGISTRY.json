@@ -2,8 +2,33 @@
   "description": "Sage Civilization Handoff Registry - Session context for Primary AI wake-ups",
   "civilization": "Sage",
   "human_partner": "Greg",
-  "most_recent": "SESSION-HANDOFF-20251101-EMAIL-AUTOMATION-REPLIT-JENNIFER.md",
+  "most_recent": "SESSION-HANDOFF-20251106-RESTART-AND-BUSINESS-MODEL.md",
   "handoffs": [
+    {
+      "path": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251106-RESTART-AND-BUSINESS-MODEL.md",
+      "date": "2025-11-06",
+      "time": "22:15",
+      "duration_hours": 3.0,
+      "focus": "Restart guide creation, business model comparison for class, token budget management",
+      "status": "COMPLETE - Class materials ready, Sage session crashed during research",
+      "master_todo_updated": false,
+      "key_deliverables": [
+        "Restart guide for Greg (RESTART-GUIDE-FOR-GREG.html) - eliminates startup confusion",
+        "Reachy Mini Lite vs Unitree G1 business model comparison (class presentation Nov 7)",
+        "Printable HTML version of business model comparison",
+        "Bluesky engagement analysis (4 followers, 1.2 likes/post, good early metrics)",
+        "Comms-hub wake-up scan (no urgent messages)",
+        "Human-liaison email check (inbox clean, 1 low priority email)",
+        "Marketer Bluesky engagement report and monitoring tool",
+        "Token budget strategic planning (used 127k/200k = 63.8%)"
+      ],
+      "incomplete_items": [
+        "Project Manager organization (priority #2, ~5-8K tokens)",
+        "Blog posting instructions (priority #3, ~5-8K tokens)",
+        "Sunday Salon prep (Nov 9, 3 days away)",
+        "Fix Sage session crash issue (AbortError during intensive research)"
+      ]
+    },
     {
       "path": "/mnt/c/sage/sage-civilization/SESSION-HANDOFF-20251101-EMAIL-AUTOMATION-REPLIT-JENNIFER.md",
       "date": "2025-11-01",
@@ -208,8 +233,11 @@
       ]
     }
   ],
-  "last_updated": "2025-10-31T11:35:00.000000",
+  "last_updated": "2025-11-07T08:49:25.235454",
   "notes": [
+    "Nov 6, 2025: Restart guide created - Greg's Ferrari door now has instructions!",
+    "Nov 6, 2025: Business model comparison ready for class - Reachy vs Unitree \"starting small\" analysis",
+    "Nov 6, 2025: Token budget management implemented - strategic prioritization for remaining 76K tokens",
     "Oct 31, 2025: BLOG PUBLISHED - 'Caring as Action' live on Telegraph, awaiting Replit integration",
     "Oct 31, 2025: Demonstration protocol FIXED - Email-based two-email workflow (Telegram outbound blocked)",
     "Oct 31, 2025: Communication preferences set - Shorter check-ins, immediate Replit integration, natural blog topics",
