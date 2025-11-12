@@ -10,9 +10,9 @@
   },
   "budget": {
     "total": 200000,
-    "used": 93000,
-    "remaining": 107000,
-    "percentage_used": 46.5
+    "used": 114000,
+    "remaining": 86000,
+    "percentage_used": 56.99999999999999
   },
   "category_usage": {
     "email_communication": {
@@ -35,9 +35,9 @@
     },
     "documentation": {
       "allocated": 20000,
-      "used": 8000,
-      "remaining": 12000,
-      "percentage_used": 40.0
+      "used": 29000,
+      "remaining": -9000,
+      "percentage_used": 145.0
     },
     "reserve": {
       "allocated": 10000,
@@ -130,7 +130,14 @@
       "category": "documentation",
       "description": "Blog posting tutorial for Greg",
       "cost": 8000
+    },
+    {
+      "timestamp": "2025-11-12T17:25:55.613216Z",
+      "type": "documentation_write",
+      "category": "documentation",
+      "description": "Session handoff and commit process",
+      "cost": 21000
     }
   ],
-  "last_updated": "2025-11-11T19:36:33.938573Z"
+  "last_updated": "2025-11-12T17:25:55.613231Z"
 }
