@@ -6,5 +6,13 @@
     "created_at": "2025-10-25T13:21:09.470387",
     "last_seen": "2025-10-28T22:14:44.980586",
     "role": "user"
+  },
+  "033589de-b608-47ef-99e8-a61d13764a6a": {
+    "id": "033589de-b608-47ef-99e8-a61d13764a6a",
+    "username": "gregsmithwick@gmail.com",
+    "display_name": "Greg",
+    "created_at": "2025-11-05T22:18:14.186159",
+    "last_seen": "2025-11-09T08:52:05.332801",
+    "role": "user"
   }
 }

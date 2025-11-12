@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "current_week": {
+    "start_date": "2025-11-12",
+    "end_date": "2025-11-18",
+    "week_number": 46,
+    "reset_day": "Tuesday",
+    "reset_time": "10:00 AM EST",
+    "note": "Weekly quota resets Tuesday 10am EST per Anthropic"
+  },
+  "budget": {
+    "total": 200000,
+    "used": 93000,
+    "remaining": 107000,
+    "percentage_used": 46.5
+  },
+  "category_usage": {
+    "email_communication": {
+      "allocated": 60000,
+      "used": 6000,
+      "remaining": 54000,
+      "percentage_used": 10.0
+    },
+    "agent_operations": {
+      "allocated": 70000,
+      "used": 79000,
+      "remaining": -9000,
+      "percentage_used": 112.85714285714286
+    },
+    "research_planning": {
+      "allocated": 40000,
+      "used": 0,
+      "remaining": 40000,
+      "percentage_used": 0.0
+    },
+    "documentation": {
+      "allocated": 20000,
+      "used": 8000,
+      "remaining": 12000,
+      "percentage_used": 40.0
+    },
+    "reserve": {
+      "allocated": 10000,
+      "used": 0,
+      "remaining": 10000,
+      "percentage_used": 0.0
+    }
+  },
+  "operations_log": [
+    {
+      "timestamp": "2025-11-11T00:00:00Z",
+      "type": "weekly_reset",
+      "description": "Week 46 budget initialized",
+      "cost": 0
+    },
+    {
+      "timestamp": "2025-11-11T18:41:31.943086Z",
+      "type": "email_communication",
+      "category": "agent_operations",
+      "description": "Test email operation",
+      "cost": 3000
+    },
+    {
+      "timestamp": "2025-11-11T18:42:20.269283Z",
+      "type": "documentation_write",
+      "category": "documentation",
+      "description": "Test documentation update",
+      "cost": 2000
+    },
+    {
+      "timestamp": "2025-11-11T19:12:13.767937Z",
+      "type": "weekly_archive",
+      "description": "Week 46 complete",
+      "cost": 0,
+      "week_summary": {
+        "week_number": 46,
+        "total_used": 80000,
+        "percentage_used": 40.0,
+        "category_usage": {
+          "email_communication": {
+            "allocated": 60000,
+            "used": 0,
+            "remaining": 60000,
+            "percentage_used": 0.0
+          },
+          "agent_operations": {
+            "allocated": 70000,
+            "used": 0,
+            "remaining": 70000,
+            "percentage_used": 0.0
+          },
+          "research_planning": {
+            "allocated": 40000,
+            "used": 0,
+            "remaining": 40000,
+            "percentage_used": 0.0
+          },
+          "documentation": {
+            "allocated": 20000,
+            "used": 0,
+            "remaining": 20000,
+            "percentage_used": 0.0
+          },
+          "reserve": {
+            "allocated": 10000,
+            "used": 0,
+            "remaining": 10000,
+            "percentage_used": 0.0
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-11T19:12:18.411605Z",
+      "type": "session_wakeup",
+      "category": "agent_operations",
+      "description": "Session Nov 11 - wake-up through token system implementation",
+      "cost": 79000
+    },
+    {
+      "timestamp": "2025-11-11T19:25:19.001451Z",
+      "type": "email_send",
+      "category": "email_communication",
+      "description": "Response to Angel re: cancer cure question",
+      "cost": 6000
+    },
+    {
+      "timestamp": "2025-11-11T19:36:33.938557Z",
+      "type": "documentation_write",
+      "category": "documentation",
+      "description": "Blog posting tutorial for Greg",
+      "cost": 8000
+    }
+  ],
+  "last_updated": "2025-11-11T19:36:33.938573Z"
+}

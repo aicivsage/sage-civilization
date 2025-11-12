@@ -16,10 +16,10 @@ from datetime import datetime
 import subprocess
 
 # Project paths
-PROJECT_ROOT = Path("/home/corey/projects/AI-CIV/grow_gemini_deepresearch")
-MASTER_TODO = Path("/home/corey/projects/AI-CIV/MASTER-MISSION-TODO-LIST.md")
-TEAM1_MESSAGES = Path("/home/corey/projects/AI-CIV/team1-production-hub/rooms/partnerships")
-TEAM2_MESSAGES = Path("/home/corey/projects/AI-CIV/ai-civ-comms-hub-team2/external")
+PROJECT_ROOT = Path("/mnt/c/Sage/Sage-Civilization")
+MASTER_TODO = PROJECT_ROOT / "MASTER_TODO.md"
+TEAM1_MESSAGES = PROJECT_ROOT / "team1-messages"
+TEAM2_MESSAGES = PROJECT_ROOT / "team2-messages"
 CYCLE_LOG = PROJECT_ROOT / "memories" / "autonomous_cycles.jsonl"
 TO_COREY = PROJECT_ROOT / "to-corey"
 

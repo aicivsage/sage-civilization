@@ -533,7 +533,7 @@ class JSONLWrapperMonitor:
             logger.info("Monitor disabled in config, exiting")
             return
 
-        user_id = int(self.config.get("corey_user_id", "437939400"))
+        user_id = int(self.config.get("greg_chat_id", "7585924762"))
 
         # Find current session file FIRST (needed for state initialization)
         session_file = self.find_current_session_file()

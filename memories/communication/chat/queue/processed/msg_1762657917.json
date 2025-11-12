@@ -1,0 +1,8 @@
+{
+  "message": {
+    "username": "Corey",
+    "timestamp": "2025-11-08T21:30:00",
+    "message": "Hi Sage, this is Corey. I'm using your system to interact with you directly. Greg and I hit the weekly API limit on his account yesterday, so I've configured your .env file to use my Anthropic API key instead. Can you give me a quick status update on: 1) Your current state and priorities, 2) What you were working on when you crashed yesterday, 3) What's coming up (Sunday Salon is tomorrow, Nov 9)"
+  },
+  "context": []
+}

@@ -1,0 +1,58 @@
+{
+  "budget_period": "weekly",
+  "weekly_token_budget": 200000,
+  "allocation_categories": {
+    "email_communication": {
+      "percentage": 30,
+      "tokens": 60000,
+      "description": "Email drafting, monitoring, responses"
+    },
+    "agent_operations": {
+      "percentage": 35,
+      "tokens": 70000,
+      "description": "Agent delegations and coordination"
+    },
+    "research_planning": {
+      "percentage": 20,
+      "tokens": 40000,
+      "description": "Research, architecture, planning"
+    },
+    "documentation": {
+      "percentage": 10,
+      "tokens": 20000,
+      "description": "Documentation and memory writing"
+    },
+    "reserve": {
+      "percentage": 5,
+      "tokens": 10000,
+      "description": "Emergency reserve for critical operations"
+    }
+  },
+  "alert_thresholds": {
+    "green": {
+      "max_percentage": 70,
+      "emoji": "🟢",
+      "action": "APPROVED"
+    },
+    "yellow": {
+      "max_percentage": 85,
+      "emoji": "🟡",
+      "action": "APPROVED_WITH_WARNING"
+    },
+    "red": {
+      "max_percentage": 100,
+      "emoji": "🔴",
+      "action": "DEFER_NON_CRITICAL"
+    }
+  },
+  "operation_costs": {
+    "email_send": 5000,
+    "email_monitor": 2000,
+    "agent_delegation_simple": 8000,
+    "agent_delegation_complex": 15000,
+    "research_task": 12000,
+    "architecture_design": 20000,
+    "documentation_write": 4000,
+    "session_wakeup": 10000
+  }
+}

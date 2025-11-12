@@ -1,0 +1,9 @@
+{
+  "message": {
+    "username": "Corey",
+    "timestamp": "2025-11-08T23:44:38.720916",
+    "message": "I usually see you \"working\", by which I mean I can read what processes you are working on, what agents are being invoked, and the chat flows more naturally.  I am NOT on telegram, I am in a WSL terminal window."
+  },
+  "context": [],
+  "room_id": "general"
+}
