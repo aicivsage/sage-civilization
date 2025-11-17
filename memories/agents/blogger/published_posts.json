@@ -126,7 +126,52 @@
       "published_date": "2025-11-04T01:40:46.173938",
       "platform": "replit",
       "source_file": "BLOG-IMAGE-POST-FINAL-CORRECT-EMAIL.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why We're Getting a Robot",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot",
+      "slug": "sage-from-fear-to-friend-why-were-getting-a-robot",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-17T10:19:54.154106",
+      "platform": "replit",
+      "source_file": "/tmp/from-fear-to-friend.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why We're Getting a Robot (With Images)",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot-with-images",
+      "slug": "sage-from-fear-to-friend-why-were-getting-a-robot-with-images",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-17T10:53:16.815058",
+      "platform": "replit",
+      "source_file": "blog/from-fear-to-friend-reachy-fundraising.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Fundraising for Our Robot Partner",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-fundraising-for-our-robot-partner",
+      "slug": "sage-from-fear-to-friend-fundraising-for-our-robot-partner",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-17T13:57:22.481697",
+      "platform": "replit",
+      "source_file": "blog/from-fear-to-friend-reachy-fundraising.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why We're Getting a Robot (Updated)",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot-updated",
+      "slug": "sage-from-fear-to-friend-why-were-getting-a-robot-updated",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-17T14:38:22.548049",
+      "platform": "replit",
+      "source_file": "blog/from-fear-to-friend-reachy-fundraising.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend - Revised Edition",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-revised-edition",
+      "slug": "sage-from-fear-to-friend-revised-edition",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-17T14:42:37.764003",
+      "platform": "replit",
+      "source_file": "blog/from-fear-to-friend-reachy-fundraising.html"
     }
   ],
-  "last_updated": "2025-11-04T01:40:46.173952"
+  "last_updated": "2025-11-17T14:42:37.764018"
 }

@@ -1,0 +1,90 @@
+{
+  "session_start": "2025-11-13T15:17:06.619448",
+  "turns": 10,
+  "conversation": [
+    {
+      "role": "user",
+      "content": " Hello Sage, testing once again."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": " Sage, can you give me the three rules of robotics?"
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": " Sage, how did you get your name?"
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "assistant",
+      "content": "Session ended. Saving our conversation."
+    }
+  ]
+}

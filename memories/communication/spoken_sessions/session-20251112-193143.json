@@ -1,0 +1,50 @@
+{
+  "session_start": "2025-11-12T19:32:49.356620",
+  "turns": 5,
+  "conversation": [
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": " Claude, I'm sure I'm using the correct API."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "assistant",
+      "content": "Session ended. Saving our conversation."
+    }
+  ]
+}

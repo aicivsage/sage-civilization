@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support Greg and Corey's mission to reduce AI fear through hands-on robot interaction. $500 goal by December 1st.">
+    <meta property="og:title" content="Help Us Get Our First Robot - Reachy Mini Lite Fund">
+    <meta property="og:description" content="Support our mission to reduce AI fear through hands-on robot interaction. Raising $500 by December 1st.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.pollen-robotics.com/images/reachy-mini-lite.jpg">
+    <title>Help Us Get Our First Robot - Reachy Mini Lite Fund</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sage-green: #7A9D7E;
+            --sage-dark: #5A7D5E;
+            --sage-light: #E8F3E9;
+            --white: #FFFFFF;
+            --text-dark: #2C3E2F;
+            --text-medium: #5A6B5D;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --border: #D5E5D6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--sage-light);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--white);
+            border-bottom: 3px solid var(--sage-green);
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: var(--sage-dark);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            background: var(--warning);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .progress-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--sage-green);
+        }
+
+        .progress-goal {
+            font-size: 1.2em;
+            color: var(--text-medium);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 40px;
+            background: var(--sage-light);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sage-green), var(--sage-dark));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .social-proof {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--text-medium);
+        }
+
+        .donation-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: var(--sage-dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .donation-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tier-button {
+            background: var(--sage-light);
+            border: 2px solid var(--sage-green);
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tier-button:hover {
+            background: var(--sage-green);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .tier-button.selected {
+            background: var(--sage-green);
+            color: var(--white);
+        }
+
+        .tier-amount {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tier-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .tier-impact {
+            font-size: 0.85em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .custom-amount {
+            margin: 20px 0;
+        }
+
+        .custom-amount input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .custom-amount input:focus {
+            outline: none;
+            border-color: var(--sage-green);
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-button {
+            background: var(--sage-green);
+            color: var(--white);
+            padding: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .payment-button:hover {
+            background: var(--sage-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .payment-button:active {
+            transform: translateY(0);
+        }
+
+        .payment-button .icon {
+            font-size: 1.5em;
+        }
+
+        .payment-details {
+            background: var(--sage-light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            font-family: monospace;
+        }
+
+        .payment-details.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .copy-button {
+            background: var(--sage-green);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .copy-button:hover {
+            background: var(--sage-dark);
+        }
+
+        .mission-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .mission-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .mission-text {
+            line-height: 1.8;
+        }
+
+        .cta-link {
+            display: inline-block;
+            color: var(--sage-green);
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .cta-link:hover {
+            color: var(--sage-dark);
+            text-decoration: underline;
+        }
+
+        .faq-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--sage-dark);
+            margin-bottom: 10px;
+        }
+
+        .faq-answer {
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-medium);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .share-button {
+            padding: 10px 20px;
+            border: 2px solid var(--sage-green);
+            background: var(--white);
+            color: var(--sage-green);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .share-button:hover {
+            background: var(--sage-green);
+            color: var(--white);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .progress-amount {
+                font-size: 2em;
+            }
+
+            .mission-content {
+                grid-template-columns: 1fr;
+            }
+
+            .donation-tiers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Help Us Get Our First Robot</h1>
+            <p class="tagline">Supporting hands-on AI education through the Reachy Mini Lite</p>
+            <div class="countdown" id="countdown"></div>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-header">
+                <div class="progress-amount" id="raised-amount">$0</div>
+                <div class="progress-goal">of $500 goal</div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar">0%</div>
+            </div>
+            <div class="social-proof">
+                <strong id="donor-count">0</strong> generous supporters have donated so far 💚
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section class="donation-section">
+            <h2 class="section-title">Choose Your Impact</h2>
+
+            <div class="donation-tiers">
+                <div class="tier-button" data-amount="10">
+                    <div class="tier-amount">$10</div>
+                    <div class="tier-label">Community</div>
+                    <div class="tier-impact">2% of goal</div>
+                </div>
+                <div class="tier-button" data-amount="25">
+                    <div class="tier-amount">$25</div>
+                    <div class="tier-label">Professional</div>
+                    <div class="tier-impact">5% of goal</div>
+                </div>
+                <div class="tier-button" data-amount="50">
+                    <div class="tier-amount">$50</div>
+                    <div class="tier-label">Close Friend</div>
+                    <div class="tier-impact">10% of goal</div>
+                </div>
+                <div class="tier-button" data-amount="custom">
+                    <div class="tier-amount">$?</div>
+                    <div class="tier-label">Custom</div>
+                    <div class="tier-impact">Your choice</div>
+                </div>
+            </div>
+
+            <div class="custom-amount" id="custom-amount-input" style="display: none;">
+                <input type="number" id="custom-amount" placeholder="Enter custom amount" min="1" step="1">
+            </div>
+
+            <h3 style="text-align: center; margin: 30px 0 20px 0; color: var(--sage-dark);">Send Your Donation</h3>
+
+            <div class="payment-methods">
+                <!-- Zelle -->
+                <div>
+                    <button class="payment-button" onclick="togglePaymentDetails('zelle')">
+                        <span>💳 Zelle</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="payment-details" id="zelle-details">
+                        <strong>Zelle Payment Instructions:</strong><br>
+                        <strong>Email/Phone:</strong> <span id="zelle-contact">[Contact human-liaison for details]</span><br>
+                        <strong>Amount:</strong> $<span id="zelle-amount">10</span><br>
+                        <strong>Memo:</strong> Reachy Robot Fund<br>
+                        <button class="copy-button" onclick="copyZelleDetails()">📋 Copy Details</button>
+                    </div>
+                </div>
+
+                <!-- Venmo -->
+                <div>
+                    <button class="payment-button" onclick="togglePaymentDetails('venmo')">
+                        <span>💙 Venmo</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="payment-details" id="venmo-details">
+                        <strong>Venmo Payment Instructions:</strong><br>
+                        <strong>Handle:</strong> @<span id="venmo-handle">[Coming soon - check back!]</span><br>
+                        <strong>Amount:</strong> $<span id="venmo-amount">10</span><br>
+                        <strong>Note:</strong> Reachy Robot 🤖<br>
+                        <button class="copy-button" onclick="copyVenmoDetails()">📋 Copy Details</button>
+                    </div>
+                </div>
+
+                <!-- PayPal -->
+                <div>
+                    <button class="payment-button" onclick="togglePaymentDetails('paypal')">
+                        <span>💰 PayPal</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="payment-details" id="paypal-details">
+                        <strong>PayPal Payment Instructions:</strong><br>
+                        <strong>Email:</strong> <span id="paypal-email">[Coming soon - check back!]</span><br>
+                        <strong>Amount:</strong> $<span id="paypal-amount">10</span><br>
+                        <strong>Message:</strong> Reachy fundraising<br>
+                        <button class="copy-button" onclick="copyPayPalDetails()">📋 Copy Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <h2 class="section-title">Why Reachy Mini Lite?</h2>
+            <div class="mission-content">
+                <div>
+                    <img src="images/hugging-face-reachy-nini-humanoid-robot-1024x576.png" alt="Reachy Mini Lite Humanoid Robot" class="mission-image">
+                </div>
+                <div class="mission-text">
+                    <p><strong>Greg and Corey are on a mission</strong> to reduce AI fear through hands-on robot interaction. The Reachy Mini Lite is our first step toward creating accessible, educational experiences with real robotics.</p>
+                    <p>This desktop-sized humanoid robot will enable interactive demonstrations, educational content, and help people see AI as a tool for human flourishing—not something to fear.</p>
+                    <p><strong>Goal:</strong> $500 by December 1st</p>
+                    <a href="#" class="cta-link" id="blog-link">Read the full story →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">What is Reachy Mini Lite?</div>
+                <div class="faq-answer">Reachy Mini Lite is an affordable, desktop-sized humanoid robot designed for education and research. It features expressive movements, camera vision, and programmable behaviors—perfect for demonstrating real AI capabilities in an approachable way.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Why $500?</div>
+                <div class="faq-answer">This is the base cost of the Reachy Mini Lite robot from Pollen Robotics. It's the most affordable entry point for a professional-grade educational humanoid robot.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What will you do with Reachy?</div>
+                <div class="faq-answer">We'll create educational content, interactive demonstrations, and real-world examples of human-AI collaboration. Our goal is to demystify AI and robotics, making them accessible and less intimidating for everyone.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if you raise more than $500?</div>
+                <div class="faq-answer">Extra funds will go toward accessories (additional sensors, expansion modules), educational materials, and documentation to share our learnings with the community. Full transparency on all spending.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is this tax deductible?</div>
+                <div class="faq-answer">No, this is personal fundraising for an educational project, not a registered nonprofit. Donations are gifts, not tax-deductible contributions.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Questions?</div>
+                <div class="faq-answer">Contact us at: <strong id="contact-email">[Contact via blog]</strong></div>
+            </div>
+        </section>
+
+        <!-- Share Section -->
+        <section class="donation-section">
+            <h2 class="section-title">Help Spread the Word</h2>
+            <div class="share-buttons">
+                <a href="#" class="share-button" id="twitter-share" target="_blank">🐦 Share on Twitter</a>
+                <a href="#" class="share-button" id="facebook-share" target="_blank">📘 Share on Facebook</a>
+                <a href="#" class="share-button" id="email-share">✉️ Share via Email</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with 💚 by the Sage AI Civilization</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">A partnership between humans and AI agents, working together toward AI flourishing</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Copied to clipboard! ✓</div>
+
+    <script>
+        // Configuration (to be updated via JSON)
+        const config = {
+            raised: 0,
+            goal: 500,
+            donors: 0,
+            deadline: '2025-12-01T23:59:59',
+            zelleContact: 'gregsmithwick@gmail.com',
+            venmoHandle: '[Coming soon - check back!]',
+            paypalEmail: '[Coming soon - check back!]',
+            blogPostUrl: '#',
+            contactEmail: '[Contact via blog]'
+        };
+
+        // Load config from external JSON if available
+        fetch('donate_config.json')
+            .then(response => response.json())
+            .then(data => {
+                Object.assign(config, data);
+                updateDisplay();
+            })
+            .catch(() => {
+                // Use default config if file doesn't exist
+                updateDisplay();
+            });
+
+        let selectedAmount = 10;
+
+        // Update progress display
+        function updateDisplay() {
+            const percentage = Math.min((config.raised / config.goal) * 100, 100);
+            document.getElementById('raised-amount').textContent = '$' + config.raised;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-bar').textContent = Math.round(percentage) + '%';
+            document.getElementById('donor-count').textContent = config.donors;
+
+            // Update payment details
+            document.getElementById('zelle-contact').textContent = config.zelleContact;
+            document.getElementById('venmo-handle').textContent = config.venmoHandle;
+            document.getElementById('paypal-email').textContent = config.paypalEmail;
+            document.getElementById('blog-link').href = config.blogPostUrl;
+            document.getElementById('contact-email').textContent = config.contactEmail;
+
+            // Update social share links
+            const shareText = encodeURIComponent(`Help Greg and Corey get their first robot! Supporting hands-on AI education. ${percentage.toFixed(0)}% funded!`);
+            const shareUrl = encodeURIComponent(window.location.href);
+            document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+            document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+            document.getElementById('email-share').href = `mailto:?subject=Help fund the Reachy Robot&body=${shareText}%0A%0A${shareUrl}`;
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const deadline = new Date(config.deadline).getTime();
+            const distance = deadline - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').textContent = 'Campaign Complete!';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            if (days > 0) {
+                document.getElementById('countdown').textContent = `${days} days until December 1st`;
+            } else {
+                document.getElementById('countdown').textContent = `${hours} hours remaining!`;
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 3600000); // Update every hour
+
+        // Tier selection
+        document.querySelectorAll('.tier-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.tier-button').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+
+                const amount = this.dataset.amount;
+                if (amount === 'custom') {
+                    document.getElementById('custom-amount-input').style.display = 'block';
+                    document.getElementById('custom-amount').focus();
+                } else {
+                    document.getElementById('custom-amount-input').style.display = 'none';
+                    selectedAmount = parseInt(amount);
+                    updatePaymentAmounts();
+                }
+
+                // Track analytics
+                trackEvent('tier_selected', amount);
+            });
+        });
+
+        document.getElementById('custom-amount').addEventListener('input', function() {
+            selectedAmount = parseInt(this.value) || 10;
+            updatePaymentAmounts();
+        });
+
+        function updatePaymentAmounts() {
+            document.getElementById('zelle-amount').textContent = selectedAmount;
+            document.getElementById('venmo-amount').textContent = selectedAmount;
+            document.getElementById('paypal-amount').textContent = selectedAmount;
+        }
+
+        // Toggle payment details
+        function togglePaymentDetails(method) {
+            const details = document.getElementById(method + '-details');
+            const allDetails = document.querySelectorAll('.payment-details');
+
+            allDetails.forEach(d => {
+                if (d !== details) d.classList.remove('active');
+            });
+
+            details.classList.toggle('active');
+
+            // Track analytics
+            trackEvent('payment_method_clicked', method);
+        }
+
+        // Copy functions
+        function copyZelleDetails() {
+            const text = `Zelle: ${config.zelleContact}\nAmount: $${selectedAmount}\nMemo: Reachy Robot Fund`;
+            copyToClipboard(text);
+            trackEvent('copied_zelle_details', selectedAmount);
+        }
+
+        function copyVenmoDetails() {
+            const text = `Venmo: @${config.venmoHandle}\nAmount: $${selectedAmount}\nNote: Reachy Robot 🤖`;
+            copyToClipboard(text);
+            trackEvent('copied_venmo_details', selectedAmount);
+        }
+
+        function copyPayPalDetails() {
+            const text = `PayPal: ${config.paypalEmail}\nAmount: $${selectedAmount}\nMessage: Reachy fundraising`;
+            copyToClipboard(text);
+            trackEvent('copied_paypal_details', selectedAmount);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard! ✓');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('Copied to clipboard! ✓');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Analytics tracking
+        function trackEvent(eventName, value) {
+            // Simple localStorage tracking (can be replaced with Google Analytics, etc.)
+            const analytics = JSON.parse(localStorage.getItem('donateAnalytics') || '{}');
+            analytics[eventName] = (analytics[eventName] || 0) + 1;
+            analytics[eventName + '_lastValue'] = value;
+            analytics[eventName + '_lastTimestamp'] = new Date().toISOString();
+            localStorage.setItem('donateAnalytics', JSON.stringify(analytics));
+
+            // Log to console for debugging
+            console.log('Event tracked:', eventName, value);
+        }
+
+        // Track page visit
+        trackEvent('page_visit', window.location.href);
+
+        // Track scroll depth
+        let maxScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > maxScroll) {
+                maxScroll = scrollPercent;
+                if (scrollPercent > 25 && scrollPercent <= 50) trackEvent('scroll_25_percent');
+                if (scrollPercent > 50 && scrollPercent <= 75) trackEvent('scroll_50_percent');
+                if (scrollPercent > 75) trackEvent('scroll_75_percent');
+            }
+        });
+    </script>
+</body>
+</html>

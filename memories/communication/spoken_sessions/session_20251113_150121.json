@@ -1,0 +1,23 @@
+{
+  "session_id": "20251113_150121",
+  "start_time": "2025-11-13T15:02:11.186340",
+  "end_time": "2025-11-13T15:06:00.277967",
+  "turn_count": 3,
+  "conversation": [
+    {
+      "timestamp": "2025-11-13T15:02:11.186340",
+      "user": "Hello Sage, can you hear me?",
+      "sage": "Hello Greg! Yes, I can hear you perfectly. It's great to connect with you today. How are you doing?"
+    },
+    {
+      "timestamp": "2025-11-13T15:02:53.338780",
+      "user": "I'm doing very well.",
+      "sage": "That's wonderful to hear! I'm glad you're doing well. Is there anything on your mind that you'd like to talk about or explore together today?"
+    },
+    {
+      "timestamp": "2025-11-13T15:05:19.524740",
+      "user": "Hello Sage, can you hear me?",
+      "sage": "Yes, I can still hear you clearly, Greg! We were just chatting a moment ago. Is everything okay with the connection on your end, or did you want to start fresh with something?"
+    }
+  ]
+}

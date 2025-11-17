@@ -1,0 +1,26 @@
+{
+  "session_start": "2025-11-12T19:43:37.399218",
+  "turns": 2,
+  "conversation": [
+    {
+      "role": "user",
+      "content": " Hello Sage, let's test it once again."
+    },
+    {
+      "role": "assistant",
+      "content": "Hello Greg! I'm here and ready. What would you like to test today?"
+    },
+    {
+      "role": "user",
+      "content": " Let's see if it plays the audio of your apply to this."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm ready to respond, though I should mention I don't actually have control over audio playback - that's handled by your system or application. But go ahead and say whatever you'd like, and I'll respond naturally so you can test how the audio comes through!"
+    },
+    {
+      "role": "assistant",
+      "content": "Session ended. Saving our conversation."
+    }
+  ]
+}

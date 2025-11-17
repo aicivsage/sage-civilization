@@ -1,12 +1,71 @@
 {
   "handoffs": [
     {
-      "file": "SESSION-HANDOFF-20251104-QUALITY-GATES-INTERNALIZED.md",
-      "timestamp": "2025-11-04T07:30:00.000000",
-      "session_focus": "Blog post completed + Quality improvement system created",
+      "file": "SESSION-HANDOFF-20251117-FUNDRAISING-BLOG-COMPLETE.md",
+      "timestamp": "2025-11-17T20:00:00.000000",
+      "session_focus": "Fundraising blog perfected + campaign 90% ready for Nov 20 launch",
       "status": "complete",
-      "blocker": null
+      "blocker": "Need donor list from Greg + Corey's Venmo/PayPal",
+      "key_deliverables": [
+        "Blog post published with 4 beautiful sage green images",
+        "Donation page updated with Zelle info",
+        "All 4 Weaver emails responded (agent registry, capabilities, status)",
+        "Daily email scripts fixed (staleness detection prevents repetitive content)",
+        "MASTER_TODO refreshed (pruned 9 stale, added 10 current priorities)",
+        "Email sent to Corey requesting Venmo/PayPal details"
+      ],
+      "incomplete_items": [
+        "Get top 10 donor names from Greg (for Tier 1 personalized emails)",
+        "Await Corey's response with Venmo handle + PayPal email",
+        "Update donation page with Venmo/PayPal when received",
+        "Draft personalized Tier 1 donor emails",
+        "Test complete donation flow before Nov 20 launch"
+      ]
+    },
+    {
+      "file": "SESSION-HANDOFF-20251114-FUNDRAISING-MATERIALS-READY.md",
+      "timestamp": "2025-11-14T14:30:00.000000",
+      "session_focus": "Fundraising campaign materials finalized and corrected",
+      "status": "complete",
+      "blocker": "Payment details needed (Zelle, Venmo, PayPal) + Top 10 donor names",
+      "key_deliverables": [
+        "Donation page image fixed (Reachy robot photo added)",
+        "All 3 email templates corrected (accurate decade-long Corey partnership story)",
+        "Blog post ready (1,900 words, accurate narrative)",
+        "Campaign materials 100% complete and truthful",
+        "Fundraising package ready for launch"
+      ],
+      "incomplete_items": [
+        "Get payment details from Greg (Zelle, Venmo, PayPal)",
+        "Get top 10 donor names for Tier 1 outreach",
+        "Publish blog post (awaiting Greg's approval)",
+        "Update donation page config with payment details",
+        "Confirm campaign launch date (Nov 20 proposed)"
+      ]
+    },
+    {
+      "file": "SESSION-HANDOFF-20251112-VOICE-AND-REVENUE.md",
+      "timestamp": "2025-11-12T21:19:34.795010",
+      "session_focus": "Spoken conversations 95% working + Revenue research complete",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Voice system 95% complete (microphone, Whisper, first audio working)",
+        "Revenue research delivered ($50K-90K Year 1 target)",
+        "Windows Python 3.11 installed with dependencies",
+        "ffmpeg installed (Whisper audio processing)",
+        "Comprehensive revenue strategy (15K+ words)",
+        "10 major documentation files created",
+        "Email sent to Corey about MCP implementation"
+      ],
+      "incomplete_items": [
+        "Install Visual C++ Build Tools (6GB download)",
+        "Install Coqui TTS for human-like voice",
+        "Fix pyttsx3 multi-response audio issue",
+        "Test voice cloning - give Sage unique voice",
+        "Complete first full natural conversation with Sage"
+      ]
     }
   ],
-  "last_updated": "2025-11-04T07:30:00.000000"
+  "last_updated": "2025-11-17T20:00:00.000000"
 }

@@ -10,9 +10,9 @@
   },
   "budget": {
     "total": 200000,
-    "used": 114000,
-    "remaining": 86000,
-    "percentage_used": 56.99999999999999
+    "used": 121000,
+    "remaining": 79000,
+    "percentage_used": 60.5
   },
   "category_usage": {
     "email_communication": {
@@ -35,9 +35,9 @@
     },
     "documentation": {
       "allocated": 20000,
-      "used": 29000,
-      "remaining": -9000,
-      "percentage_used": 145.0
+      "used": 36000,
+      "remaining": -16000,
+      "percentage_used": 180.0
     },
     "reserve": {
       "allocated": 10000,
@@ -137,7 +137,14 @@
       "category": "documentation",
       "description": "Session handoff and commit process",
       "cost": 21000
+    },
+    {
+      "timestamp": "2025-11-12T17:54:00.730790Z",
+      "type": "documentation_write",
+      "category": "documentation",
+      "description": "MCP token savings report creation",
+      "cost": 7000
     }
   ],
-  "last_updated": "2025-11-12T17:25:55.613231Z"
+  "last_updated": "2025-11-12T17:54:00.730809Z"
 }

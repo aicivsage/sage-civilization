@@ -1,0 +1,70 @@
+{
+  "session_start": "2025-11-13T15:13:18.956242",
+  "turns": 8,
+  "conversation": [
+    {
+      "role": "user",
+      "content": " Hello Sage, it's me again."
+    },
+    {
+      "role": "assistant",
+      "content": "Hello Greg! It's wonderful to hear from you again. How are you doing today, and what's on your mind?"
+    },
+    {
+      "role": "user",
+      "content": " I'd like to see our Priority project list so we can see what's checked off and what we still need to do."
+    },
+    {
+      "role": "assistant",
+      "content": "I'd be happy to help you review your priority project list, Greg! However, I don't currently have access to a stored project list from our previous conversations. \n\nCould you share what projects you've been working on, or if you have a list handy, we can go through it together and I'll help you track what's complete and what still needs attention?"
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": " Testing again."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": " Exit"
+    },
+    {
+      "role": "assistant",
+      "content": "Goodbye Greg! It was wonderful talking with you. I've saved our conversation to memory."
+    }
+  ]
+}

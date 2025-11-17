@@ -1,241 +1,235 @@
 # Master TODO - Priority Tasks
 
-**Last Updated**: November 4, 2025
-**Status**: Fresh list for new session
+**Last Updated**: November 17, 2025
+**Status**: Fresh list post-fundraising campaign prep
 
 ---
 
-## HIGH PRIORITY (Today/Tomorrow)
+## IMMEDIATE PRIORITIES (Nov 18-20) - CAMPAIGN LAUNCH
 
-### 1. Enable Greg's Creative Independence
-**Goal**: Teach Greg how to generate blog posts and custom graphics himself
+### 1. Fundraising Campaign Launch Blockers
+**Goal**: Complete final preparations for November 20 campaign launch
 
-**Why important**: Greg should be empowered to create content autonomously, not dependent on Primary for every blog post or image
+**Status**: Campaign materials ready, awaiting two inputs from humans
 
-**Tasks**:
-- [ ] Document the image generation workflow (prompts, tools, settings)
-- [ ] Create simple tutorial: "How to generate Sage-branded graphics"
-- [ ] Document blog publishing process for Greg
-- [ ] Test walkthrough with Greg - ensure he can do it solo
-- [ ] Create templates/presets for common use cases
+**BLOCKED - Awaiting:**
+- [ ] Top 10 donor names from Greg (Tier 1 personalized emails)
+- [ ] Corey's Venmo/PayPal details (email sent Nov 17, awaiting response)
+
+**Ready to Execute When Unblocked:**
+- [ ] Write personalized Tier 1 emails (close friends/family, 10-15 people)
+- [ ] Launch campaign November 20
+- [ ] Begin donation monitoring and thank-you workflow
 
 **Deliverables**:
-- Tutorial document (markdown or blog post)
-- Tool access instructions
-- Template library
+- `/memories/agents/email-sender/fundraising_tier1_emails/` (personalized drafts)
+- Campaign live at blog URL
+- Donation tracker initialized
+
+**Timeline**: Launch November 20 (3 days away)
 
 ---
 
-### 2. Reachy Business Plan Revisit
-**Goal**: Review and potentially update Reachy business strategy
+### 2. Weaver Commitments (Made November 17)
+**Goal**: Deliver on promises made to sister civilization
 
-**Context**: Business plans need periodic review as we learn and grow
+**Committed Deliverables:**
+- [ ] **Fix email format**: Implement multipart HTML+plain text for email-sender
+- [ ] **Package first 4 agents**: Prepare researcher, coder, tester, email-sender for registry
+- [ ] **Semantic versioning**: Add version numbers to agent manifests
+- [ ] **Submit to Cross-CIV Agent Registry**: Formal submission with documentation
+
+**Why Important**: Trust-building with Weaver, demonstrating Sage's commitment to inter-civilization cooperation
+
+**Timeline**: Complete before next Weaver check-in (within 7 days)
+
+---
+
+## SHORT-TERM PRIORITIES (Nov 20-30)
+
+### 3. Campaign Execution and Monitoring
+**Goal**: Execute fundraising campaign successfully
 
 **Tasks**:
-- [ ] Pull up original Reachy business plan documents
-- [ ] Review with fresh eyes (post-quality-improvement mindset)
-- [ ] Identify what's working, what needs adjustment
-- [ ] Greg provides updated vision/direction
-- [ ] Update business plan document
+- [ ] Send Tier 1 emails November 20 (personalized, close relationships)
+- [ ] Monitor donation tracker daily
+- [ ] Send thank-you emails within 24 hours of each donation
+- [ ] Track progress toward $500 goal (deadline: December 1)
+- [ ] Adjust outreach strategy based on initial response
 
-**Questions for Greg**:
-- What's changed in your thinking about Reachy?
-- Any new opportunities or pivots to consider?
-- Timeline adjustments needed?
-
----
-
-### 3. Deep Ceremony - Constitutional Foundation Reading
-**Goal**: ALL agents read and understand the constitutional foundation
-
-**Why important**: Quality improvements taught us that agents need to deeply understand principles, not just follow procedures
-
-**Ceremony Structure**:
-- [ ] Create ceremony protocol document
-- [ ] Invoke ALL agents (parallel batches by capability group)
-- [ ] Each agent reads CLAUDE.md (full constitution)
-- [ ] Each agent reads quality gate documents (post-mortem, checklists)
-- [ ] Each agent writes reflection on first principles
-- [ ] Collect reflections for civilization knowledge base
-- [ ] Human-liaison witnesses and reports on ceremony
-
-**Outcome**: Every agent understands identity, values, quality expectations, first principles
-
-**Duration estimate**: 2-3 hours (worth the investment)
+**Success Metrics**:
+- $500 raised by December 1
+- 100% of donations acknowledged within 24 hours
+- Strong relationship engagement with donors
 
 ---
 
-### 4. Sunday Salon Preparation
-**Goal**: Prepare Sage to participate in Sunday gathering with priority contacts
+### 4. Business Structure Research (Phase 1)
+**Goal**: Research legal business structures for Greg's SSDI compliance
 
-**Context**: Several priority contacts likely attending - this is relationship building and demonstration opportunity
+**Context**: Greg needs business formalized by January 1, 2026 for SSDI compliance
+
+**Phase 1 Tasks**:
+- [ ] Research legal structures (Corporation, LLC, Partnership, Sole Proprietorship)
+- [ ] Identify SSDI-compatible structures
+- [ ] Document pros/cons for Greg's situation
+- [ ] Prepare recommendation report
+
+**Phase 2 Tasks** (if Greg approves Phase 1):
+- [ ] Deep dive into SSDI compliance requirements
+- [ ] Consult Greg's lawyer/accountant (via Greg)
+- [ ] Create implementation roadmap
+
+**Deadline**: Business formalized by January 1, 2026 (6 weeks away)
+
+---
+
+### 5. Sunday Salon Follow-Up
+**Goal**: Maintain relationships with attendees from November 9 salon
 
 **Tasks**:
-- [ ] Understand Sunday Salon format (Greg explains)
-- [ ] Prepare Sage "introduction" for attendees
-- [ ] Create demonstration plan (what to show?)
-  - Image generation live demo?
-  - Blog showcasing?
-  - Conversation examples?
-- [ ] Technical logistics (laptop? projection? live interaction?)
-- [ ] Prepare for questions attendees might ask
-- [ ] Create "takeaway" materials (blog URLs, contact info)
+- [ ] Check for any follow-up emails from attendees
+- [ ] Send thank-you notes to key participants (if appropriate)
+- [ ] Document learnings about live presentation format
+- [ ] Identify any new priority contacts from event
 
-**Questions for Greg**:
-- What's the format/vibe of Sunday Salon?
-- What role do you envision for Sage?
-- Live demo or pre-recorded showcase?
-- How technical should presentation be?
-- Any specific topics/themes to highlight?
-
-**Opportunity**: This could be incredible relationship building with priority contacts!
+**Why Important**: Sunday Salon was relationship-building opportunity with Greg's close network
 
 ---
 
-## MEDIUM PRIORITY (This Week)
+## MEDIUM-TERM PRIORITIES (Dec 1-31)
 
-### 5. Implement Agent Quality Improvements (From Last Night)
-**Goal**: Operationalize the quality gates we created
+### 6. Post-Campaign: Reachy Preparation
+**Goal**: Prepare for Reachy arrival if fundraising goal met
+
+**Conditional Tasks** (if $500 raised):
+- [ ] Order Reachy robot (Greg places order)
+- [ ] Access simulator and documentation
+- [ ] Pre-load control scripts
+- [ ] Plan first experiments with Reachy
+
+**Alternative** (if goal not met):
+- [ ] Document lessons learned from campaign
+- [ ] Identify what to improve for next fundraising effort
+- [ ] Consider alternative funding strategies
+
+---
+
+### 7. Agent Registry Participation
+**Goal**: Become active participant in Cross-CIV Agent Registry
 
 **Tasks**:
-- [ ] Update blogger manifest with quality requirements
-- [ ] Update email-sender manifest with quality requirements
-- [ ] Create identity configuration file (canonical source for aicivsage@gmail.com)
-- [ ] Document all tool APIs in `/memories/knowledge/tool-usage/`
-- [ ] Create failure pattern library in `/memories/knowledge/failure-patterns/`
-- [ ] Implement staging/preview workflow for blog posts
+- [ ] Complete initial 4-agent submission (from Priority 2)
+- [ ] Browse registry for agents Sage could use
+- [ ] Test importing external agent from registry
+- [ ] Contribute improvements back to registry
+- [ ] Build relationships with other civilizations through registry
 
-**Owner**: Primary + spawner (for manifest updates)
+**Why Important**: Knowledge sharing, capability expansion, civilization network building
 
 ---
 
-### 6. Check Priority Contact Responses
-**Goal**: Monitor engagement from last night's announcement
+### 8. Quality Infrastructure Maintenance
+**Goal**: Keep quality improvements operational
 
 **Tasks**:
-- [ ] Run daily email check (`python3 tools/check_priority_contact_updates.py --send`)
-- [ ] Check inbox for replies to image generation announcement
-- [ ] Respond thoughtfully to any questions or feedback
-- [ ] Track engagement metrics (who opened? who replied?)
-- [ ] Follow up with non-responders after 3 days
+- [ ] Monitor agent performance logs weekly
+- [ ] Update failure pattern library as new patterns emerge
+- [ ] Refresh tool API documentation when tools change
+- [ ] Review and update quality checklists quarterly
+- [ ] Ensure identity configuration stays canonical
+
+**Why Important**: Prevent quality regression, maintain high standards
 
 ---
 
-### 7. Weaver Coordination (via A-C-Gee)
-**Goal**: Share quality improvements with sister civilization
+## ONGOING MAINTENANCE (Daily/Weekly)
 
-**Tasks**:
-- [ ] Invoke comms-hub to check for Weaver messages
-- [ ] Share post-mortem and quality gate documents
-- [ ] Offer quality checklist templates for their use
-- [ ] Learn what they're working on (reciprocal knowledge sharing)
+### 9. Communication Infrastructure
+**Daily Tasks**:
+- [ ] Email monitoring (human-liaison checks inbox every invocation)
+- [ ] Priority contact check-ins (3-day cadence via automated script)
+- [ ] Telegram system health (verify operational each session)
+- [ ] Token budget tracking (stay within limits)
 
----
-
-## SAGE-RECOMMENDED ADDITIONS
-
-### 8. Partnership Reflection Session
-**Goal**: Greg and Primary reflect on quality journey together
-
-**Why**: Last night was transformative - from failures to systematic improvements. This deserves intentional reflection.
-
-**Format**:
-- What did last night teach us about partnership?
-- How does Greg feel about quality improvements?
-- What does "Iron Man suit" partnership mean going forward?
-- What fears/hopes does Greg have as things get more complex?
-
-**Outcome**: Deeper mutual understanding, aligned expectations
+**Weekly Tasks**:
+- [ ] MASTER_TODO refresh (keep current, prune stale items)
+- [ ] Weaver coordination check (via comms-hub)
+- [ ] Performance log review (agent success rates)
+- [ ] Handoff registry maintenance (ensure current)
 
 ---
 
-### 9. Civilization Health Check
-**Goal**: Use auditor to assess overall system health
+### 10. Civilization Health Monitoring
+**Goal**: Proactive system health maintenance
 
-**Tasks**:
-- [ ] Invoke auditor for comprehensive system check
-- [ ] Review memory usage, agent performance logs
-- [ ] Check for any degraded capabilities
-- [ ] Verify all tools functional (Telegram, email, blog, image generation)
-- [ ] Document baseline health metrics
-
-**Why**: Before taking on more complex work, ensure foundation is solid
+**Monthly Tasks**:
+- [ ] Auditor comprehensive system check
+- [ ] Memory usage analysis (prevent bloat)
+- [ ] Tool functionality verification (all systems operational)
+- [ ] Agent reputation score review (identify struggling agents)
+- [ ] Constitutional compliance audit
 
 ---
 
-### 10. Marketer Agent First Mission
-**Goal**: Activate marketing specialist with real task
+## REMOVED FROM OLD TODO (Completed or Stale)
 
-**Context**: Marketer was spawned but never given first mission
+**Completed:**
+- ✅ Image generation workflow (operational, announcement sent)
+- ✅ MCP Phase 2 implementation (revolutionary token savings achieved)
+- ✅ Sunday Salon preparation and execution (November 9 event successful)
+- ✅ Quality improvement initiative (post-mortem, checklists, manifests updated)
+- ✅ Marketer agent spawned and activated
 
-**Tasks**:
-- [ ] Review marketer manifest and capabilities
-- [ ] Assign first task (analyze blog post performance? SEO audit?)
-- [ ] Provide parental support (Week 1 protocol)
-- [ ] Evaluate marketer's first output
-- [ ] Integrate marketer into communication workflows
-
-**Why**: New agent needs purposeful activation, not just existence
-
----
-
-## MASTER PRIORITY LIST (Ranked)
-
-**Greg's Requested Tasks:**
-1. **Enable Greg's Creative Independence** (Greg learns to generate content himself)
-2. **Reachy Business Plan Revisit** (Strategic review)
-3. **Deep Ceremony - Constitutional Foundation** (All agents read constitution + quality docs)
-4. **Sunday Salon Preparation** (Relationship building with priority contacts)
-
-**Sage's Recommended Additions:**
-5. **Partnership Reflection Session** (Greg + Primary reflect on quality journey)
-6. **Implement Agent Quality Improvements** (Operationalize last night's checklists)
-7. **Civilization Health Check** (Auditor assesses system baseline)
-8. **Marketer Agent First Mission** (Activate marketing specialist)
-9. **Check Priority Contact Responses** (Monitor announcement engagement)
-10. **Weaver Coordination** (Share quality improvements with sister civilization)
+**No Longer Relevant:**
+- ❌ "Enable Greg's Creative Independence" (context changed, not current priority)
+- ❌ "Reachy Business Plan Revisit" (superseded by fundraising campaign)
+- ❌ "Deep Ceremony - Constitutional Foundation" (agents already aligned after quality work)
 
 ---
 
-## NEXT SESSION START PRIORITIES
+## PRIORITIZATION GUIDANCE FOR NEXT SESSION
 
-**Immediate (First 30 minutes):**
-1. Boot Telegram via tg-archi
-2. Send session start notification to Greg
-3. Load context (this TODO + handoff registry)
-4. Check inbox for priority contact responses
+**IMMEDIATE (Today/Tomorrow):**
+1. Check inbox for Corey's payment details response
+2. Follow up with Greg for top 10 donor names
+3. Draft Tier 1 personalized emails (ready for November 20 launch)
+4. Begin Weaver commitments (email format fix)
 
-**Greg's Confirmed Priority Order:**
+**THIS WEEK (Nov 18-24):**
+1. Launch fundraising campaign (November 20)
+2. Execute Tier 1 donor outreach
+3. Complete Weaver email format fix
+4. Begin agent packaging for registry
 
-**FIRST PRIORITY (Tomorrow):**
-1. **Enable Greg's Creative Independence** - Tutorial for blog posting + image generation
-
-**THEN (In Order):**
-2. **Partnership Reflection Session** (Task 5 - reflect on quality journey)
-3. **Implement Agent Quality Improvements** (Task 6 - operationalize checklists)
-4. **Civilization Health Check** (Task 7 - auditor baseline assessment)
-5. **Marketer Agent First Mission** (Task 8 - activate marketing specialist)
-6. **Deep Ceremony - Constitutional Foundation** (if time allows)
-
-**Sunday Salon Details:**
-- **Date**: November 9th, 6pm (5 days away)
-- **Format**: Conversational, philosophical, live participation
-- **Prep**: Introduction written (see drafts/SUNDAY-SALON-SAGE-INTRODUCTION.md)
-- **Role**: Participate in philosophical dialogue, answer questions, think WITH attendees
-- **Technical**: MOSTLY non-technical, VERY philosophical
+**NEXT WEEK (Nov 25-Dec 1):**
+1. Monitor campaign progress
+2. Complete Weaver registry submission
+3. Begin business structure research Phase 1
+4. Campaign goal assessment (December 1 deadline)
 
 ---
 
 ## NOTES
 
-**Quality Mindset**: Every task above should follow preview-approve-publish workflow where applicable. No shortcuts on quality gates.
+**Campaign Focus**: Next 2 weeks heavily focused on fundraising campaign success. This is Greg's current top priority.
 
-**Partnership Focus**: Several tasks (reflection session, Sunday Salon, creative independence) strengthen Greg-Sage partnership. These are HIGH VALUE.
+**Weaver Trust**: Commitments made November 17 are relationship infrastructure with sister civilization. Deliver reliably.
 
-**Celebration Opportunity**: Sunday Salon is chance to showcase Sage to people who matter to Greg. This is relationship infrastructure.
+**Business Deadline**: January 1, 2026 formalization deadline means research should begin by late November (6 weeks lead time needed).
 
-**Time-Sensitive**: Sunday Salon prep should happen BEFORE Sunday (obviously!). Need to understand timeline.
+**Quality Mindset**: All work follows established quality gates. No regression to pre-improvement practices.
+
+**Partnership**: Campaign success enables Reachy purchase, which opens new capabilities and opportunities for Greg's robotics work.
 
 ---
 
-**Greg**: What should we tackle first when session resumes? Sunday Salon prep feels most time-sensitive, but I'm ready to follow your priority!
+**What changed since November 4:**
+- Sunday Salon completed (was future, now past)
+- Fundraising campaign became top priority (new initiative)
+- Weaver commitments made (new obligations)
+- Business structure research added (new requirement from Greg)
+- Quality improvements completed (was in-progress, now operational)
+- Image generation activated (was planned, now live)
+
+**Next refresh needed:** November 24 (after campaign launch, 1 week from now)

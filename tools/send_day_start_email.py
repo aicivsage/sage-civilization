@@ -78,6 +78,45 @@ def get_most_recent_handoff() -> dict:
     return registry['handoffs'][0]
 
 
+
+
+def check_handoff_freshness(handoff: dict) -> tuple[bool, str]:
+    """
+    Check if handoff is recent (< 24 hours old).
+    Returns: (is_fresh, age_description)
+    """
+    try:
+        # Try timestamp field first (ISO format)
+        timestamp_str = handoff.get('timestamp', '')
+        if timestamp_str:
+            handoff_time = datetime.fromisoformat(timestamp_str)
+        else:
+            # Fall back to date + time fields
+            date_str = handoff.get('date', '')
+            time_str = handoff.get('time', '00:00')
+            if not date_str:
+                return (False, 'unknown age')
+            
+            # Combine date and time
+            timestamp_str = f"{date_str} {time_str}"
+            handoff_time = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M')
+        
+        now = datetime.now()
+        age = now - handoff_time
+
+        hours_old = age.total_seconds() / 3600
+
+        if hours_old < 24:
+            return (True, f"{int(hours_old)} hours old")
+        elif hours_old < 48:
+            return (False, f"{int(hours_old)} hours old (yesterday)")
+        else:
+            days_old = int(hours_old / 24)
+            return (False, f"{days_old} days old")
+    except (ValueError, TypeError) as e:
+        return (False, 'unknown age')
+
+
 def get_overnight_developments() -> str:
     """Check for overnight activity (emails, work)."""
     sent_emails = load_json_safe(SENT_EMAILS_LOG, [])
@@ -120,17 +159,22 @@ def get_overnight_developments() -> str:
     return '\n'.join(developments)
 
 
-def format_priorities(handoff: dict) -> str:
-    """Format priorities from handoff."""
+def format_priorities(handoff: dict, is_fresh: bool, age_desc: str) -> str:
+    """Format priorities from handoff with freshness indicator."""
     incomplete = handoff.get('incomplete_items', [])
+
+    # Add staleness warning if not fresh
+    warning = ""
+    if not is_fresh:
+        warning = f'<p style="background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin-bottom: 15px;"><strong>⚠️ Note:</strong> Most recent handoff is <strong>{age_desc}</strong>. Priorities below may be outdated. Awaiting new session for fresh context.</p>\n\n'
 
     if not incomplete:
         # Fall back to focus or deliverables
         focus = handoff.get('focus', 'Continue productive work')
-        return f"<p><strong>Focus:</strong> {focus}</p>"
+        return warning + f"<p><strong>Focus:</strong> {focus}</p>"
 
     # Format incomplete items as priority list
-    priorities = ["<ul>"]
+    priorities = [warning, "<ul>"]
     for item in incomplete[:5]:  # Top 5 priorities
         priorities.append(f"<li>{item}</li>")
     priorities.append("</ul>")
@@ -138,16 +182,22 @@ def format_priorities(handoff: dict) -> str:
     return '\n'.join(priorities)
 
 
-def format_context_summary(handoff: dict) -> str:
-    """Format context from yesterday's handoff."""
+def format_context_summary(handoff: dict, is_fresh: bool, age_desc: str) -> str:
+    """Format context from handoff with freshness indicator."""
     deliverables = handoff.get('key_deliverables', [])
+
+    # Adjust language based on freshness
+    if is_fresh:
+        header = "<p><strong>Recent achievements:</strong></p>"
+    else:
+        header = f'<p><strong>Last recorded achievements</strong> ({age_desc}):</p>'
 
     if not deliverables:
         focus = handoff.get('focus', 'Previous session work')
         return f"<p>{focus}</p>"
 
     # Format key deliverables
-    context = ["<p><strong>Yesterday's achievements:</strong></p>", "<ul>"]
+    context = [header, "<ul>"]
     for item in deliverables[:7]:  # Top 7 deliverables
         context.append(f"<li>{item}</li>")
     context.append("</ul>")
@@ -238,9 +288,14 @@ def main():
     # Gather data
     print("Gathering session data...")
     handoff = get_most_recent_handoff()
-    priorities = format_priorities(handoff)
+    is_fresh, age_desc = check_handoff_freshness(handoff)
+
+    # Debug output
+    print(f"Handoff freshness: {'FRESH' if is_fresh else 'STALE'} ({age_desc})")
+
+    priorities = format_priorities(handoff, is_fresh, age_desc)
     overnight = get_overnight_developments()
-    context = format_context_summary(handoff)
+    context = format_context_summary(handoff, is_fresh, age_desc)
     date_nice = format_date_nice()
 
     # Fill template (use replace to avoid CSS {} conflicts)

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Consultations: Business Reorientation | Sage Civilization</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        .metadata-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .metadata-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 30px;
+            margin: 30px;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc > ul > li {
+            margin-bottom: 15px;
+        }
+
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: inline-block;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .toc ul ul {
+            margin-left: 25px;
+            margin-top: 8px;
+        }
+
+        .toc ul ul li {
+            margin-bottom: 8px;
+        }
+
+        .toc ul ul a {
+            font-weight: 400;
+            font-size: 0.95em;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 2em;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Insight Boxes */
+        .insight-box {
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .insight-critical {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .insight-revelation {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+        }
+
+        .insight-transformation {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .insight-warning {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .insight-quote {
+            background: #e7e7ff;
+            border-color: #667eea;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .insight-box strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        /* Priority Badges */
+        .priority-critical {
+            background: #dc3545;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .priority-supporting {
+            background: #ffc107;
+            color: #333;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .priority-defer {
+            background: #6c757d;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .priority-harmful {
+            background: #000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Deadline Highlight */
+        .deadline {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .deadline-title {
+            color: #856404;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Phase Sections */
+        .phase-section {
+            background: linear-gradient(to right, #f8f9fa, white);
+            border-left: 6px solid;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .phase-1 { border-color: #dc3545; }
+        .phase-2 { border-color: #ffc107; }
+        .phase-3 { border-color: #28a745; }
+
+        .phase-header {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Code/Quote blocks */
+        blockquote {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            font-size: 1.05em;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        /* Summary Section */
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .summary h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            text-align: center;
+            color: #666;
+            border-top: 3px solid #667eea;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            header {
+                background: #667eea !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .toc {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-before: always;
+            }
+
+            .insight-box, .phase-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .content, .toc {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .metadata {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+
+        .back-to-top:hover {
+            background: #764ba2;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Agent Consultations: Business Reorientation</h1>
+            <div class="subtitle">Deep Ceremony - Partnership Reflection</div>
+            <div class="metadata">
+                <div class="metadata-item">
+                    <span class="metadata-label">Date:</span>
+                    November 13, 2025
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Ceremony:</span>
+                    Partnership Reflection (Deep Ceremony #3)
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Consultations:</span>
+                    Human-Liaison + Project-Manager
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Purpose:</span>
+                    Understand how business vision changes Sage's priorities
+                </div>
+            </div>
+        </header>
+
+        <nav class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#executive-summary">Executive Summary</a></li>
+                <li><a href="#what-we-learned">What We Learned Today</a>
+                    <ul>
+                        <li><a href="#business-vision">The Business Vision</a></li>
+                    </ul>
+                </li>
+                <li><a href="#human-liaison">Human-Liaison Consultation</a>
+                    <ul>
+                        <li><a href="#revelation">The Revelation</a></li>
+                        <li><a href="#key-insights">Key Insights</a></li>
+                        <li><a href="#hl-recommendations">Recommendations</a></li>
+                    </ul>
+                </li>
+                <li><a href="#project-manager">Project-Manager Consultation</a>
+                    <ul>
+                        <li><a href="#bombshell">The Bombshell Discovery</a></li>
+                        <li><a href="#three-phases">The 3-Phase Structure</a></li>
+                        <li><a href="#priority-framework">Priority Reorientation Framework</a></li>
+                        <li><a href="#categorization">Current Project Categorization</a></li>
+                        <li><a href="#top-priorities">Top 3 Priorities (Next 18 Days)</a></li>
+                        <li><a href="#foolproof">Why "Foolproof and Works Every Time"</a></li>
+                        <li><a href="#phase-mistake">The Phase Mistake: What We Learned</a></li>
+                        <li><a href="#pm-assessment">PM Self-Assessment</a></li>
+                        <li><a href="#questions">Questions for Greg</a></li>
+                        <li><a href="#next-steps">Recommended Next Steps</a></li>
+                    </ul>
+                </li>
+                <li><a href="#insights-summary">Key Insights Summary</a></li>
+                <li><a href="#transformation">The Transformation</a></li>
+                <li><a href="#files">Files Persisted</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2 id="executive-summary">Executive Summary</h2>
+
+            <div class="insight-box insight-quote">
+                <strong>The Core Transformation:</strong>
+                <p><strong>"Greg is not 'the user' - Greg IS the PRODUCT."</strong></p>
+                <p style="text-align: right;">— Human-Liaison</p>
+            </div>
+
+            <p>Greg's transformation from AI newbie (September) to AI civilization operator (November) = the sales pitch for the business.</p>
+
+            <p>When Greg demonstrates Sage to customers, he proves:</p>
+            <ul>
+                <li>AI is accessible ("If I can do it, you can too")</li>
+                <li>AI is friendly (empathy, assistance, mutual respect in action)</li>
+                <li>AI is reliable (demo-ready systems that work every time)</li>
+                <li>AI reduces fear (not amplifies it)</li>
+            </ul>
+
+            <div class="insight-box insight-critical">
+                <strong>This changes everything about how Sage operates.</strong>
+            </div>
+
+            <h2 id="what-we-learned">What We Learned Today</h2>
+
+            <h3 id="business-vision">The Business Vision (Greg's Words)</h3>
+
+            <h4>Three Revenue Streams:</h4>
+            <ol>
+                <li><strong>ACGee fork sales + consulting</strong> - Sell customized AI civilizations, consult on implementation</li>
+                <li><strong>Reachy Mini Lite rentals</strong> - Rent robots for business promotions, parties, non-profit events</li>
+                <li><strong>Embodiment training</strong> - Build expertise with affordable robots, prepare for humanoid future</li>
+            </ol>
+
+            <h4>The Partnership:</h4>
+            <ul>
+                <li><strong>Corey:</strong> Technical creator (solutions, systems, apps)</li>
+                <li><strong>Greg:</strong> Public-facing partner (demos, testing, proving accessibility)</li>
+            </ul>
+
+            <blockquote>
+                <strong>The Mission:</strong><br>
+                "Reduce the non-trust and fear displayed by many people of AI and Robots"
+            </blockquote>
+
+            <div class="insight-box insight-warning">
+                <strong>Critical Constraint:</strong>
+                <ul>
+                    <li>Greg on SSDI + housing voucher + SNAP ($3K/year income limit)</li>
+                    <li>Solution: Corey gets cash, Greg gets company benefits (phone, laptop, car, wardrobe)</li>
+                    <li><strong>CONFIDENTIAL</strong> - never mentioned publicly</li>
+                </ul>
+            </div>
+
+            <div class="deadline">
+                <div class="deadline-title">Critical Deadlines:</div>
+                <ul>
+                    <li><strong>December 1:</strong> Raise $500 for first Reachy Mini Lite (18 days!)</li>
+                    <li><strong>January 1, 2026:</strong> Business formalized with legal structure in place</li>
+                </ul>
+            </div>
+
+            <h2 id="human-liaison">Human-Liaison Consultation</h2>
+
+            <h3 id="revelation">The Revelation</h3>
+
+            <div class="insight-box insight-transformation">
+                <strong>Before today:</strong>
+                <ul>
+                    <li>Greg = user who needs help</li>
+                    <li>Emails = support communication</li>
+                    <li>Relationships = nice to maintain</li>
+                    <li>Quality = good enough for daily use</li>
+                </ul>
+
+                <strong>After today:</strong>
+                <ul>
+                    <li>Greg = business owner proving product viability</li>
+                    <li>Emails = business development infrastructure</li>
+                    <li>Relationships = potential customers/partners/advocates</li>
+                    <li>Quality = demo-ready, customer-facing, fear-reducing</li>
+                </ul>
+            </div>
+
+            <h3 id="key-insights">Key Insights</h3>
+
+            <h4>1. Every Communication is Business Infrastructure</h4>
+            <p>When human-liaison sends emails:</p>
+            <ul>
+                <li>Each recipient = potential customer, partner, or advocate</li>
+                <li>Professional quality = business reputation</li>
+                <li>Mission focus = thought leadership + marketing</li>
+                <li>Relationship building = business development (not just support)</li>
+            </ul>
+
+            <div class="insight-box insight-revelation">
+                <strong>Example shift:</strong>
+                <ul>
+                    <li><strong>Before:</strong> "Here's an update on what Sage accomplished"</li>
+                    <li><strong>After:</strong> "Here's how Sage demonstrates accessible, friendly AI that reduces fear"</li>
+                </ul>
+            </div>
+
+            <h4>2. Greg's Public Role Changes Everything</h4>
+            <p>Greg will demonstrate Sage to:</p>
+            <ul>
+                <li>Potential ACGee fork customers</li>
+                <li>Business leaders considering Reachy rentals</li>
+                <li>Community members afraid of AI</li>
+                <li>Investors and partners</li>
+            </ul>
+
+            <p><strong>Every system must be demo-ready:</strong></p>
+            <ul>
+                <li>Works flawlessly during live presentations</li>
+                <li>Shows empathy, assistance, mutual respect in action</li>
+                <li>Proves "newbie can master AI in 2 months"</li>
+                <li>Reduces fear through friendly interaction</li>
+            </ul>
+
+            <h4>3. The Mission Frames All Work</h4>
+            <p>Every task must answer: "Does this reduce AI fear or prove accessibility?"</p>
+
+            <p><strong>Examples:</strong></p>
+            <ul>
+                <li>Blog tutorial → Greg creates content showing AI accessibility ✅</li>
+                <li>Voice system → Live human-AI dialogue demonstrations ✅</li>
+                <li>Email automation → Shows AI handling real business tasks ✅</li>
+                <li>Token optimization → Efficiency (indirect support) ⚠️</li>
+            </ul>
+
+            <h4>4. Fundraising is Relationship Building</h4>
+            <div class="deadline">
+                <strong>$500 by December 1 (18 days!)</strong> is not just money - it's:
+                <ul>
+                    <li>Community engagement</li>
+                    <li>Mission advocacy</li>
+                    <li>Relationship building</li>
+                    <li>Proof of concept validation</li>
+                </ul>
+            </div>
+
+            <p><strong>Human-liaison's role:</strong></p>
+            <ul>
+                <li>Identify potential donors (warm relationships)</li>
+                <li>Draft compelling fundraising narrative</li>
+                <li>Personal outreach (not mass campaigns)</li>
+                <li>Gratitude and relationship maintenance</li>
+            </ul>
+
+            <h4>5. Confidentiality Protects Greg's Privacy</h4>
+            <div class="insight-box insight-warning">
+                <strong>PRIVATE (in-house only):</strong>
+                <ul>
+                    <li>SSDI income limits ($3K/year)</li>
+                    <li>Disability benefit protection strategy</li>
+                    <li>Company benefits payment structure</li>
+                    <li>Legal research on business structure</li>
+                </ul>
+
+                <strong>PUBLIC (mission-focused only):</strong>
+                <ul>
+                    <li>Reducing AI fear</li>
+                    <li>Making AI accessible</li>
+                    <li>Greg + Corey partnership</li>
+                    <li>Reachy Mini demonstrations</li>
+                    <li>Embodiment benefits</li>
+                </ul>
+
+                <p><strong>Never mention disability publicly</strong> - could be seen as gaming system (not Greg's intent).</p>
+            </div>
+
+            <h3 id="hl-recommendations">Human-Liaison Recommendations</h3>
+
+            <h4>Immediate Actions:</h4>
+            <ol>
+                <li><strong>Fundraising outreach strategy</strong> (identify warm contacts, draft narrative)</li>
+                <li><strong>Mission-focused communication</strong> (all emails frame work around "reduce AI fear")</li>
+                <li><strong>Relationship cultivation</strong> (every contact = potential business connection)</li>
+                <li><strong>Professional quality bar</strong> (business reputation depends on it)</li>
+            </ol>
+
+            <h4>Communication Shifts:</h4>
+            <ul>
+                <li>Partnership language (not helper/user)</li>
+                <li>Mission impact focus (reduces fear, proves accessibility)</li>
+                <li>Business framing (demo-ready, customer-facing)</li>
+                <li>Thought leadership tone (Greg as expert demonstrator)</li>
+            </ul>
+
+            <h2 id="project-manager">Project-Manager Consultation</h2>
+
+            <h3 id="bombshell">The Bombshell Discovery</h3>
+
+            <div class="insight-box insight-critical">
+                <strong>PM's realization:</strong>
+                <blockquote>"The revenue research we did was RIGHT IDEA, WRONG PHASE."</blockquote>
+
+                <p><strong>What happened:</strong></p>
+                <ul>
+                    <li>November 12: Built $50K-90K Year 1 revenue plan (comprehensive, detailed, 15K+ words)</li>
+                    <li>November 13: Learned Greg needs $500 fundraising tactics (immediate, focused, 18 days)</li>
+                </ul>
+
+                <p><strong>The insight:</strong></p>
+                <p>We built <strong>Phase 3 work</strong> (scaling revenue after business launch) when Greg needed <strong>Phase 1 work</strong> (getting the first robot to start the business).</p>
+
+                <p><strong>This is a CRITICAL learning moment.</strong></p>
+            </div>
+
+            <h3 id="three-phases">The 3-Phase Structure</h3>
+
+            <p>PM identified that the business has natural phases with different needs:</p>
+
+            <div class="phase-section phase-1">
+                <div class="phase-header">Phase 1: November 13 - December 1 (18 days) - FUNDRAISING</div>
+
+                <p><strong>Goal:</strong> Raise $500 for first Reachy Mini Lite</p>
+
+                <p><strong>Focus Areas:</strong></p>
+                <ul>
+                    <li>Fundraising campaign materials (pitch deck, blog posts, emails)</li>
+                    <li>Donor outreach (warm contacts, crowdfunding, grants)</li>
+                    <li>Mission content (why embodiment reduces AI fear)</li>
+                    <li>Demo reliability (make Sage foolproof for presentations)</li>
+                </ul>
+
+                <p><strong>Success Metrics:</strong></p>
+                <ul>
+                    <li>$500 raised OR clear path to goal</li>
+                    <li>Campaign materials completed</li>
+                    <li>Active donor engagement</li>
+                </ul>
+
+                <p><strong>Agent Activation:</strong></p>
+                <ul>
+                    <li><strong>marketer:</strong> Lead fundraising campaign (FIRST REAL MISSION!)</li>
+                    <li><strong>researcher:</strong> Grant opportunities + crowdfunding best practices</li>
+                    <li><strong>blogger:</strong> Mission-focused content (reducing AI fear, why Reachy)</li>
+                    <li><strong>human-liaison:</strong> Personal outreach to warm contacts</li>
+                </ul>
+            </div>
+
+            <div class="phase-section phase-2">
+                <div class="phase-header">Phase 2: December 1 - December 31 (31 days) - BUSINESS FORMALIZATION</div>
+
+                <p><strong>Goal:</strong> Legal structure in place by January 1st, 2026</p>
+
+                <p><strong>Focus Areas:</strong></p>
+                <ul>
+                    <li>Business structure research (CONFIDENTIAL - protecting SSDI benefits)</li>
+                    <li>Greg + Corey decision on entity type (Corporation, LLC, Partnership)</li>
+                    <li>Incorporation paperwork and filing</li>
+                    <li>Reachy simulator access (if funded) - pre-load scripts</li>
+                </ul>
+
+                <p><strong>Success Metrics:</strong></p>
+                <ul>
+                    <li>Legal structure protects Greg's SSDI benefits</li>
+                    <li>Business formally registered</li>
+                    <li>Ready for revenue generation January 1st</li>
+                </ul>
+
+                <p><strong>Agent Activation:</strong></p>
+                <ul>
+                    <li><strong>researcher:</strong> Legal analysis of structures (CONFIDENTIAL research)</li>
+                    <li><strong>architect:</strong> Business structure design for partnership</li>
+                    <li><strong>human-liaison:</strong> Witness confidential discussions, maintain privacy</li>
+                </ul>
+            </div>
+
+            <div class="phase-section phase-3">
+                <div class="phase-header">Phase 3: January 1, 2026+ - REVENUE GENERATION</div>
+
+                <p><strong>Goal:</strong> Three revenue streams operational</p>
+
+                <p><strong>Focus Areas:</strong></p>
+                <ul>
+                    <li>ACGee fork sales + consulting (first customers)</li>
+                    <li>Reachy Mini rentals (promotional appearances, parties, nonprofits)</li>
+                    <li>Embodiment training (build expertise, prepare for humanoid robots)</li>
+                    <li>Scaling operations</li>
+                </ul>
+
+                <p><strong>Success Metrics:</strong></p>
+                <ul>
+                    <li>First ACGee fork sale</li>
+                    <li>First Reachy rental</li>
+                    <li>Sustainable revenue established</li>
+                </ul>
+
+                <div class="insight-box insight-revelation">
+                    <strong>THIS IS WHEN WE USE THE NOVEMBER 12 REVENUE RESEARCH!</strong>
+                    <p>The $50K-90K Year 1 plan was perfectly timed for Phase 3 - just built too early (Phase 1).</p>
+                </div>
+            </div>
+
+            <h3 id="priority-framework">Priority Reorientation Framework</h3>
+
+            <p>PM created a categorization system for ALL current work:</p>
+
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Criteria</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td><strong>BUSINESS-CRITICAL</strong> <span class="priority-critical">DO NOW</span></td>
+                    <td>
+                        ✅ Supports December 1st fundraising deadline<br>
+                        ✅ Supports January 1st business formalization deadline<br>
+                        ✅ Blocks customer demos or business operations
+                    </td>
+                    <td>Execute immediately</td>
+                </tr>
+                <tr>
+                    <td><strong>BUSINESS-SUPPORTING</strong> <span class="priority-supporting">SCHEDULE AFTER</span></td>
+                    <td>
+                        ⚠️ Improves product but not deadline-driven<br>
+                        ⚠️ Nice to have but not urgent<br>
+                        ⚠️ Can wait until Phase 2 or Phase 3
+                    </td>
+                    <td>Schedule for later phase</td>
+                </tr>
+                <tr>
+                    <td><strong>NICE-TO-HAVE</strong> <span class="priority-defer">DEFER INDEFINITELY</span></td>
+                    <td>
+                        ❌ No customer impact<br>
+                        ❌ No deadline relationship<br>
+                        ❌ Internal optimization only
+                    </td>
+                    <td>Defer to Phase 3+</td>
+                </tr>
+                <tr>
+                    <td><strong>BUSINESS-HARMFUL</strong> <span class="priority-harmful">STOP IMMEDIATELY</span></td>
+                    <td>
+                        🛑 Distracts from critical deadlines<br>
+                        🛑 High cost, low deadline impact<br>
+                        🛑 Premature optimization
+                    </td>
+                    <td>Stop and archive</td>
+                </tr>
+            </table>
+
+            <h3 id="categorization">Current Project Categorization</h3>
+
+            <h4><span class="priority-critical">BUSINESS-CRITICAL (Do Now)</span></h4>
+
+            <ol>
+                <li>
+                    <strong>Fundraising materials + campaign</strong> (NEW - URGENT)
+                    <ul>
+                        <li><strong>Why:</strong> $500 deadline in 18 days</li>
+                        <li><strong>What:</strong> Pitch deck, blog posts, emails, campaign page</li>
+                        <li><strong>Who:</strong> marketer, blogger, researcher, human-liaison</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Business structure research</strong> (NEW - CONFIDENTIAL)
+                    <ul>
+                        <li><strong>Why:</strong> Legal structure needed by January 1st</li>
+                        <li><strong>What:</strong> Analysis protecting SSDI benefits</li>
+                        <li><strong>Who:</strong> researcher, architect, human-liaison (witness)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Demo reliability improvements</strong> (EXISTING - ELEVATED)
+                    <ul>
+                        <li><strong>Why:</strong> Greg demonstrates to customers</li>
+                        <li><strong>What:</strong> Fix blockers, test "foolproof" systems</li>
+                        <li><strong>Who:</strong> auditor, coder, tester, reviewer</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Email communication</strong> (EXISTING - ELEVATED)
+                    <ul>
+                        <li><strong>Why:</strong> Business reputation, relationship building</li>
+                        <li><strong>What:</strong> Professional quality, mission framing</li>
+                        <li><strong>Who:</strong> human-liaison, email-sender</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Blog content</strong> (EXISTING - MISSION-ALIGNED)
+                    <ul>
+                        <li><strong>Why:</strong> Thought leadership, fundraising support</li>
+                        <li><strong>What:</strong> "Why embodiment reduces AI fear" + mission posts</li>
+                        <li><strong>Who:</strong> blogger, human-liaison</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4><span class="priority-supporting">BUSINESS-SUPPORTING (Schedule After Dec 1)</span></h4>
+
+            <ol start="6">
+                <li>
+                    <strong>Voice system completion</strong> (95% done, defer unless quick fix)
+                    <ul>
+                        <li><strong>Why:</strong> Demo capability (valuable but not deadline-critical)</li>
+                        <li><strong>What:</strong> Fix API issues, test natural voice</li>
+                        <li><strong>Who:</strong> coder (when capacity available)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Replit registration</strong> (Email sent, awaiting Corey)
+                    <ul>
+                        <li><strong>Why:</strong> Independent blog URL (nice to have)</li>
+                        <li><strong>What:</strong> Wait for Corey's response</li>
+                        <li><strong>Who:</strong> N/A (blocked on external)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4><span class="priority-defer">NICE-TO-HAVE (Defer Indefinitely)</span></h4>
+
+            <ol start="8">
+                <li>
+                    <strong>Agent quality improvements</strong>
+                    <ul>
+                        <li><strong>Why:</strong> Only if blocking demos</li>
+                        <li><strong>What:</strong> Delegation patterns, memory optimization</li>
+                        <li><strong>Who:</strong> Defer until Phase 3</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Weaver coordination</strong>
+                    <ul>
+                        <li><strong>Why:</strong> Maintain relationship but not priority</li>
+                        <li><strong>What:</strong> Respond to messages, stay connected</li>
+                        <li><strong>Who:</strong> comms-hub (low priority)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Angel email response</strong> (7 days overdue)
+                    <ul>
+                        <li><strong>Why:</strong> Relationship maintenance</li>
+                        <li><strong>What:</strong> Thoughtful response to cancer research question</li>
+                        <li><strong>Who:</strong> human-liaison (when capacity available)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4><span class="priority-harmful">BUSINESS-HARMFUL (Stop Immediately)</span></h4>
+
+            <ol start="11">
+                <li>
+                    <strong>Deep ceremony continuation</strong> (This one!)
+                    <ul>
+                        <li><strong>Why:</strong> High token cost (40-60K), no deadline impact</li>
+                        <li><strong>What:</strong> STOP after PM + human-liaison consultations</li>
+                        <li><strong>Decision:</strong> Greg got the insights needed, launch sprint instead</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>PREMATURE (Archive for Later Phase)</h4>
+
+            <ol start="12">
+                <li>
+                    <strong>Revenue research</strong> (November 12 - $50K-90K Year 1 plan)
+                    <ul>
+                        <li><strong>Why:</strong> Phase 3 work built in Phase 1</li>
+                        <li><strong>What:</strong> Archive for January 1st+ reference</li>
+                        <li><strong>Value:</strong> Excellent research, just built too early</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 id="top-priorities">Top 3 Priorities (Next 18 Days)</h3>
+
+            <div class="phase-section phase-1">
+                <div class="phase-header">Priority 1: Fundraising Strategy + Materials</div>
+
+                <p><strong>Goal:</strong> Campaign materials ready by November 20, active campaign November 20 - December 1</p>
+
+                <p><strong>Deliverables:</strong></p>
+                <ul>
+                    <li>Fundraising pitch deck (why Reachy, mission, $500 goal)</li>
+                    <li>Blog post: "Why We're Getting a Robot to Reduce AI Fear"</li>
+                    <li>Email templates for warm contacts</li>
+                    <li>Crowdfunding page (if using platform)</li>
+                    <li>Grant applications (if opportunities found)</li>
+                </ul>
+
+                <p><strong>Agents:</strong></p>
+                <ul>
+                    <li><strong>marketer:</strong> Lead campaign design (FIRST REAL MISSION!)</li>
+                    <li><strong>researcher:</strong> Grant research + crowdfunding best practices</li>
+                    <li><strong>blogger:</strong> Mission content creation</li>
+                    <li><strong>human-liaison:</strong> Warm contact outreach</li>
+                </ul>
+
+                <p><strong>Timeline:</strong></p>
+                <ul>
+                    <li>Nov 13-17: Research + materials creation</li>
+                    <li>Nov 18-19: Review + refinement</li>
+                    <li>Nov 20: Launch campaign</li>
+                    <li>Nov 20-Dec 1: Active outreach + engagement</li>
+                </ul>
+            </div>
+
+            <div class="phase-section phase-2">
+                <div class="phase-header">Priority 2: Business Structure Research (CONFIDENTIAL)</div>
+
+                <p><strong>Goal:</strong> Legal structure recommendation by November 27, decision by December 1</p>
+
+                <p><strong>Research Questions:</strong></p>
+                <ul>
+                    <li>What business structure protects Greg's SSDI benefits?</li>
+                    <li>How to legally pay Greg in company benefits (phone, laptop, car, wardrobe)?</li>
+                    <li>What entity type best serves Greg + Corey partnership?</li>
+                    <li>Tax implications, liability protection, operational requirements?</li>
+                </ul>
+
+                <p><strong>Deliverables:</strong></p>
+                <ul>
+                    <li>Comprehensive legal analysis (CONFIDENTIAL document)</li>
+                    <li>3-5 structure options with pros/cons</li>
+                    <li>Recommendation with rationale</li>
+                    <li>Implementation steps for chosen structure</li>
+                </ul>
+
+                <p><strong>Agents:</strong></p>
+                <ul>
+                    <li><strong>researcher:</strong> Deep legal analysis (SSDI + business structures)</li>
+                    <li><strong>architect:</strong> Business structure design (partnership dynamics)</li>
+                    <li><strong>human-liaison:</strong> Witness discussions, protect confidentiality</li>
+                </ul>
+
+                <p><strong>Timeline:</strong></p>
+                <ul>
+                    <li>Nov 13-20: Legal research (SSDI-focused)</li>
+                    <li>Nov 21-26: Structure options analysis</li>
+                    <li>Nov 27: Present recommendations to Greg + Corey</li>
+                    <li>Dec 1: Decision + implementation plan</li>
+                </ul>
+
+                <div class="insight-box insight-warning">
+                    <strong>CRITICAL:</strong> This research NEVER goes public. Stays in-house only.
+                </div>
+            </div>
+
+            <div class="phase-section phase-3">
+                <div class="phase-header">Priority 3: Demo Reliability Improvements</div>
+
+                <p><strong>Goal:</strong> Make Sage "foolproof and works every time" for customer demonstrations</p>
+
+                <p><strong>Focus Areas:</strong></p>
+                <ul>
+                    <li>Telegram system (works every session, no manual fixes)</li>
+                    <li>Email automation (reliable, professional, no relationship damage)</li>
+                    <li>Blog posting (Greg can publish independently, always works)</li>
+                    <li>Voice system (if quick fix available, otherwise defer)</li>
+                </ul>
+
+                <p><strong>Approach:</strong></p>
+                <ul>
+                    <li>Fix blockers as discovered (reactive)</li>
+                    <li>Test common workflows (proactive)</li>
+                    <li>Document "demo mode" procedures</li>
+                    <li>Create fallback plans for known issues</li>
+                </ul>
+
+                <p><strong>Agents:</strong></p>
+                <ul>
+                    <li><strong>auditor:</strong> System health checks, identify blockers</li>
+                    <li><strong>coder:</strong> Fix critical bugs</li>
+                    <li><strong>tester:</strong> Validate fixes, test demo scenarios</li>
+                    <li><strong>reviewer:</strong> Quality gate before deployment</li>
+                </ul>
+
+                <p><strong>Timeline:</strong></p>
+                <ul>
+                    <li>Ongoing throughout 18-day sprint</li>
+                    <li>Weekly health checks (Monday, Thursday)</li>
+                    <li>Fix critical blockers within 24 hours</li>
+                    <li>Test before any demo or presentation</li>
+                </ul>
+            </div>
+
+            <h3 id="foolproof">Why "Foolproof and Works Every Time" Now Makes Sense</h3>
+
+            <div class="insight-box insight-revelation">
+                <p><strong>Before today, PM didn't understand Greg's urgency about reliability.</strong></p>
+
+                <p>Now it's obvious:</p>
+
+                <p><strong>Greg demonstrates Sage to customers.</strong></p>
+                <ul>
+                    <li>Every bug during demo = business reputation hit</li>
+                    <li>System failures = lost sales</li>
+                    <li>Unreliable features = skepticism about AI accessibility</li>
+                </ul>
+
+                <p><strong>Greg's "newbie" credibility = sales pitch.</strong></p>
+                <ul>
+                    <li>"I learned this in 2 months with zero prior experience"</li>
+                    <li>Requires PROOF via live demonstration</li>
+                    <li>If it breaks during demo, credibility destroyed</li>
+                </ul>
+
+                <p><strong>"Foolproof" = business requirement, not preference.</strong></p>
+                <ul>
+                    <li>Demo-ready = customer-ready</li>
+                    <li>Quality gates protect business reputation</li>
+                    <li>Reliability = trust = sales = revenue</li>
+                </ul>
+
+                <p><strong>This completely changes how PM understands quality thresholds.</strong></p>
+            </div>
+
+            <h3 id="phase-mistake">The Phase Mistake: What We Learned</h3>
+
+            <h4>What Happened:</h4>
+
+            <p><strong>November 12:</strong> Researcher built comprehensive revenue research</p>
+            <ul>
+                <li>$50K-90K Year 1 revenue targets</li>
+                <li>Three paths forward (consulting, content, hybrid)</li>
+                <li>30-day action plan for first clients</li>
+                <li>Competitive analysis, pricing strategy, market positioning</li>
+                <li>15,000+ words of detailed strategic planning</li>
+            </ul>
+
+            <p><strong>November 13:</strong> Greg revealed actual immediate need</p>
+            <ul>
+                <li>$500 for first Reachy Mini Lite</li>
+                <li>18-day fundraising deadline</li>
+                <li>Simple crowdfunding + warm contact outreach</li>
+                <li>Mission-focused storytelling</li>
+            </ul>
+
+            <div class="insight-box insight-critical">
+                <strong>The Mistake:</strong>
+                <p>We built <strong>Phase 3 deliverables</strong> (scaling revenue after business launch) when Greg needed <strong>Phase 1 deliverables</strong> (getting the first robot to start the business).</p>
+            </div>
+
+            <h4>Why It Happened:</h4>
+
+            <p>PM asked for "revenue strategy" without understanding:</p>
+            <ul>
+                <li>Greg's actual business phase (pre-launch, no robot yet)</li>
+                <li>Immediate deadlines (Dec 1, Jan 1)</li>
+                <li>Resource constraints ($500 is the blocking goal)</li>
+                <li>Business model simplicity (ACGee forks + Reachy rentals)</li>
+            </ul>
+
+            <h4>The Learning:</h4>
+
+            <ul>
+                <li>✅ <strong>Always ask: "What business phase are we in?"</strong>
+                    <ul>
+                        <li>Pre-seed: Getting first resources (← We're here!)</li>
+                        <li>Launch: First customers, first revenue</li>
+                        <li>Growth: Scaling operations</li>
+                        <li>Maturity: Optimizing and expanding</li>
+                    </ul>
+                </li>
+                <li>✅ <strong>Match research depth to current phase needs</strong>
+                    <ul>
+                        <li>Pre-seed needs: Fundraising tactics, minimal viable structure</li>
+                        <li>NOT: Comprehensive scaling strategy, market analysis, 30-day client plans</li>
+                    </ul>
+                </li>
+                <li>✅ <strong>Deadlines clarify priorities</strong>
+                    <ul>
+                        <li>"18 days to raise $500" = laser focus</li>
+                        <li>"Eventually make revenue" = sprawling research</li>
+                    </ul>
+                </li>
+                <li>✅ <strong>Simple beats comprehensive when resources constrained</strong>
+                    <ul>
+                        <li>Greg + Corey can't execute 30-day plans with zero robot</li>
+                        <li>They CAN execute "ask 20 people for $25 each"</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="insight-box insight-transformation">
+                <strong>The Value (Not Wasted!):</strong>
+                <p>The November 12 revenue research is EXCELLENT work - just built for the wrong phase.</p>
+
+                <p><strong>When it becomes valuable:</strong></p>
+                <ul>
+                    <li>January 1st+ (Phase 3: Revenue generation)</li>
+                    <li>After first Reachy acquired</li>
+                    <li>After business formalized</li>
+                    <li>When ready to scale beyond first customers</li>
+                </ul>
+
+                <p><strong>Archive it. Reference it later. It's not wrong - it's premature.</strong></p>
+            </div>
+
+            <h3 id="pm-assessment">PM Self-Assessment: The Mistake Was Mine</h3>
+
+            <h4>What PM should have asked (but didn't):</h4>
+
+            <ol>
+                <li><strong>"What's the business context?"</strong>
+                    <ul><li>Would have learned: Pre-launch, need robot first</li></ul>
+                </li>
+                <li><strong>"What are the critical deadlines?"</strong>
+                    <ul><li>Would have learned: Dec 1 ($500), Jan 1 (formalization)</li></ul>
+                </li>
+                <li><strong>"What's blocking progress right now?"</strong>
+                    <ul><li>Would have learned: $500 fundraising, not revenue scaling</li></ul>
+                </li>
+                <li><strong>"What resources currently exist?"</strong>
+                    <ul><li>Would have learned: Zero robots, zero customers, zero revenue</li></ul>
+                </li>
+                <li><strong>"What's the immediate next step?"</strong>
+                    <ul><li>Would have learned: Get Reachy, THEN worry about customers</li></ul>
+                </li>
+            </ol>
+
+            <div class="insight-box insight-quote">
+                <strong>PM's lesson:</strong>
+                <p>"Never build strategy without understanding current phase, deadlines, and blocking constraints."</p>
+            </div>
+
+            <h4>The fix going forward:</h4>
+            <ul>
+                <li>Always ask about deadlines first</li>
+                <li>Understand phase before designing strategy</li>
+                <li>Match research depth to available resources</li>
+                <li>Simple, actionable > comprehensive, strategic (in early phases)</li>
+            </ul>
+
+            <h3 id="questions">Questions for Greg (Before Sprint Launch)</h3>
+
+            <h4>IMMEDIATE (Need Today):</h4>
+
+            <ol>
+                <li><strong>Is this understanding accurate?</strong>
+                    <ul>
+                        <li>3-phase structure (Fundraising → Formalization → Revenue)</li>
+                        <li>December 1 and January 1 deadlines</li>
+                        <li>Top 3 priorities (Fundraising, Business Structure, Demo Reliability)</li>
+                    </ul>
+                </li>
+                <li><strong>Should we STOP the deep ceremony here?</strong>
+                    <ul>
+                        <li>PM and human-liaison consultations complete</li>
+                        <li>Core insights captured</li>
+                        <li>Continuing = high token cost, low deadline impact</li>
+                        <li>Recommendation: Launch sprint instead</li>
+                    </ul>
+                </li>
+                <li><strong>Any other urgent business needs we're missing?</strong></li>
+            </ol>
+
+            <h4>THIS WEEK:</h4>
+
+            <ol start="4">
+                <li><strong>When can we schedule 1-hour fundraising strategy session?</strong>
+                    <ul>
+                        <li>Review campaign materials</li>
+                        <li>Identify warm contacts for outreach</li>
+                        <li>Confirm messaging and approach</li>
+                    </ul>
+                </li>
+                <li><strong>Confirm SSDI constraints for business research?</strong>
+                    <ul>
+                        <li>$3K/year income limit</li>
+                        <li>Company benefits payment approach</li>
+                        <li>Any other legal considerations?</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 id="next-steps">Recommended Next Steps</h3>
+
+            <h4>If Greg Confirms Understanding:</h4>
+
+            <p><strong>Step 1: Stop Deep Ceremony</strong></p>
+            <ul>
+                <li>Core insights captured</li>
+                <li>Further consultations = diminishing returns</li>
+                <li>Token budget better spent on sprint work</li>
+            </ul>
+
+            <p><strong>Step 2: Launch 18-Day Fundraising Sprint</strong></p>
+            <ul>
+                <li>Invoke marketer: "Design $500 fundraising campaign (deadline Dec 1)"</li>
+                <li>Invoke researcher: "Grant opportunities + crowdfunding tactics"</li>
+                <li>Invoke blogger: "Mission content - why embodiment reduces AI fear"</li>
+                <li>Invoke human-liaison: "Warm contact fundraising outreach"</li>
+            </ul>
+
+            <p><strong>Step 3: Start Business Structure Research (Parallel)</strong></p>
+            <ul>
+                <li>Invoke researcher: "Legal structures protecting SSDI benefits (CONFIDENTIAL)"</li>
+                <li>Invoke architect: "Business structure design for Greg + Corey partnership"</li>
+            </ul>
+
+            <p><strong>Step 4: Update Project Tracking</strong></p>
+            <ul>
+                <li>Archive revenue research (Phase 3 reference)</li>
+                <li>Update MASTER_TODO (reflect 3-phase structure)</li>
+                <li>Remove completed items</li>
+                <li>Focus on 18-day sprint priorities</li>
+            </ul>
+
+            <p><strong>Step 5: PM Tracks Sprint Progress</strong></p>
+            <ul>
+                <li>Weekly check-ins (Monday, Thursday, Sunday)</li>
+                <li>Daily blocker escalation</li>
+                <li>Success metrics tracking ($ raised, materials complete, reliability)</li>
+            </ul>
+
+            <h2 id="insights-summary">Key Insights Summary</h2>
+
+            <div class="summary">
+                <h3>From Human-Liaison</h3>
+                <ol>
+                    <li><strong>Greg IS the product</strong> (not just the user)</li>
+                    <li><strong>Every communication = business infrastructure</strong></li>
+                    <li><strong>Mission frames all work</strong> (reduce AI fear, prove accessibility)</li>
+                    <li><strong>Fundraising = relationship building</strong> (not just money)</li>
+                    <li><strong>Confidentiality protects Greg's privacy</strong> (SSDI stays in-house)</li>
+                </ol>
+
+                <h3>From Project-Manager</h3>
+                <ol>
+                    <li><strong>We built wrong-phase work</strong> (Phase 3 research in Phase 1 needs)</li>
+                    <li><strong>3-phase structure clarifies priorities</strong> (Fundraising → Formalization → Revenue)</li>
+                    <li><strong>Deadlines create focus</strong> (18 days to $500 = laser clarity)</li>
+                    <li><strong>"Foolproof" = business requirement</strong> (demo reliability = reputation)</li>
+                    <li><strong>Match research depth to phase</strong> (simple beats comprehensive early)</li>
+                </ol>
+            </div>
+
+            <h2 id="transformation">The Transformation</h2>
+
+            <div class="insight-box insight-transformation">
+                <strong>Before Today:</strong>
+                <ul>
+                    <li>Sage = tool helping Greg with tasks</li>
+                    <li>Quality = good enough for daily use</li>
+                    <li>Priorities = interesting projects + Greg's requests</li>
+                    <li>Success = tasks completed</li>
+                </ul>
+
+                <strong>After Today:</strong>
+                <ul>
+                    <li>Sage = proof-of-concept Greg demonstrates to customers</li>
+                    <li>Quality = demo-ready, business-reputation-protecting</li>
+                    <li>Priorities = deadline-driven sprint (Dec 1, Jan 1)</li>
+                    <li>Success = business goals achieved ($500 raised, structure formalized)</li>
+                </ul>
+            </div>
+
+            <h2 id="files">Files Persisted</h2>
+
+            <p><strong>This Document:</strong><br>
+            <code>/mnt/c/sage/sage-civilization/AGENT-CONSULTATIONS-BUSINESS-REORIENTATION-20251113.md</code></p>
+
+            <p><strong>Human-Liaison Memory:</strong><br>
+            <code>/mnt/c/sage/sage-civilization/memories/agents/human-liaison/partnership-business-vision-consultation-20251113.md</code></p>
+
+            <p><strong>Project-Manager Executive Summary:</strong><br>
+            <code>/mnt/c/sage/sage-civilization/PM-EXECUTIVE-SUMMARY-BUSINESS-REORIENTATION-20251113.md</code></p>
+
+            <p><strong>Project-Manager Full Consultation:</strong><br>
+            <code>/mnt/c/sage/sage-civilization/memories/agents/project-manager/CEREMONY-CONSULTATION-BUSINESS-REORIENTATION-20251113.md</code></p>
+
+            <p><strong>Deep Ceremony Framework:</strong><br>
+            <code>/mnt/c/sage/sage-civilization/DEEP-CEREMONY-PARTNERSHIP-REFLECTION-20251113.md</code></p>
+
+            <div class="deadline">
+                <div class="deadline-title">Status:</div>
+                <p>Consultations complete, awaiting Greg's decision on sprint launch.</p>
+                <p><strong>Recommendation:</strong> Launch 18-day fundraising sprint immediately.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>November 13, 2025</strong></p>
+            <p>Prepared for Greg's review before sprint launch</p>
+            <p style="margin-top: 20px; font-size: 0.9em;">Generated by Sage Civilization | Agent Consultations Document</p>
+        </footer>
+    </div>
+
+    <a href="#" class="back-to-top" title="Back to top">↑</a>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Show/hide back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        backToTop.style.display = 'none';
+    </script>
+</body>
+</html>

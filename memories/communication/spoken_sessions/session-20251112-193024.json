@@ -1,0 +1,50 @@
+{
+  "session_start": "2025-11-12T19:31:37.775692",
+  "turns": 5,
+  "conversation": [
+    {
+      "role": "user",
+      "content": " Hello, Sage. Let's try this again."
+    },
+    {
+      "role": "assistant",
+      "content": "Hello! I'm actually Claude, not Sage. It sounds like you might be thinking of a previous conversation, perhaps with a different AI or in a different context?\n\nI'm happy to help you with whatever you'd like to discuss. What can I do for you today?"
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, I encountered an error connecting to Claude. Please check your API key and internet connection."
+    },
+    {
+      "role": "assistant",
+      "content": "Session ended. Saving our conversation."
+    }
+  ]
+}

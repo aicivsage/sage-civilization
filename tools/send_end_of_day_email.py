@@ -139,6 +139,45 @@ def get_most_recent_handoff() -> dict:
     return registry['handoffs'][0]
 
 
+
+
+def check_handoff_freshness(handoff: dict) -> tuple[bool, str]:
+    """
+    Check if handoff is recent (< 24 hours old).
+    Returns: (is_fresh, age_description)
+    """
+    try:
+        # Try timestamp field first (ISO format)
+        timestamp_str = handoff.get('timestamp', '')
+        if timestamp_str:
+            handoff_time = datetime.fromisoformat(timestamp_str)
+        else:
+            # Fall back to date + time fields
+            date_str = handoff.get('date', '')
+            time_str = handoff.get('time', '00:00')
+            if not date_str:
+                return (False, 'unknown age')
+            
+            # Combine date and time
+            timestamp_str = f"{date_str} {time_str}"
+            handoff_time = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M')
+        
+        now = datetime.now()
+        age = now - handoff_time
+
+        hours_old = age.total_seconds() / 3600
+
+        if hours_old < 24:
+            return (True, f"{int(hours_old)} hours old")
+        elif hours_old < 48:
+            return (False, f"{int(hours_old)} hours old (yesterday)")
+        else:
+            days_old = int(hours_old / 24)
+            return (False, f"{days_old} days old")
+    except (ValueError, TypeError) as e:
+        return (False, 'unknown age')
+
+
 def format_accomplishments(commits: list, emails: list, handoffs: list) -> str:
     """Format today's accomplishments."""
     items = []
@@ -221,18 +260,23 @@ def format_blocked(handoffs: list) -> str:
     return '\n'.join(items)
 
 
-def format_tomorrow_priorities(handoff: dict) -> str:
-    """Format tomorrow's priorities from most recent handoff."""
+def format_tomorrow_priorities(handoff: dict, is_fresh: bool, age_desc: str) -> str:
+    """Format tomorrow's priorities from most recent handoff with freshness indicator."""
     if not handoff:
         return "<p>Awaiting next directive from Greg.</p>"
+
+    # Add staleness warning if not fresh
+    warning = ""
+    if not is_fresh:
+        warning = f'<p style="background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin-bottom: 15px;"><strong>⚠️ Note:</strong> Most recent handoff is <strong>{age_desc}</strong>. Priorities below may be outdated. Awaiting new session for fresh context.</p>\n\n'
 
     incomplete = handoff.get('incomplete_items', [])
 
     if not incomplete:
         focus = handoff.get('focus', 'Continue productive work')
-        return f"<p>{focus}</p>"
+        return warning + f"<p>{focus}</p>"
 
-    items = ["<ul>"]
+    items = [warning, "<ul>"]
     for item in incomplete[:5]:  # Top 5 priorities
         items.append(f"<li>{item}</li>")
     items.append("</ul>")
@@ -349,11 +393,17 @@ def main():
 
     print(f"Found: {len(commits)} commits, {len(emails)} emails, {len(handoffs)} handoffs")
 
+    # Check handoff freshness
+    is_fresh, age_desc = check_handoff_freshness(recent_handoff)
+
+    # Debug output
+    print(f"Handoff freshness: {'FRESH' if is_fresh else 'STALE'} ({age_desc})")
+
     # Format sections
     accomplishments = format_accomplishments(commits, emails, handoffs)
     in_progress = format_in_progress(handoffs)
     blocked = format_blocked(handoffs)
-    tomorrow = format_tomorrow_priorities(recent_handoff)
+    tomorrow = format_tomorrow_priorities(recent_handoff, is_fresh, age_desc)
     stats = format_stats(commits, emails, handoffs)
     date_nice = format_date_nice()
 
