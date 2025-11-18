@@ -105,3 +105,7 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+# Telegram backup files
+*.backup-*
+config/*.backup-*
