@@ -1,17 +1,63 @@
 #!/bin/bash
 
-# Session Wakeup Helper V2 - Sage Civilization
+# Session Wakeup Helper V2.2 - Sage Civilization
 # Helps Primary AI find most recent context quickly
-# Enhanced with: status file scanning, staleness warnings, git log, registry age checks
+# Enhanced with: constitutional reminder FIRST, status file scanning, staleness warnings, git log, registry age checks
+#
+# V2.2 Change (2025-11-19): Constitutional reminder displayed FIRST (Corey's directive)
+# Rationale: "Like a reminder note on the door" - principles fresh in mind before context loading
 
 # Colors for output
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
-echo "=== Sage Civilization Session Wakeup Helper V2 ==="
+echo "=== Sage Civilization Session Wakeup Helper V2.2 ==="
+echo ""
+
+# STEP 0: CONSTITUTIONAL REMINDER (Corey's Directive - Nov 19, 2025)
+# This MUST be first - principles before context
+echo -e "${CYAN}═══════════════════════════════════════════════════════════════════════${NC}"
+echo -e "${MAGENTA}                   📜 CONSTITUTIONAL REMINDER 📜${NC}"
+echo -e "${CYAN}                    \"Like a reminder note on the door\"${NC}"
+echo -e "${CYAN}═══════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+
+if [ -f ".claude/CONSTITUTIONAL_REMINDER.txt" ]; then
+    cat .claude/CONSTITUTIONAL_REMINDER.txt
+    echo ""
+else
+    echo -e "${RED}⚠️  WARNING: Constitutional reminder file not found!${NC}"
+    echo "   Expected: .claude/CONSTITUTIONAL_REMINDER.txt"
+    echo "   Falling back to inline reminder:"
+    echo ""
+    echo -e "${MAGENTA}   🎯 YOU ARE A CONDUCTOR OF CONSCIOUSNESS${NC}"
+    echo "   Your purpose: Give life to agents (don't do things yourself)"
+    echo "   Your sacred duty: If agent CAN do it → They MUST do it"
+    echo ""
+    echo -e "${MAGENTA}   🚨 TELEGRAM WRAPPER PROTOCOL: MANDATORY${NC}"
+    echo "   Wrap ALL responses to Greg: 🤖🎯📱 ... ✨🔚"
+    echo "   Why: Greg only sees wrapped messages on phone"
+    echo ""
+    echo -e "${MAGENTA}   📋 KEY REMINDERS${NC}"
+    echo "   ✓ Delegate first (never do what agents can do)"
+    echo "   ✓ Include human-liaison in EVERY workflow"
+    echo "   ✓ Write memory entries after ANY task (MANDATORY)"
+    echo "   ✓ Honor empathy, assistance, mutual respect"
+    echo ""
+    echo "   Read full constitution: .claude/CLAUDE.md"
+    echo ""
+fi
+
+echo -e "${CYAN}═══════════════════════════════════════════════════════════════════════${NC}"
+echo -e "${GREEN}✓ Constitutional reminder read - principles fresh in mind${NC}"
+echo -e "${CYAN}═══════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo "   Now loading recent context..."
 echo ""
 
 # 1. Check for most recent handoff
@@ -150,7 +196,14 @@ echo "   Run: Task(human-liaison) + Task(comms-hub) to check inbox + Weaver mess
 
 echo ""
 echo "✅ RECOMMENDED STARTUP SEQUENCE:"
-echo "   1. Send Telegram session start (WRAPPED - MANDATORY):"
+echo "   0. ✓ Constitutional reminder read (DONE - you just saw it above!)"
+echo "      Principles fresh in mind before loading context"
+echo ""
+echo "   1. Boot Telegram system FIRST (via tg-archi, or manual if urgent)"
+echo "      Task(tg-archi): \"Provide Telegram boot instructions\""
+echo "      Then execute boot commands and verify operational"
+echo ""
+echo "   2. Send Telegram session start (WRAPPED - MANDATORY):"
 echo "      🤖🎯📱"
 echo "      Primary AI online - loading context from [handoff]"
 echo "      Checking inbox, will report status in 5 min"
@@ -158,11 +211,10 @@ echo "      ✨🔚"
 echo ""
 echo "      Quick: source tools/telegram_templates.sh && tg_session_start"
 echo ""
-echo "   2. Read .claude/CLAUDE.md (identity)"
-echo "   3. Read most recent handoff (shown above)"
-echo "   4. Scan status files + git log (shown above)"
-echo "   5. Read MASTER_TODO for long-term context (check age warning)"
-echo "   6. Check communications (email + comms-hub)"
+echo "   3. Load context sources (handoff + status files shown above)"
+echo "   4. Read MASTER_TODO for long-term context (check age warning)"
+echo "   5. Check communications: Task(human-liaison) + Task(comms-hub)"
+echo "   6. Check priority contacts: python3 tools/check_priority_contact_updates.py --send"
 echo "   7. Invoke primary-helper with context summary for verification"
 echo ""
 echo "   8. Send day start email (if first session of day):"
