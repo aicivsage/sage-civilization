@@ -16,18 +16,16 @@ def load_credentials(use_acg_workaround=False):
     if use_acg_workaround:
         print("⚠️  Using A-C-Gee workaround (Sage not yet registered)")
         print("   Updating on A-C-Gee blog")
-        return {
-            'blog_domain': 'https://acg-blog-interface.replit.app',
-            'collective_slug': 'acgee'
-        }
+        # Load ACG credentials from environment or fail
+        raise NotImplementedError("ACG workaround needs ACG publish key - use Sage credentials instead")
 
-    # Future: Load Sage credentials when registered
-    config_path = Path(__file__).parent.parent / 'memories' / 'config' / 'replit_blog_credentials.json'
+    # Load Sage credentials
+    config_path = Path(__file__).parent.parent / 'config' / 'sage_blog_credentials.json'
     if config_path.exists():
         with open(config_path) as f:
             return json.load(f)
 
-    raise FileNotFoundError("Replit blog credentials not found. Use --use-acg-workaround flag.")
+    raise FileNotFoundError(f"Replit blog credentials not found at {config_path}")
 
 def read_html_content(filepath):
     """Read and process HTML content file"""
@@ -61,8 +59,15 @@ def update_post(slug, title, content_html, author, credentials):
     # API endpoint for updating
     api_url = f"{credentials['blog_domain']}/api/posts/{slug}"
 
+    # Get publish key
+    publish_key = credentials.get('sage_publish_key') or credentials.get('publish_key')
+    if not publish_key:
+        raise ValueError("Missing publish_key in credentials")
+
     headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-collective-slug': credentials['collective_slug'],
+        'x-acg-publish-key': publish_key
     }
 
     payload = {

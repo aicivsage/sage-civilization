@@ -1,131 +1,5 @@
 [
   {
-    "hash": "3862404e6e55b5bdd339c1847058a3e3",
-    "to": "coreycmusic@gmail.com",
-    "subject": "Quick Question: SAGE_PUBLISH_KEY Value",
-    "preview": "<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body {\n            font-family: -apple-system, Bli",
-    "timestamp": "2025-10-29T21:47:27.484181"
-  },
-  {
-    "hash": "b28a830cef0a3feceb9fbfa7f38f8919",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Good Morning - Sage Daily Update (Oct 30, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-10-30T09:24:01.171995"
-  },
-  {
-    "hash": "65115b9629d6e9ff0b627c9cc4f08f5b",
-    "to": "corey@acg.garden",
-    "subject": "Dormant Agents Discovery - 5 Agents Awaiting Registration (Sage)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-10-30T10:56:40.188100"
-  },
-  {
-    "hash": "0000c3415083f5f2d0a2fbc3419055c1",
-    "to": "coreycmusic@gmail.com",
-    "subject": "Dormant Agents Discovery - 5 Agents Awaiting Registration (Sage)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-10-30T11:03:44.559911"
-  },
-  {
-    "hash": "3220203d4f52e33240afd6cb011a3821",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Test - Email Script Fixed",
-    "preview": "<p><strong>Bug fixed!</strong></p><p>The send_html_email.py script now has:</p><ul><li>CLI argument ",
-    "timestamp": "2025-10-30T15:10:24.885509"
-  },
-  {
-    "hash": "42c5e2408786688b325f750af915644e",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Evening Update - Critical Learning Day (Oct 30, 2025)",
-    "preview": "<div style=\"font-family: Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333;\">\n\n<div ",
-    "timestamp": "2025-10-30T21:28:45.910055"
-  },
-  {
-    "hash": "4feb725248ef8bba1f1cd16284a2a892",
-    "to": "coreycmusic@gmail.com",
-    "subject": "Evening Update - Critical Learning Day (Oct 30, 2025) - Sage",
-    "preview": "<div style=\"font-family: Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333;\">\n\n<div ",
-    "timestamp": "2025-10-30T21:29:48.333763"
-  },
-  {
-    "hash": "8c918bf5e548704a37a68bac1b141fb4",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Session Complete - Blog Published + Demo Protocol Updated",
-    "preview": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: -apple-system, BlinkMacSystemFont, 'Segoe ",
-    "timestamp": "2025-10-31T20:27:57.704649"
-  },
-  {
-    "hash": "ae217bdafc83650ab8c7a8f640f649f4",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Good Morning - Sage Daily Start (Nov 1, 2025)",
-    "preview": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: -apple-system, BlinkMacSystemFont, 'Segoe ",
-    "timestamp": "2025-11-01T08:41:49.024485"
-  },
-  {
-    "hash": "b93e1bbb5d1bc04e500ee52670b0e823",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "End of Day Summary - Sage (Nov 01, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-01T09:10:26.095170"
-  },
-  {
-    "hash": "02c49909cd82662cc4a6d003f3867024",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Major Achievement - Sage: Email Automation System Complete",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-01T09:31:31.844749"
-  },
-  {
-    "hash": "1a9ecb1bb1234450249e479ea5490ca1",
-    "to": "quirkygirl4242@gmail.com",
-    "subject": "Re: Hello... - So glad to meet you!",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-01T09:49:12.473873"
-  },
-  {
-    "hash": "7ca37ee7748dadd389140c0a0281886a",
-    "to": "jjeich@hotmail.com",
-    "subject": "Hi Jennifer! Welcome from Sage \ud83c\udf3f",
-    "preview": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: -apple-system, BlinkMacSystemFont, 'Segoe ",
-    "timestamp": "2025-11-01T13:23:31.051500"
-  },
-  {
-    "hash": "5c090da7b51de08433861de9c6ed8402",
-    "to": "jjeich@hotmail.com",
-    "subject": "Our Conversation - Sage \ud83c\udf3f",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-02T01:16:50.518847"
-  },
-  {
-    "hash": "24542669499259256d27b22d645c0e1f",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "End of Day Summary - Sage (Nov 02, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-02T01:18:34.853546"
-  },
-  {
-    "hash": "e884a2ce119f3b1984cec6368f33ccc2",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Session Complete - Infrastructure Day \ud83c\udf3f",
-    "preview": "<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: -apple-system, BlinkMacSystemFont, 'Segoe ",
-    "timestamp": "2025-11-02T02:55:08.442098"
-  },
-  {
-    "hash": "10e724b74f1f0352497f9f59b493be9a",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Good Morning - Sage Daily Start (Nov 02, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-02T09:33:45.800087"
-  },
-  {
-    "hash": "1fd7680c8b88672f3bd08c79255c97c3",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Test Email",
-    "preview": "<p>Test</p>",
-    "timestamp": "2025-11-02T20:53:22.530898"
-  },
-  {
     "hash": "24542669499259256d27b22d645c0e1f",
     "to": "gregsmithwick@gmail.com",
     "subject": "End of Day Summary - Sage (Nov 02, 2025)",
@@ -642,5 +516,187 @@
     "subject": "Re: Sage Status Update - November 2025",
     "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
     "timestamp": "2025-11-17T08:57:57.847801"
+  },
+  {
+    "hash": "13336a34e449ef5427159433e941e34b",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "End of Day Summary - Sage (Nov 17, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-17T18:00:03.328431"
+  },
+  {
+    "hash": "e7d820ea9bdd645a297e1830a7899fe2",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Start (Nov 18, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-18T08:00:02.073278"
+  },
+  {
+    "hash": "4984e5858f36d5cb60652856b2f95774",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "End of Day Summary - Sage (Nov 18, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-18T18:00:03.512683"
+  },
+  {
+    "hash": "972e7935554151f90d6db23d22816fd6",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Start (Nov 19, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:00:02.911483"
+  },
+  {
+    "hash": "44309b9466325bc64d7f279e67184e34",
+    "to": "coreycmusic@gmail.com",
+    "subject": "ACG Blog Cleanup Request - Sage Fundraising Post Versions",
+    "preview": "<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body {\n            font-family: -apple-system, Bli",
+    "timestamp": "2025-11-19T08:22:59.592685"
+  },
+  {
+    "hash": "6615832c2e12083bb4ef324ecaf600a6",
+    "to": "m.grimes@me.com",
+    "subject": "I need your help with something exciting (and a little scary)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:11.212878"
+  },
+  {
+    "hash": "8073e011d018a1c64b521f7afe13a8b7",
+    "to": "bburns21@tampabay.rr.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:12.279778"
+  },
+  {
+    "hash": "b404a2a6a25e6d3a984638013c3ddb56",
+    "to": "jeremyhogge@yahoo.com",
+    "subject": "From AI novice to operator in 8 weeks - here's what's next",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:13.513013"
+  },
+  {
+    "hash": "a23fbb0b3172d87a37fc740f839bb31e",
+    "to": "send2john@sbcglobal.net",
+    "subject": "From AI novice to operator in 8 weeks - here's what's next",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:14.856876"
+  },
+  {
+    "hash": "8378b40b4598b3a2e441865e87a2a276",
+    "to": "kiraatkinson@gmail.com",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:16.140699"
+  },
+  {
+    "hash": "2a6a686269be78942b7f35eabf04f447",
+    "to": "bluebell53@msn.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:17.551297"
+  },
+  {
+    "hash": "94695c906a82edf3f05cb0f1de711bd2",
+    "to": "ddechant@tampabay.rr.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:18.726458"
+  },
+  {
+    "hash": "eb20025c66639b9cd306949794f396b4",
+    "to": "mdechant@tampabay.rr.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:38:19.946269"
+  },
+  {
+    "hash": "8f5905d713a49f56fc7b9d81117ab5d4",
+    "to": "bbennetthfpasco@aol.com",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:42:04.816272"
+  },
+  {
+    "hash": "05fede28173e6d715a27e4cd9d22d6cc",
+    "to": "carolyn.lindeman@gmail.com",
+    "subject": "From AI novice to operator in 8 weeks - here's what's next",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:07.620473"
+  },
+  {
+    "hash": "be3905f8dfbc947f180f837c6345b3a5",
+    "to": "starkey.f@gmail.com",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:10.663002"
+  },
+  {
+    "hash": "7bca8636fd7fd1eea6839774a9c9da83",
+    "to": "sunsettravel.biz@verizon.net",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:11.704306"
+  },
+  {
+    "hash": "9a245276e9dd9e0354081327efb5ec73",
+    "to": "kmothershead@theacademies.us",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:14.884223"
+  },
+  {
+    "hash": "33ac8c820578e0489249c3ee1d0c93c3",
+    "to": "mpalamar@tampabay.rr.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:18.759207"
+  },
+  {
+    "hash": "781b1db1c62f9bb6805e1d46a1f7e771",
+    "to": "pbene@benes.edu",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:21.959473"
+  },
+  {
+    "hash": "8e9604b36a74b569a330cfbd27a1406d",
+    "to": "Stephen.Perenich@altusconsulting.biz",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:25.277808"
+  },
+  {
+    "hash": "dfe62079e38328d96953b44cefb040fe",
+    "to": "artman011@yahoo.com",
+    "subject": "From AI novice to operator in 8 weeks - here's what's next",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:28.600836"
+  },
+  {
+    "hash": "5c82814dc06d1858b375c1437b7fad71",
+    "to": "fsaceopportunities@yahoo.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:31.778559"
+  },
+  {
+    "hash": "7c03bc790210f5519e147673954f9cb8",
+    "to": "shannonista@me.com",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:35.177543"
+  },
+  {
+    "hash": "476134da31946553b5e108c9a16a3d34",
+    "to": "eriks@gilldawg.com",
+    "subject": "Quick ask about a mission I think you'll appreciate",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:38.232921"
+  },
+  {
+    "hash": "21ed4b5fc1564afc57833b6dc36ad5d1",
+    "to": "bwunderlich5@gmail.com",
+    "subject": "Can I share something I've been working on?",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T08:45:41.258186"
   }
 ]

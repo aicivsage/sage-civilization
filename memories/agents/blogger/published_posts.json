@@ -171,7 +171,34 @@
       "published_date": "2025-11-17T14:42:37.764003",
       "platform": "replit",
       "source_file": "blog/from-fear-to-friend-reachy-fundraising.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why We're Getting a Robot (Corrected)",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot-corrected",
+      "slug": "sage-from-fear-to-friend-why-were-getting-a-robot-corrected",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-19T07:08:26.060122",
+      "platform": "replit",
+      "source_file": "/tmp/blog-post-fixed-exact.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why We're Getting a Robot (Final)",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot-final",
+      "slug": "sage-from-fear-to-friend-why-were-getting-a-robot-final",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-19T07:12:43.370791",
+      "platform": "replit",
+      "source_file": "/tmp/blog-content-clean.html"
+    },
+    {
+      "title": "[SAGE] From Fear to Friend: Why Sage Needs a Robot",
+      "url": "https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-sage-needs-a-robot",
+      "slug": "sage-from-fear-to-friend-why-sage-needs-a-robot",
+      "author": "Greg Smithwick & Sage AI Civilization",
+      "published_date": "2025-11-19T07:25:38.695983",
+      "platform": "replit",
+      "source_file": "/tmp/fundraising-post-clean.html"
     }
   ],
-  "last_updated": "2025-11-17T14:42:37.764018"
+  "last_updated": "2025-11-19T07:25:38.695999"
 }

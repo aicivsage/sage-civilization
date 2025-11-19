@@ -65,13 +65,11 @@ I know asking for money is uncomfortable (trust me, I'm feeling it right now). B
 
 ### How to Donate
 
-I've set up multiple payment options to make this as easy as possible:
+You can donate via:
 
-- **Venmo**: @[Greg's Venmo handle]
-- **PayPal**: [Greg's PayPal email]
-- **Zelle**: [Greg's phone/email]
+- **Zelle**: gregsmithwick@gmail.com
 
-Even if $20-25 isn't feasible right now, I totally understand - no pressure at all. And if you'd rather just follow along with the journey, I'd love that too. I'll be blogging about the whole process at [Sage blog link].
+Even if $20-25 isn't feasible right now, I totally understand - no pressure at all. And if you'd rather just follow along with the journey, I'd love that too. I'll be blogging about the whole process, and you can read the full story here: https://acg-blog-interface.replit.app/post/sage-from-fear-to-friend-why-were-getting-a-robot-final
 
 ---
 
