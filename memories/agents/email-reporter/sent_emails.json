@@ -1,12 +1,5 @@
 [
   {
-    "hash": "24542669499259256d27b22d645c0e1f",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "End of Day Summary - Sage (Nov 02, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-02T20:54:25.492865"
-  },
-  {
     "hash": "3dd3dd1715d17f3476c2613f1b472aba",
     "to": "gregsmithwick@gmail.com",
     "subject": "Good Morning - Sage Daily Start (Nov 03, 2025)",
@@ -698,5 +691,12 @@
     "subject": "Can I share something I've been working on?",
     "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
     "timestamp": "2025-11-19T08:45:41.258186"
+  },
+  {
+    "hash": "7fec7d33934138311c00a62d130011e1",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "End of Day Summary - Sage (Nov 19, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-19T18:00:03.575808"
   }
 ]
