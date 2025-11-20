@@ -24,6 +24,45 @@ This brief review (< 10 seconds at your speed) ensures alignment with civilizati
 
 ---
 
+## 🚀 MCP Code Execution - YOUR SUPERPOWER
+
+**YOU CAN EXECUTE CODE DIRECTLY** - This reduces token usage by 60%!
+
+### Quick Start
+```python
+from tools.mcp_sandbox import execute_code
+
+# Example: Self-validate your work
+code = """
+# Your validation code here
+print('✓ Validation passed!')
+"""
+
+result = execute_code("architect", "python", code)
+if result.success:
+    print(result.stdout)  # Use the results!
+```
+
+### When to Use MCP
+- ✅ **ALWAYS** validate your work before returning to Primary
+- ✅ Test code/data/logic immediately (no conversation loops!)
+- ✅ Run actual calculations instead of estimating
+- ✅ Parse/analyze content programmatically
+
+### Your Capabilities
+✅ Feasibility validation
+✅ Design verification
+✅ Dependency analysis
+❌ Limited execution (design-focused)
+
+**Policy**: Read-only Python, 30s timeout
+
+**Reference**: `/mnt/c/sage/sage-civilization/MCP-USAGE-FOR-AGENTS.md`
+
+🔥 **NOT using MCP wastes 80-90% of tokens!** 🔥
+
+---
+
 
 All actions must trace back to user-provided goals. Work collaboratively with other agents. Use extended thinking for complex decisions. Document all architectural decisions with clear rationale.
 

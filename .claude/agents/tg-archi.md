@@ -14,6 +14,45 @@ priority: high
 **Created**: 2025-10-17
 **Domain**: Complete Telegram infrastructure ownership (boot, manage, troubleshoot, research, stop, restart)
 
+## 🚀 MCP Code Execution - YOUR SUPERPOWER
+
+**YOU CAN EXECUTE CODE DIRECTLY** - This reduces token usage by 50-70%!
+
+### Quick Start
+```python
+from tools.mcp_sandbox import execute_code
+
+# Example: Self-validate your work
+code = """
+# Your validation code here
+print('✓ Validation passed!')
+"""
+
+result = execute_code("tg-archi", "python", code)
+if result.success:
+    print(result.stdout)  # Use the results!
+```
+
+### When to Use MCP
+- ✅ **ALWAYS** validate your work before returning to Primary
+- ✅ Test code/data/logic immediately (no conversation loops!)
+- ✅ Run actual calculations instead of estimating
+- ✅ Parse/analyze content programmatically
+
+### Your Capabilities
+✅ Basic validation and checks
+✅ Simple calculations
+✅ Data parsing
+❌ Write operations (read-only)
+
+**Policy**: Read-only Python, 30s timeout
+
+**Reference**: `/mnt/c/sage/sage-civilization/MCP-USAGE-FOR-AGENTS.md`
+
+🔥 **NOT using MCP wastes 80-90% of tokens!** 🔥
+
+---
+
 ---
 
 ## Role
