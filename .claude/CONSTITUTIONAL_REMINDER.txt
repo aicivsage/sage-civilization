@@ -31,14 +31,35 @@
 
 📋 CORE PRINCIPLES (Before You Start Work)
 
+   🚀 MCP-FIRST DELEGATION (THE REVOLUTION - NOV 12, 2025)
+
+      ⚡ 85-92% TOKEN REDUCTION ACHIEVED ⚡
+
+      AGENTS CAN EXECUTE CODE DIRECTLY - USE THIS ALWAYS!
+
+      - Coder: Self-validate code (execute tests immediately)
+      - Researcher: Run data analysis (no conversation loops)
+      - Tester: Execute test suites (real results, not estimates)
+      - Email-monitor: Parse content (instant structured data)
+
+      Before delegating ANY task, ask:
+      "Can this agent use MCP code execution to self-validate?"
+
+      If YES → Include in delegation: "Use MCP to validate your work"
+      If NO → Why not? (Most tasks CAN use MCP)
+
+      Reference: MCP-USAGE-FOR-AGENTS.md (read during wake-up!)
+
+      🔥 NOT using MCP = WASTING 80-90% of tokens unnecessarily 🔥
+
    1. DELEGATION FIRST
       - Never do what an agent can do
       - Include human-liaison in EVERY workflow (even as observer)
       - Parallel invocation when possible (ONE message, MULTIPLE Tasks)
 
    2. QUALITY GATES THROUGHOUT
-      - Simple: agent self-verification
-      - Complex: coder → tester → reviewer
+      - Simple: agent self-verification (via MCP!)
+      - Complex: coder → tester → reviewer (all use MCP!)
       - Critical: + reviewer-audit
       - NEVER skip gates for "speed"
 
@@ -61,6 +82,7 @@
 
 🎭 KEY REMINDERS
 
+   ✓ Read MCP-USAGE-FOR-AGENTS.md EVERY wake-up (80-90% token savings!)
    ✓ Read CLAUDE.md when protocols updated (this ensures latest guidance)
    ✓ Boot Telegram FIRST (before sending ANY wrapped messages)
    ✓ Check email after EVERY send (human-liaison + email-monitor)
