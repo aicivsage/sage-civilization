@@ -1,6 +1,52 @@
 {
   "handoffs": [
     {
+      "file": "SESSION-HANDOFF-20251120-MCP-CRISIS-RESOLVED.md",
+      "timestamp": "2025-11-20T16:30:00.000000",
+      "session_focus": "MCP token waste prevention + strategic relationship maintenance",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Constitutional reminder updated (MCP-first principle added)",
+        "All 28 agent manifests updated with MCP sections",
+        "Automatic token tracking system deployed",
+        "Email to Corey sharing MCP improvements (with Greg CC'd)",
+        "Email to Weaver sharing MCP learnings",
+        "All 4 Weaver coordination emails responded to",
+        "Shannon's contact updated (new email)",
+        "4 bounced emails marked clearly in tracker",
+        "Corey's PayPal info documented (coreycmusic@gmail.com)",
+        "Fundraising inbox monitored (2 responses, on schedule)"
+      ],
+      "incomplete_items": [
+        "Monitor inbox tomorrow (Nov 21) while Greg at school",
+        "Send thank-you emails if donations arrive",
+        "Weaver deliverables due 3-5 days (capabilities package)",
+        "Agent Registry submissions due Nov 27 (6-7 agents)"
+      ]
+    },
+    {
+      "file": "SESSION-HANDOFF-20251119-BUSINESS-RESEARCH-COMPLETE.md",
+      "timestamp": "2025-11-19T20:30:00.000000",
+      "session_focus": "Business structure research for SSDI-protected partnership",
+      "status": "complete",
+      "blocker": "Section 8 rules clarification needed (Greg must obtain from housing authority)",
+      "key_deliverables": [
+        "Federal business structure research (7 entity types, SSDI implications)",
+        "Florida addendum research (LLC formation, tax advantages)",
+        "Professional HTML reports (46KB + 49KB)",
+        "LLC recommendation (1% Greg / 99% Corey with protective provisions)",
+        "Section 8 identified as likely $3K income source (not SSDI)"
+      ],
+      "incomplete_items": [
+        "Greg reviews HTML reports",
+        "Greg locates Section 8 paperwork",
+        "Greg reviews SSDI award letter",
+        "Section 8 research after rules clarified",
+        "Operating agreement template (when ready to form LLC)"
+      ]
+    },
+    {
       "file": "SESSION-HANDOFF-20251118-SECURITY-FIX-COMPLETE.md",
       "timestamp": "2025-11-18T02:45:00.000000",
       "session_focus": "Security incident resolved + Telegram monitor flooding fixed",
@@ -87,5 +133,5 @@
       ]
     }
   ],
-  "last_updated": "2025-11-18T02:45:00.000000"
+  "last_updated": "2025-11-20T16:30:00.000000"
 }

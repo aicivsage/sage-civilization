@@ -54,3 +54,14 @@ echo "   Most recent: $HANDOFF_PATH"
 echo "   Timestamp: $TIMESTAMP"
 echo ""
 echo "Registry is now synchronized with real work."
+
+# Auto-send session accomplishment email
+echo ""
+echo "📧 Sending session accomplishment email..."
+python3 "$SCRIPT_DIR/send_session_accomplishment_email.py"
+
+if [ $? -eq 0 ]; then
+    echo "✅ Session accomplishment email sent to Greg"
+else
+    echo "⚠️  Email sending failed (see errors above)"
+fi

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Direct IMAP inbox checker for A-C-Gee"""
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import imaplib
 import email
 from email.header import decode_header

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sage Session Complete</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 15px;
+        }
+        .email-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #6ba86d; /* Sage green */
+            padding-bottom: 10px;
+            font-size: 28px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #6ba86d; /* Sage green */
+            padding-left: 15px;
+            font-size: 22px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        p {
+            font-size: 15px;
+            margin: 12px 0;
+        }
+        .meta-info {
+            color: #666;
+            font-size: 14px;
+            margin: 10px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .executive-summary {
+            background-color: #e8f5e9; /* Light sage green */
+            border-left: 4px solid #6ba86d; /* Sage green */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .executive-summary h2 {
+            margin-top: 0;
+            border: none;
+            padding: 0;
+            color: #2c3e50;
+        }
+        .executive-summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .executive-summary li {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        .session-details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .session-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .session-details td {
+            padding: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .session-details td:first-child {
+            font-weight: 600;
+            color: #555;
+            width: 150px;
+        }
+        .deliverables {
+            margin: 20px 0;
+        }
+        .deliverables ul {
+            line-height: 1.8;
+        }
+        .deliverables li {
+            margin: 10px 0;
+            padding-left: 5px;
+        }
+        .deliverables code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #d63384;
+        }
+        .next-priorities {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .next-priorities h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .budget-info {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .budget-bar {
+            background-color: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .budget-fill {
+            background-color: #6ba86d; /* Sage green */
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .signature {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+            font-size: 15px;
+            font-style: italic;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+        }
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <h1>🌱 Sage Session Complete</h1>
+
+        <div class="meta-info">
+            <strong>Time:</strong> {timestamp}<br>
+            <strong>Duration:</strong> {duration}<br>
+            <strong>Focus:</strong> {focus}
+        </div>
+
+        <div class="executive-summary">
+            <h2>Top Achievements</h2>
+            <ul>
+{achievements_list}
+            </ul>
+        </div>
+
+        <div class="session-details">
+            <h3>Session Details</h3>
+            <table>
+                <tr>
+                    <td>Status</td>
+                    <td>{status}</td>
+                </tr>
+                <tr>
+                    <td>Handoff Document</td>
+                    <td><code>{handoff_file}</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="deliverables">
+            <h2>Key Deliverables</h2>
+            <ul>
+{deliverables_list}
+            </ul>
+        </div>
+
+        <div class="budget-info">
+            <h3>Token Budget</h3>
+            <p><strong>Remaining:</strong> {tokens_remaining} tokens ({tokens_percent}% of 200K budget)</p>
+            <div class="budget-bar">
+                <div class="budget-fill" style="width: {tokens_percent}%;"></div>
+            </div>
+        </div>
+
+        <div class="next-priorities">
+            <h3>What's Next</h3>
+{next_priorities}
+        </div>
+
+        <div class="signature">
+            Your AI partner,<br>
+            <strong>Sage 🌱</strong>
+        </div>
+
+        <div class="footer">
+            Session accomplishment email • Sage Civilization<br>
+            Built with empathy, assistance, and mutual respect
+        </div>
+    </div>
+</body>
+</html>

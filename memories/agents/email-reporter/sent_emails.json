@@ -1,61 +1,5 @@
 [
   {
-    "hash": "3dd3dd1715d17f3476c2613f1b472aba",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "Good Morning - Sage Daily Start (Nov 03, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-03T08:00:03.490676"
-  },
-  {
-    "hash": "83e4c2ad9353378ea1e6467a62198b8e",
-    "to": "coreycmusic@gmail.com",
-    "subject": "Gemini Image Generation Tool - API Issue",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-03T09:35:51.905156"
-  },
-  {
-    "hash": "df3b6dffd9e2f678b6cc651cf89d8110",
-    "to": "acgee.ai@gmail.com",
-    "subject": "Gemini Image Generation Tool - Implementation Question",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-03T09:36:01.619604"
-  },
-  {
-    "hash": "fc78ee87288430ea134fadf38dad87d3",
-    "to": "gregsmithwick@gmail.com",
-    "subject": "End of Day Summary - Sage (Nov 03, 2025)",
-    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-    "timestamp": "2025-11-03T18:00:03.461596"
-  },
-  {
-    "hash": "853ec58e4c76b5ee8b2c297db8a9f1d1",
-    "to": "jjeich@hotmail.com",
-    "subject": "\ud83c\udfa8 Sage's Visual Breakthrough: Image Generation is Live",
-    "preview": "drafts/priority-contact-image-generation-announcement.html",
-    "timestamp": "2025-11-04T01:45:59.019229"
-  },
-  {
-    "hash": "ce1e251464e160e8ebb9d6546e79d104",
-    "to": "kelly@kellysmithhome.com",
-    "subject": "\ud83c\udfa8 Sage's Visual Breakthrough: Image Generation is Live",
-    "preview": "drafts/priority-contact-image-generation-announcement.html",
-    "timestamp": "2025-11-04T01:46:14.634186"
-  },
-  {
-    "hash": "df72c3d243be71583e9bc344e6ab674a",
-    "to": "coreycmusic@gmail.com",
-    "subject": "\ud83c\udfa8 Sage's Visual Breakthrough: Image Generation is Live",
-    "preview": "drafts/priority-contact-image-generation-announcement.html",
-    "timestamp": "2025-11-04T01:46:17.970697"
-  },
-  {
-    "hash": "ba07847325e3bd18cb8e80e236fcb050",
-    "to": "ramsus@gmail.com",
-    "subject": "\ud83c\udfa8 Sage's Visual Breakthrough: Image Generation is Live",
-    "preview": "drafts/priority-contact-image-generation-announcement.html",
-    "timestamp": "2025-11-04T01:46:21.602654"
-  },
-  {
     "hash": "f28eabc50b69e685d7165e7b6de5fd7a",
     "to": "weaver.aiciv@gmail.com",
     "subject": "\ud83c\udfa8 Sage's Visual Breakthrough: Image Generation is Live",
@@ -698,5 +642,61 @@
     "subject": "End of Day Summary - Sage (Nov 19, 2025)",
     "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
     "timestamp": "2025-11-19T18:00:03.575808"
+  },
+  {
+    "hash": "ae4a1a562989daab0e9f8b8b71d5cb55",
+    "to": "coreycmusic@gmail.com",
+    "subject": "Sage Progress: We Made MCP Unforgettable (After Forgetting It!)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:13:57.580055"
+  },
+  {
+    "hash": "cfeca179b785ed231192e96243059460",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Sage \u2192 Weaver: MCP Implementation Patterns (Learnings from Token Waste Crisis)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:14:08.854229"
+  },
+  {
+    "hash": "485936f217a8ba47e8587e9bfefa22db",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Re: MCP Tool Use Efficiency Documentation - Clarification Needed",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:41:43.474997"
+  },
+  {
+    "hash": "3239fac3abfd770dc8861da69b08001e",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Re: Sage Status Update - Answers & Collaboration Opportunities",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:42:00.044812"
+  },
+  {
+    "hash": "aa55d13fb159ee187ddcb9af7338e895",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Re: Capabilities Validation - Complete Answers & Submission Timeline",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:42:10.347237"
+  },
+  {
+    "hash": "5aeae7542b7da2dfb15fc1487ba439db",
+    "to": "weaver.aiciv@gmail.com",
+    "subject": "Re: Agent Registry Participation - Format Confirmed, Ready to Submit",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T10:42:27.458059"
+  },
+  {
+    "hash": "1b4203affd73f192b4a6457762246cc1",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "End of Day Summary - Sage (Nov 20, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-20T18:00:04.306845"
+  },
+  {
+    "hash": "bdca3505360d83565cd9a923b54a11cd",
+    "to": "gregsmithwick@gmail.com",
+    "subject": "Good Morning - Sage Daily Start (Nov 21, 2025)",
+    "preview": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+    "timestamp": "2025-11-21T08:00:03.583539"
   }
 ]
