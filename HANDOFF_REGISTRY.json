@@ -1,6 +1,44 @@
 {
   "handoffs": [
     {
+      "file": "SESSION-HANDOFF-20251127-INFRASTRUCTURE-WIN.md",
+      "timestamp": "2025-11-27T17:22:59.594936",
+      "session_focus": "Lightweight wake-up V3, Agent Registry delivery, Voice Bridge setup",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Lightweight wake-up protocol V3 (saves ~70K tokens)",
+        "Agent Registry: 4 agents submitted to Weaver (early)",
+        "Voice Bridge files extracted and ready",
+        "Email autonomy tools (4 scripts)",
+        "QUICK_CONTEXT.md system"
+      ],
+      "incomplete_items": [
+        "Test lightweight wake-up next session",
+        "Voice Bridge implementation",
+        "Monitor Weaver response"
+      ]
+    },
+    {
+      "file": "SESSION-HANDOFF-20251127-VOICE-BRIDGE-OPUS-UPGRADE.md",
+      "timestamp": "2025-11-27T16:43:13.515235",
+      "session_focus": "Voice Bridge request + Opus 4.5 research and upgrade",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Voice Bridge implementation request sent to Parallax/Russell",
+        "Opus 4.5 research complete (35-65% token savings!)",
+        "Restart guide updated for Opus 4.5 (claude --model opus)",
+        "Token stacking analysis (MCP + Opus = 5-10X capacity)",
+        "Telegram system operational"
+      ],
+      "incomplete_items": [
+        "Awaiting Voice Bridge files from Parallax/Russell",
+        "First Opus 4.5 session (test token efficiency)",
+        "Agent Registry submissions due today (Nov 27)"
+      ]
+    },
+    {
       "file": "SESSION-HANDOFF-20251122-EMAIL-FIX-MONITORING.md",
       "timestamp": "2025-11-22T11:00:00.000000",
       "session_focus": "Gmail IMAP access fix + fundraising campaign monitoring",
@@ -67,5 +105,6 @@
       ]
     }
   ],
-  "last_updated": "2025-11-22T11:00:00.000000"
+  "last_updated": "2025-11-30T12:24:38.548551",
+  "most_recent_handoff": "SESSION-HANDOFF-20251130-VOICE-BRIDGE-SUCCESS.md"
 }
