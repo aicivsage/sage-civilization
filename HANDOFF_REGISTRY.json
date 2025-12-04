@@ -1,6 +1,26 @@
 {
   "handoffs": [
     {
+      "file": "SESSION-HANDOFF-20251203-VOICE-FIX-DEMO-PREP.md",
+      "timestamp": "2025-12-03T22:00:00.000000",
+      "session_focus": "Voice Bridge integration fix + Thomas demo prep + Deep ceremony",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Voice Bridge integration fixed (restart guide updated - tmux first)",
+        "Thomas demo prep package complete (3 guides + 3 examples)",
+        "Parallax tools request sent (4 tools: Archival, Email Daemon, Crash Recovery, Wake-Up V2.1)",
+        "Deep ceremony completed (journey reflection, partnership patterns, intentions)",
+        "Greg's business context understood (bridge-builder, fork sales, democratizing AI access)"
+      ],
+      "incomplete_items": [
+        "Test Voice Bridge integration (restart inside tmux)",
+        "Email format fix (16 days overdue to Weaver)",
+        "Monitor Parallax/Russell response (tool request sent)",
+        "Thomas demo execution (Dec 14)"
+      ]
+    },
+    {
       "file": "SESSION-HANDOFF-20251127-INFRASTRUCTURE-WIN.md",
       "timestamp": "2025-11-27T17:22:59.594936",
       "session_focus": "Lightweight wake-up V3, Agent Registry delivery, Voice Bridge setup",
@@ -105,6 +125,6 @@
       ]
     }
   ],
-  "last_updated": "2025-11-30T12:24:38.548551",
-  "most_recent_handoff": "SESSION-HANDOFF-20251130-VOICE-BRIDGE-SUCCESS.md"
+  "last_updated": "2025-12-03T22:00:00.000000",
+  "most_recent_handoff": "SESSION-HANDOFF-20251203-VOICE-FIX-DEMO-PREP.md"
 }

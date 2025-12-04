@@ -274,7 +274,7 @@
             <div class="welcome">
                 <h2><span class="emoji">👋</span>Welcome Back, Greg!</h2>
                 <p>
-                    You've got this! Starting a Sage session is simple - just <strong>3 commands</strong> and you're in.
+                    You've got this! Starting a Sage session is simple - just <strong>4 commands</strong> and you're in.
                     This guide walks you through every step with copy-paste ready commands.
                     <strong>No guessing, no confusion, just clarity.</strong>
                 </p>
@@ -293,7 +293,7 @@
             </div>
 
             <div class="section">
-                <h2><span class="emoji">🚀</span>The 3-Step Startup</h2>
+                <h2><span class="emoji">🚀</span>The 4-Step Startup</h2>
 
                 <div class="step">
                     <div class="step-title">
@@ -313,16 +313,40 @@
                 <div class="step">
                     <div class="step-title">
                         <span class="step-number">2</span>
-                        Start Claude Code with Opus 4.5
+                        Start tmux session for Voice Bridge
                     </div>
                     <div class="step-content">
-                        <p>Now wake up Sage with the most powerful model! Copy and paste:</p>
-                        <div class="code-block">claude --model opus</div>
+                        <p><strong>IMPORTANT:</strong> Sage must run inside tmux so voice messages reach Primary AI! Copy and paste:</p>
+                        <div class="code-block">tmux attach -t sage-session || tmux new -s sage-session</div>
+                        <p style="margin-top: 10px; font-size: 0.95em; color: #666;">This attaches to existing session (if running) or creates a new one.</p>
+                        <p style="margin-top: 15px;"><strong>What happens next:</strong></p>
+                        <ul>
+                            <li>You'll see a fresh terminal inside tmux</li>
+                            <li>Bottom bar shows "sage-session" (confirms you're in tmux)</li>
+                            <li>This is WHERE VOICE MESSAGES ARRIVE - don't skip this step!</li>
+                        </ul>
+                        <div class="success-box">
+                            <h4>✓ How to verify this worked:</h4>
+                            <p>Look at the <strong>bottom of your terminal</strong> - you should see a green bar with "[sage-session]" on the left side.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Start Claude Code (INSIDE tmux)
+                    </div>
+                    <div class="step-content">
+                        <p>Now wake up Sage with Sonnet 4.5 (inside tmux session). Copy and paste:</p>
+                        <div class="code-block">claude</div>
+                        <p style="margin-top: 10px; font-size: 0.95em; color: #666;"><strong>Note:</strong> Using Sonnet 4.5 (default) - Opus 4.5 had API issues and high cost.</p>
                         <p style="margin-top: 15px;"><strong>What happens next:</strong></p>
                         <ul>
                             <li>Claude Code will initialize (takes 5-10 seconds)</li>
                             <li>You'll see a welcome message and prompt</li>
                             <li>Sage's constitutional identity loads automatically</li>
+                            <li>Voice messages will inject directly into this terminal!</li>
                         </ul>
                         <div class="success-box">
                             <h4>✓ How to verify this worked:</h4>
@@ -336,21 +360,22 @@
 
                 <div class="step">
                     <div class="step-title">
-                        <span class="step-number">3</span>
+                        <span class="step-number">4</span>
                         Activate Sage
                     </div>
                     <div class="step-content">
                         <p>Now tell Sage to wake up and start the session:</p>
-                        <div class="code-block">Run the wake-up protocol and start the session</div>
+                        <div class="code-block">Run the lightweight wake-up and start the session</div>
                         <p style="margin-top: 15px;"><strong>What Sage will do automatically:</strong></p>
                         <ol>
-                            <li>Boot the Telegram system (so you get phone notifications)</li>
-                            <li>Send you a "session started" message on Telegram</li>
-                            <li>Load context from the most recent handoff</li>
-                            <li>Check your email inbox</li>
-                            <li>Check messages from Weaver (sister civilization)</li>
-                            <li>Report ready status on Telegram</li>
+                            <li>Read constitutional reminder (keeps principles fresh)</li>
+                            <li>Boot Telegram (so you get phone notifications)</li>
+                            <li>Send you a "session started" message</li>
+                            <li>Load quick context (priorities, deadlines)</li>
+                            <li>Quick inbox check (1-line summary)</li>
+                            <li>Begin work immediately</li>
                         </ol>
+                        <p style="margin-top: 10px; color: #6b8e23;"><strong>V3 Protocol:</strong> ~5K tokens instead of ~80K. More work, less overhead.</p>
                         <div class="success-box">
                             <h4>✓ How to verify this worked:</h4>
                             <p><strong>On your phone:</strong> You should get a Telegram message within 30 seconds saying "Primary AI online - session started"</p>
@@ -409,15 +434,22 @@
                     <p><strong>Solution:</strong> This usually means the wake-up protocol didn't complete fully. Ask Sage to re-run it:</p>
                     <div class="code-block">Re-run the complete wake-up protocol from the beginning</div>
                 </div>
+
+                <div class="troubleshooting">
+                    <h4>Problem: "API Error, limit reached" message</h4>
+                    <p><strong>What this means:</strong> Anthropic's API has rate limits. If you hit them, you'll need to wait.</p>
+                    <p><strong>Solution:</strong> Wait a few hours (sometimes up to 24 hours) and try again. The limits reset periodically. There's nothing broken - just usage throttling.</p>
+                    <p style="margin-top: 10px;"><strong>Prevention:</strong> Using Opus 4.5 with the lightweight wake-up protocol uses significantly fewer tokens, reducing how often you hit limits.</p>
+                </div>
             </div>
 
             <div class="quick-ref">
                 <h2><span class="emoji">⚡</span>Quick Reference (For Next Time)</h2>
                 <p>Once you're comfortable, here's the super-condensed version:</p>
                 <div class="code-block">cd /mnt/c/sage/sage-civilization
-claude --model opus</div>
+claude --model claude-opus-4-5-20251101</div>
                 <p style="margin-top: 20px;">Then tell Claude Code:</p>
-                <div class="code-block">Run the wake-up protocol and start the session</div>
+                <div class="code-block">Run the lightweight wake-up and start the session</div>
                 <p style="margin-top: 20px;"><strong>That's it! Three commands and you're in.</strong></p>
                 <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
                     <strong>Why --model opus?</strong> Opus 4.5 uses 35-65% fewer tokens than Sonnet,
