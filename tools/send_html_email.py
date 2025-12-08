@@ -80,6 +80,62 @@ def _check_duplicate(to: Union[str, List[str]], subject: str, content_preview: s
     return False
 
 
+def html_to_plain_text(html_content: str) -> str:
+    """
+    Convert HTML to plain text for email fallback.
+    Strips tags while preserving structure and readability.
+
+    Args:
+        html_content: HTML formatted text
+
+    Returns:
+        Plain text formatted for readability
+    """
+    text = html_content
+
+    # Convert common HTML entities
+    text = text.replace('&nbsp;', ' ')
+    text = text.replace('&lt;', '<')
+    text = text.replace('&gt;', '>')
+    text = text.replace('&amp;', '&')
+    text = text.replace('&quot;', '"')
+
+    # Convert headings to text with underlines
+    text = re.sub(r'<h1[^>]*>(.*?)</h1>', r'\n\1\n' + '='*50 + '\n', text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'<h2[^>]*>(.*?)</h2>', r'\n\1\n' + '-'*40 + '\n', text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'<h3[^>]*>(.*?)</h3>', r'\n\1\n' + '-'*30 + '\n', text, flags=re.DOTALL | re.IGNORECASE)
+
+    # Convert lists to text
+    text = re.sub(r'<li[^>]*>(.*?)</li>', r'  • \1\n', text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'<[ou]l[^>]*>', '\n', text, flags=re.IGNORECASE)
+    text = re.sub(r'</[ou]l>', '\n', text, flags=re.IGNORECASE)
+
+    # Convert line breaks and paragraphs
+    text = re.sub(r'<br\s*/?>', '\n', text, flags=re.IGNORECASE)
+    text = re.sub(r'</?p[^>]*>', '\n', text, flags=re.IGNORECASE)
+
+    # Convert divs to line breaks
+    text = re.sub(r'<div[^>]*>', '\n', text, flags=re.IGNORECASE)
+    text = re.sub(r'</div>', '\n', text, flags=re.IGNORECASE)
+
+    # Remove all remaining HTML tags
+    text = re.sub(r'<[^>]+>', '', text)
+
+    # Clean up excessive whitespace while preserving intentional breaks
+    lines = text.split('\n')
+    cleaned_lines = []
+    for line in lines:
+        line = line.strip()
+        if line or (cleaned_lines and cleaned_lines[-1]):  # Keep line if non-empty or follows non-empty
+            cleaned_lines.append(line)
+
+    # Join lines and limit consecutive blank lines to 2
+    text = '\n'.join(cleaned_lines)
+    text = re.sub(r'\n{3,}', '\n\n', text)
+
+    return text.strip()
+
+
 def markdown_to_html(markdown_text: str) -> str:
     """
     Convert basic Markdown to HTML.
@@ -264,8 +320,15 @@ def send_html_email(
         if reply_to:
             msg['Reply-To'] = reply_to
 
-        # Attach HTML content
-        html_part = MIMEText(html_body, 'html')
+        # Generate plain text version from HTML
+        plain_text = html_to_plain_text(html_body)
+
+        # Attach plain text first (per RFC 2046 - simpler format first)
+        text_part = MIMEText(plain_text, 'plain', 'utf-8')
+        msg.attach(text_part)
+
+        # Attach HTML version second (email clients prefer last alternative)
+        html_part = MIMEText(html_body, 'html', 'utf-8')
         msg.attach(html_part)
 
         # Send email
@@ -282,14 +345,16 @@ def send_html_email(
 
             # SMTP send succeeded - now we can report success and track
             print("\n" + "="*70)
-            print("✅ HTML Email sent successfully!")
+            print("✅ Multipart Email sent successfully!")
             print("="*70)
             print(f"From: {from_name} <{from_email}>")
             print(f"To: {', '.join(to_list)}")
             if cc_list:
                 print(f"CC: {', '.join(cc_list)}")
             print(f"Subject: {subject}")
-            print(f"Format: HTML (14-16px readable fonts)")
+            print(f"Format: Multipart (HTML + plain text fallback)")
+            print(f"HTML: 14-16px readable fonts")
+            print(f"Plain text: {len(plain_text)} chars")
             print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             print("="*70)
 

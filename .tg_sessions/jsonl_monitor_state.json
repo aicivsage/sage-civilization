@@ -1,7 +1,7 @@
 {
-  "last_updated": "2025-11-20T09:10:15.506081",
-  "current_session_file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/e79c26d7-6824-4ed3-8c30-8effae5d633c.jsonl",
-  "last_processed_offset": 81648,
+  "last_updated": "2025-12-08T13:58:24.844471",
+  "current_session_file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/6f2c7250-73fb-4f62-bd79-a8a354f56163.jsonl",
+  "last_processed_offset": 776223,
   "sent_message_hashes": [
     "3bbfed067ee7943f",
     "3cfaa73e99135bd1",
@@ -350,48 +350,105 @@
     "986dd7d8b1417f99",
     "be34fa2c5d48689d",
     "d8afebe89dcbfb8a",
-    "4c9622866b349705"
+    "4c9622866b349705",
+    "c3b6578f537fff0a",
+    "4470584283e49bcf",
+    "a8958518c01efdb5",
+    "0416e34b86c13b35",
+    "f50023d8f6f65b6d",
+    "5c47ff439574a00a",
+    "60f11d39e2827b26",
+    "22664194c7047076",
+    "c640b6e8f32e7336",
+    "4a38aa558c27481c",
+    "44cbd64aa5926655",
+    "2108f4b1fd322cf9",
+    "4ed60d1488d9a71b",
+    "af34844fea3c87d7",
+    "19e6df2547c83a1a",
+    "87908f899d8d6bae",
+    "814ed11f06e55b5c",
+    "a7e01565ef8a2213",
+    "dae180f1713f06bf",
+    "5cc0dad00c8bf035",
+    "b8a31270a85ebcda",
+    "c33c67d6cbe93440",
+    "25ee6701f4e31a98",
+    "c27f5747a32e996c",
+    "a83a40b9fb7bc9a5",
+    "e682b60ee3ad148e",
+    "58ed9ad7caeaf36f",
+    "d3d77d1876e734e7",
+    "275a04a1cecdb1c6",
+    "bbe14cab6eb3b5d5",
+    "505a10c798768302",
+    "db84a947adde6f8f",
+    "52edd8163faa1837",
+    "64440114ead1dfff",
+    "7825753e150c7afb",
+    "120a9dfb2e3338d6",
+    "efe657ab3ff2003b",
+    "c7cc426bce278a08",
+    "4e70ad141c7602f7",
+    "edf21abe0ce84a5f",
+    "522fde8738b7b894",
+    "b996180ea94cacbc",
+    "c801f200bcbd1ac9",
+    "e14e1ac6f7585713",
+    "68be75c3a431da00",
+    "5c96defc49e5947f",
+    "222d4336ce0ffc94",
+    "3e9762e9218d6aa9",
+    "e19c883829bd8448",
+    "e3a2dfd3e9e9e8b1",
+    "0c53da6dc0fb9e84",
+    "a6f02cddd4292d71",
+    "8e256d1c3c33c147",
+    "d380fe14c354bf02",
+    "cade0f493c4ccd6b",
+    "f6b861bbe75935a2",
+    "2db48fb2864fc67a"
   ],
   "session_history": [
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-a824c69a.jsonl",
-      "ended_at": "2025-11-19T14:51:40.609654"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-3990c596.jsonl",
+      "ended_at": "2025-12-06T18:18:47.894907"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/9a09afbd-166b-48d4-beba-51d5dbde9d5e.jsonl",
-      "ended_at": "2025-11-19T14:57:42.666812"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-7c0e460c.jsonl",
+      "ended_at": "2025-12-06T18:18:56.965304"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-e8a1232c.jsonl",
-      "ended_at": "2025-11-19T15:05:09.489926"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-3990c596.jsonl",
+      "ended_at": "2025-12-06T18:19:20.086747"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/9a09afbd-166b-48d4-beba-51d5dbde9d5e.jsonl",
-      "ended_at": "2025-11-19T15:15:20.603933"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-7c0e460c.jsonl",
+      "ended_at": "2025-12-06T18:19:27.578514"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-18270f4f.jsonl",
-      "ended_at": "2025-11-19T15:31:03.443239"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-3990c596.jsonl",
+      "ended_at": "2025-12-06T18:19:51.676209"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/9a09afbd-166b-48d4-beba-51d5dbde9d5e.jsonl",
-      "ended_at": "2025-11-19T21:14:22.655618"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/6f2c7250-73fb-4f62-bd79-a8a354f56163.jsonl",
+      "ended_at": "2025-12-06T18:20:08.245714"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-73c47550.jsonl",
-      "ended_at": "2025-11-19T21:32:51.425338"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-3990c596.jsonl",
+      "ended_at": "2025-12-06T18:23:22.624120"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/9a09afbd-166b-48d4-beba-51d5dbde9d5e.jsonl",
-      "ended_at": "2025-11-19T21:45:33.508193"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-7c0e460c.jsonl",
+      "ended_at": "2025-12-06T18:24:23.429152"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-0e6832e7.jsonl",
-      "ended_at": "2025-11-19T21:49:46.005652"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/6f2c7250-73fb-4f62-bd79-a8a354f56163.jsonl",
+      "ended_at": "2025-12-07T08:55:09.447358"
     },
     {
-      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/9a09afbd-166b-48d4-beba-51d5dbde9d5e.jsonl",
-      "ended_at": "2025-11-20T09:09:36.361857"
+      "file": "/home/gregs/.claude/projects/-mnt-c-sage-sage-civilization/agent-a76d8c87.jsonl",
+      "ended_at": "2025-12-07T08:56:48.874989"
     }
   ]
 }

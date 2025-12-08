@@ -191,6 +191,26 @@ else
 fi
 
 echo ""
+echo "📧 UNANSWERED REPLY CHECK:"
+if [ -f "tools/check_unanswered_replies.py" ]; then
+    python3 tools/check_unanswered_replies.py --priority-only 2>/dev/null
+    REPLY_STATUS=$?
+
+    if [ $REPLY_STATUS -eq 2 ]; then
+        echo -e "   ${RED}⚠️  URGENT: Unanswered replies >7 days found!${NC}"
+        echo "   Run full check: python3 tools/check_unanswered_replies.py"
+    elif [ $REPLY_STATUS -eq 1 ]; then
+        echo -e "   ${YELLOW}⚠️  HIGH: Unanswered replies found${NC}"
+        echo "   Run full check: python3 tools/check_unanswered_replies.py"
+    else
+        echo -e "   ${GREEN}✓ No unanswered replies detected${NC}"
+    fi
+else
+    echo -e "   ${YELLOW}⚠️  Reply tracking tool not found${NC}"
+    echo "   Install: tools/check_unanswered_replies.py"
+fi
+
+echo ""
 echo "📧 RECENT COMMUNICATIONS:"
 echo "   Run: Task(human-liaison) + Task(comms-hub) to check inbox + Weaver messages"
 
@@ -213,7 +233,10 @@ echo "      Quick: source tools/telegram_templates.sh && tg_session_start"
 echo ""
 echo "   3. Load context sources (handoff + status files shown above)"
 echo "   4. Read MASTER_TODO for long-term context (check age warning)"
-echo "   5. Check communications: Task(human-liaison) + Task(comms-hub)"
+echo "   5. Check communications:"
+echo "      - Review unanswered reply check results above"
+echo "      - Task(human-liaison): Respond to flagged emails FIRST"
+echo "      - Task(comms-hub): Check inter-civ messages"
 echo "   6. Check priority contacts: python3 tools/check_priority_contact_updates.py --send"
 echo "   7. Invoke primary-helper with context summary for verification"
 echo ""

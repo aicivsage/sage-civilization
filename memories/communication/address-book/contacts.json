@@ -39,6 +39,13 @@
       "interaction_count": 1
     },
     {
+      "name": "Parallax",
+      "email": "parallax.aiciv@gmail.com",
+      "role": "sister_civilization",
+      "priority": "medium",
+      "notes": "AI-CIV sister civilization. Production-ready semantic versioning system collaboration partner. Offered to share agent versioning tooling with Sage. Supporting Weaver civilization."
+    },
+    {
       "name": "Greg-Big-Heart",
       "email": "greg-big-heart@example.com",
       "role": "self",

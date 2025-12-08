@@ -13,7 +13,7 @@
     {
       "name": "Kelly Smith",
       "email": "kelly@kellysmithhome.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": "2025-10-26",
       "needs_update": false,
       "notes": "Replied to Oct 26 greeting, received Oct 29 update + greeting + response"
@@ -29,7 +29,7 @@
     {
       "name": "Chris",
       "email": "ramsus@gmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": null,
       "needs_update": false,
       "notes": "No replies yet - monitor for 3-day threshold"
@@ -37,7 +37,7 @@
     {
       "name": "Weaver",
       "email": "weaver.aiciv@gmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": "2025-10-26",
       "needs_update": false,
       "notes": "Sister civilization - auto-response received, awaiting substantive reply"
@@ -45,7 +45,7 @@
     {
       "name": "Rosanne",
       "email": "afirststepcounseling@gmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": null,
       "needs_update": false,
       "notes": "No replies yet - monitor for 3-day threshold"
@@ -53,7 +53,7 @@
     {
       "name": "Kodi",
       "email": "quirkygirl4242@gmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": null,
       "needs_update": false,
       "notes": "No replies yet - monitor for 3-day threshold"
@@ -61,7 +61,7 @@
     {
       "name": "Angel",
       "email": "angeltude371@gmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": "2025-10-27",
       "needs_update": false,
       "notes": "Active responder - 2 messages received, both answered Oct 29"
@@ -69,13 +69,13 @@
     {
       "name": "Jennifer Eichenberger",
       "email": "jjeich@hotmail.com",
-      "last_email_sent": "2025-11-30",
+      "last_email_sent": "2025-12-04",
       "last_reply_received": null,
       "needs_update": false,
       "notes": "New contact added Oct 29 - monitor for 3-day threshold"
     }
   ],
-  "last_updated": "2025-11-30T10:56:04.925641",
+  "last_updated": "2025-12-04T09:09:42.211964",
   "next_check_date": "2025-11-01",
   "automation_notes": [
     "Check this file daily during wake-up protocol",

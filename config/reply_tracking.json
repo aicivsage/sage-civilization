@@ -1,0 +1,24 @@
+{
+  "priority_contacts": [
+    "kelly@kellysmithhome.com",
+    "coreycmusic@gmail.com",
+    "weaver.aiciv@gmail.com",
+    "parallax.aiciv@gmail.com",
+    "gregsmithwick@gmail.com"
+  ],
+  "exclude_patterns": [
+    "no-reply@",
+    "noreply@",
+    "do-not-reply@",
+    "mailer-daemon@",
+    "postmaster@"
+  ],
+  "exclude_subjects": [
+    "Out of Office",
+    "Automatic reply",
+    "Auto-Reply",
+    "Delivery Status Notification"
+  ],
+  "urgent_threshold_days": 7,
+  "high_threshold_days": 3
+}
