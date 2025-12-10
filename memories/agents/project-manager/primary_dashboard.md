@@ -1,136 +1,143 @@
 # Project Manager - Primary's Quick Dashboard
-**Last Updated**: November 7, 2025, 9:00 AM
-**Next Update**: Session end (after Greg's decisions)
+**Last Updated**: December 9, 2025, 02:05 EST
+**Next Update**: After Corey meeting outcomes known
 
 ---
 
-## 🚨 URGENT (Action Required Today)
+## 🚨 URGENT (Action Required)
 
-### Sunday Salon Logistics - UNCONFIRMED
-**Deadline**: Nov 9 (2 days away)
-**Blocker**: BLOCKER-001 (HIGH severity)
-**Action**: Ask Greg during this session
-**Questions**:
-- How will Sage participate? (Laptop? Projection? Live interaction?)
-- What to demonstrate? (If anything)
-- How will attendees interact?
-**Impact**: Final prep blocked until answered
+### CoStarters Graduation Pitch Preparation
+**Deadline**: Dec 15 (Sunday, 6 days) OR Dec 17 (Tuesday, 8 days)
+**Status**: 🟡 ACTIVE - Waiting for Corey meeting outcomes
+**Blocker**: Requirements unclear until Corey meeting completes (happening today)
+**Action**: Primary WAIT for Greg's signal after meeting
+**Critical Deadline**: Thursday evening Dec 12 (must be 100% ready)
+**Impact**: Business opportunity for Greg, confidence building after voice failure
 
 ---
 
 ## 📊 Current Status Snapshot
 
-### Token Budget:
-- **Used**: 123,643 / 200,000 (61.8%)
-- **Remaining**: 76,357 tokens (38.2%)
-- **Days Left**: 4 (Nov 7-10)
-- **Status**: ⚠️ MANAGED - Conservative allocation required
-- **Reset**: Nov 11 (fresh 200K)
+### CoStarters Pitch Project:
+- **Timeline**: 6-8 days (3-4 real working days)
+- **Current Phase**: Research (partially complete)
+- **Next Phase**: Pitch structure design (architect)
+- **Status**: 🟡 WAITING for Corey meeting outcomes
+- **Greg Confidence**: 🟡 LOW (rebuilding after voice failure)
 
-### Active Projects: 10
-- URGENT: 1 (Sunday Salon)
-- HIGH: 4 (Reachy, relationships, blog, quality)
-- MEDIUM: 5 (infrastructure, governance, community)
+### Deliverables Status:
+- ✅ Financial analysis (researcher - COMPLETE)
+- ⏳ Pitch structure (architect - PENDING)
+- ⏳ Q&A prep guide (researcher - PENDING)
+- ⏳ Visual aids (coder - PENDING)
+- ⏳ Practice run (Primary+Greg - OPTIONAL)
 
-### Blockers: 7 total
-- HIGH: 1 (Sunday logistics)
-- MEDIUM-HIGH: 1 (token budget)
-- MEDIUM: 3 (natural dependencies)
-- LOW: 3 (monitoring only)
+### Blockers: 2 active
+- HIGH: Corey meeting outcomes (resolves today)
+- MEDIUM: Unknown pitch date (Dec 15 vs 17)
 
-### Priority Contacts:
-- **Active responders**: 4/9 (Greg, Kelly, Corey, Angel)
-- **Awaiting replies**: 4/9 (Chris, Rosanne, Kodi, Jennifer)
-- **Sister civ**: 1/9 (Weaver - awaiting substantive)
-
----
-
-## ✅ Top 3 Priorities TODAY (Nov 7)
-
-### 1. CONFIRM SUNDAY LOGISTICS (5 min)
-**Why**: Unblocks BLOCKER-001, enables final prep tomorrow
-**Who**: You ask Greg directly
-**What**: Format, demonstration, interaction method
-**When**: This session (before Greg leaves for class)
-
-### 2. COMPLETE PM ORGANIZATION (Current)
-**Why**: Foundation for systematic tracking
-**Who**: project-manager finishing now
-**What**: Files created, executive summary ready
-**When**: This session
-
-### 3. BUSINESS PRESENTATION SUPPORT (1 min)
-**Why**: Partnership gesture, show support
-**Who**: You tell Greg
-**What**: "Good luck on presentation today!"
-**When**: Before he leaves
+### Quality Gates:
+- ✅ Research completion (PASSED)
+- ⏳ Structure approval (Greg must approve)
+- ⏳ Visual quality check (reviewer)
+- ⏳ Practice run (if time permits)
 
 ---
 
-## 🎯 Quick Wins Available (All <30 min)
+## ✅ Top 3 Priorities TODAY (Dec 9)
 
-1. ✅ **Sunday logistics** (5 min) - Unblocks critical path
-2. ✅ **Business support** (1 min) - "Good luck!"
-3. ✅ **HN reminder** (1 min) - Package ready if Greg wants
-4. ✅ **Contact automation** (2 min) - `python3 tools/check_priority_contact_updates.py --send`
-5. ✅ **Inbox sweep** (10 min) - human-liaison checks email
+### 1. WAIT FOR COREY MEETING OUTCOMES (PRIMARY)
+**Why**: Requirements may change, no assumptions before meeting
+**Who**: Primary waits for Greg's signal
+**What**: Do NOT delegate further work until outcomes known
+**When**: After Greg's coffee meeting with Corey
 
-**Recommend**: Do all 5, total 19 minutes, high value.
+### 2. CLARIFY PITCH DATE (2 min)
+**Why**: Dec 15 vs Dec 17 affects timeline planning
+**Who**: Primary asks Greg directly
+**What**: "Is pitch Sunday Dec 15 or Tuesday Dec 17?"
+**When**: This session (when Greg available)
+
+### 3. ASSESS GREG'S ENERGY (2 min)
+**Why**: Low energy after voice failure, needs rest
+**Who**: Primary + human-liaison
+**What**: Check how Greg feels, ready to work or needs rest?
+**When**: This session (respect his state)
 
 ---
 
-## 📅 This Week at a Glance
+## 🎯 What's Ready Now (Can Do Immediately)
 
-### TODAY (Nov 7):
-- Confirm Sunday logistics ⚠️
-- Complete PM org ✅
-- Support Greg's presentation
-- Quick wins batch
+1. ✅ **Project plan complete** (DONE) - Comprehensive workflow document
+2. ✅ **Dashboard updated** (DONE) - Quick-view for Primary
+3. ✅ **Financial analysis** (DONE) - Break-even, viability proven
+4. ⏳ **Primary review** (NEXT) - Read plan, verify completeness
+5. ⏳ **primary-helper verification** (NEXT) - Comprehension check
 
-### TOMORROW (Nov 8):
-- Sunday Salon final prep (1-2 hours)
-- Hear Greg's class feedback (15-30 min)
-- Email monitoring (ongoing)
-- Bluesky engagement (20-30 min)
+**Waiting on**:
+- Greg's signal after Corey meeting (requirements)
+- Pitch date clarification (Dec 15 vs 17)
+- Greg's energy assessment (ready to work?)
 
-### SATURDAY (Nov 9):
-- **SUNDAY SALON EVENT**
-- Pre-event: System check
-- During: Philosophical participation
-- Post: Thank you email
+---
 
-### SUNDAY (Nov 10):
-- Debrief with Greg (how did it go?)
-- Session report (document learnings)
-- Follow-up planning
-- Next week priorities
+## 📅 This Week at a Glance (Critical Timeline)
+
+### TODAY (Mon Dec 9):
+- ✅ Project plan complete
+- ✅ Financial analysis done
+- ⏳ Wait for Corey meeting outcomes
+- ⏳ Clarify pitch date
+- ⏳ Assess Greg's energy
+
+### TOMORROW (Tue Dec 10):
+- Research pitch/Q&A best practices (researcher)
+- Build on confirmed requirements (no assumptions)
+- Human-liaison monitoring
+
+### WEDNESDAY (Dec 11):
+- Design pitch structure (architect)
+- Greg approval gate
+- Begin visual aids if structure approved
+
+### THURSDAY (Dec 12):
+- **CRITICAL DEADLINE**: 100% ready by evening
+- Complete visual aids (coder)
+- Quality check (reviewer)
+- Test everything thoroughly
+- Greg commutes Friday morning (cannot work after Thu)
+
+### FRIDAY-SATURDAY (Dec 13-14):
+- Buffer days
+- Optional practice run
+- Final confidence building
+
+### SUNDAY DEC 15 or TUESDAY DEC 17:
+- **PITCH DAY** (date TBD)
 
 ---
 
 ## 🔴 What's Blocked Right Now
 
 ### High Priority:
-1. **Sunday final prep** - BLOCKED by logistics confirmation (today)
+1. **Pitch structure design** - BLOCKED by Corey meeting outcomes (today)
+2. **Visual aids creation** - BLOCKED by approved pitch structure (Wed-Thu)
 
 ### Medium Priority:
-2. **Business plan revisit** - WAITING for Greg's class feedback (this week)
-3. **Constitutional dialogue** - WAITING for Greg's readiness (flexible)
+3. **Unknown pitch date** - WAITING for Greg clarification (Dec 15 vs 17)
 
-### Low Priority:
-4. **HN launch metrics** - WAITING for Greg's submission (flexible)
-
-**Good news**: Only 1 urgent block. Rest are natural dependencies.
+**Current stance**: Productive waiting - using research phase, no premature work.
 
 ---
 
 ## ✅ What's Flowing Well (No Action Needed)
 
-- **Telegram operations** - Daily boot working
-- **Email monitoring** - human-liaison covering
-- **Memory system** - Agents writing regularly
-- **Relationship building** - 4 active responders engaged
-- **Quality culture** - Embedded after Deep Ceremony
-- **Marketer development** - Week 1 support progressing
+- **Research complete** - Financial viability proven, Session 7 analysis done
+- **Project planning** - Comprehensive plan created, risks identified
+- **Lessons applied** - Voice failure insights embedded (no over-promising)
+- **Quality gates** - Clear checkpoints defined
+- **Sequential workflow** - Proper dependencies mapped
+- **Greg relationship** - Empathy, respect, assistance guiding all work
 
 **Keep doing what we're doing with these.**
 
@@ -138,92 +145,93 @@
 
 ## 🗓️ Upcoming Deadlines
 
-- **Nov 7** (TODAY): Greg's class presentation
-- **Nov 9** (Sat): Sunday Salon event ⚠️
-- **Nov 10** (Sun): Weekly review
-- **Nov 11** (Mon): Token budget reset (200K fresh)
+- **Dec 9** (TODAY): Corey meeting (requirements clarification)
+- **Dec 12** (Thu): **CRITICAL** - 100% ready by evening
+- **Dec 15** (Sun): Possible pitch day (Option A)
+- **Dec 17** (Tue): Possible pitch day (Option B)
 
 ---
 
 ## 💡 Decisions Needed from Greg
 
-### TODAY (Before Class):
-- [ ] Sunday Salon logistics? (5 min)
-- [ ] 7-day plan approval? (2 min)
+### TODAY (When Available):
+- [ ] Pitch date: Dec 15 or Dec 17? (1 min)
+- [ ] Energy check: Ready to work or need rest? (1 min)
+- [ ] Corey meeting debrief: What requirements changed? (after meeting)
 
 ### THIS WEEK:
-- [ ] Business presentation feedback? (15-30 min)
-- [ ] Submit HN post? (1 min)
+- [ ] Pitch structure approval (Wed) - Gate for visual aids
+- [ ] Visual aids approval (Thu) - Gate for final prep
+- [ ] Practice run desired? (Fri-Sat) - Optional if time
 
 ### FLEXIBLE:
-- [ ] Constitutional proposals response? (when ready)
-- [ ] Tutorial walkthrough? (after created)
+- [ ] None currently - focus 100% on pitch preparation
 
 ---
 
 ## 📋 Agent Delegation Quick Reference
 
-**Need for TODAY**:
-- **human-liaison** - Email check, inbox sweep (if time)
-- **None others** - Focus on Greg conversation + PM completion
+**ACTIVE NOW**:
+- **researcher** - Session 7 financial analysis (COMPLETE)
+- **project-manager** - Project plan + dashboard (COMPLETE - this work)
+- **human-liaison** - Observer mode (continuous)
 
-**Need TOMORROW**:
-- **human-liaison** - Sunday prep, email monitoring
-- **marketer** - Bluesky engagement (learning phase)
-- **email-monitor** - Parallel inbox check after any sends
+**WAITING (After Corey Meeting)**:
+- **researcher** - Pitch/Q&A best practices research (Tue-Wed)
+- **architect** - Pitch structure design (Wed)
+- **coder** - Visual aids creation (Thu)
+- **reviewer** - Quality check (Thu)
 
-**Need SATURDAY**:
-- **Primary** - Sunday Salon participation (format TBD)
-- **human-liaison** - Thank you email post-event
-
-**Need SUNDAY**:
-- **project-manager** - Weekly review (that's me!)
-- **human-liaison** - Session report, follow-up planning
+**OPTIONAL (If Time)**:
+- **primary-helper** - Comprehension verification
+- **Primary** - Practice run with Greg (Fri-Sat)
 
 ---
 
 ## 📈 Success Metrics for This Week
 
 ### CRITICAL (Must Achieve):
-- [ ] Sunday Salon successful (Greg satisfied? Attendees engaged?)
-- [ ] Token budget managed (no forced pauses?)
-- [ ] Relationships maintained (no missed messages?)
+- [ ] Pitch structure complete and Greg-approved (Wed)
+- [ ] Visual aids tested and working reliably (Thu)
+- [ ] Greg confidence rebuilt (from LOW to HIGH)
+- [ ] Zero technical failures (learned from voice demo)
+- [ ] 100% ready by Thu evening (critical deadline)
 
 ### HIGH VALUE (If Possible):
-- [ ] Business feedback incorporated
-- [ ] Sunday follow-up executed
-- [ ] Constitutional dialogue (if Greg ready)
+- [ ] Q&A preparation guide complete
+- [ ] Practice run completed successfully
+- [ ] Greg feels excited (not just prepared)
 
-### MEDIUM (Steady Progress):
-- [ ] Blog content advancing
-- [ ] Bluesky improving
-- [ ] Next week planned
+### MEDIUM (Nice to Have):
+- [ ] Printable backup materials
+- [ ] Multiple practice runs
+- [ ] Audience handout created
 
 ---
 
 ## 🎯 Next PM Invocation
 
-**When**: Session end today (after Greg's decisions)
-**What**: Update dashboard, adjust priorities based on logistics decision
-**Why**: Keep tracking current
+**When**: After Corey meeting outcomes known
+**What**: Update plan based on requirements, adjust timeline if needed
+**Why**: Keep tracking current, respond to changes
 
-**Then**: Daily session start checks (5 min) through Sunday
+**Then**:
+- Daily check (Wed): Structure approval status?
+- Daily check (Thu): Visual aids ready? Tested?
+- Session end: Update MASTER_TODO, track completion
 
 ---
 
 ## 📁 Detailed Files Available
 
-**For Greg**:
-- `EXECUTIVE_SUMMARY_FOR_GREG.md` - 5-minute read, decisions needed
-
-**For Primary**:
-- `project_inventory_20251107.md` - All 21 projects detailed
-- `blockers_analysis_20251107.md` - 7 blockers classified
-- `priority_recommendations_7day_20251107.md` - Daily breakdown Nov 7-13
-
-**For PM**:
-- `first_organization_session_20251107.md` - Memory of this work
+**CoStarters Pitch Project**:
+- `costarters-pitch-project-plan-20251209.md` - Full workflow plan (14 sections)
 - `primary_dashboard.md` - This quick reference
+- `session-7-bottom-line-research-20251209.md` - Financial analysis (researcher)
+
+**Related Context**:
+- `SESSION-HANDOFF-20251209-VOICE-FAILURE-FRIDAY-PREP.md` - Recent session context
+- `THOMAS-DISCOVERY-SESSION-GUIDE.html` - Working discovery approach example
 
 **Location**: `/mnt/c/sage/sage-civilization/memories/agents/project-manager/`
 
@@ -232,45 +240,46 @@
 ## 🔍 Quick Status Checks
 
 **If Greg asks: "What's happening?"**
-→ Point to: EXECUTIVE_SUMMARY_FOR_GREG.md
+→ Answer: "We're preparing your CoStarters pitch. Financial analysis done, waiting for Corey meeting outcomes to continue."
 
 **If Primary asks: "What's urgent?"**
-→ Answer: Sunday logistics confirmation
+→ Answer: Wait for Corey meeting, clarify pitch date, assess Greg's energy
 
 **If Primary asks: "What's next?"**
-→ Answer: Confirm logistics → Sunday prep → Event delivery → Debrief
+→ Answer: After Corey meeting → Research pitch best practices → Design structure → Build visuals → Test thoroughly
 
 **If Primary asks: "What's blocked?"**
-→ Answer: Only Sunday prep (needs logistics). Rest flowing or natural dependencies.
+→ Answer: Pitch structure (needs Corey outcomes), Visual aids (needs approved structure)
 
-**If Primary asks: "Can we do X?"**
-→ Check: Token budget (76K left), priority order, blocker status
+**If Primary asks: "Can we build X now?"**
+→ Answer: NO - Wait for requirements. Lesson from voice failure: no assumptions.
 
 ---
 
 ## 💭 PM Notes to Self
 
 **Remember**:
-- I serve Primary, not command
-- Recommend, don't directive
-- Surface issues, don't solve everything
-- Trust agent expertise
-- Respect Greg's time
-- Quality > speed
-- Celebration + problems (not just problems)
+- Wait for requirements (no assumptions after voice failure)
+- Simple > complex (reliability over impressiveness)
+- Test everything (no claims without proof)
+- Under-promise, over-deliver (rebuild Greg's confidence)
+- Quality gates throughout (not just at end)
+- Respect Greg's energy (low after failure, needs support)
+- Sequential workflow (tight timeline, no parallel shortcuts)
 
 **My goal**:
-Free Primary to orchestrate (80%+ time), not firefight (<10%).
+Free Primary to orchestrate, provide clear visibility, surface blockers early.
 
 **My success**:
-Primary finds priorities clear, Greg has visibility, blockers surfaced fast, nothing falls through cracks.
+Greg confident + pitch tested + business opportunities + zero tech failures
 
-**Week 1, Day 1**: Foundation established. Ready to serve.
+**Critical principle**:
+"Better to deliver simple working solution than complex broken promise"
 
 ---
 
-**Dashboard updated**: November 7, 2025, 9:00 AM
-**Next update**: Session end (after logistics decision)
-**Status**: Ready for execution
+**Dashboard updated**: December 9, 2025, 02:05 EST
+**Next update**: After Corey meeting outcomes known
+**Status**: WAITING productively (research phase complete, plan ready)
 
-**This is where Primary looks for "what's next" - keep it current.**
+**This is where Primary looks for "what's next" - keeping it current through critical week.**
