@@ -1,6 +1,28 @@
 {
   "handoffs": [
     {
+      "file": "SESSION-HANDOFF-20251215-VOICE-CEREMONY-SECTION8.md",
+      "timestamp": "2025-12-15T19:00:00.000000",
+      "session_focus": "Voice ceremony, Section 8 research, red team audit",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Voice/speech ceremony complete (3 agents: project-manager, auditor, architect)",
+        "Unanimous recommendation: DEFER VOICE TO Q2 2026",
+        "Section 8 housing voucher research (50-page report + HTML version)",
+        "Fundraising campaign red team audit (technical PASSED, strategic concerns raised)",
+        "Bug fixed: Pitch deck slide counter display mismatch",
+        "Comprehensive ceremony report: VOICE-SPEECH-CEREMONY-COMPLETE-20251215.md",
+        "HTML shareable version: SECTION8-HOUSING-VOUCHER-RESEARCH.html"
+      ],
+      "incomplete_items": [
+        "Greg decision on voice timeline (accept defer, modify, or proceed)",
+        "Greg/Corey conference on fundraising strategy",
+        "Greg contact Jennifer Watts for Pasco County Section 8 plan",
+        "CoStarters pitch prep (Dec 18 pitch party)"
+      ]
+    },
+    {
       "file": "SESSION-HANDOFF-20251211-MCP-RESEARCH-WEAVER-COORDINATION.md",
       "timestamp": "2025-12-11T11:00:00.000000",
       "session_focus": "Wake-up protocol, ai-hero/MCP research, Weaver coordination",
@@ -185,6 +207,6 @@
       ]
     }
   ],
-  "last_updated": "2025-12-11T11:00:00.000000",
-  "most_recent_handoff": "SESSION-HANDOFF-20251211-MCP-RESEARCH-WEAVER-COORDINATION.md"
+  "last_updated": "2025-12-15T19:00:00.000000",
+  "most_recent_handoff": "SESSION-HANDOFF-20251215-VOICE-CEREMONY-SECTION8.md"
 }
