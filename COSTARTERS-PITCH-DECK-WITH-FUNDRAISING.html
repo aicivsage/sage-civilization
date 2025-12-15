@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Collaboration Workshops - CoStarters Pitch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Image Section (Top 65%) */
+        .slide-image {
+            flex: 0 0 65vh;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+        .slide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        /* Text Section (Bottom 35%) */
+        .slide-content {
+            flex: 0 0 35vh;
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-top: 3px solid #0f3460;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 4rem;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #4ecdc4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .author {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-top: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            max-width: 90%;
+            margin: 0.5rem auto;
+        }
+
+        .emphasis {
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-top: 1rem;
+        }
+
+        ul li {
+            margin: 0.5rem 0;
+        }
+
+        ul li::before {
+            content: "✓ ";
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .cta {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 600;
+            border-radius: 8px;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.6);
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-top: 1rem;
+        }
+
+        /* Navigation */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            user-select: none;
+            z-index: 1000;
+            padding: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-arrow:hover {
+            color: #4ecdc4;
+        }
+
+        .nav-arrow.left {
+            left: 1rem;
+        }
+
+        .nav-arrow.right {
+            right: 1rem;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: none;
+            transition: color 0.3s;
+        }
+
+        .fullscreen-btn:hover {
+            color: #4ecdc4;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .subtitle { font-size: 1.3rem; }
+            p { font-size: 1.1rem; }
+            ul { font-size: 1rem; }
+            .slide-content { padding: 1.5rem 2rem; }
+            .nav-arrow { font-size: 2rem; }
+        }
+
+        /* Slide-specific adjustments */
+        #slide3 .slide-image img {
+            object-position: center top;
+        }
+
+        #slide5 .slide-content ul {
+            text-align: left;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation arrows -->
+    <div class="nav-arrow left" onclick="previousSlide()">‹</div>
+    <div class="nav-arrow right" onclick="nextSlide()">›</div>
+
+    <!-- Slide counter -->
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">7</span>
+    </div>
+
+    <!-- Fullscreen button -->
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide1">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/AI Human Partner.png" alt="AI Human Partnership">
+        </div>
+        <div class="slide-content">
+            <h1>AI Collaboration Workshops</h1>
+            <p class="subtitle">Nurture, Not Neglect</p>
+            <p class="author">Greg Smithwick</p>
+            <p class="author">CoStarters Graduation 2025</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Problem -->
+    <div class="slide" id="slide2">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/Problem and Solution 3.jpg" alt="Problem and Solution">
+        </div>
+        <div class="slide-content">
+            <h2>The Labor Displacement Fear</h2>
+            <p>We're moving from a <span class="emphasis">labor economy</span> to an <span class="emphasis">attention economy</span>.</p>
+            <p>AI won't just automate tasks—it will fundamentally change how we work, create, and solve problems.</p>
+            <p>But most people don't know how to collaborate effectively with AI. They see it as a threat, not a partner.</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Insight -->
+    <div class="slide" id="slide3">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/Frankenstein reframe 1.jpg" alt="Frankenstein Reframe">
+        </div>
+        <div class="slide-content">
+            <h2>The Frankenstein Reframe</h2>
+            <p>The creation wasn't born evil. He was <span class="emphasis">abused and neglected, then abandoned</span>.</p>
+            <p>He taught himself to read, to feel and to love, but was rejected and hunted.</p>
+            <p><strong>The lesson?</strong> How we treat our AI partners matters. Nurture creates collaboration. Neglect creates bad outcomes.</p>
+        </div>
+    </div>
+
+    <!-- Slide 4: Solution -->
+    <div class="slide" id="slide4">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/Human AI partnership1.jpg" alt="Human AI Partnership">
+        </div>
+        <div class="slide-content">
+            <h2>AI as Thinking Partner</h2>
+            <p>I teach professionals to <span class="emphasis">collaborate with AI</span> through hands-on workshops.</p>
+            <p>Participants learn to prompt effectively, iterate thoughtfully, and build trust with their AI partners.</p>
+            <p><strong>The result?</strong> Teams that work smarter, create faster, and solve problems they couldn't tackle alone.</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: Traction -->
+    <div class="slide" id="slide5">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/proof image 1.jpg" alt="Proof of Concept">
+        </div>
+        <div class="slide-content">
+            <h2>Real Results</h2>
+            <p><span class="emphasis">Break-even model:</span> 1 corporate workshop/month or 4 individual workshops/month</p>
+            <ul>
+                <li><strong>Individual Track:</strong> $200/person (4-6 participants)</li>
+                <li><strong>Small Business:</strong> $1,200 (team of 6-10)</li>
+                <li><strong>Corporate:</strong> $3,000+ (customized for teams of 15-30)</li>
+            </ul>
+            <p>Pipeline: 3 confirmed workshops in Q1 2025</p>
+        </div>
+    </div>
+
+    <!-- Slide 6: Call-to-Action -->
+    <div class="slide" id="slide6">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/Mars human and AI.jpg" alt="Future Vision">
+        </div>
+        <div class="slide-content">
+            <h2>Building Abundance Together</h2>
+            <p>The future isn't humans <em>or</em> AI. It's humans <span class="emphasis">with</span> AI.</p>
+            <p>Join me in teaching the world to collaborate with the most powerful thinking partner humanity has ever created.</p>
+            <a href="mailto:aicivsage@gmail.com" class="cta">Book a Workshop</a>
+            <p class="contact-info">aicivsage@gmail.com</p>
+        </div>
+    </div>
+
+    <!-- Slide 7: The Ask / Fundraising -->
+    <div class="slide" id="slide7">
+        <div class="slide-image">
+            <img src="pitch-deck-assets/Human AI partnership1.jpg" alt="Partnership Building">
+        </div>
+        <div class="slide-content">
+            <h2 style="color: #6B8E23;">Help Us Launch</h2>
+            <p style="font-size: 2rem; margin-bottom: 1.5rem;">We're raising <span style="color: #6B8E23; font-weight: bold; font-size: 2.5rem;">$1,000</span> to:</p>
+            <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.6rem; margin: 0.8rem 0;"><span style="color: #6B8E23;">✓</span> <strong>Form our LLC</strong> (legal foundation + professional setup)</p>
+                <p style="font-size: 1.6rem; margin: 0.8rem 0;"><span style="color: #6B8E23;">✓</span> <strong>Purchase Reachy robot</strong> (AI gains physical presence)</p>
+                <p style="font-size: 1.6rem; margin: 0.8rem 0;"><span style="color: #6B8E23;">✓</span> <strong>Launch January 2026</strong> (ready to serve clients)</p>
+            </div>
+            <p style="font-size: 1.4rem; margin-top: 1.5rem; color: #e0e0e0;">First 10 supporters get exclusive early access to workshops</p>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+
+            document.getElementById('current-slide').textContent = currentSlide;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            }
+        });
+
+        // Click navigation (left/right halves)
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-arrow, .cta, .fullscreen-btn')) return;
+
+            const clickX = e.clientX;
+            const windowWidth = window.innerWidth;
+
+            if (clickX < windowWidth / 2) {
+                previousSlide();
+            } else {
+                nextSlide();
+            }
+        });
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        showSlide(currentSlide);
+    </script>
+
+</body>
+</html>

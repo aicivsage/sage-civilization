@@ -1,6 +1,27 @@
 {
   "handoffs": [
     {
+      "file": "SESSION-HANDOFF-20251211-MCP-RESEARCH-WEAVER-COORDINATION.md",
+      "timestamp": "2025-12-11T11:00:00.000000",
+      "session_focus": "Wake-up protocol, ai-hero/MCP research, Weaver coordination",
+      "status": "complete",
+      "blocker": null,
+      "key_deliverables": [
+        "Complete wake-up protocol executed (constitutional → context → communications)",
+        "AI-hero/MCP research complete (Corey's cross-civ directive)",
+        "Weaver coordination restored (follow-up email sent, two-path proposal)",
+        "Post-pitch MCP reminder created (efficiency + cross-civ criteria documented)",
+        "7 priority contact check-ins sent (3-day cadence restored)",
+        "Thomas meeting update (post-Christmas timeline confirmed)"
+      ],
+      "incomplete_items": [
+        "Check Weaver response (expected Dec 14-15)",
+        "Pitch practice support (if Greg requests)",
+        "MCP research Phase 1 (post-pitch trigger)",
+        "Thomas meeting prep (post-Christmas)"
+      ]
+    },
+    {
       "file": "SESSION-HANDOFF-20251210-DECK-COMPLETE.md",
       "timestamp": "2025-12-10T18:00:00.000000",
       "session_focus": "Visual assets, pitch deck creation, layout refinement",
@@ -164,6 +185,6 @@
       ]
     }
   ],
-  "last_updated": "2025-12-10T20:20:10.049629",
-  "most_recent_handoff": "SESSION-HANDOFF-20251210-DECK-COMPLETE.md"
+  "last_updated": "2025-12-11T11:00:00.000000",
+  "most_recent_handoff": "SESSION-HANDOFF-20251211-MCP-RESEARCH-WEAVER-COORDINATION.md"
 }

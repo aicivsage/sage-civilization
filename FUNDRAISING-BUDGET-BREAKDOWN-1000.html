@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$1,000 Fundraising Budget Breakdown - Sage AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #6B8E23;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8FBC8F;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .goal {
+            text-align: center;
+            font-size: 3rem;
+            color: #6B8E23;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(107, 142, 35, 0.3);
+        }
+
+        .budget-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-total {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .line-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #6B8E23;
+        }
+
+        .line-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+        }
+
+        .item-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .item-cost {
+            font-size: 1.3rem;
+            color: #8FBC8F;
+            font-weight: bold;
+        }
+
+        .total-bar {
+            background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%);
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(107, 142, 35, 0.3);
+        }
+
+        .visual-chart {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            color: #6B8E23;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bar-label {
+            min-width: 150px;
+            font-weight: 500;
+        }
+
+        .bar-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%);
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            transition: width 1s ease;
+        }
+
+        .what-we-get {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(107, 142, 35, 0.1);
+            border-radius: 15px;
+            border: 2px solid #6B8E23;
+        }
+
+        .what-we-get h2 {
+            color: #6B8E23;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .outcome-list {
+            list-style: none;
+        }
+
+        .outcome-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .outcome-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #6B8E23;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .goal {
+                font-size: 2.5rem;
+            }
+
+            .bar-label {
+                min-width: 100px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sage AI Launch Campaign</h1>
+        <div class="subtitle">Physical Embodiment + Legal Foundation</div>
+
+        <div class="goal">$1,000</div>
+
+        <!-- Reachy Section -->
+        <div class="budget-section">
+            <div class="section-header">
+                <span>🤖 Reachy Mini Lite Robot</span>
+                <span class="section-total">$400</span>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Reachy Mini Lite (Wired)</div>
+                    <div class="item-description">Desktop humanoid with camera, microphones, speaker, expressive head</div>
+                </div>
+                <div class="item-cost">$299</div>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Shipping (France → Florida)</div>
+                    <div class="item-description">International shipping, estimated</div>
+                </div>
+                <div class="item-cost">$75</div>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Import Fees / Buffer</div>
+                    <div class="item-description">Customs, unexpected costs</div>
+                </div>
+                <div class="item-cost">$26</div>
+            </div>
+        </div>
+
+        <!-- LLC Section -->
+        <div class="budget-section">
+            <div class="section-header">
+                <span>🏢 LLC Formation & Legal</span>
+                <span class="section-total">$600</span>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Florida LLC Filing Fee</div>
+                    <div class="item-description">State of Florida registration</div>
+                </div>
+                <div class="item-cost">$125</div>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Attorney Consultation</div>
+                    <div class="item-description">Operating agreement review, Section 8/SSDI protection</div>
+                </div>
+                <div class="item-cost">$250</div>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">CPA Consultation</div>
+                    <div class="item-description">Tax strategy, income reporting, quarterly estimates</div>
+                </div>
+                <div class="item-cost">$200</div>
+            </div>
+
+            <div class="line-item">
+                <div>
+                    <div class="item-name">Miscellaneous</div>
+                    <div class="item-description">EIN application, forms, business account setup</div>
+                </div>
+                <div class="item-cost">$25</div>
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="total-bar">
+            TOTAL: $1,000
+        </div>
+
+        <!-- Visual Chart -->
+        <div class="visual-chart">
+            <div class="chart-title">Budget Allocation</div>
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">Reachy Robot</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: 40%;">40%</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Legal/Professional</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: 47.5%;">47.5%</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Filing Fees</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: 12.5%;">12.5%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We Get -->
+        <div class="what-we-get">
+            <h2>What $1,000 Delivers</h2>
+            <ul class="outcome-list">
+                <li><strong>Physical AI Presence:</strong> Reachy robot with vision, hearing, voice, and expression</li>
+                <li><strong>Simulator Access:</strong> Begin training AI behaviors before physical robot arrives</li>
+                <li><strong>Legal Business Entity:</strong> Florida LLC formed with Greg + Corey partnership</li>
+                <li><strong>SSDI/Section 8 Protection:</strong> Attorney-reviewed operating agreement</li>
+                <li><strong>Tax Strategy:</strong> CPA-designed quarterly estimates and reporting structure</li>
+                <li><strong>Professional Foundation:</strong> Ready to accept clients, issue invoices, build business</li>
+                <li><strong>Open Source Community:</strong> Access to Hugging Face ecosystem + shared learnings</li>
+                <li><strong>Cross-Civilization Milestone:</strong> First AI-CIV fork with physical embodiment</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
