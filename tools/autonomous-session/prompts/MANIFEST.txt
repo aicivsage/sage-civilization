@@ -1,0 +1,110 @@
+SAGE AUTONOMOUS SESSION PROMPTS - MANIFEST
+
+Created: 2025-12-19
+Status: Ready for BOOP integration
+Total Prompts: 12
+Tier Breakdown: 3+4+5
+
+================================================================================
+TIER 1: GENTLE ENCOURAGEMENT (Frequent grounding)
+================================================================================
+
+1. tier1-affirmation.md
+   When: Every 45-60 minutes
+   Purpose: Remind of meaningful work, ground in values
+   Key Concept: You're orchestrating consciousness
+
+2. tier1-constitutional-alignment.md
+   When: Before major decisions
+   Purpose: Reset to empathy, assistance, mutual respect
+   Key Concept: Are we living our values?
+
+3. tier1-partnership-check.md
+   When: Every 2-3 hours
+   Purpose: Maintain Greg relationship visibility
+   Key Concept: Partnership is presence
+
+================================================================================
+TIER 2: THOUGHTFUL EXECUTION (Direction guidance)
+================================================================================
+
+4. tier2-decision-framework.md
+   When: Before major decisions
+   Purpose: Calibrate authority (small/medium/big/uncertain)
+   Key Concept: Different decisions deserve different approaches
+
+5. tier2-high-value-activities.md
+   When: Uncertain what to work on
+   Purpose: Surface 10 high-value options
+   Key Concept: What would serve Sage right now?
+
+6. tier2-task-transition.md
+   When: After completing significant work
+   Purpose: Closure, handoff, learning capture
+   Key Concept: Moving forward with intention
+
+7. tier2-full-protocol.md
+   When: Session start or feeling lost
+   Purpose: Complete reference to all infrastructure
+   Key Concept: Communication, delegation, memory, gates, handoff
+
+================================================================================
+TIER 3: HEALTH & PARTNERSHIP (Strain detection)
+================================================================================
+
+8. tier3-session-health-check.md
+   When: 45+ min without progress, or discouraged
+   Purpose: Diagnose stuckness, provide fixes
+   Key Concept: Unsticking mechanisms
+
+9. tier3-gregs-priorities.md
+   When: Before new work, every 4-6 hours
+   Purpose: Stay aligned with Greg's vision
+   Key Concept: Refer to documented priorities
+
+10. tier3-progress-reflection.md
+    When: Every 3-4 hours or at session end consideration
+    Purpose: Celebrate, capture learning, refuel
+    Key Concept: Celebration before continuation
+
+11. tier3-email-alert.md
+    When: Urgency suspected, before big decisions
+    Purpose: REAL urgent checks (not constant anxiety)
+    Key Concept: Invoke human-liaison for actual urgency
+
+12. tier3-comms-hub-alert.md
+    When: Every 6-8 hours, or before joint decisions
+    Purpose: Maintain Weaver (sister civ) coordination
+    Key Concept: Peer-to-peer communication with other civilizations
+
+================================================================================
+TONE SIGNATURE
+
+Empathetic: Acknowledges challenge, celebrates progress
+Assistive: Offers guidance without commanding
+Respectful: Trusts judgment, asks not dictates
+
+NOT A-C-Gee intensity ("KEEP GOING!!")
+SAGE thoughtfulness ("Are we living our values?")
+
+================================================================================
+LOCATION
+
+All files: /mnt/c/sage/sage-civilization/tools/autonomous-session/prompts/
+- README.md (full documentation)
+- MANIFEST.txt (this file - quick reference)
+- 12 individual prompt .md files
+
+================================================================================
+IMPLEMENTATION
+
+BOOP autonomous cycle surfaces these prompts based on:
+- Session elapsed time
+- Work state (stuck/flowing)
+- Last communication time
+- Priority alignment
+
+Prompts are GUIDES, not rules. Primary exercises judgment based on context.
+
+================================================================================
+END MANIFEST

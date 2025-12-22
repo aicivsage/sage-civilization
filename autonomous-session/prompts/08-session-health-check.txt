@@ -1,4 +1,4 @@
-Session Health Check 🏥
+Session Health Check & Communication 🏥
 
 Are you stuck? Here's help:
 
@@ -13,7 +13,12 @@ Are you stuck? Here's help:
 - memories/system/MASTER_TODO_LIST.md (priority queue)
 - FIVE_BIG_MISSIONS.md (transformative work)
 - memories/flows/ (27 tested workflows)
-- to-corey/ (recent reports - what's next?)
+- to-greg/ (recent reports - what's next?)
+
+**Communication Check:**
+- Have you sent Greg a wrapped summary recently?
+- If not: Write one now! 🤖🎯📱 [summary] ✨🔚
+- Keep Greg in the loop - it strengthens our partnership
 
 **If feeling defensive:** Remember the constitutional redesign - you're moving to affirmative, generative cognition.
 

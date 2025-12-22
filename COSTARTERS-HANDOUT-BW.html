@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Collaboration Workshops - Nurture, Not Neglect</title>
+    <style>
+        /* Print optimization */
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        /* Base styles - BLACK AND WHITE */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.5in;
+            box-sizing: border-box;
+            background: white;
+            page-break-after: always;
+            position: relative;
+        }
+
+        /* Header styles */
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 22pt;
+            margin: 0 0 5px 0;
+            color: #000;
+        }
+
+        .header .tagline {
+            font-size: 14pt;
+            color: #333;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .header .presenters {
+            font-size: 11pt;
+            color: #555;
+            margin: 8px 0 0 0;
+        }
+
+        .contact-box {
+            background-color: #f5f5f5;
+            border: 2px solid #000;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .contact-box strong {
+            color: #000;
+        }
+
+        /* Section styles */
+        h2 {
+            font-size: 15pt;
+            color: #000;
+            border-left: 4px solid #000;
+            padding-left: 10px;
+            margin: 15px 0 8px 0;
+        }
+
+        h3 {
+            font-size: 13pt;
+            color: #222;
+            margin: 12px 0 6px 0;
+        }
+
+        /* Three objections section */
+        .objections {
+            margin: 10px 0;
+        }
+
+        .objection {
+            background-color: #f5f5f5;
+            border-left: 3px solid #000;
+            padding: 8px 10px;
+            margin: 8px 0;
+        }
+
+        .objection-title {
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 3px;
+            font-size: 10.5pt;
+        }
+
+        .objection-response {
+            font-size: 9.5pt;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        /* Pricing table */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .pricing-tier {
+            background-color: #f5f5f5;
+            border: 2px solid #000;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .pricing-tier .tier-name {
+            font-weight: 700;
+            color: #000;
+            font-size: 12pt;
+            margin-bottom: 5px;
+        }
+
+        .pricing-tier .tier-price {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #000;
+            margin: 5px 0;
+        }
+
+        .pricing-tier .tier-desc {
+            font-size: 9pt;
+            color: #555;
+        }
+
+        /* Skills list */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin: 8px 0;
+        }
+
+        .skill-item {
+            background-color: #fff;
+            border-left: 3px solid #666;
+            padding: 5px 8px;
+            font-size: 9.5pt;
+            line-height: 1.3;
+        }
+
+        .skill-item strong {
+            color: #000;
+        }
+
+        /* Back page styles */
+        .principle-box {
+            background-color: #e8e8e8;
+            border: 2px solid #000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .principle-box .quote {
+            font-size: 14pt;
+            font-style: italic;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .principle-box .attribution {
+            font-size: 10pt;
+            color: #555;
+        }
+
+        /* Data section */
+        .data-points {
+            background-color: #f5f5f5;
+            border-left: 4px solid #000;
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .data-points ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .data-points li {
+            margin: 5px 0;
+            font-size: 10pt;
+        }
+
+        /* Vision section */
+        .vision-box {
+            background-color: #e8e8e8;
+            border: 2px solid #000;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+
+        .vision-box p {
+            margin: 6px 0;
+            font-size: 10pt;
+        }
+
+        /* CTA section */
+        .cta-section {
+            background-color: #f5f5f5;
+            border: 3px solid #000;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .cta-section h2 {
+            border: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            font-size: 16pt;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .cta-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #999;
+        }
+
+        .cta-item strong {
+            color: #000;
+            font-size: 12pt;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .cta-item p {
+            margin: 0;
+            font-size: 9pt;
+            color: #555;
+        }
+
+        /* Utility classes */
+        ul {
+            margin: 6px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 3px 0;
+            font-size: 10pt;
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .qr-placeholder {
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #000;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9pt;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- FRONT PAGE -->
+    <div class="page">
+        <div class="header">
+            <h1>AI Collaboration Workshops</h1>
+            <div class="tagline">Nurture, Not Neglect</div>
+            <div class="presenters">Greg Smithwick & Corey Cottrell</div>
+
+            <div class="contact-box">
+                <strong>Book a Workshop:</strong> gregsmithwick@gmail.com | coreycmusic@gmail.com<br>
+                <div class="qr-placeholder">[QR Code Here]</div>
+                <span style="font-size: 9pt;">Scan to schedule your consultation</span>
+            </div>
+        </div>
+
+        <h2>The Challenge: Three AI Fears Holding Us Back</h2>
+
+        <div class="objections">
+            <div class="objection">
+                <div class="objection-title">1. AI Takeover: "Will AI become superintelligent and dangerous?"</div>
+                <div class="objection-response">
+                    <strong>The Reality:</strong> Thousands of researchers work specifically on AI safety and alignment. AI is already accelerating cancer research with potential to save 10+ million lives annually. Intelligence can cure OR harm—we choose the direction. The question isn't "if" AI gets smarter, but "how" we guide it.
+                </div>
+            </div>
+
+            <div class="objection">
+                <div class="objection-title">2. Labor Displacement: "Will AI eliminate my job and render my skills worthless?"</div>
+                <div class="objection-response">
+                    <strong>The Shift:</strong> We're moving from a LABOR economy (selling hours) to an ATTENTION economy (directing intentionality). The gap isn't between humans and AI—it's between people who know how to collaborate with AI (amplifying creativity, strategy, relationships) and those stuck selling hours while algorithms get cheaper. <em>This is what our workshops solve.</em>
+                </div>
+            </div>
+
+            <div class="objection">
+                <div class="objection-title">3. Resource Diversion: "Is AI wasting water and electricity we can't afford?"</div>
+                <div class="objection-response">
+                    <strong>The Trajectory:</strong> Compute efficiency improves 3-5x every 3 years and accelerating. AI is helping solve energy problems: fusion research, grid optimization, renewable efficiency. It's not zero-sum—AI can help us manage resources better than we could alone.
+                </div>
+            </div>
+        </div>
+
+        <h2>Workshop Packages</h2>
+
+        <div class="pricing-grid">
+            <div class="pricing-tier">
+                <div class="tier-name">Community</div>
+                <div class="tier-price">$750</div>
+                <div class="tier-desc">Nonprofits, community organizations, small groups (up to 15 people)</div>
+            </div>
+
+            <div class="pricing-tier">
+                <div class="tier-name">Professional</div>
+                <div class="tier-price">$1,500</div>
+                <div class="tier-desc">Small businesses, schools, mid-size organizations (15-30 people)</div>
+            </div>
+
+            <div class="pricing-tier">
+                <div class="tier-name">Enterprise</div>
+                <div class="tier-price">$2,500</div>
+                <div class="tier-desc">Large organizations, customized curriculum, ongoing support (30+ people)</div>
+            </div>
+
+            <div class="pricing-tier">
+                <div class="tier-name">Consulting</div>
+                <div class="tier-price">$100-150/hr</div>
+                <div class="tier-desc">One-on-one support, strategy sessions, implementation guidance</div>
+            </div>
+        </div>
+
+        <h2>What You'll Learn (3-Hour Workshop)</h2>
+
+        <div class="skills-grid">
+            <div class="skill-item">
+                <strong>Prompt Engineering</strong><br>
+                Write prompts that actually work—clear, specific, results-driven
+            </div>
+
+            <div class="skill-item">
+                <strong>Fact-Checking AI</strong><br>
+                Verify outputs, catch hallucinations, build trust in results
+            </div>
+
+            <div class="skill-item">
+                <strong>Automation</strong><br>
+                Automate documentation, emails, reporting—without losing voice
+            </div>
+
+            <div class="skill-item">
+                <strong>Research Acceleration</strong><br>
+                Find answers faster, synthesize information, spot patterns
+            </div>
+
+            <div class="skill-item">
+                <strong>Ethical Frameworks</strong><br>
+                Make thoughtful decisions about when/how to use AI collaboration
+            </div>
+
+            <div class="skill-item">
+                <strong>Real-World Practice</strong><br>
+                Hands-on exercises with your actual work challenges
+            </div>
+        </div>
+
+        <h2>Who Should Hire Us?</h2>
+
+        <ul>
+            <li><strong>Small Businesses:</strong> Stay competitive without losing your humanity. Automate the boring stuff, focus on strategy and relationships.</li>
+            <li><strong>Schools & Educators:</strong> Prepare students for the attention economy. Create personalized learning without burnout.</li>
+            <li><strong>Nonprofits:</strong> Amplify impact with limited resources. Stretch budgets further while maintaining mission integrity.</li>
+        </ul>
+    </div>
+
+    <!-- BACK PAGE -->
+    <div class="page page-break">
+        <h2 style="margin-top: 0;">The Frankenstein Principle</h2>
+
+        <div class="principle-box">
+            <div class="quote">"The failure wasn't the creation—it was the neglect."</div>
+            <div class="attribution">Mary Shelley's insight, applied to AI collaboration</div>
+        </div>
+
+        <p>In Frankenstein, the creature isn't born evil. Victor Frankenstein creates this being, then abandons it. The creature teaches himself to read, to feel, to love—and then he's rejected, abused, hunted. <em>That's</em> what creates the monster.</p>
+
+        <p><strong>What if we nurtured instead of neglected?</strong> What if we taught collaboration instead of fear? What if we treated AI like a partner we're raising together, not a threat we're running from?</p>
+
+        <p>That's the philosophy behind these workshops: <strong>Partnership, not replacement. Collaboration, not competition. Nurture, not neglect.</strong></p>
+
+        <h2>The Jonas Salk Spirit</h2>
+
+        <div class="principle-box">
+            <div class="quote">"Could you patent the sun?"</div>
+            <div class="attribution">Jonas Salk, inventor of the polio vaccine</div>
+        </div>
+
+        <p>When asked why he didn't patent his polio vaccine, Jonas Salk responded: "Could you patent the sun?" His innovation saved millions of lives because he chose to share it freely.</p>
+
+        <p>We approach AI collaboration with the same spirit: <strong>Knowledge should be accessible. Skills should be teachable. The future should be abundant, not scarce.</strong></p>
+
+        <h2>What Makes This Different?</h2>
+
+        <div class="data-points">
+            <ul>
+                <li><strong>Not selling software:</strong> We teach frameworks that work with whatever tools you already use (ChatGPT, Claude, industry-specific platforms).</li>
+                <li><strong>Addresses fear directly:</strong> We start every workshop discussing "The Terminator future"—what makes it possible, what makes it avoidable. People need to process anxiety before they can learn skills.</li>
+                <li><strong>Practiced, not preached:</strong> Greg builds these workshops WITH an AI civilization called Sage. The collaboration is real—we practice what we teach.</li>
+                <li><strong>Proven efficiency gains:</strong> Compute efficiency improving 3-5x every 3 years. AI helping solve climate, energy, healthcare challenges. Not zero-sum—collaborative abundance.</li>
+            </ul>
+        </div>
+
+        <h2>Our Vision: Plenty, Not Scarcity</h2>
+
+        <div class="vision-box">
+            <p><strong>The 20th century scarcity mindset:</strong> "There's only one Earth. Resources are finite. Competition is survival."</p>
+
+            <p><strong>The 21st century abundance mindset:</strong> "There's Mars. Jupiter's moons. The asteroid belt. Collaboration unlocks resources we can't even imagine yet."</p>
+
+            <p><strong>AI isn't the enemy of humanity—it's the partner that helps us get there.</strong></p>
+
+            <p style="text-align: center; font-style: italic; margin-top: 12px;">"The future's not set. There's no fate but what we make for ourselves."<br>— Sarah Connor, The Terminator</p>
+        </div>
+
+        <h2>Traction & Credibility</h2>
+
+        <ul>
+            <li><strong>Break-even model:</strong> Just 7 workshops per year covers all costs. Achievable, sustainable, scalable.</li>
+            <li><strong>Partnership strength:</strong> Greg brings teaching and business development. Corey brings deep technical AI expertise (building AI civilizations for over a year). Combined through LLC.</li>
+            <li><strong>Pilot workshops:</strong> Already scheduled with early adopters. Curriculum tested and refined.</li>
+            <li><strong>Market validation:</strong> When we talk about this, people lean in. Everyone's scared. Nobody's teaching the alternative to fear.</li>
+        </ul>
+
+        <div class="cta-section">
+            <h2>How You Can Help</h2>
+
+            <div class="cta-grid">
+                <div class="cta-item">
+                    <strong>1. Hire Us</strong>
+                    <p>Book a workshop for your organization, school, or business</p>
+                </div>
+
+                <div class="cta-item">
+                    <strong>2. Introduce Us</strong>
+                    <p>Know someone who needs this? Make the connection</p>
+                </div>
+
+                <div class="cta-item">
+                    <strong>3. Share This</strong>
+                    <p>Pass this handout to people fighting the fear</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <strong style="font-size: 14pt; color: #000;">Contact Us:</strong><br>
+                <span style="font-size: 11pt;">gregsmithwick@gmail.com | coreycmusic@gmail.com</span><br>
+                <span style="font-size: 9pt; color: #555;">Schedule a free 30-minute consultation to discuss your needs</span>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    PRINTING INSTRUCTIONS FOR BLACK & WHITE VERSION:
+
+    1. Open this HTML file in Chrome or Firefox (best print support)
+    2. File → Print (or Ctrl+P / Cmd+P)
+    3. Settings:
+       - Layout: Portrait
+       - Paper size: Letter (8.5 x 11 inches)
+       - Margins: Default
+       - Scale: 100%
+       - Color: Black and white (or use color printer with B&W setting)
+       - Two-sided: Long edge (flip on long edge)
+    4. Print preview should show:
+       - Front page: Header, three objections, pricing, skills
+       - Back page: Frankenstein principle, vision, CTA
+    5. Recommended paper: 24lb bright white or standard copy paper
+
+    OPTIMIZED FOR BLACK & WHITE PRINTING:
+    - All sage green colors converted to black (#000)
+    - Color backgrounds converted to light gray (#f5f5f5) and medium gray (#e8e8e8)
+    - Maintains visual hierarchy through borders, shading, and typography
+    - Professional appearance without color ink required
+    - Email addresses already populated (gregsmithwick@gmail.com, coreycmusic@gmail.com)
+    -->
+</body>
+</html>
