@@ -83,6 +83,30 @@ pkill -f "telegram_jsonl_monitor.py" 2>/dev/null && echo "  Stopped: telegram_js
 sleep 2
 echo ""
 
+# Step 2.5: Check for existing bridge PID file
+echo "Step 2.5: Checking for existing bridge instance..."
+BRIDGE_PID_FILE=".tg_sessions/telegram_bridge.pid"
+
+if [ -f "$BRIDGE_PID_FILE" ]; then
+    EXISTING_PID=$(cat "$BRIDGE_PID_FILE" 2>/dev/null)
+    echo "  Found PID file with PID: $EXISTING_PID"
+
+    # Check if process is actually running
+    if ps -p "$EXISTING_PID" > /dev/null 2>&1; then
+        echo "❌ ERROR: Bridge is already running (PID: $EXISTING_PID)"
+        echo "   PID file: $BRIDGE_PID_FILE"
+        echo "   To force restart, run: pkill -f telegram_bridge.py && rm $BRIDGE_PID_FILE && bash tools/acg_telegram_boot.sh"
+        exit 1
+    else
+        echo "  PID $EXISTING_PID not running (stale PID file)"
+        echo "  Removing stale PID file..."
+        rm -f "$BRIDGE_PID_FILE"
+    fi
+else
+    echo "  No existing PID file found"
+fi
+echo ""
+
 # Step 3: Start telegram bridge (INBOUND)
 echo "Step 3: Starting Sage telegram_bridge (INBOUND: Telegram → tmux)..."
 python3 tools/telegram_bridge.py > /tmp/sage_telegram_bridge.log 2>&1 &
@@ -94,6 +118,26 @@ if ps -p $BRIDGE_PID > /dev/null; then
 else
     echo "❌ Bridge failed to start. Check /tmp/sage_telegram_bridge.log"
     exit 1
+fi
+echo ""
+
+# Step 3.5: Verify PID file created and single instance
+echo "Step 3.5: Verifying single bridge instance..."
+sleep 1  # Give bridge time to create PID file
+
+if [ ! -f "$BRIDGE_PID_FILE" ]; then
+    echo "⚠️  WARNING: PID file not created by bridge"
+    echo "   Expected: $BRIDGE_PID_FILE"
+fi
+
+# Count running bridge instances
+BRIDGE_COUNT=$(ps auxww | grep "telegram_bridge.py" | grep -v grep | wc -l)
+if [ "$BRIDGE_COUNT" -ne 1 ]; then
+    echo "❌ ERROR: Expected 1 bridge instance, found $BRIDGE_COUNT"
+    ps auxww | grep "telegram_bridge.py" | grep -v grep
+    exit 1
+else
+    echo "✓ Single bridge instance verified"
 fi
 echo ""
 

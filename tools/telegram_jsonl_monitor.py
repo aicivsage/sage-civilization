@@ -339,11 +339,74 @@ class JSONLWrapperMonitor:
             error_logger.error(f"Sender script missing: {sender_script}")
             return False
 
-        # Truncate if too long
+        # Split message if too long (instead of truncating)
         max_length = self.config["max_message_length"]
-        if len(message) > max_length:
-            message = message[:max_length - 50] + "\n\n[Message truncated]"
+        message_parts = self._split_message(message, max_length)
 
+        # Send all parts
+        for part_num, part in enumerate(message_parts, 1):
+            # Add part indicator if message was split
+            if len(message_parts) > 1:
+                part_prefix = f"[Part {part_num}/{len(message_parts)}]\n\n"
+                part = part_prefix + part
+
+            success = self._send_single_message(part, user_id, sender_script, max_retries)
+            if not success:
+                logger.error(f"Failed to send part {part_num}/{len(message_parts)}")
+                return False
+
+            # Small delay between parts to maintain order
+            if part_num < len(message_parts):
+                time.sleep(0.5)
+
+        return True
+
+    def _split_message(self, message: str, max_length: int) -> List[str]:
+        """
+        Split a message into parts that fit within max_length.
+        Tries to split on paragraph boundaries, then sentence boundaries.
+        """
+        # Reserve space for part indicator "[Part X/Y]\n\n"
+        # Max part indicator: "[Part 999/999]\n\n" = 20 chars
+        effective_max = max_length - 25  # Leave extra room
+
+        if len(message) <= effective_max:
+            return [message]
+
+        parts = []
+        remaining = message
+
+        while remaining:
+            if len(remaining) <= effective_max:
+                parts.append(remaining)
+                break
+
+            # Try to split on paragraph (double newline)
+            split_point = remaining.rfind('\n\n', 0, effective_max)
+
+            # If no paragraph break, try single newline
+            if split_point == -1:
+                split_point = remaining.rfind('\n', 0, effective_max)
+
+            # If no newline, try sentence ending
+            if split_point == -1:
+                for punct in ['. ', '! ', '? ']:
+                    split_point = remaining.rfind(punct, 0, effective_max)
+                    if split_point != -1:
+                        split_point += len(punct)
+                        break
+
+            # Last resort: hard split at max length
+            if split_point == -1:
+                split_point = effective_max
+
+            parts.append(remaining[:split_point].strip())
+            remaining = remaining[split_point:].strip()
+
+        return parts
+
+    def _send_single_message(self, message: str, user_id: int, sender_script: Path, max_retries: int = 3) -> bool:
+        """Send a single message part with retries."""
         for attempt in range(max_retries):
             try:
                 result = subprocess.run(

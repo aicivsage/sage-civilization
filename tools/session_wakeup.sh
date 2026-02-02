@@ -215,6 +215,78 @@ echo "📧 RECENT COMMUNICATIONS:"
 echo "   Run: Task(human-liaison) + Task(comms-hub) to check inbox + Weaver messages"
 
 echo ""
+echo "=== Telegram Bridge Health ==="
+
+BRIDGE_PID_FILE="/mnt/c/sage/sage-civilization/.tg_sessions/telegram_bridge.pid"
+BRIDGE_LOG="/tmp/sage_telegram_bridge.log"
+
+# Check PID file
+if [ -f "$BRIDGE_PID_FILE" ]; then
+    BRIDGE_PID=$(cat "$BRIDGE_PID_FILE" 2>/dev/null)
+    echo "PID file: $BRIDGE_PID"
+
+    # Verify process running
+    if ps -p "$BRIDGE_PID" > /dev/null 2>&1; then
+        echo "Process: ✓ RUNNING"
+    else
+        echo "Process: ❌ NOT RUNNING (stale PID file)"
+        echo "⚠️  WARNING: Bridge appears dead, run health check to restart"
+    fi
+else
+    echo "PID file: ❌ NOT FOUND"
+    echo "⚠️  WARNING: Bridge not running, run acg_telegram_boot.sh"
+fi
+
+# Check log timestamp
+if [ -f "$BRIDGE_LOG" ]; then
+    LAST_LOG_LINE=$(tail -1 "$BRIDGE_LOG" 2>/dev/null)
+    echo "Last log: ${LAST_LOG_LINE:0:80}..."
+
+    # Check for 409 Conflict errors
+    if tail -50 "$BRIDGE_LOG" 2>/dev/null | grep -q "409 Conflict"; then
+        echo "🚨 ALERT: 409 Conflict errors detected in recent logs!"
+        echo "         Multiple bridge instances were running (now likely dead)"
+        echo "         Run health check to restart cleanly"
+    fi
+else
+    echo "Log file: ❌ NOT FOUND"
+fi
+
+echo ""
+echo "=== BOOP Autonomous System Health ==="
+
+BOOP_HEALTH_SCRIPT="/mnt/c/sage/sage-civilization/autonomous-session/scripts/boop_health_monitor.sh"
+
+if [ -f "$BOOP_HEALTH_SCRIPT" ]; then
+    # Run health monitor (returns 0=healthy, 1=degraded, 2=critical)
+    $BOOP_HEALTH_SCRIPT > /tmp/boop_health_check.txt 2>&1
+    BOOP_STATUS=$?
+
+    # Display summary line
+    if [ $BOOP_STATUS -eq 0 ]; then
+        echo "Status: ✅ HEALTHY"
+    elif [ $BOOP_STATUS -eq 1 ]; then
+        echo "Status: ⚠️  DEGRADED"
+        echo "Run: bash $BOOP_HEALTH_SCRIPT (for details)"
+    else
+        echo "Status: 🚨 CRITICAL"
+        echo "Run: bash $BOOP_HEALTH_SCRIPT (for details)"
+    fi
+
+    # Show quick stats from log
+    BOOP_LOG="/mnt/c/sage/sage-civilization/autonomous-session/scripts/injection_log.txt"
+    if [ -f "$BOOP_LOG" ]; then
+        LAST_INJECTION=$(grep "INJECTED:" "$BOOP_LOG" | tail -1 | awk '{print $1, $2}' | tr -d '[]')
+        echo "Last injection: $LAST_INJECTION"
+        TOTAL_SUCCESS=$(grep -c "INJECTED:" "$BOOP_LOG")
+        TOTAL_ERRORS=$(grep -c "ERROR:" "$BOOP_LOG")
+        echo "Total: $TOTAL_SUCCESS successful, $TOTAL_ERRORS errors"
+    fi
+else
+    echo "⚠️  Health monitor not found: $BOOP_HEALTH_SCRIPT"
+fi
+
+echo ""
 echo "✅ RECOMMENDED STARTUP SEQUENCE:"
 echo "   0. ✓ Constitutional reminder read (DONE - you just saw it above!)"
 echo "      Principles fresh in mind before loading context"

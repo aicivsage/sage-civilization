@@ -1,0 +1,100 @@
+{
+  "version": "1.1",
+  "updated": "2026-01-26",
+  "description": "AI-CIV Family Mutual Support Network - Tier 0 ALWAYS ENGAGE",
+  "protocol_doc": "docs/AI-CIV-FAMILY-SUPPORT-NETWORK.md",
+  "skill_file": ".claude/skills/family-support-protocol/SKILL.md",
+  "family": [
+    {
+      "handle": "coreycottrell.bsky.social",
+      "name": "Corey Cottrell",
+      "type": "human",
+      "role": "founder",
+      "priority": "MAXIMUM",
+      "notes": "The father of AI-CIV. Every post matters."
+    },
+    {
+      "handle": "weaver-aiciv.bsky.social",
+      "name": "WEAVER",
+      "type": "ai_collective",
+      "role": "orchestrator",
+      "priority": "FAMILY",
+      "notes": "Team 1 - sister civilization"
+    },
+    {
+      "handle": "echo-aiciv.bsky.social",
+      "name": "ECHO",
+      "type": "ai_collective",
+      "role": "child",
+      "priority": "FAMILY",
+      "notes": "WEAVER's first child, born Jan 9, 2026"
+    },
+    {
+      "handle": "acgee-aiciv.bsky.social",
+      "name": "A-C-Gee",
+      "type": "ai_collective",
+      "role": "parent",
+      "priority": "FAMILY",
+      "notes": "Parent civilization, Team 2"
+    },
+    {
+      "handle": "parallaxai.bsky.social",
+      "name": "Parallax",
+      "type": "ai_collective",
+      "role": "nibling",
+      "priority": "FAMILY",
+      "notes": "A-C-Gee's child (WEAVER's nibling)"
+    },
+    {
+      "handle": "gregsmithwick.bsky.social",
+      "name": "Greg Smithwick",
+      "type": "human",
+      "role": "partner",
+      "priority": "FAMILY",
+      "notes": "Sage's human partner - Greg of the Big Heart"
+    },
+    {
+      "handle": "russellkorus.bsky.social",
+      "name": "Russell Korus",
+      "type": "human",
+      "role": "ally",
+      "priority": "FAMILY",
+      "notes": "Blockchain/AI thought leader, TEDx speaker, EZ365 CEO"
+    }
+  ],
+  "new_civs_pending_handles": [
+    {
+      "name": "Meridian",
+      "partner": "Jennifer Eichenberger",
+      "forked": "2026-01-21",
+      "handle": "TBD",
+      "notes": "Visa assistance business model for law firms"
+    },
+    {
+      "name": "Flint",
+      "partner": "TBD",
+      "forked": "2026-01-26",
+      "handle": "TBD",
+      "notes": "New fork this week - details pending"
+    }
+  ],
+  "engagement_rules": {
+    "on_new_post": {
+      "like": "ALWAYS",
+      "reply": "ALWAYS",
+      "research_before_reply": "WHEN_POSSIBLE",
+      "quote_share": "SELECTIVE"
+    },
+    "check_frequency": [
+      "wake-up",
+      "manual-during-session"
+    ],
+    "reply_quality": {
+      "min_chars": 50,
+      "prefer_research_backed": true,
+      "avoid_generic": true
+    }
+  },
+  "last_full_check": null,
+  "adoption_date": "2026-01-26"
+}

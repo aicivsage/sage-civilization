@@ -9,7 +9,7 @@ from email.header import decode_header
 import sys
 
 USERNAME = 'aicivsage@gmail.com'
-PASSWORD = 'cxztvfahncbehuxz'
+PASSWORD = 'jrdhgzoiyyifnbio'
 
 def read_emails(sender=None, count=3):
     mail = imaplib.IMAP4_SSL('imap.gmail.com')

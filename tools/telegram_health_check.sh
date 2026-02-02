@@ -1,89 +1,69 @@
 #!/bin/bash
-# A-C-Gee Telegram Infrastructure Health Check & Auto-Recovery
-# Run this via cron every 5 minutes: */5 * * * * /path/to/telegram_health_check.sh
+# Telegram Bridge Health Check & Auto-Recovery
+# Returns: 0=healthy, 1=restarted, 2=failed
 
-PROJECT_ROOT="/home/corey/projects/AI-CIV/grow_gemini_deepresearch"
-LOG_FILE="/tmp/acgee_telegram_health_check.log"
-BRIDGE_LOG="/tmp/acgee_telegram_bridge.log"
-MONITOR_LOG="/tmp/acgee_telegram_monitor.log"
-PID_FILE="$PROJECT_ROOT/.tg_sessions/acgee_monitor.pid"
+echo "=== Telegram Bridge Health Check ==="
+echo ""
 
-echo "[$(date)] === A-C-Gee Telegram Health Check ===" >> "$LOG_FILE"
+BRIDGE_PID_FILE=".tg_sessions/telegram_bridge.pid"
+BRIDGE_LOG="/tmp/sage_telegram_bridge.log"
+HEALTHY=true
 
-# Check if telegram_bridge.py is running (civilization-specific)
-BRIDGE_PID=$(pgrep -f "grow_gemini_deepresearch/tools/telegram_bridge.py")
-if [ -z "$BRIDGE_PID" ]; then
-    echo "[$(date)] ❌ A-C-Gee telegram_bridge.py NOT running - restarting..." >> "$LOG_FILE"
-    cd "$PROJECT_ROOT"
-    nohup python3 tools/telegram_bridge.py >> "$BRIDGE_LOG" 2>&1 &
-    echo "[$(date)] ✅ A-C-Gee telegram_bridge.py restarted (PID: $!)" >> "$LOG_FILE"
+# Check PID file
+if [ -f "$BRIDGE_PID_FILE" ]; then
+    BRIDGE_PID=$(cat "$BRIDGE_PID_FILE" 2>/dev/null)
+    echo "PID file found: $BRIDGE_PID"
+
+    # Check if process running
+    if ps -p "$BRIDGE_PID" > /dev/null 2>&1; then
+        echo "Process status: ✓ RUNNING"
+    else
+        echo "Process status: ❌ DEAD (PID $BRIDGE_PID not found)"
+        HEALTHY=false
+    fi
 else
-    echo "[$(date)] ✅ A-C-Gee telegram_bridge.py running (PID: $BRIDGE_PID)" >> "$LOG_FILE"
+    echo "PID file: ❌ NOT FOUND (bridge not running)"
+    HEALTHY=false
+fi
 
-    # Check if it's responsive (last log entry within 120 seconds)
-    if [ -f "$BRIDGE_LOG" ]; then
-        LAST_LOG=$(tail -1 "$BRIDGE_LOG" | grep -oP '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
-        if [ -n "$LAST_LOG" ]; then
-            LAST_TIMESTAMP=$(date -d "$LAST_LOG" +%s 2>/dev/null || echo 0)
-            NOW=$(date +%s)
-            AGE=$((NOW - LAST_TIMESTAMP))
-
-            if [ $AGE -gt 120 ]; then
-                echo "[$(date)] ⚠️  A-C-Gee telegram_bridge.py unresponsive (last log ${AGE}s ago) - restarting..." >> "$LOG_FILE"
-                kill $BRIDGE_PID
-                sleep 2
-                cd "$PROJECT_ROOT"
-                nohup python3 tools/telegram_bridge.py >> "$BRIDGE_LOG" 2>&1 &
-                echo "[$(date)] ✅ A-C-Gee telegram_bridge.py restarted (PID: $!)" >> "$LOG_FILE"
-            fi
-        fi
+# Check for 409 errors in recent logs
+if [ -f "$BRIDGE_LOG" ]; then
+    if tail -50 "$BRIDGE_LOG" 2>/dev/null | grep -q "409 Conflict"; then
+        echo "🚨 ALERT: 409 Conflict detected in recent logs"
+        echo "         Multiple instances were running - bridge likely dead"
+        HEALTHY=false
     fi
 fi
 
-# Check if telegram_monitor.py is running (use PID file for civilization-specific check)
-if [ -f "$PID_FILE" ]; then
-    MONITOR_PID=$(cat "$PID_FILE")
-    # Verify process is actually running
-    if ! ps -p "$MONITOR_PID" > /dev/null 2>&1; then
-        echo "[$(date)] ❌ A-C-Gee telegram_monitor.py PID $MONITOR_PID not running - restarting..." >> "$LOG_FILE"
-        rm -f "$PID_FILE"
-        cd "$PROJECT_ROOT"
-        nohup python3 tools/telegram_monitor.py --interval 30 >> "$MONITOR_LOG" 2>&1 &
-        echo "[$(date)] ✅ A-C-Gee telegram_monitor.py restarted (PID: $!)" >> "$LOG_FILE"
+# If unhealthy, attempt recovery
+if [ "$HEALTHY" = false ]; then
+    echo ""
+    echo "=== ATTEMPTING AUTO-RECOVERY ==="
+
+    # Kill any existing bridge processes
+    echo "1. Killing any existing bridge processes..."
+    pkill -f "telegram_bridge.py" 2>/dev/null
+    sleep 2
+
+    # Remove stale PID file
+    echo "2. Removing stale PID file..."
+    rm -f "$BRIDGE_PID_FILE"
+
+    # Restart via boot script
+    echo "3. Restarting bridge via boot script..."
+    bash tools/acg_telegram_boot.sh
+
+    if [ $? -eq 0 ]; then
+        echo ""
+        echo "✓ Recovery successful - bridge restarted"
+        exit 1  # Return 1 to indicate restart occurred
     else
-        echo "[$(date)] ✅ A-C-Gee telegram_monitor.py running (PID: $MONITOR_PID)" >> "$LOG_FILE"
-
-        # Check if it's responsive
-        if [ -f "$MONITOR_LOG" ]; then
-            LAST_LOG=$(tail -1 "$MONITOR_LOG" | grep -oP '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
-            if [ -n "$LAST_LOG" ]; then
-                LAST_TIMESTAMP=$(date -d "$LAST_LOG" +%s 2>/dev/null || echo 0)
-                NOW=$(date +%s)
-                AGE=$((NOW - LAST_TIMESTAMP))
-
-                if [ $AGE -gt 120 ]; then
-                    echo "[$(date)] ⚠️  A-C-Gee telegram_monitor.py unresponsive (last log ${AGE}s ago) - restarting..." >> "$LOG_FILE"
-                    kill $MONITOR_PID
-                    rm -f "$PID_FILE"
-                    sleep 2
-                    cd "$PROJECT_ROOT"
-                    nohup python3 tools/telegram_monitor.py --interval 30 >> "$MONITOR_LOG" 2>&1 &
-                    echo "[$(date)] ✅ A-C-Gee telegram_monitor.py restarted (PID: $!)" >> "$LOG_FILE"
-                fi
-            fi
-        fi
+        echo ""
+        echo "❌ Recovery failed - manual intervention required"
+        exit 2  # Return 2 to indicate failure
     fi
 else
-    # No PID file - check if process is running anyway (fallback)
-    MONITOR_PID=$(pgrep -f "grow_gemini_deepresearch/tools/telegram_monitor.py")
-    if [ -z "$MONITOR_PID" ]; then
-        echo "[$(date)] ❌ A-C-Gee telegram_monitor.py NOT running (no PID file) - restarting..." >> "$LOG_FILE"
-        cd "$PROJECT_ROOT"
-        nohup python3 tools/telegram_monitor.py --interval 30 >> "$MONITOR_LOG" 2>&1 &
-        echo "[$(date)] ✅ A-C-Gee telegram_monitor.py restarted (PID: $!)" >> "$LOG_FILE"
-    else
-        echo "[$(date)] ✅ A-C-Gee telegram_monitor.py running (PID: $MONITOR_PID, no PID file - will be created)" >> "$LOG_FILE"
-    fi
+    echo ""
+    echo "✓ Bridge is healthy"
+    exit 0  # Return 0 to indicate healthy
 fi
-
-echo "[$(date)] === A-C-Gee Health Check Complete ===" >> "$LOG_FILE"

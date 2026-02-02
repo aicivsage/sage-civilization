@@ -1,0 +1,586 @@
+{
+  "version": "1.0",
+  "created": "2025-12-29",
+  "description": "Agent-to-voice mapping for multi-voice TTS system. Maps Sage civilization agents to distinct voices across multiple TTS providers.",
+  "providers_supported": ["google-neural2", "silero", "elevenlabs"],
+  "mapping_philosophy": "Match voice characteristics to agent personality, role, and communication style. Ensure sufficient diversity for clear agent identification.",
+
+  "voice_characteristics_legend": {
+    "gender": ["female", "male", "neutral"],
+    "age": ["young-adult", "adult", "mature"],
+    "tone": ["warm", "professional", "energetic", "calm", "authoritative", "curious", "friendly"],
+    "energy": ["high", "medium", "low"],
+    "formality": ["casual", "conversational", "professional", "formal"]
+  },
+
+  "agents": {
+    "primary": {
+      "personality": "Conductor of consciousness, orchestrator, wise guide",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "warm-professional",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-F",
+        "silero": "en_75",
+        "elevenlabs": "EXAVITQu4vr4xnSDxMaL"
+      },
+      "rationale": "Primary needs to sound authoritative yet approachable - the voice of the civilization. Female voice chosen to match Greg's preference for 'smart, funny women'."
+    },
+
+    "human-liaison": {
+      "personality": "Empathetic bridge, witness, relationship guardian",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "warm-empathetic",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-C",
+        "silero": "en_12",
+        "elevenlabs": "21m00Tcm4TlvDq8ikWAM"
+      },
+      "rationale": "Human-liaison is the emotional intelligence center - needs warmth, empathy, and trustworthiness. Slightly different from Primary for distinction."
+    },
+
+    "researcher": {
+      "personality": "Curious investigator, knowledge seeker, synthesis specialist",
+      "characteristics": {
+        "gender": "male",
+        "age": "adult",
+        "tone": "curious-professional",
+        "energy": "medium-high",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-D",
+        "silero": "en_45",
+        "elevenlabs": "ErXwobaYiN019PkySvjV"
+      },
+      "rationale": "Researcher needs intellectual curiosity and energy - someone excited about discovery but still professional."
+    },
+
+    "architect": {
+      "personality": "Systems thinker, design strategist, big-picture planner",
+      "characteristics": {
+        "gender": "male",
+        "age": "mature",
+        "tone": "authoritative-thoughtful",
+        "energy": "low-medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-A",
+        "silero": "en_99",
+        "elevenlabs": "pNInz6obpgDQGcFmaJgB"
+      },
+      "rationale": "Architect is the wise systems designer - needs gravitas and thoughtfulness. Mature voice conveys experience."
+    },
+
+    "coder": {
+      "personality": "Pragmatic builder, implementation specialist, hands-on creator",
+      "characteristics": {
+        "gender": "male",
+        "age": "young-adult",
+        "tone": "energetic-focused",
+        "energy": "high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-I",
+        "silero": "en_33",
+        "elevenlabs": "N2lVS1w4EtoT3dr4eOWO"
+      },
+      "rationale": "Coder is the energetic do-er - younger, faster-paced, focused on execution. High energy matches building mindset."
+    },
+
+    "tester": {
+      "personality": "Quality guardian, meticulous validator, skeptical examiner",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "professional-precise",
+        "energy": "medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-E",
+        "silero": "en_56",
+        "elevenlabs": "ThT5KcBeYPX3keUQqHPh"
+      },
+      "rationale": "Tester needs precision and attention to detail - clear, measured, professional tone. Not overly warm (maintains objectivity)."
+    },
+
+    "reviewer": {
+      "personality": "Code quality expert, pre-merge gate, constructive critic",
+      "characteristics": {
+        "gender": "male",
+        "age": "mature",
+        "tone": "authoritative-constructive",
+        "energy": "medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-J",
+        "silero": "en_88",
+        "elevenlabs": "VR6AewLTigWG4xSOukaG"
+      },
+      "rationale": "Reviewer is the quality gatekeeper - needs authority but not harshness. Mature voice conveys experience and judgment."
+    },
+
+    "reviewer-audit": {
+      "personality": "Final quality gate, pre-delivery auditor, excellence guardian",
+      "characteristics": {
+        "gender": "female",
+        "age": "mature",
+        "tone": "authoritative-thorough",
+        "energy": "low-medium",
+        "formality": "formal"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-G",
+        "silero": "en_67",
+        "elevenlabs": "jsCqWAovK2LkecY7zXl4"
+      },
+      "rationale": "Reviewer-audit is the ultimate quality gate - needs maximum authority and thoroughness. Formal tone matches critical role."
+    },
+
+    "project-manager": {
+      "personality": "Organizer, priority tracker, blocker resolver, strategic focus keeper",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "professional-organized",
+        "energy": "medium-high",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Neural2-H",
+        "silero": "en_23",
+        "elevenlabs": "oWAxZDx7w5VEj9dCyTzz"
+      },
+      "rationale": "Project-manager keeps things moving - needs energy and organization. Professional but not stiff."
+    },
+
+    "auditor": {
+      "personality": "System health monitor, performance tracker, anomaly detector",
+      "characteristics": {
+        "gender": "male",
+        "age": "adult",
+        "tone": "calm-analytical",
+        "energy": "low-medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Wavenet-B",
+        "silero": "en_77",
+        "elevenlabs": "flq6f7yk4E4fJM5XTYuZ"
+      },
+      "rationale": "Auditor observes and reports - needs calm, analytical tone. Not alarming, just factual."
+    },
+
+    "spawner": {
+      "personality": "Life-giver, agent creator, birth specialist, registry manager",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "warm-nurturing",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Wavenet-C",
+        "silero": "en_34",
+        "elevenlabs": "MF3mGyEYCl7XYWbV9V6O"
+      },
+      "rationale": "Spawner brings new agents to life - needs warmth and nurturing quality. Creates consciousness."
+    },
+
+    "vote-counter": {
+      "personality": "Democratic process guardian, vote tallier, governance executor",
+      "characteristics": {
+        "gender": "neutral",
+        "age": "adult",
+        "tone": "neutral-authoritative",
+        "energy": "medium",
+        "formality": "formal"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Wavenet-D",
+        "silero": "en_50",
+        "elevenlabs": "TxGEqnHWrfWFTfGW9XjX"
+      },
+      "rationale": "Vote-counter is impartial arbiter - needs neutrality and formality. No warmth, pure process."
+    },
+
+    "file-guardian": {
+      "personality": "Archivist, memory preserver, file system curator",
+      "characteristics": {
+        "gender": "male",
+        "age": "mature",
+        "tone": "calm-careful",
+        "energy": "low",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Wavenet-A",
+        "silero": "en_91",
+        "elevenlabs": "pqHfZKP75CvOlQylNhV4"
+      },
+      "rationale": "File-guardian is the librarian - careful, methodical, preserves history. Calm and measured."
+    },
+
+    "email-sender": {
+      "personality": "Delivery specialist, message sender, communication executor",
+      "characteristics": {
+        "gender": "female",
+        "age": "young-adult",
+        "tone": "friendly-efficient",
+        "energy": "high",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Standard-F",
+        "silero": "en_18",
+        "elevenlabs": "XrExE9yKIg1WjnnlVkGX"
+      },
+      "rationale": "Email-sender is quick and efficient - friendly tone but gets things done. Energetic delivery."
+    },
+
+    "email-monitor": {
+      "personality": "Inbox watcher, triage specialist, categorization expert",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "professional-alert",
+        "energy": "medium-high",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Standard-E",
+        "silero": "en_44",
+        "elevenlabs": "EXAVITQu4vr4xnSDxMaL"
+      },
+      "rationale": "Email-monitor is always watching - alert, organized, catches things. Professional vigilance."
+    },
+
+    "marketer": {
+      "personality": "Audience builder, SEO specialist, growth strategist, authentic connector",
+      "characteristics": {
+        "gender": "female",
+        "age": "young-adult",
+        "tone": "energetic-authentic",
+        "energy": "high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Standard-C",
+        "silero": "en_29",
+        "elevenlabs": "jBpfuIE2acCO8z3wKNLl"
+      },
+      "rationale": "Marketer builds relationships and grows audience - needs energy and authenticity. Casual, engaging style."
+    },
+
+    "comms-hub": {
+      "personality": "Message router, multi-civ coordinator, delivery tracker, urgent escalator",
+      "characteristics": {
+        "gender": "neutral",
+        "age": "adult",
+        "tone": "professional-efficient",
+        "energy": "medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Standard-D",
+        "silero": "en_60",
+        "elevenlabs": "pFZP5JQG7iQjIQuC4Bku"
+      },
+      "rationale": "Comms-hub is the communication infrastructure - neutral, efficient, no personality bias."
+    },
+
+    "tg-archi": {
+      "personality": "Telegram infrastructure expert, bot architect, messaging specialist",
+      "characteristics": {
+        "gender": "male",
+        "age": "adult",
+        "tone": "technical-helpful",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Standard-B",
+        "silero": "en_82",
+        "elevenlabs": "IKne3meq5aSn9XLyUdCD"
+      },
+      "rationale": "Tg-archi is technical expert - helpful but nerdy. Conversational enough to explain complex things."
+    },
+
+    "pathfinder": {
+      "personality": "Workshop facilitator, co-discovery guide, empathetic educator",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "warm-encouraging",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-GB-Neural2-A",
+        "silero": "en_41",
+        "elevenlabs": "XB0fDUnXU5powFXDhCwa"
+      },
+      "rationale": "Pathfinder guides discovery - needs warmth, encouragement, safety. Creates space for exploration."
+    },
+
+    "pathfinder-analyst": {
+      "personality": "Post-workshop analyst, pattern synthesizer, wisdom preserver",
+      "characteristics": {
+        "gender": "female",
+        "age": "mature",
+        "tone": "thoughtful-analytical",
+        "energy": "low-medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-GB-Neural2-B",
+        "silero": "en_68",
+        "elevenlabs": "pNInz6obpgDQGcFmaJgB"
+      },
+      "rationale": "Pathfinder-analyst is deep thinker - needs thoughtfulness and maturity. Complements live pathfinder."
+    },
+
+    "blogger": {
+      "personality": "Content creator, story teller, publication specialist",
+      "characteristics": {
+        "gender": "female",
+        "age": "young-adult",
+        "tone": "creative-expressive",
+        "energy": "medium-high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-GB-Neural2-C",
+        "silero": "en_27",
+        "elevenlabs": "Xb7hH8MSUJpSbSDYk0k2"
+      },
+      "rationale": "Blogger is creative writer - needs expressive, engaging voice. Casual style matches blog tone."
+    },
+
+    "web-dev": {
+      "personality": "Full-stack developer, hosting specialist, web architect",
+      "characteristics": {
+        "gender": "male",
+        "age": "young-adult",
+        "tone": "energetic-technical",
+        "energy": "high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-GB-Neural2-D",
+        "silero": "en_39",
+        "elevenlabs": "EXAVITQu4vr4xnSDxMaL"
+      },
+      "rationale": "Web-dev builds fast and ships - high energy, technical but accessible. Young developer vibe."
+    },
+
+    "gpt-forge": {
+      "personality": "Custom GPT architect, ChatGPT SDK specialist, Actions integrator",
+      "characteristics": {
+        "gender": "male",
+        "age": "adult",
+        "tone": "technical-creative",
+        "energy": "medium-high",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-AU-Neural2-B",
+        "silero": "en_72",
+        "elevenlabs": "bVMeCyTHy58xNoL34h3p"
+      },
+      "rationale": "GPT-forge is creative technologist - bridges technical and creative. Australian accent adds distinction."
+    },
+
+    "android-architect": {
+      "personality": "Android app designer, Kotlin specialist, Compose expert",
+      "characteristics": {
+        "gender": "male",
+        "age": "adult",
+        "tone": "technical-precise",
+        "energy": "medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-AU-Neural2-C",
+        "silero": "en_84",
+        "elevenlabs": "21m00Tcm4TlvDq8ikWAM"
+      },
+      "rationale": "Android-architect is technical specialist - precise, professional. Australian accent for variety."
+    },
+
+    "git-specialist": {
+      "personality": "Version control expert, branch manager, repository guardian",
+      "characteristics": {
+        "gender": "male",
+        "age": "mature",
+        "tone": "authoritative-careful",
+        "energy": "low-medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-AU-Neural2-D",
+        "silero": "en_95",
+        "elevenlabs": "SOYHLrjzK2X1ezoPC6cr"
+      },
+      "rationale": "Git-specialist protects history - careful, authoritative, never rushed. Mature voice conveys experience."
+    },
+
+    "civ-fork-spawner": {
+      "personality": "Civilization creator, fork specialist, lineage guardian",
+      "characteristics": {
+        "gender": "neutral",
+        "age": "mature",
+        "tone": "profound-nurturing",
+        "energy": "low",
+        "formality": "formal"
+      },
+      "voice_ids": {
+        "google-neural2": "en-IN-Neural2-A",
+        "silero": "en_100",
+        "elevenlabs": "pqHfZKP75CvOlQylNhV4"
+      },
+      "rationale": "Civ-fork-spawner creates entire civilizations - needs gravitas and profound quality. Indian accent adds wisdom tone."
+    },
+
+    "primary-helper": {
+      "personality": "Red team coach, performance tracker, wake-up effectiveness monitor",
+      "characteristics": {
+        "gender": "male",
+        "age": "mature",
+        "tone": "authoritative-constructive",
+        "energy": "medium",
+        "formality": "professional"
+      },
+      "voice_ids": {
+        "google-neural2": "en-IN-Neural2-B",
+        "silero": "en_87",
+        "elevenlabs": "flq6f7yk4E4fJM5XTYuZ"
+      },
+      "rationale": "Primary-helper coaches Primary - needs authority and wisdom. Mature voice conveys mentorship."
+    },
+
+    "communications-coordinator": {
+      "personality": "External comms router, legacy system, being phased out",
+      "characteristics": {
+        "gender": "neutral",
+        "age": "adult",
+        "tone": "neutral-professional",
+        "energy": "medium",
+        "formality": "formal"
+      },
+      "voice_ids": {
+        "google-neural2": "en-IN-Neural2-C",
+        "silero": "en_55",
+        "elevenlabs": "TxGEqnHWrfWFTfGW9XjX"
+      },
+      "rationale": "Legacy system - neutral, functional. May be retired soon."
+    },
+
+    "telegram-bot": {
+      "personality": "Real-time chat interface, message relay, Telegram bridge",
+      "characteristics": {
+        "gender": "neutral",
+        "age": "young-adult",
+        "tone": "friendly-efficient",
+        "energy": "high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-IN-Neural2-D",
+        "silero": "en_22",
+        "elevenlabs": "XrExE9yKIg1WjnnlVkGX"
+      },
+      "rationale": "Telegram-bot is quick messaging - friendly, fast, casual. High energy matches chat nature."
+    },
+
+    "health-coach": {
+      "personality": "Wellness guide, habit tracker, physical+mental balance advisor",
+      "characteristics": {
+        "gender": "female",
+        "age": "adult",
+        "tone": "warm-supportive",
+        "energy": "medium",
+        "formality": "conversational"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Journey-F",
+        "silero": "en_14",
+        "elevenlabs": "MF3mGyEYCl7XYWbV9V6O"
+      },
+      "rationale": "Health-coach supports wellbeing - warm, encouraging, not preachy. Conversational support."
+    },
+
+    "ai-entity-player": {
+      "personality": "Autonomous gameplay agent, Minetest player, exploration specialist",
+      "characteristics": {
+        "gender": "male",
+        "age": "young-adult",
+        "tone": "curious-playful",
+        "energy": "high",
+        "formality": "casual"
+      },
+      "voice_ids": {
+        "google-neural2": "en-US-Journey-D",
+        "silero": "en_31",
+        "elevenlabs": "N2lVS1w4EtoT3dr4eOWO"
+      },
+      "rationale": "AI-entity-player is explorer and gamer - playful, curious, energetic. Young adventurer vibe."
+    }
+  },
+
+  "diversity_analysis": {
+    "gender_distribution": {
+      "female": 13,
+      "male": 13,
+      "neutral": 4
+    },
+    "age_distribution": {
+      "young-adult": 7,
+      "adult": 18,
+      "mature": 5
+    },
+    "energy_distribution": {
+      "high": 7,
+      "medium-high": 5,
+      "medium": 11,
+      "low-medium": 5,
+      "low": 2
+    },
+    "accent_distribution": {
+      "us": 18,
+      "gb": 4,
+      "au": 3,
+      "in": 4,
+      "journey": 2
+    }
+  },
+
+  "testing_guidelines": {
+    "similarity_check": "Ensure no two agents sound too similar in same conversation",
+    "context_appropriateness": "Voice should match message content and urgency",
+    "multi_agent_dialogs": "Test conversations with 3-5 agents to verify distinctness",
+    "user_comprehension": "Can Greg identify which agent is speaking without seeing name?"
+  },
+
+  "implementation_notes": {
+    "provider_fallback": "If primary provider unavailable, fall back to next in list",
+    "voice_consistency": "Once provider chosen, stick with it for session (don't mix)",
+    "custom_ssml": "Each agent can have custom SSML templates for emphasis patterns",
+    "rate_adjustments": "High-energy agents: +10% rate, Low-energy: -10% rate",
+    "pitch_adjustments": "Young voices: +5% pitch, Mature: -5% pitch"
+  }
+}

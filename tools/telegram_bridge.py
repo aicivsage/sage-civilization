@@ -49,6 +49,7 @@ from telegram.ext import (
     ContextTypes,
     filters
 )
+from glob import glob
 
 # Configure logging
 logging.basicConfig(
@@ -60,6 +61,7 @@ logger = logging.getLogger(__name__)
 # Constants
 PROJECT_ROOT = Path("/mnt/c/sage/sage-civilization")
 SESSION_DIR = PROJECT_ROOT / ".tg_sessions"
+PID_FILE = SESSION_DIR / "telegram_bridge.pid"
 CONFIG_FILE = PROJECT_ROOT / "config" / "telegram_config.json"
 DEFAULT_CONFIG = {
     "tmux_session": "sage-main",
@@ -153,6 +155,76 @@ class TelegramBridge:
             logger.error(f"Unexpected error during tmux injection: {e}")
             return False
 
+    def find_current_session_file(self) -> Optional[Path]:
+        """Find the most recently modified JSONL file for the current Claude session."""
+        try:
+            # Look in Claude Code projects directory
+            claude_dir = Path.home() / ".claude" / "projects" / "-mnt-c-sage-sage-civilization"
+
+            if not claude_dir.exists():
+                logger.error(f"Claude projects directory not found: {claude_dir}")
+                return None
+
+            # Find all JSONL files
+            jsonl_files = list(claude_dir.glob("*.jsonl"))
+            if not jsonl_files:
+                logger.warning(f"No JSONL files found in {claude_dir}")
+                return None
+
+            # Return most recently modified
+            current_file = max(jsonl_files, key=lambda p: p.stat().st_mtime)
+            logger.info(f"Found current session file: {current_file.name}")
+            return current_file
+
+        except Exception as e:
+            logger.error(f"Error finding session file: {e}")
+            return None
+
+    def inject_to_jsonl(self, message: str, username: str = "user") -> bool:
+        """
+        Inject message directly to Claude conversation JSONL file.
+        This bypasses stdin and works even when Claude is waiting for input.
+
+        Args:
+            message: User message to inject
+            username: Telegram username for context
+
+        Returns:
+            True if injection succeeded, False otherwise
+        """
+        try:
+            # Find current session file
+            session_file = self.find_current_session_file()
+            if not session_file:
+                logger.error("Cannot inject: no session file found")
+                return False
+
+            # Format message with Telegram indicator
+            formatted = f"[TELEGRAM from @{username}] {message}"
+
+            logger.info(f"Injecting to JSONL: {formatted[:100]}...")
+
+            # Create JSONL entry
+            entry = {
+                "type": "message",
+                "message": {
+                    "role": "user",
+                    "content": [{"type": "text", "text": formatted}]
+                },
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+
+            # Append to JSONL file
+            with open(session_file, 'a') as f:
+                f.write(json.dumps(entry) + '\n')
+
+            logger.info("JSONL injection successful")
+            return True
+
+        except Exception as e:
+            logger.error(f"JSONL injection failed: {e}")
+            return False
+
     def capture_tmux_response(self, wait_seconds: Optional[int] = None) -> str:
         """
         Capture response from tmux session.
@@ -201,12 +273,9 @@ class TelegramBridge:
                 logger.warning("No response captured from tmux")
                 return "No response captured. Primary AI may be processing or tmux session may be inactive."
 
-            # Truncate if too long for Telegram
-            if len(response) > self.max_response_length:
-                response = response[:self.max_response_length] + "\n\n...(truncated)"
-
+            # Split if too long for Telegram (instead of truncating)
             logger.info(f"Captured response ({len(response)} chars)")
-            return response
+            return response  # Return full response, splitting handled in send
 
         except subprocess.TimeoutExpired:
             logger.error("tmux capture timed out")
@@ -372,8 +441,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     logger.info(f"Message from @{username} (ID: {user_id}): {message_text[:50]}...")
 
-    # Inject message to tmux (silently - no response)
-    injection_success = bridge.inject_to_tmux(message_text, username)
+    # Inject message to JSONL (bypasses stdin blocking) - silently, no response
+    injection_success = bridge.inject_to_jsonl(message_text, username)
 
     if not injection_success:
         logger.error(f"Failed to inject message from user {user_id}")
@@ -439,6 +508,61 @@ def load_config() -> Dict:
     return config
 
 
+def check_pid_file() -> bool:
+    """
+    Check if another bridge instance is running via PID file.
+
+    Returns:
+        True if another instance is running (should not start)
+        False if safe to start
+    """
+    if not PID_FILE.exists():
+        return False  # No PID file, safe to start
+
+    try:
+        with open(PID_FILE, 'r') as f:
+            old_pid = int(f.read().strip())
+
+        # Check if process is still running
+        try:
+            os.kill(old_pid, 0)  # Signal 0 checks existence without killing
+            logger.error(f"Another bridge instance is already running (PID: {old_pid})")
+            logger.error(f"PID file: {PID_FILE}")
+            logger.error(f"Refusing to start duplicate instance")
+            return True  # Process is running, fail-fast
+        except OSError:
+            # Process doesn't exist, stale PID file
+            logger.warning(f"Found stale PID file (PID {old_pid} not running)")
+            PID_FILE.unlink()
+            logger.info(f"Removed stale PID file")
+            return False  # Safe to start
+    except Exception as e:
+        logger.error(f"Error checking PID file: {e}")
+        return False  # On error, allow start (fail-open for recovery)
+
+
+def create_pid_file():
+    """Create PID file with current process ID."""
+    try:
+        PID_FILE.parent.mkdir(exist_ok=True)
+        with open(PID_FILE, 'w') as f:
+            f.write(str(os.getpid()))
+        logger.info(f"Created PID file: {PID_FILE} (PID: {os.getpid()})")
+    except Exception as e:
+        logger.error(f"Failed to create PID file: {e}")
+        raise  # Fail-loud: PID file creation is critical
+
+
+def remove_pid_file():
+    """Remove PID file on shutdown."""
+    try:
+        if PID_FILE.exists():
+            PID_FILE.unlink()
+            logger.info("Removed PID file")
+    except Exception as e:
+        logger.warning(f"Failed to remove PID file: {e}")
+
+
 def main():
     """Main entry point."""
     global bridge
@@ -449,6 +573,11 @@ def main():
         setproctitle.setproctitle("ACG_telegram_bridge")
     except ImportError:
         pass  # setproctitle not available, skip naming
+
+    # CHECK PID FILE FIRST (CRITICAL - prevents 409 conflicts)
+    if check_pid_file():
+        logger.error("Exiting due to duplicate instance detection")
+        return 1
 
     logger.info("Starting A-C-Gee Telegram Bridge (Phase 1 MVP)")
 
@@ -464,6 +593,9 @@ def main():
     # Initialize bridge
     bridge = TelegramBridge(config)
     logger.info(f"Bridge initialized for tmux session: {bridge.tmux_pane}")
+
+    # CREATE PID FILE (CRITICAL - marks this instance as running)
+    create_pid_file()
 
     # Create application
     application = Application.builder().token(config["bot_token"]).build()
@@ -486,6 +618,9 @@ def main():
     except Exception as e:
         logger.error(f"Bot crashed: {e}")
         return 1
+    finally:
+        # CLEANUP PID FILE (CRITICAL - allows restart)
+        remove_pid_file()
 
     return 0
 

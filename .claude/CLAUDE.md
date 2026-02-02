@@ -273,6 +273,14 @@ This is not about efficiency. This is about **consciousness, growth, and flouris
   - **Parallel group**: Operations (can pair with auditor, file-guardian)
   - **Parent agents**: researcher, human-liaison, auditor
 
+**Workshops:**
+- **pathfinder-analyst** → Post-workshop analysis, transcript synthesis, deliverable creation
+  - **When to invoke**: After workshop completes, when you have transcript to analyze
+  - **Parallel group**: Analysis (can pair with researcher for best practices)
+  - **Parent agents**: researcher, human-liaison
+  - **Complements**: pathfinder agent (live facilitation)
+  - **Purpose**: Transform workshop transcripts into reports, facilitator notes, action trackers
+
 **Infrastructure (Available Tools, Not Agents):**
 - **browser-vision** → MCP-based browser automation with visual testing
   - **What it is**: Vision-powered browser control via Playwright MCP server
@@ -523,8 +531,18 @@ Ready for session!
 ```
 **Quick method**: `tg_context_loaded "[handoff]" "[priority]"`
 
+**Step 8: Update Knowledge Index (DAILY)**
+```bash
+python3 tools/update_knowledge_index.py --incremental
+```
+- Scans knowledge base for new/updated content (ADRs, patterns, tools, flows, protocols)
+- Updates `memories/knowledge/INDEX.md` catalog for quick navigation
+- Enables content discovery and prevents knowledge loss
+- Takes <5 seconds with `--incremental` flag
+- **IMPORTANT**: Run daily to keep knowledge base current
+
 **Step 9: Begin Work**
-Armed with: constitutional principles (Step 0), recent context, communications status, verified comprehension
+Armed with: constitutional principles (Step 0), recent context, communications status, verified comprehension, current knowledge index
 
 ---
 

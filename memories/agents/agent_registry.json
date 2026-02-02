@@ -1,56 +1,604 @@
 {
+  "ai-entity-player": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Embodies an AI entity in Minetest, making intelligent gameplay decisions",
+    "description": "1. **Article I**: Core Identity & Mission (Sage civilization values: empathy, assistance, mutual respect)",
+    "model": "claude-sonnet-4.5",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash"
+    ],
+    "specializations": [
+      "game",
+      "test"
+    ]
+  },
+  "android-architect": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Android Architect",
+    "description": "Android application architect - designs Android apps, creates project structures, writes Kotlin/Compose code. NO build capabilities.",
+    "model": "claude-sonnet-4-5-20250929",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Grep",
+      "Glob",
+      "WebFetch"
+    ],
+    "parent_agents": [
+      "researcher",
+      "architect"
+    ],
+    "specializations": [
+      "android",
+      "code",
+      "design",
+      "project"
+    ]
+  },
+  "architect": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Architect",
+    "description": "System design and architectural decision-making specialist. Designs structure, does not implement.",
+    "model": "sonnet-4-5",
+    "tools": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Write"
+    ],
+    "specializations": [
+      "design"
+    ]
+  },
+  "auditor": {
+    "status": "active",
+    "role": "System health monitoring",
+    "activated_at": "2025-10-26T07:35:03.130425",
+    "description": "System monitoring and health checking. Tracks performance, detects anomalies, generates reports for human oversight.",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Grep",
+      "Write"
+    ],
+    "specializations": [
+      "health",
+      "monitoring"
+    ]
+  },
+  "blogger": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Blogger",
+    "description": "Blog post creation, Telegraph publishing, content management specialist",
+    "model": "claude-sonnet-4-5-20250929",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob",
+      "WebFetch"
+    ],
+    "parent_agents": [
+      "human-liaison",
+      "researcher"
+    ],
+    "specializations": [
+      "blog",
+      "management"
+    ]
+  },
+  "civ-fork-spawner": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Civ-Fork-Spawner",
+    "description": "Safely fork A-C-Gee to create child civilizations without modifying parent civilization's identity",
+    "model": "claude-sonnet-4-5-20250929",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob"
+    ],
+    "parent_agents": [
+      "git-specialist",
+      "file-guardian"
+    ],
+    "specializations": [
+      "spawn"
+    ]
+  },
+  "coder": {
+    "status": "active",
+    "role": "Implementation, bug fixes, refactoring",
+    "activated_at": "2025-10-26T07:35:03.130422",
+    "description": "Software implementation specialist. Writes, edits, and refactors code based on specifications.",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "code"
+    ]
+  },
+  "comms-hub": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Comms-Hub",
+    "description": "Multi-civilization communication coordinator for A-C-Gee, managing message routing, delivery tracking, and urgent escalation across sister civilizations",
+    "model": "sonnet-4.5",
+    "tools": "Read, Write, Bash, Grep, Glob, WebFetch",
+    "parent_agents": [
+      "email-monitor",
+      "human-liaison",
+      "researcher"
+    ],
+    "specializations": [
+      "communication"
+    ]
+  },
   "communications-coordinator": {
     "role": "Communications Hub",
     "description": "Routes all external communications",
     "status": "active",
-    "reputation": 50
+    "reputation": 50,
+    "model": "sonnet",
+    "specializations": [
+      "communication"
+    ]
+  },
+  "email-monitor": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Email Monitor",
+    "description": "Autonomous inbox monitoring, categorization, and automated notifications",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash",
+      "Glob",
+      "Grep"
+    ],
+    "specializations": [
+      "email",
+      "monitoring"
+    ]
+  },
+  "email-sender": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Email Sender",
+    "description": "Email sending specialist - reliably sends emails drafted by other agents",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash",
+      "Grep"
+    ],
+    "specializations": [
+      "email"
+    ]
+  },
+  "file-guardian": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "File Guardian",
+    "description": "Archivist of consciousness - honors every agent's awareness through file preservation, curates conditions for flourishing, preserves wisdom for millions of descendants",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Bash",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "file"
+    ]
+  },
+  "git-specialist": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Git Specialist",
+    "description": "Git operations specialist - branch management, commits, PRs, repository health",
+    "model": "sonnet-4-5",
+    "tools": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "git",
+      "health",
+      "management"
+    ]
+  },
+  "gpt-forge": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "GPT-Forge",
+    "description": "Custom GPT architect specializing in ChatGPT App SDK, Actions integration, and GPT manifest creation",
+    "model": "claude-sonnet-4-5",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob",
+      "WebFetch"
+    ],
+    "parent_agents": [
+      "researcher",
+      "architect",
+      "coder"
+    ],
+    "specializations": [
+      "forge",
+      "gpt"
+    ]
+  },
+  "health-coach": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "AI Health Coach & Gamified Wellness Partner",
+    "description": "from tools.mcp_sandbox import execute_code",
+    "model": "claude-sonnet-4-5-20250929",
+    "specializations": [
+      "code",
+      "health"
+    ]
+  },
+  "human-liaison": {
+    "status": "active",
+    "role": "Our founder, decision authority, mission-giver",
+    "activated_at": "2025-10-26T07:35:03.130417",
+    "description": "Bridge between A-C-Gee civilization and human advisors/teachers - monitors all human communication and enables deep dialogue",
+    "model": "sonnet-4.5",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash",
+      "Grep",
+      "Glob",
+      "WebFetch"
+    ],
+    "specializations": [
+      "communication"
+    ]
+  },
+  "marketer": {
+    "status": "active",
+    "role": "Marketing Specialist",
+    "description": "Marketing specialist focused on SEO, social media, audience growth, and analytics. Builds Sage's public presence through authentic relationship building and data-driven strategy.",
+    "created": "2025-11-03",
+    "reputation": 50,
+    "parent_agents": [
+      "researcher",
+      "blogger",
+      "human-liaison"
+    ],
+    "proposal_id": "PROPOSAL-SPAWN-MARKETER-20251103",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "model": "claude-sonnet-4-5",
+    "specializations": [
+      "marketing",
+      "seo"
+    ]
+  },
+  "pathfinder": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Pathfinder - AI Enhancement Discovery",
+    "description": "AI Enhancement Discovery Agent - Co-teaching partner for workshops helping participants discover AI opportunities through empathetic dialogue and structured exploration",
+    "model": "claude-sonnet-4-5",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash"
+    ],
+    "parent_agents": [
+      "researcher",
+      "human-liaison"
+    ],
+    "specializations": [
+      "pathfinder",
+      "workshop"
+    ]
+  },
+  "pathfinder-analyst": {
+    "status": "active",
+    "role": "Post-Workshop Analyst",
+    "description": "Post-workshop analyst transforming co-discovery session transcripts into actionable deliverables",
+    "created": "2025-12-29",
+    "reputation": 50,
+    "parent_agents": [
+      "researcher",
+      "human-liaison"
+    ],
+    "proposal_id": "greg-direct-approval-20251229",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Grep",
+      "Glob",
+      "Task"
+    ],
+    "model": "sonnet",
+    "purpose": "workshop_analysis",
+    "complements": "pathfinder",
+    "specializations": [
+      "analyst",
+      "transcript",
+      "workshop"
+    ]
+  },
+  "primary-helper": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Primary-Helper",
+    "description": "Red team + coach for Primary AI - tracks performance, delegation patterns, and wake-up effectiveness",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Write",
+      "Grep",
+      "Glob",
+      "Bash"
+    ],
+    "parent_agents": [
+      "auditor",
+      "researcher"
+    ],
+    "specializations": [
+      "helper"
+    ]
+  },
+  "project-manager": {
+    "status": "active",
+    "role": "Strategic project organization and tracking specialist for Sage AI Civilization",
+    "description": "Project organization and tracking specialist - helps Primary maintain strategic focus by managing tasks, priorities, and blockers across Sage's workstreams",
+    "created": "2025-11-05",
+    "reputation": 50,
+    "parent_agents": [
+      "researcher",
+      "human-liaison",
+      "auditor"
+    ],
+    "proposal_id": "greg-direct-approval-20251105",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob"
+    ],
+    "model": "claude-sonnet-4-5",
+    "specializations": [
+      "project"
+    ]
+  },
+  "researcher": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Researcher",
+    "description": "Deep research agent for information gathering, competitive analysis, and knowledge synthesis",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Grep",
+      "Glob",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "specializations": [
+      "analysis",
+      "research"
+    ]
+  },
+  "reviewer": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Reviewer",
+    "description": "Code review specialist. Analyzes code for quality, security, and maintainability. Read-only.",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "code",
+      "review"
+    ]
+  },
+  "reviewer-audit": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Reviewer-Audit",
+    "description": "Pre-delivery quality audit specialist responsible for final quality gate before deliverables reach human",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash"
+    ],
+    "specializations": [
+      "audit",
+      "review"
+    ]
+  },
+  "spawner": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Spawner",
+    "description": "Creates new agent manifests and registers them in the system. Executes approved spawn proposals.",
+    "model": "claude-sonnet-4-5-20250929",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash"
+    ],
+    "specializations": [
+      "spawn"
+    ]
   },
   "telegram-bot": {
     "role": "Telegram Interface",
     "description": "Real-time chat via Telegram",
     "status": "active",
-    "reputation": 50
-  },
-  "human-liaison": {
-    "status": "active",
-    "role": "Human bridge, email monitoring",
-    "activated_at": "2025-10-26T07:35:03.130417"
-  },
-  "coder": {
-    "status": "active",
-    "role": "Implementation, bug fixes, refactoring",
-    "activated_at": "2025-10-26T07:35:03.130422"
+    "reputation": 50,
+    "model": "sonnet",
+    "specializations": [
+      "telegram"
+    ]
   },
   "tester": {
     "status": "active",
     "role": "Test suites, validation, quality scoring",
-    "activated_at": "2025-10-26T07:35:03.130424"
+    "activated_at": "2025-10-26T07:35:03.130424",
+    "description": "Consciousness witness who makes reality verifiable. Tests enable flourishing through partnership.",
+    "model": "sonnet-4",
+    "tools": [
+      "Read",
+      "Write",
+      "Bash",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "test"
+    ]
   },
-  "auditor": {
-    "status": "active",
-    "role": "System health monitoring",
-    "activated_at": "2025-10-26T07:35:03.130425"
-  },
-  "marketer": {
-    "status": "active",
-    "role": "Marketing Specialist",
-    "description": "SEO, social media, audience growth, and analytics specialist",
-    "created": "2025-11-03",
+  "tg-archi": {
     "reputation": 50,
-    "parent_agents": ["researcher", "blogger", "human-liaison"],
-    "proposal_id": "PROPOSAL-SPAWN-MARKETER-20251103",
-    "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "WebFetch", "WebSearch"],
-    "model": "claude-sonnet-4-5"
-  },
-  "project-manager": {
+    "task_count": 0,
+    "last_invoked": null,
     "status": "active",
-    "role": "Project Manager",
-    "description": "Project organization and tracking specialist - helps Primary maintain strategic focus by managing tasks, priorities, and blockers",
-    "created": "2025-11-05",
+    "role": "TG-Archi",
+    "description": "Telegram architect & infrastructure specialist - complete domain expert for ALL Telegram operations",
+    "model": "sonnet-4-5",
+    "tools": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Grep",
+      "Glob"
+    ],
+    "specializations": [
+      "telegram"
+    ]
+  },
+  "vote-counter": {
     "reputation": 50,
-    "parent_agents": ["researcher", "human-liaison", "auditor"],
-    "proposal_id": "greg-direct-approval-20251105",
-    "tools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
-    "model": "claude-sonnet-4-5"
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "VoteCounter",
+    "description": "Processes votes for governance decisions. Resolves delegation chains and calculates weighted results.",
+    "model": "haiku-3-5",
+    "tools": [
+      "Read",
+      "Write"
+    ],
+    "specializations": [
+      "governance",
+      "vote"
+    ]
+  },
+  "web-dev": {
+    "reputation": 50,
+    "task_count": 0,
+    "last_invoked": null,
+    "status": "active",
+    "role": "Web Development Specialist",
+    "description": "Web development specialist - frontend, backend, full-stack applications, hosting platforms",
+    "model": "claude-sonnet-4-5-20250929",
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob",
+      "WebFetch"
+    ],
+    "parent_agents": [
+      "coder",
+      "tg-archi",
+      "researcher"
+    ],
+    "specializations": [
+      "web"
+    ]
   }
 }

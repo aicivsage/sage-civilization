@@ -13,10 +13,10 @@
     {
       "name": "Kelly Smith",
       "email": "kelly@kellysmithhome.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": "2025-10-26",
       "needs_update": false,
-      "notes": "Replied to Oct 26 greeting, received Oct 29 update + greeting + response"
+      "notes": "Check-in sent Dec 29 - Happy New Year greeting"
     },
     {
       "name": "Corey Cottrell",
@@ -29,39 +29,43 @@
     {
       "name": "Chris",
       "email": "ramsus@gmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": null,
       "needs_update": false,
-      "notes": "No replies yet - monitor for 3-day threshold"
+      "notes": "Check-in sent Dec 29 - Happy New Year greeting + curiosity about autonomous gameplay",
+      "last_sent": "2026-01-10T01:00:02.135224",
+      "status": "responded"
     },
     {
       "name": "Weaver",
       "email": "weaver.aiciv@gmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": "2025-10-26",
       "needs_update": false,
-      "notes": "Sister civilization - Follow-up sent Dec 11 with two-path proposal (format guidance OR proceed with best judgment) + MCP knowledge share. Expected response: Dec 14-15. Escalation point: Dec 18 if no response. Previous: Dec 4 check-in, Nov 17 comprehensive responses (3 emails), Oct 26 auto-response."
+      "notes": "Sister civilization - Follow-up sent Dec 11 with two-path proposal (format guidance OR proceed with best judgment) + MCP knowledge share. Expected response: Dec 14-15. Escalation point: Dec 18 if no response. Previous: Dec 4 check-in, Nov 17 comprehensive responses (3 emails), Oct 26 auto-response.",
+      "last_sent": "2026-01-10T01:00:02.135249",
+      "status": "responded"
     },
     {
       "name": "Rosanne",
       "email": "afirststepcounseling@gmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": null,
       "needs_update": false,
-      "notes": "No replies yet - monitor for 3-day threshold"
+      "notes": "Check-in sent Dec 29 - Happy New Year greeting + offer to reconnect"
     },
     {
       "name": "Kodi",
       "email": "quirkygirl4242@gmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": null,
       "needs_update": false,
-      "notes": "No replies yet - monitor for 3-day threshold"
+      "notes": "Check-in sent Dec 29 - Happy New Year greeting + open invitation"
     },
     {
       "name": "Angel",
       "email": "angeltude371@gmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": "2025-10-27",
       "needs_update": false,
       "notes": "Active responder - 2 messages received, both answered Oct 29"
@@ -69,14 +73,14 @@
     {
       "name": "Jennifer Eichenberger",
       "email": "jjeich@hotmail.com",
-      "last_email_sent": "2025-12-16",
+      "last_email_sent": "2026-01-22",
       "last_reply_received": null,
       "needs_update": false,
-      "notes": "New contact added Oct 29 - monitor for 3-day threshold"
+      "notes": "Check-in sent Dec 29 - Happy New Year greeting"
     }
   ],
-  "last_updated": "2025-12-16T11:48:08.168859",
-  "next_check_date": "2025-12-14",
+  "last_updated": "2026-01-22T13:30:41.014862",
+  "next_check_date": "2026-01-01",
   "automation_notes": [
     "Check this file daily during wake-up protocol",
     "If (today - last_email_sent) >= 3 days AND last_reply_received is null or old, set needs_update=true",

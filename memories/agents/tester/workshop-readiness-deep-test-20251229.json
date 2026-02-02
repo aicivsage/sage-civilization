@@ -1,0 +1,33 @@
+{
+  "agent_delegation": {
+    "registry_status": "empty_but_manifests_exist",
+    "manifest_count": 30,
+    "issue": "Registry not populated but manifests present",
+    "workshop_impact": "MEDIUM - agents callable but not tracked"
+  },
+  "telegram": {
+    "bridge_script": "exists",
+    "message_count": 0,
+    "workshop_impact": "MEDIUM - needs message flow test"
+  },
+  "pathfinder": {
+    "manifest": "incomplete",
+    "workshop_impact": "HIGH - tools not configured"
+  },
+  "boop_autonomous": {
+    "injection_rate": "0.04/min",
+    "hours_since_last": 0.32938178055555556,
+    "active": true,
+    "cron_status": "running_but_not_in_crontab",
+    "workshop_impact": "NONE - working correctly"
+  },
+  "quality_gate": {
+    "chain_complete": false,
+    "agents": [
+      "tester",
+      "reviewer",
+      "reviewer-audit"
+    ],
+    "workshop_impact": "MEDIUM - manifests incomplete"
+  }
+}

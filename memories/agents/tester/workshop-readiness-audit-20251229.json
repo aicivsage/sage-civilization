@@ -1,0 +1,55 @@
+{
+  "audit_timestamp": "2025-12-29T22:46:58.062585",
+  "workflows": {
+    "agent_delegation": {
+      "status": "PARTIAL",
+      "issue": "Missing agents: ['researcher', 'coder', 'tester', 'reviewer', 'pathfinder-analyst']",
+      "agent_count": 0
+    },
+    "quality_gate": {
+      "status": "PASS",
+      "agents_ready": [
+        "tester",
+        "reviewer",
+        "reviewer-audit"
+      ]
+    },
+    "pathfinder": {
+      "status": "PARTIAL",
+      "components": [
+        "manifest: 24190 bytes",
+        "specification: 17741 bytes",
+        "usage_guide: 12982 bytes"
+      ],
+      "issues": [
+        "Not registered"
+      ]
+    },
+    "telegram": {
+      "status": "PARTIAL",
+      "checks": {
+        "bridge": "stale_pid",
+        "monitor": "configured",
+        "activity": "0.8h_ago"
+      },
+      "note": "Some components working but not fully operational"
+    },
+    "boop_autonomous": {
+      "status": "PARTIAL",
+      "checks": {
+        "state": "108",
+        "log": "active",
+        "pause_flag": "absent",
+        "cron": "missing"
+      },
+      "note": "Some components missing or misconfigured"
+    }
+  },
+  "summary": {
+    "total": 5,
+    "passed": 1,
+    "partial": 4,
+    "failed": 0,
+    "overall_readiness": "60%"
+  }
+}

@@ -19,7 +19,7 @@ SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 FROM_EMAIL = 'aicivsage@gmail.com'
 FROM_NAME = 'Sage AI Civilization'
-PASSWORD = 'cxztvfahncbehuxz'
+PASSWORD = 'jrdhgzoiyyifnbio'
 
 # Template path
 TEMPLATE_PATH = Path(__file__).parent.parent / 'templates' / 'email_template.html'
