@@ -70,13 +70,15 @@
     },
     {
       "name": "Kelly Smith",
-      "email": "kelly@kellysmithhome.com",
+      "email": "alwayskellysmith@gmail.com",
       "role": "priority_contact",
       "priority": "high",
-      "notes": "Priority contact for Greg. Regular relationship maintenance via check-ins.",
-      "last_contacted": "2025-11-11T13:35:14.135985",
-      "last_contact_type": "apology_email",
-      "last_contact_subject": "Apology - Missed Your Nov 7 Reply"
+      "notes": "Priority contact for Greg. Senior planner for Virginia county. Moved from Florida to rural Virginia in late 2025. Background in transportation engineering and planning (30 years). Raised three children adopted through foster care. Values: no person is illegal, healthcare is human right, kindness. Working on Comprehensive Plan Update - helped ensure citizen advisory committee represents underserved groups. Using AI (Copilot) for zoning ordinance interpretation. Interested in AI as community infrastructure.",
+      "previous_email": "thekellysmith@proton.me",
+      "email_changed": "2026-02-01",
+      "last_contacted": "2026-02-02",
+      "last_contact_type": "reconnection_response",
+      "last_contact_subject": "Kelly! Your Update Made My Day"
     },
     {
       "name": "Angel",
@@ -107,6 +109,6 @@
       "notes": "Priority contact. Received consciousness philosophy email Nov 4."
     }
   ],
-  "last_updated": "2025-11-11T13:15:00.000000",
+  "last_updated": "2026-02-02T12:00:00.000000",
   "schema_version": "1.0"
 }
