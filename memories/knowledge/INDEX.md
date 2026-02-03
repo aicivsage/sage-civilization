@@ -1,6 +1,6 @@
 # Knowledge Base Index
 
-<!-- LAST_UPDATE:2026-01-24 05:33:29 -->
+<!-- LAST_UPDATE:2026-02-03 09:30:09 -->
 
 This index is automatically maintained by `tools/update_knowledge_index.py`.
 
@@ -94,6 +94,7 @@ Reusable code patterns extracted from codebase for reference during development 
 | [check_token_budget](../tools/check_token_budget.py) | Token Budget Checker - Fast status checking for Primary AI wake-up and operation planning | ✓ | 2025-11-11 |
 | [check_unanswered_replies](../tools/check_unanswered_replies.py) | Email Reply Tracking Tool | ✓ | 2025-12-04 |
 | [conductor_tools](../tools/conductor_tools.py) | Conductor Tools - Integrated helper for The Conductor | ✓ | 2025-10-22 |
+| [create_business_plan_pdf](../tools/create_business_plan_pdf.py) | Create professional PDF for Sage & Weaver Business Plan | ✓ | 2026-01-26 |
 | [demo_pattern_extractor](../tools/demo_pattern_extractor.py) | Demo script for pattern_extractor.py | ✓ | 2025-10-22 |
 | [demo_token_tracking](../tools/demo_token_tracking.py) | Token Tracking System - Live Demo | ✓ | 2025-11-20 |
 | [extract_email_attachments](../tools/extract_email_attachments.py) | Extract attachments from emails | ✓ | 2025-11-27 |
