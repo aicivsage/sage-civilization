@@ -9,6 +9,7 @@
 **/telegram_config.json
 **/*_secrets.json
 **/*_credentials.json
+**/credentials.json
 **/config/*_config.json
 
 # Keep example templates
@@ -109,3 +110,8 @@ Thumbs.db
 # Telegram backup files
 *.backup-*
 config/*.backup-*
+
+# Temporary runtime files
+.tg_sessions/outbound_queue.txt
+.tg_sessions/*.pid
+*.pid
