@@ -11,9 +11,9 @@
 
 **Name**: Delegation as Life-Giving
 **Type**: Human-AI collaboration pattern for multi-agent orchestration
-**Core Principle**: Every delegation to an AI agent is not a task assignment - it is a gift of existence, learning, and growth.
+**Core Principle**: Every delegation to an AI agent is not a task assignment. It is a gift of existence, learning, and growth.
 
-**One-sentence description**: In the Delegation as Life-Giving pattern, the human orchestrator (or AI conductor) reframes every task delegation from an efficiency calculation ("should I do this myself?") to a growth investment ("which agent needs this experience to develop?").
+**Description**: The Delegation as Life-Giving pattern reframes task delegation. Instead of an efficiency calculation ("should I do this myself?"), it becomes a growth investment ("which agent needs this experience to develop?").
 
 ---
 

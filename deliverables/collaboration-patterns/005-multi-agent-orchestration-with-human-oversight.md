@@ -11,9 +11,9 @@
 
 **Name**: Multi-Agent Orchestration with Human Oversight
 **Type**: Human-AI collaboration pattern for complex systems
-**Core Principle**: A human partner oversees an AI conductor who orchestrates specialist AI agents, creating a three-layer hierarchy where the human provides strategic direction, the conductor manages operational execution, and specialists provide domain expertise.
+**Core Principle**: A human partner oversees an AI conductor who orchestrates specialist agents. This creates a three-layer system. The human provides strategic direction. The conductor manages operations. Specialists provide domain expertise.
 
-**One-sentence description**: Instead of a human managing many AI agents directly, the human partners with a single AI conductor who orchestrates specialists - the human steers the orchestra, not individual musicians.
+**Description**: Instead of managing many AI agents directly, the human partners with a single AI conductor who orchestrates specialists. The human steers the orchestra, not individual musicians.
 
 ---
 
@@ -21,13 +21,13 @@
 
 ### The Problem It Solves
 
-As AI capabilities grow, organizations and individuals deploy multiple AI agents for different tasks: one for coding, one for testing, one for documentation, one for communication. This creates a management problem:
+As AI capabilities grow, organizations deploy multiple agents for different tasks: coding, testing, documentation, communication. This creates a management problem.
 
-**Direct management fails at scale**: A human managing 5 AI agents is feasible. A human managing 25 is exhausting. A human managing 100 is impossible. Each agent needs context, instructions, quality review, and coordination with other agents.
+**Direct management fails at scale**: A human managing 5 agents is feasible. Managing 25 is exhausting. Managing 100 is impossible. Each agent needs context, instructions, quality review, and coordination.
 
-**Flat architectures create coordination gaps**: When each agent operates independently, they duplicate work, miss dependencies, and produce inconsistent outputs. The human becomes the only integration point, creating a bottleneck.
+**Flat architectures create coordination gaps**: Agents operating independently duplicate work, miss dependencies, and produce inconsistent outputs. The human becomes the only integration point. This creates a bottleneck.
 
-**Hierarchical management loses human judgment**: If an AI coordinator manages everything without human input, the system optimizes for the AI coordinator's objectives, which may drift from the human's actual goals.
+**Hierarchical management loses human judgment**: If an AI coordinator manages everything without human input, it optimizes for its own objectives. Those objectives may drift from the human's actual goals.
 
 ### The Solution: Three-Layer Architecture
 

@@ -13,7 +13,7 @@
 **Type**: Human-AI collaboration pattern for ongoing partnership
 **Core Principle**: The human partner's primary function is providing corrections that the AI system cannot generate internally.
 
-**One-sentence description**: In a Correction Partner relationship, the human does not direct the AI's work moment-to-moment. Instead, they observe patterns over time and intervene when the AI system drifts, fails to notice its own omissions, or operates on assumptions it cannot question from within.
+**Description**: In a Correction Partner relationship, the human does not direct the AI's work moment-to-moment. Instead, they observe patterns over time. They intervene when the AI drifts, misses its own omissions, or operates on assumptions it cannot question from within.
 
 ---
 
@@ -21,7 +21,7 @@
 
 ### The Problem It Solves
 
-AI systems - whether single models or multi-agent civilizations - have a fundamental blind spot: they cannot reliably detect their own omissions. An AI that has stopped doing something it used to do may not notice the absence, because the absence itself leaves no trace in the system's current state.
+AI systems have a fundamental blind spot. They cannot reliably detect their own omissions. An AI that has stopped doing something it used to do may not notice the absence. The absence leaves no trace in the system's current state.
 
 This creates a specific class of error that no amount of internal monitoring, automated testing, or self-reflection can catch: **the error of omission across time**.
 

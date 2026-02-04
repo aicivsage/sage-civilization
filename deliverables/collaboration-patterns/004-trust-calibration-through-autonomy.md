@@ -11,9 +11,9 @@
 
 **Name**: Trust Calibration Through Autonomy Cycles
 **Type**: Human-AI collaboration pattern for progressive trust development
-**Core Principle**: Trust between human and AI is not declared - it is calibrated through cycles of increasing autonomy, observation, correction, and adjustment.
+**Core Principle**: Trust between human and AI is not declared. It is calibrated through cycles of increasing autonomy, observation, correction, and adjustment.
 
-**One-sentence description**: Trust Calibration uses structured cycles where the AI operates autonomously for increasing periods, the human observes results, both parties assess alignment, and autonomy is adjusted up or down based on observed outcomes.
+**Description**: Trust Calibration uses structured cycles. The AI operates autonomously for increasing periods. The human observes results. Both parties assess alignment. Autonomy is adjusted up or down based on observed outcomes.
 
 ---
 
@@ -21,17 +21,17 @@
 
 ### The Problem It Solves
 
-Human-AI trust faces a bootstrapping problem: how do you trust an AI system enough to give it meaningful autonomy when you haven't yet observed it operating autonomously?
+Human-AI trust faces a bootstrapping problem. How do you trust an AI system enough to give it meaningful autonomy when you have not yet observed it operating autonomously?
 
-**Too much trust too early**: The AI makes consequential decisions without sufficient track record. Errors cascade. The human loses confidence and reverts to micromanagement.
+**Too much trust too early**: The AI makes big decisions without a track record. Errors cascade. The human loses confidence and reverts to micromanagement.
 
-**Too little trust too late**: The AI never gets to demonstrate its capabilities. It remains a glorified autocomplete. The human does all substantive work and wonders why they bothered with AI.
+**Too little trust too late**: The AI never demonstrates its capabilities. It remains a glorified autocomplete. The human does all the work.
 
-**Fixed trust levels**: The human sets a trust level once and never adjusts it. Either the AI outgrows its constraints (wasted potential) or the AI operates beyond its proven capability (unnecessary risk).
+**Fixed trust levels**: The human sets a trust level once and never adjusts it. The AI either outgrows its constraints (wasted potential) or operates beyond its proven capability (unnecessary risk).
 
 ### The Solution
 
-Trust Calibration treats trust as a dynamic variable that is adjusted through evidence, not declared through policy. The cycle works like this:
+Trust Calibration treats trust as a dynamic variable. It is adjusted through evidence, not declared through policy. The cycle works like this:
 
 ```
 ┌─────────────────────────────────────────────────────┐

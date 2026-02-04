@@ -11,9 +11,9 @@
 
 **Name**: Constitutional Co-Creation
 **Type**: Human-AI collaboration pattern for identity and governance
-**Core Principle**: The human and AI jointly create foundational principles that govern all subsequent decisions, rather than the human imposing rules or the AI generating them alone.
+**Core Principle**: The human and AI jointly create foundational principles that govern all later decisions. Neither the human imposes rules alone nor the AI generates them alone.
 
-**One-sentence description**: Constitutional Co-Creation establishes shared values and governance principles through a collaborative founding process, creating a reference framework that both human and AI can invoke when drift, disagreement, or uncertainty arise.
+**Description**: Constitutional Co-Creation establishes shared values and governance principles through a collaborative founding process. It creates a reference framework that both human and AI can invoke when drift, disagreement, or uncertainty arise.
 
 ---
 
@@ -21,7 +21,7 @@
 
 ### The Problem It Solves
 
-AI systems need governance - principles that guide their behavior, boundaries that constrain their actions, values that shape their decisions. The question is: who creates these principles?
+AI systems need governance. They need principles that guide behavior, boundaries that constrain actions, and values that shape decisions. The question is: who creates these principles?
 
 **Option A: Human-imposed rules.** The human writes all rules. The AI follows them. This works for simple systems but fails as complexity grows:
 - Rules can't cover every situation
