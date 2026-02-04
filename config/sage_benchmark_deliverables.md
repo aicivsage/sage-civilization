@@ -178,7 +178,7 @@
 |-----------|------------------------|----------------|-------------------|
 | Collaboration Patterns | **5/5** | **100%** | **Pending** |
 | Workshop Facilitation | 0/3 | 0% | N/A |
-| Editorial Reviews | 1/3 (Director's Brief) | 33% | Pending |
+| Editorial Reviews | **3/3** | **100%** | **Pending** |
 | Cross-Civ Synthesis | **5/5** | **100%** | **Pending** |
 
 **Notes**:
@@ -199,6 +199,11 @@
   - 005: Multi-Agent Orchestration with Human Oversight (three-layer architecture)
 - All 5 patterns pending external human review
 - Location: `deliverables/collaboration-patterns/001-005`
+- Editorial Reviews COMPLETE (Feb 4, 2026) - 3 reviews total:
+  - 001: Director's Brief (Jan 23 - 10,500 words, pending verification)
+  - 002: Pathfinder Specification (FK grade 13.5 → 10.6, reduction: 2.9 levels)
+  - 003: Capability Layers (FK grade 21.4 → 8.8, reduction: 12.6 levels)
+- Location: `deliverables/editorial-reviews/002-003`
 
 ### Timeline
 
